@@ -1184,7 +1184,29 @@ class Ui {
     document.body.appendChild(this.host);
     this.prevPadding = document.body.style.paddingBottom;
     this.syncPadding();
+    // 使用者點進欄位的那一刻：決定一次面板要在哪一邊（避開這個欄位），之後直到離開欄位都不再動
+    document.addEventListener('focusin', (e) => {
+      const el = e.target as HTMLElement | null;
+      if (!el || !/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) || el.closest('#tp-guide-host')) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : innerHeight;
+      const panelH = this.panel.getBoundingClientRect().height || 160;
+      const mid = (r.top + r.bottom) / 2;
+      // 欄位中線在畫面下半 → 面板放上面；在上半 → 放下面
+      this.panel.classList.toggle('top', mid > vh / 2 && r.top >= panelH * 0.6);
+      this.sideLocked = true;
+      this.lastSwitch = Date.now();
+      this.syncPadding();
+    }, true);
+    document.addEventListener('focusout', () => {
+      setTimeout(() => {
+        const a = document.activeElement;
+        if (!a || !/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) this.sideLocked = false;
+      }, 300);
+    }, true);
   }
+  sideLocked = false;
+  lastSwitch = 0;
 
   /** 讓頁面可以捲到底（面板下面的內容不會被蓋住）；destroy 時還原 */
   syncPadding() {
@@ -1462,21 +1484,33 @@ class Ui {
     const typing = this.keyboard || this.isTyping();
     if (r.width < 1 || r.height < 1 || r.bottom < 0 || r.top > vh || r.right < 0 || r.left > innerWidth) {
       this.spot.style.display = 'none';
-      if (!typing && Date.now() - this.lastScrollNudge > 1500) {
+      const af = document.activeElement;
+      const typingNow = typing || (!!af && /^(INPUT|TEXTAREA|SELECT)$/.test(af.tagName));
+      if (!typingNow && Date.now() - this.lastScrollNudge > 1500) {
         this.lastScrollNudge = Date.now();
         el.scrollIntoView({ block: 'center' });
       }
       return;
     }
-    // 目標在畫面下方、會被面板蓋住 → 面板改放上面（例如固定在底部的「查詢」按鈕）
+    // 面板放上面還是下面：只在「換到另一邊真的放得下」時才換，放不下就留在原地（不再上下互跳）；
+    // 欄位有焦點（使用者正在打字）時鎖住不動，鍵盤開著也鎖住；兩次切換至少隔 600ms
     const panelH = this.panel.getBoundingClientRect().height || 160;
     const isTop = this.panel.classList.contains('top');
-    // 面板永遠不能蓋住目標：目標在下方 → 面板放上面；目標在上方 → 面板放下面。
-    // 打字中（鍵盤開著）一律凍結，不再切換、不改 padding（會和鍵盤動畫互相觸發而閃動）
-    if (!typing) {
-      if (!isTop && r.bottom > vh - panelH - 12) this.panel.classList.add('top');
-      else if (isTop && r.top < panelH + 12) this.panel.classList.remove('top');
-      this.syncPadding();
+    const a = document.activeElement;
+    const focused = !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);
+    const nowTs = Date.now();
+    if (!typing && !focused && !this.sideLocked && nowTs - this.lastSwitch > 600) {
+      const fitsBottom = r.bottom <= vh - panelH - 12;
+      const fitsTop = r.top >= panelH + 12;
+      if (!isTop && !fitsBottom && fitsTop) {
+        this.panel.classList.add('top');
+        this.lastSwitch = nowTs;
+        this.syncPadding();
+      } else if (isTop && !fitsTop && fitsBottom) {
+        this.panel.classList.remove('top');
+        this.lastSwitch = nowTs;
+        this.syncPadding();
+      }
     }
     Object.assign(this.spot.style, {
       display: 'block',
