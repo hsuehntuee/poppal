@@ -54,6 +54,10 @@ android {
             useLegacyPackaging = true
         }
     }
+    // 模型（gguf）不要壓縮：複製更快、AssetManager 可以直接串流
+    androidResources {
+        noCompress += ["gguf"]
+    }
 
     buildTypes {
         release {

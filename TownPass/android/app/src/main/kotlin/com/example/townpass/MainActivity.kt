@@ -11,6 +11,23 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "townpass/native").setMethodCallHandler { call, result ->
             when (call.method) {
                 "nativeLibraryDir" -> result.success(applicationInfo.nativeLibraryDir)
+                // 串流把 APK 裡的 asset 複製到檔案（模型 290MB，不能一次讀進記憶體）
+                "copyAsset" -> {
+                    val key = call.argument<String>("key")!!
+                    val dest = call.argument<String>("dest")!!
+                    // 在背景執行緒複製，不要卡住 UI（290MB 約 1～3 秒）
+                    Thread {
+                        try {
+                            val out = java.io.File(dest)
+                            out.parentFile?.mkdirs()
+                            assets.open(key).use { input -> java.io.FileOutputStream(out).use { output -> input.copyTo(output, 1 shl 20) } }
+                            val n = out.length()
+                            runOnUiThread { result.success(n) }
+                        } catch (e: Exception) {
+                            runOnUiThread { result.error("copy_failed", e.toString(), null) }
+                        }
+                    }.start()
+                }
                 else -> result.notImplemented()
             }
         }

@@ -1,0 +1,5 @@
+OPENCL_1.0 { global: clBuildProgram; clCreateBuffer; clCreateCommandQueue; clCreateContext; clCreateKernel; clCreateProgramWithBinary; clCreateProgramWithSource; clEnqueueCopyBuffer; clEnqueueMapBuffer; clEnqueueNDRangeKernel; clEnqueueReadBuffer; clEnqueueUnmapMemObject; clEnqueueWriteBuffer; clFinish; clFlush; clGetDeviceIDs; clGetDeviceInfo; clGetKernelWorkGroupInfo; clGetPlatformIDs; clGetPlatformInfo; clGetProgramBuildInfo; clGetProgramInfo; clReleaseEvent; clReleaseKernel; clReleaseMemObject; clReleaseProgram; clSetKernelArg; clWaitForEvents; local: *; };
+OPENCL_1.1 { global: clCreateSubBuffer; } OPENCL_1.0;
+OPENCL_1.2 { global: clCreateImage; clEnqueueBarrierWithWaitList; clEnqueueFillBuffer; clEnqueueMarkerWithWaitList; } OPENCL_1.1;
+OPENCL_2.1 { global: clGetKernelSubGroupInfo; } OPENCL_1.2;
+OPENCL_3.0 { global: clCreateBufferWithProperties; } OPENCL_2.1;

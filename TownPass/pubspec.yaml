@@ -100,6 +100,7 @@ flutter:
     - assets/image/
     - assets/svg/
     - assets/js/
+    - assets/models/
     - assets/web/
     - assets/web/apps/
     - assets/web/assets/

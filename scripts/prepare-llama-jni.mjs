@@ -18,7 +18,8 @@ if (!fs.existsSync(src)) throw new Error('missing ' + src);
 fs.mkdirSync(dst, { recursive: true });
 
 // server 需要的（不要 opencl / rpc / bench / cli / quantize 等）
-const libs = ['libggml-base.so', 'libggml-cpu.so', 'libggml-hexagon.so', 'libggml-htp-v73.so', 'libggml-htp-v75.so', 'libggml-htp-v79.so', 'libggml-htp-v81.so', 'libggml-htp-v85.so', 'libggml.so', 'libllama-common.so', 'libllama-server-impl.so', 'libllama.so', 'libmtmd.so'];
+// llama-server 的 NEEDED（llvm-readelf -d）：rpc / opencl 也被連結進去，少一個就 CANNOT LINK EXECUTABLE
+const libs = ['libggml-rpc.so', 'libggml-opencl.so', 'libggml-base.so', 'libggml-cpu.so', 'libggml-hexagon.so', 'libggml-htp-v73.so', 'libggml-htp-v75.so', 'libggml-htp-v79.so', 'libggml-htp-v81.so', 'libggml-htp-v85.so', 'libggml.so', 'libllama-common.so', 'libllama-server-impl.so', 'libllama.so', 'libmtmd.so'];
 let total = 0;
 for (const name of libs) {
   const f = path.join(src, 'lib', name);
@@ -29,7 +30,17 @@ for (const name of libs) {
   fs.copyFileSync(f, path.join(dst, name));
   total += fs.statSync(f).size;
 }
+// libOpenCL.so 替身（tools/llama-android/stub）：App 程序看不到 vendor 的 libOpenCL.so，沒有它整個執行檔連結不起來
+fs.copyFileSync(path.join(root, 'tools', 'llama-android', 'stub', 'libOpenCL.so'), path.join(dst, 'libOpenCL.so'));
 const exe = path.join(src, 'bin', 'llama-server');
 fs.copyFileSync(exe, path.join(dst, 'libllama-server-bin.so'));
 total += fs.statSync(exe).size;
 console.log(`jniLibs ready: ${dst} (${(total / 1e6).toFixed(0)} MB)`);
+
+// 模型也進 APK（assets/models），App 第一次啟動會串流複製到私有目錄再啟動 llama-server
+const modelSrc = path.join(root, 'tools', 'llm', 'out', 'gemma-3-270m-decider-Q8_0.gguf');
+const modelDir = path.join(root, 'TownPass', 'assets', 'models');
+fs.mkdirSync(modelDir, { recursive: true });
+const modelDst = path.join(modelDir, path.basename(modelSrc));
+if (!fs.existsSync(modelDst) || fs.statSync(modelDst).size !== fs.statSync(modelSrc).size) fs.copyFileSync(modelSrc, modelDst);
+console.log(`model ready: ${modelDst} (${(fs.statSync(modelDst).size / 1e6).toFixed(0)} MB)`);

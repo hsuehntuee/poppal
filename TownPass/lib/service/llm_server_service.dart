@@ -70,15 +70,19 @@ class LlmServerService extends GetxService {
         return;
       }
     }
-    // assets/models/<modelName>（可選；bundle 進 APK 會多 290MB）
+    // APK 裡的 assets/models/<modelName> → 私有目錄（Kotlin 端串流複製，一次就好）
+    final String target = candidates.last;
     try {
-      final ByteData data = await rootBundle.load('assets/models/$modelName');
-      final String target = candidates.last;
-      await Directory(target).parent.create(recursive: true);
-      await File(target).writeAsBytes(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
-      _modelPath = target;
-    } catch (_) {
-      _set('no-model', '把模型放到 ${candidates.first}（scripts/phone-npu.ps1 -PushModel）');
+      _set('copying-model', target);
+      final int? n = await _ch.invokeMethod<int>('copyAsset', <String, String>{'key': 'flutter_assets/assets/models/$modelName', 'dest': target});
+      if (n != null && n > 1000000) {
+        _modelPath = target;
+        _set('model', '$target ($n bytes, copied from APK)');
+        return;
+      }
+      _set('no-model', 'copy returned $n');
+    } catch (e) {
+      _set('no-model', '$e · 把模型放到 ${candidates.first}（scripts/phone-npu.ps1 -PushModel）');
     }
   }
 

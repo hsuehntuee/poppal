@@ -19,7 +19,8 @@ worktrees/
 
 # 大型二進位：llama.cpp 執行檔 / 原始碼、訓練 checkpoint、HF 合併權重、零樣本向量模型（都可重新下載或重算）
 tools/llama/
-tools/llama-android/
+tools/llama-android/*
+!tools/llama-android/stub/
 tools/llama-src/
 tools/encoder/ckpt/
 tools/llm/out/gemma-270m-decider-hf/
@@ -38,3 +39,4 @@ submission/**/*.txt
 
 # App 內建的 llama-server 執行檔與 .so（node scripts/prepare-llama-jni.mjs 重建）
 TownPass/android/app/src/main/jniLibs/
+TownPass/assets/models/
