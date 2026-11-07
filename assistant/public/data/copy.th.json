@@ -91,5 +91,8 @@
   "lang_offer_en": "เปลี่ยนหน้าจอเป็นภาษาอังกฤษไหม?",
   "lang_offer_yes": "ใช่",
   "lang_offer_no": "ไม่",
-  "settings": "Settings"
+  "settings": "Settings",
+  "guide_digits_short": "ต้องมี {need} หลัก ตอนนี้ {have} หลัก",
+  "guide_digits_long": "ได้สูงสุด {need} หลัก ตอนนี้ {have} หลัก",
+  "guide_digits_only": "ใส่ได้เฉพาะตัวเลข"
 }

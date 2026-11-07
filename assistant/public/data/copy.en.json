@@ -113,5 +113,8 @@
   "lang_offer_no": "No",
   "guide_not_this_kid": "Not this one!",
   "guide_free_pick_kid": "OK, you pick; I'll be back once you have",
-  "settings": "Settings"
+  "settings": "Settings",
+  "guide_digits_short": "Needs {need} digits, you have {have}",
+  "guide_digits_long": "Max {need} digits, you have {have}",
+  "guide_digits_only": "Digits only"
 }

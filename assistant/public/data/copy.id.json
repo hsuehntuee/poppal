@@ -91,5 +91,8 @@
   "lang_offer_en": "Ganti tampilan ke bahasa Inggris?",
   "lang_offer_yes": "Ya",
   "lang_offer_no": "Tidak",
-  "settings": "Settings"
+  "settings": "Settings",
+  "guide_digits_short": "Perlu {need} digit, sekarang {have}",
+  "guide_digits_long": "Maksimal {need} digit, sekarang {have}",
+  "guide_digits_only": "Hanya angka"
 }

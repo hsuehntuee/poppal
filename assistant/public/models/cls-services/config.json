@@ -136,7 +136,7 @@
   "_name_or_path": "intfloat/multilingual-e5-small",
   "transformers_version": "4.53.0",
   "model_type": "bert",
-  "vocab_size": 13970,
+  "vocab_size": 15249,
   "hidden_size": 384,
   "num_hidden_layers": 12,
   "num_attention_heads": 12,

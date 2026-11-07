@@ -10,6 +10,8 @@ normalised text equals a test sentence is dropped (the builder prints the count)
   python tools/tinycls/gen_more_data.py
 """
 import json, os, random, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gen_more_none import none_rows
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
@@ -208,6 +210,28 @@ C['m'] = dict(
  act=['在哪裡', '怎麼逛', '今天有什麼', '想看', '地圖', '幾點'],
  en=['zoo guide', 'where are the koalas', 'animal show times', 'map of the zoo park', 'feeding time at the zoo'],
  vi=['Hướng dẫn tham quan sở thú', 'Chim cánh cụt ở đâu'], id=['Panduan kebun binatang', 'Di mana pandanya'], th=['แผนที่สวนสัตว์', 'หมีแพนด้าอยู่ตรงไหน'])
+
+
+# contrastive extras for pairs the first retrain confused (K/J, W/S, H/G/D, V/F, j/O, a/b)
+EXTRA = {
+ 'K': ['我的申訴有結果嗎', '陳情送出後多久會回覆', '追蹤我送出的案子', '檢舉之後有沒有人處理', '之前寄的反映現在進度', '看我的案件狀態', '陳情案件處理情形', '我想知道案子結了沒', '輸入案號看進度', '投訴後面都沒下文', 'case progress lookup', 'did the city answer my complaint'],
+ 'J': ['我要向市政府投訴', '新增一筆陳情', '我要提出新的檢舉', '想送出一個反映', '我要申訴鄰居', 'file a new complaint'],
+ 'W': ['PM2.5現在多少', '河川水位即時資料', '看交通儀表板', '雨量統計', '全市的即時數字', '台北市人口有多少', '現在捷運人流', 'city data panel', 'live numbers of the city'],
+ 'S': ['開啟空氣品質推播', '通知訂閱管理', '取消所有推播', '我要收停車提醒', '訂閱社區公告', 'subscribe to alerts about parking'],
+ 'H': ['我繳過水費嗎', '歷史繳費明細', '看已繳清的帳單', '繳費成功畫面在哪', '去年繳了多少稅', '之前付的停車費記錄', '我的付款明細', '有沒有繳成功', 'my previous payments list'],
+ 'G': ['罰單怎麼繳', '交通罰鍰繳費', '違規罰款要付', '社宅房租繳納', '行政規費繳款', 'where to pay my traffic fine'],
+ 'V': ['預約門診看醫生', '掛骨科的號', '網路掛號看診', '想掛下週的門診', '聯合醫院掛號系統', 'make a hospital appointment online'],
+ 'F': ['醫院的欠費', '住院費要補繳', '看診完的費用要付', 'unpaid medical balance'],
+ 'j': ['附近的公園', '步道推薦', '有綠地的地方', '想去公園運動', '河濱散步', 'where is a green park'],
+ 'O': ['最近的公廁', '找YouBike站', '哪裡有停車場', '垃圾車時間地點', '附近的AED', '飲水機位置'],
+ 'a': ['字放大', '長輩版', '字大一點', '看不清楚字', '請把字變大', '切到長輩模式'],
+ 'b': ['字太大了', '縮小字體', '取消放大', '一般大小就好', '不用念出來', '關掉朗讀', '切回普通模式', 'smaller font please'],
+ 'T': ['我要找真人客服', '打電話給市政府', '轉接1999專線', '想跟人說話', 'talk to a person'],
+ 'e': ['回到服務清單', '看全部功能', '我想看有哪些服務', '首頁在哪', 'show the full service list'],
+ 'X': ['這個app怎麼操作', '使用教學在哪', '常見問題解答', '我不會用', 'how does this work'],
+ 'c': ['把內容念給我', '用聲音唸', '讀出螢幕上的字', '朗讀這頁', 'read the page for me'],
+ 'l': ['今天蔬菜價格', '雞蛋行情', '豬肉價格', '水果行情', '米多少錢一公斤', 'price of eggs today'],
+}
 
 ZH_PRE = ['', '', '', '我想', '我要', '請幫我', '幫我', '欸', '那個', '可以幫我', '麻煩', '嗯', '請問', '我想問一下', '拜託你', '老闆', '喂', '我想知道']
 ZH_SUF = ['', '', '', '', '啦', '喔', '啊', '嗎', '謝謝', '一下', '拜託', '，快一點', '，我不太會', '，謝謝你']
@@ -424,6 +448,11 @@ def main():
                 rows.append({'text': p_ + (t if lg == 'th' else t[0].lower() + t[1:]), 'label': sv['code']})
     for s in NONE_SEEDS:
         rows.append({'text': s, 'label': 'Z'})
+    for code_, lst in EXTRA.items():
+        for s_ in lst:
+            rows.append({'text': s_, 'label': code_})
+    for s_ in none_rows(random.Random(11)):
+        rows.append({'text': s_, 'label': 'Z'})
     # none: combos of chit-chat prefixes
     for _ in range(60):
         rows.append({'text': random.choice(['欸', '那個', '喂', '我跟你說', '對了']) + random.choice(NONE_SEEDS[:60]) + random.choice(['', '啦', '喔', '吧']), 'label': 'Z'})

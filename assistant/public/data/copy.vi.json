@@ -91,5 +91,8 @@
   "lang_offer_en": "Chuyển giao diện sang tiếng Anh?",
   "lang_offer_yes": "Có",
   "lang_offer_no": "Không",
-  "settings": "Settings"
+  "settings": "Settings",
+  "guide_digits_short": "Cần {need} chữ số, hiện có {have}",
+  "guide_digits_long": "Tối đa {need} chữ số, hiện có {have}",
+  "guide_digits_only": "Chỉ nhập số"
 }

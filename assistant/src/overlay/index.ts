@@ -258,7 +258,7 @@ class Runner {
 
   async run() {
     this.clearStep();
-    this.ui.setDim(true); // 一進來就先變暗，找到目標再亮框
+    if (!this.collapsed) this.ui.setDim(true); // 一進來就先變暗，找到目標再亮框（躲起來時不暗）
     this.ui.place(null); // 先把上一步的亮框收掉，找到新目標再亮
     let step = this.step;
     if (!step) return this.finish();
@@ -368,7 +368,11 @@ class Runner {
     tplog('overlay', `step ${this.state.step + 1} ${step.id} → ${el.tagName}|${(el.textContent || (el as HTMLInputElement).placeholder || '').trim().slice(0, 20)}${picked ? ' (autoPick ' + picked.score.toFixed(2) + ')' : ''}${quiet ? ' (quiet)' : ''}`, { url: location.pathname });
     this.watchDone(step, el);
     this.armStuck();
-    if (quiet) return; // 躲起來：只默默看進度
+    if (quiet) {
+      this.ui.setDim(false);
+      this.ui.place(null);
+      return; // 躲起來：只默默看進度，畫面還給使用者
+    }
     if (this.freeStep === this.state.step) {
       // 使用者說「不是這個」：不框、不暗，讓他自己從清單選；選好監聽器會前進
       this.ui.setDim(false);
@@ -384,6 +388,15 @@ class Runner {
     el.scrollIntoView({ block: 'center', behavior: 'smooth' });
     setTimeout(() => this.ui.place(this.target), 350);
     this.ui.place(el);
+    // 要填的欄位：直接把游標放進去（數字欄位開數字鍵盤），只有這一個地方能填；每一步只自動聚焦一次
+    if (step.accept && /^(INPUT|TEXTAREA)$/.test(el.tagName) && this.focusedStep !== this.state.step && !(el as HTMLInputElement).value) {
+      this.focusedStep = this.state.step;
+      if (step.accept === 'digits' || step.accept === 'phone') el.setAttribute('inputmode', step.accept === 'phone' ? 'tel' : 'numeric');
+      const token = this.stepToken;
+      setTimeout(() => {
+        if (token === this.stepToken && document.contains(el)) (el as HTMLElement).focus();
+      }, 450);
+    }
     if (this.loud) this.speak(say + (more ? '。' + more : ''));
 
     // 工具層帶進來的參數：預填 + 請使用者確認（只填使用者自己說過的內容）
@@ -436,7 +449,8 @@ class Runner {
       more: showMore ? more : '',
       stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
       buttons: [
-        ...(step.accept ? [{ label: '🎤', icon: true, title: this.t('guide_voice'), onClick: () => this.onVoice() }] : []),
+        // 數字欄位不用「用說的」（辨識數字不可靠）：直接用數字鍵盤
+        ...(step.accept && step.accept !== 'digits' && step.accept !== 'phone' ? [{ label: '🎤', icon: true, title: this.t('guide_voice'), onClick: () => this.onVoice() }] : []),
         ...(step.accept ? [{ label: '⌨️', icon: true, secondary: true, title: this.t('guide_keyboard'), onClick: () => this.keyboard() }] : []),
         ...mains
       ],
@@ -559,6 +573,19 @@ class Runner {
     return false;
   }
 
+  /** 輸入不合格時說清楚為什麼：數字欄位講「要幾碼、現在幾碼」，不要只說聽不懂 */
+  inputProblem(step: Step, v: string): string {
+    if (step.accept === 'digits' || step.accept === 'phone') {
+      const n = (v.match(/\d/g) || []).length;
+      const need = step.min_len ?? step.max_len;
+      if (!n) return this.t('guide_no_digits');
+      if (need && n < need) return this.t('guide_digits_short', { need, have: n, missing: need - n });
+      if (step.max_len && n > step.max_len) return this.t('guide_digits_long', { need: step.max_len, have: n });
+      if (/[^\d\s-]/.test(v)) return this.t('guide_digits_only');
+    }
+    return this.t('guide_unknown');
+  }
+
   /** 幫我做這一步：按鈕就代按（付款/送出類先問一次）、輸入欄位就檢查後前進 */
   async doAction() {
     const step = this.step;
@@ -597,7 +624,7 @@ class Runner {
       const v = (el as HTMLInputElement).value ?? '';
       const r = extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len });
       if (!r.ok || (step.accept !== 'text' && r.value !== v.trim())) {
-        this.ui.flash(this.t(step.accept === 'digits' ? 'guide_no_digits' : 'guide_unknown'));
+        this.ui.flash(this.inputProblem(step, v));
         this.keyboard();
         return;
       }
@@ -681,6 +708,8 @@ class Runner {
     if (locate(this.finders(step))) this.run();
   }, 800);
 
+  /** 這一步已經自動聚焦過（不要每次重新定位都彈鍵盤） */
+  focusedStep = -1;
   /** 使用者自己做完的步驟：連勝 +1（兩步就躲起來） */
   selfStreak = 0;
   collapsed = false;

@@ -124,9 +124,8 @@ class LlmServerService extends GetxService {
         _inProcTried = true;
         if (await _startInProcess()) return;
       }
-      // 2) 退回另外 exec 的子程序（純 CPU）
-      _cpuFallback = true;
-      await _start(npu: false);
+      // 2) 不退 CPU：CPU 一次決策要 7 秒等於不能用，小幫手會自己退回 WebView 內的 e5 分類器（6 ms）
+      _set('npu-unavailable', 'assistant falls back to the on-device classifier');
     } finally {
       _starting = false;
     }

@@ -22,7 +22,8 @@ export interface EngineConfig {
  */
 export async function createDecider(cfg: EngineConfig): Promise<Decider> {
   // auto：手機本地 llama-server（App 內才試）→ 設定的 LLM 網址 → cls → tiny → embed
-  const order: EngineKind[] = cfg.kind === 'auto' ? [...(hasBridge() ? (['llm-phone'] as EngineKind[]) : []), 'llm', 'cls', 'tiny', 'embed'] : [cfg.kind];
+  // auto：手機本地 NPU → 設定的 LLM 網址 → cls。tiny / embed 不在自動降級鏈裡（只當 bench，手動選）
+  const order: EngineKind[] = cfg.kind === 'auto' ? [...(hasBridge() ? (['llm-phone'] as EngineKind[]) : []), 'llm', 'cls'] : [cfg.kind];
   let lastErr: unknown = null;
   for (const k of order) {
     try {
