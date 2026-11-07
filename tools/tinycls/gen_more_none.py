@@ -41,3 +41,12 @@ def none_rows(rng):
     for s in rng.sample(ZH_ASK + HARD, 25):
         out.append(s.replace('我要', '偶要').replace('怎麼', '怎嚒'))
     return out
+
+EN_MORE = ['who won the game last night', 'what is the score of the match', 'how do I cook rice', 'how far is the sun', 'my cat will not eat what should I do', 'my child keeps crying what do I do',
+           'what is the best way to study', 'give me a fun fact', 'how many days until christmas', 'will it rain tomorrow', 'what is the exchange rate of the dollar', 'can you play a game with me',
+           'where should I travel this summer', 'what is a good name for a dog', 'how do I fix a flat tire', 'how can I sleep better', 'how do I ask someone out', 'good evening', 'see you later', 'that was funny']
+ZH_MORE = ['我家貓咪都不吃飯怎麼辦', '小朋友一直吵怎麼辦', '誰贏了昨天的比賽', '今天股價漲了嗎', '怎麼炒飯比較好吃', '怎麼讓孩子專心讀書', '去海邊要帶什麼', '我想看海', '我想吃牛排',
+           '電燈壞了要換哪種燈泡', '我的所得稅要怎麼申報', '查台電的停電時間', '我的包裹到哪裡了', '宅配什麼時候到', '幫我查快遞單號', '我要查颱風假', '今天停班停課嗎', '健保卡過期了怎麼辦', '幫我查電信資費', '我要退訂Netflix']
+_old = none_rows
+def none_rows(rng):
+    return _old(rng) + EN_MORE + ZH_MORE

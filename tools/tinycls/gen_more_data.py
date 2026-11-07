@@ -233,17 +233,25 @@ EXTRA = {
  'l': ['今天蔬菜價格', '雞蛋行情', '豬肉價格', '水果行情', '米多少錢一公斤', 'price of eggs today'],
 }
 
+
+# users re-phrase after pressing "not this one": "X, not Y" patterns built from cores of confusable tool pairs
+CONF = {'A': 'BHG', 'B': 'AH', 'C': 'GH', 'D': 'GH', 'E': 'FG', 'F': 'VE', 'G': 'DHP', 'H': 'GAC', 'I': 'Vh', 'J': 'MKTP', 'K': 'JT', 'L': 'J', 'M': 'JT', 'N': 'Q',
+        'O': 'jkl', 'P': 'GJ', 'Q': 'Rl', 'R': 'Q', 'S': 'W', 'T': 'JM', 'U': 'V', 'V': 'FU', 'W': 'S', 'X': 'e', 'Y': 'j', 'a': 'bc', 'b': 'ac', 'c': 'ab', 'd': 'DA',
+        'e': 'X', 'f': 'gQ', 'g': 'f', 'h': 'Ie', 'i': 'c', 'j': 'OYk', 'k': 'jO', 'l': 'QO', 'm': 'Qj'}
+NEG_T = ['是{x}，不是{y}', '不是{y}，是{x}', '我要的是{x}不是{y}', '{x}啦，不是{y}', '不要{y}，我是說{x}', '我講的是{x}，不是{y}喔', '應該是{x}才對，不是{y}', '我是要{x}，跟{y}無關']
+NEG_EN = ['I mean {x}, not {y}', 'not {y}, I want {x}', 'no, it is {x} I need']
+
 ZH_PRE = ['', '', '', '我想', '我要', '請幫我', '幫我', '欸', '那個', '可以幫我', '麻煩', '嗯', '請問', '我想問一下', '拜託你', '老闆', '喂', '我想知道']
 ZH_SUF = ['', '', '', '', '啦', '喔', '啊', '嗎', '謝謝', '一下', '拜託', '，快一點', '，我不太會', '，謝謝你']
 SITU = ['我阿嬤問我', '剛剛朋友跟我說', '因為最近太忙', '我是第一次用', '早上出門前', '在捷運上', '我爸媽不太會用手機', '昨天晚上', '我老公說', '等一下要出門', '上禮拜就想了', '我現在在家', '請問', '我今天剛好有空', '老師叫我們', '我人在國外']
 EN_PRE = ['', 'please ', 'hey, ', 'hi, ']
-HOMO = {'繳': '缴', '費': '廢', '稅': '睡', '報': '抱', '掛': '褂', '查': '茶', '票': '飄', '圖書館': '圖書管', '疫苗': '意苗', '陳情': '陳青', '申請': '申清', '補助': '補住', '度數': '渡數', '叫號': '叫好', '朗讀': '狼讀', '放大': '方大', '公園': '公圓', '步道': '步到', '電台': '電太', '廣播': '光播', '淹水': '煙水', '詐騙': '炸騙', '報案': '抱岸', '停車': '亭車', '里長': '李長', '問卷': '問捲', '投票': '頭票', '訂閱': '定閱', '優惠': '有惠', '折價券': '折價卷', '掃描': '騷描', '掃': '嫂', '首頁': '手頁', '客服': '可服'}
+HOMO = {'公廁': '公側', '加油': '油霸', '捐血': '捐雪', '條碼': '條馬', '念出來': '年出來', '洞': '動', '陳情': '沉情', '申辦': '深辦', '掛號': '褂號', '字': '自', '缴': '繳', '繳': '缴', '費': '廢', '稅': '睡', '報': '抱', '掛': '褂', '查': '茶', '票': '飄', '圖書館': '圖書管', '疫苗': '意苗', '陳情': '陳青', '申請': '申清', '補助': '補住', '度數': '渡數', '叫號': '叫好', '朗讀': '狼讀', '放大': '方大', '公園': '公圓', '步道': '步到', '電台': '電太', '廣播': '光播', '淹水': '煙水', '詐騙': '炸騙', '報案': '抱岸', '停車': '亭車', '里長': '李長', '問卷': '問捲', '投票': '頭票', '訂閱': '定閱', '優惠': '有惠', '折價券': '折價卷', '掃描': '騷描', '掃': '嫂', '首頁': '手頁', '客服': '可服'}
 NUMW = {'1999': '一九九九', '10': '十'}
 
 
 def asr(s):
     keys = [k for k in HOMO if k in s]
-    if keys and random.random() < 0.7:
+    if keys and random.random() < 0.8:
         k = random.choice(keys)
         s = s.replace(k, HOMO[k], 1)
     return s
@@ -264,7 +272,7 @@ def zh_sent(c):
     else:
         s = core + act
     s += random.choice(ZH_SUF)
-    if random.random() < 0.18:
+    if random.random() < 0.3:
         s = asr(s)
     if random.random() < 0.08:
         s = s.replace('1999', '一九九九')
@@ -448,6 +456,14 @@ def main():
                 rows.append({'text': p_ + (t if lg == 'th' else t[0].lower() + t[1:]), 'label': sv['code']})
     for s in NONE_SEEDS:
         rows.append({'text': s, 'label': 'Z'})
+    for code_, others in CONF.items():
+        for oc in others:
+            for _ in range(5):
+                x = random.choice(C[code_]['zh']) + random.choice(['', random.choice(C[code_]['act'])])
+                y = random.choice(C[oc]['zh'])
+                rows.append({'text': random.choice(NEG_T).format(x=x, y=y), 'label': code_})
+            xe = random.choice(C[code_]['en']); ye = random.choice(C[oc]['en'])
+            rows.append({'text': random.choice(NEG_EN).format(x=xe, y=ye), 'label': code_})
     for code_, lst in EXTRA.items():
         for s_ in lst:
             rows.append({'text': s_, 'label': code_})

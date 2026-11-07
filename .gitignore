@@ -43,3 +43,6 @@ TownPass/assets/models/
 
 # model backups made by training scripts
 *.bak
+
+# second-round training leftovers (HF merge, F16 gguf)
+tools/llm/out_r2/

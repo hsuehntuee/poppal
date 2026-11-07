@@ -36,6 +36,16 @@ md += `In-scope hit rates are over non-NONE items (including foreign); "oos" is 
 md += `## Main table\n\n${MARKDOWN_HEADER}\n`;
 for (const { s } of runs) md += markdownRow(s.name, s.where, s) + '\n';
 
+md += `\n## Before / after retraining\n\n| engine | first-round | two-round | NONE detection | avg asks |\n|---|---|---|---|---|\n`;
+const byName = new Map(runs.map((r) => [r.s.name as string, r.s]));
+const pairs: Array<[string, string]> = [['cls-nofuse-before', 'cls-nofuse-r3'], ['cls-fuse-before', 'cls-fuse-r3'], ['tiny-nofuse-before', 'tiny-nofuse-r3'], ['tiny-fuse-before', 'tiny-fuse-r3'],
+  ['llm-nofuse-before', 'llm-nofuse-after'], ['llm-fuse-before', 'llm-fuse-after'], ['llmcs-nofuse-before', 'llm-nofuse-after'], ['llmcs-fuse-before', 'llm-fuse-after']];
+for (const [a, b] of pairs) {
+  const x = byName.get(a), y = byName.get(b);
+  if (!x || !y) continue;
+  md += `| ${a.replace('-before', '')} | ${p(x.first_hit)} -> ${p(y.first_hit)} | ${p(x.two_round_hit)} -> ${p(y.two_round_hit)} | ${p(x.oos_detect)} -> ${p(y.oos_detect)} | ${x.avg_asks.toFixed(2)} -> ${y.avg_asks.toFixed(2)} |\n`;
+}
+md += `\n(llm = shipped LlmDecider, accepts only A-Z answer letters; llmcs = same model scored with lower-case a-m accepted, see eval/llm_cs.ts. r1/r2/r3 = successive cls/tiny data rounds, r3 final.)\n`;
 md += `\n## First-round hit by style\n\n`;
 const styles = [...new Set(ts.map((i) => i.style))].filter((x) => x !== 'oos');
 md += `| run | ${styles.join(' | ')} | NONE items |\n|---|${styles.map(() => '---').join('|')}|---|\n`;
@@ -80,6 +90,21 @@ for (const i of withP) {
   if (i.params) for (const [k, v] of Object.entries(i.params)) { pr++; if (ex[k] === v) prOk++; else bad.push(`${i.text} (want ${k}=${v}, got ${ex[k] ?? '-'})`); }
 }
 md += `\n## Registry entity / parameter extraction (engine independent)\n\nentity ${entOk}/${ent} (${p(entOk / Math.max(1, ent))}); parameters ${prOk}/${pr} (${p(prOk / Math.max(1, pr))}).\n\nMisses:\n` + bad.map((b) => '- ' + b).join('\n') + '\n';
+
+md += `
+## Notes and caveats
+
+`
+  + `- Per-tool counts: ${Object.entries(ts.reduce((c: any, i: any) => ((c[i.expect] = (c[i.expect] ?? 0) + 1), c), {})).sort().map(([a, b]) => a + '=' + b).join(', ')}.
+`
+  + `- Test set and the round-2 training data were written by the same author in the same session; the training generator drops any sentence equal to a test sentence but cannot remove stylistic similarity. In particular the "X, not Y" near-miss sentences in the test set share a template with the round-3 training data (near-miss rose from 57.9% to 97.4% for cls). Excluding near-miss items (848 in-scope items) first-round is: cls-fuse 78.8% -> 94.8%, llm-fuse 72.5% -> 93.3%, tiny-fuse 73.6% (after).
+`
+  + `- llm-*-before was produced by the old GGUF through the old LlmDecider that only accepted A-Z letters, so the 13 lower-case tools (a..m) scored 0%; llmcs-*-before (eval/llm_cs.ts, same old GGUF but lower-case accepted) is the fair baseline for the model itself. assistant/src/engines/llm.ts was fixed (A-Za-z) by someone else during this work; llm-*-after uses the fixed decoder.
+`
+  + `- embed (zero-shot e5, no training) was only run before; it does not use the training data.
+`
+  + `- Parameters: digit-type parameters (water number) are extracted correctly; text-type parameters (plate, ID, case number, place) are deliberately not extracted by registry.extractParams, so those 7 are counted as misses by this check, not as bugs.
+`;
 
 fs.writeFileSync(path.join(here, 'MATRIX_1K.md'), md);
 console.log(md.slice(0, 3000));

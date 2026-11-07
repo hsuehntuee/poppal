@@ -167,7 +167,7 @@ export function parseOpenAI(raw: any): TokLp[] {
 /** " A" / "A" / "A\n" → "A"；其他 token 不算 */
 export function tokenToCode(token: string): Code | null {
   const t = token.trim();
-  return /^[A-Z]$/.test(t) ? t : null;
+  return /^[A-Za-z]$/.test(t) ? t : null; // 小寫代號 a–m（App 工具與後加的 13 個服務）也要收
 }
 
 function logsumexp(arr: number[]): number {
