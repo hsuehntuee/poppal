@@ -183,6 +183,7 @@ class Runner {
     const vv = window.visualViewport;
     if (vv) {
       const onVv = () => this.onViewport();
+      window.addEventListener('resize', onVv);
       vv.addEventListener('resize', onVv);
       vv.addEventListener('scroll', onVv);
       this.cleanupAll.push(() => {
@@ -201,12 +202,15 @@ class Runner {
 
   vvTimer = 0;
   /** 鍵盤彈出 / 收起：遲滯判定（<70% 開、>85% 關）+ 去抖，避免動畫期間來回切換 */
+  maxViewportH = 0;
   onViewport() {
     clearTimeout(this.vvTimer);
     this.vvTimer = window.setTimeout(() => {
       const vv = window.visualViewport;
       if (!vv) return;
-      const ratio = vv.height / window.innerHeight;
+      // interactive-widget=resizes-content 時 innerHeight 會跟著鍵盤縮，所以要跟「看過的最大高度」比，不然永遠算不出鍵盤開著
+      this.maxViewportH = Math.max(this.maxViewportH, vv.height, window.innerHeight);
+      const ratio = vv.height / this.maxViewportH;
       const open = this.keyboardOpen ? ratio < 0.85 : ratio < 0.7;
       if (open !== this.keyboardOpen) {
         this.keyboardOpen = open;
@@ -258,6 +262,10 @@ class Runner {
 
   async run() {
     this.clearStep();
+    // 換步驟：面板不再鎖邊；上一步的欄位若還有焦點就放掉（否則鍵盤收了面板還卡在底下蓋住下一個按鈕）
+    this.ui.sideLocked = false;
+    const act = document.activeElement as HTMLElement | null;
+    if (act && /^(INPUT|TEXTAREA|SELECT)$/.test(act.tagName) && !this.step?.accept) act.blur();
     if (!this.collapsed) this.ui.setDim(true); // 一進來就先變暗，找到目標再亮框（躲起來時不暗）
     this.ui.place(null); // 先把上一步的亮框收掉，找到新目標再亮
     let step = this.step;
@@ -1218,11 +1226,13 @@ class Ui {
       const el = e.target as HTMLElement | null;
       if (!el || !/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) || el.closest('#tp-guide-host')) return;
       const r = el.getBoundingClientRect();
-      const vh = window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : innerHeight;
-      const panelH = this.panel.getBoundingClientRect().height || 160;
-      const mid = (r.top + r.bottom) / 2;
-      // 欄位中線在畫面下半 → 面板放上面；在上半 → 放下面
-      this.panel.classList.toggle('top', mid > vh / 2 && r.top >= panelH * 0.6);
+      const vhNow = window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : innerHeight;
+      // 鍵盤還沒彈出來：預估它會吃掉下半部，用「鍵盤開著後的可視高度」判斷
+      const vh = Math.min(vhNow, screen.height * 0.5);
+      const panelH = (this.panel.getBoundingClientRect().height || 160) * 0.7; // 鍵盤開著時面板會縮成 kb 版
+      // 欄位放面板下面會被蓋到 → 面板放上面（前提是上面放得下）
+      const bottomCovered = r.bottom > vh - panelH - 8;
+      this.panel.classList.toggle('top', bottomCovered && r.top >= panelH + 8);
       this.sideLocked = true;
       this.lastSwitch = Date.now();
       this.syncPadding();
