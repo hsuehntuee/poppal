@@ -416,8 +416,10 @@ class Runner {
     setTimeout(() => this.ui.place(this.target), 350);
     this.ui.place(el);
     // 要填的欄位：直接把游標放進去（數字欄位開數字鍵盤），只有這一個地方能填；每一步只自動聚焦一次
-    if (step.accept && /^(INPUT|TEXTAREA)$/.test(el.tagName) && this.focusedStep !== this.state.step && !(el as HTMLInputElement).value) {
+    // （頁面剛載入時 Vue 可能把欄位換掉：上次聚焦的那個元素已經不在頁面上就再聚焦一次）
+    if (step.accept && /^(INPUT|TEXTAREA)$/.test(el.tagName) && (this.focusedStep !== this.state.step || !this.focusedEl || !document.contains(this.focusedEl)) && !(el as HTMLInputElement).value) {
       this.focusedStep = this.state.step;
+      this.focusedEl = el;
       if (step.accept === 'digits' || step.accept === 'phone') el.setAttribute('inputmode', step.accept === 'phone' ? 'tel' : 'numeric');
       const token = this.stepToken;
       setTimeout(() => {
@@ -772,6 +774,9 @@ class Runner {
           // 按鈕類的下一步也一起算做完（他已經按了）；欄位類的下一步就正常進到那一步
           const skipNextToo = ev.type === 'click' && !nextIsField;
           tplog('overlay', `step ${this.state.step + 1} ${step.id}: user went to next target (${ev.type}), skip ${skipNextToo ? 2 : 1}`);
+          // 先停掉追蹤：網頁可能馬上跳出確認視窗，追蹤的「被蓋住就重跑」會搶在跳步之前把這一步重畫
+          cancelAnimationFrame(this.raf);
+          clearInterval(this.trackTimer);
           const go = (left: number) => {
             if (token !== this.stepToken) return;
             if (this.busy && left > 0) return void setTimeout(() => go(left - 1), 200);
@@ -849,6 +854,7 @@ class Runner {
 
   /** 這一步已經自動聚焦過（不要每次重新定位都彈鍵盤） */
   focusedStep = -1;
+  focusedEl: HTMLElement | null = null;
   /** 使用者自己做完的步驟：連勝 +1（兩步就躲起來） */
   selfStreak = 0;
   collapsed = false;

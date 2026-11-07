@@ -20,7 +20,9 @@ function getJson(u) {
 }
 
 const pages = await getJson('http://127.0.0.1:9222/json');
-const page = pages.find((p) => p.type === 'page' && p.url.includes(urlPart)) ?? pages.find((p) => p.type === 'page');
+// 優惠分頁（/coupon/）常駐在背景，不是正在操作的頁 → 有別的符合就不要選它
+const cands = pages.filter((p) => p.type === 'page' && p.url.includes(urlPart));
+const page = cands.find((p) => !p.url.includes('/coupon/')) ?? cands[0] ?? pages.find((p) => p.type === 'page');
 if (!page) {
   console.error('no page; targets =', pages.map((p) => p.url));
   process.exit(1);
