@@ -19,6 +19,10 @@ const formStore = useFormStore();
 formStore.reset();
 
 const store = useDisasterReportStore();
+
+// 直接開啟 /disaster-report/form/:id 或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { disasterReportMap } = storeToRefs(store);
 
 const activeFormItem = computed(() => disasterReportMap.value.get(route.params.id as string));

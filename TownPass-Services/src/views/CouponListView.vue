@@ -10,6 +10,10 @@ import type { Ticket, Coupon } from '@/views/CouponView.vue';
 
 const route = useRoute();
 const store = useCouponStore();
+
+// 直接開啟 /coupon/list 或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { ticketList, couponList } = storeToRefs(store);
 
 const isFirstRender = ref(true);

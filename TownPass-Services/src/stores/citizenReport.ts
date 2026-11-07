@@ -1,5 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import citizenReportDataJson from '../../public/mock/citizen_report.json';
+import citizenResultDataJson from '../../public/mock/citizen_result.json';
 
 export interface CitizenReportData {
   hot_report: {
@@ -62,5 +64,18 @@ export const useCitizenReportStore = defineStore('citizenReport', () => {
     }
   });
 
-  return { citizenReport, citizenResult, reportItemMap, concatData };
+  /**
+   * 確保資料已載入（子頁面直接開啟、重新整理時使用）
+   * 父頁 CitizenReportView 已塞資料時不會重複載入
+   */
+  const ensureLoaded = async () => {
+    if (!citizenReport.value) {
+      citizenReport.value = citizenReportDataJson.data;
+    }
+    if (!citizenResult.value) {
+      citizenResult.value = citizenResultDataJson.data;
+    }
+  };
+
+  return { citizenReport, citizenResult, reportItemMap, concatData, ensureLoaded };
 });

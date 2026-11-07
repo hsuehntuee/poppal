@@ -9,6 +9,9 @@ import CollapseItem from '@/components/molecules/CollapseItem.vue';
 
 const store = useCitizenReportStore();
 
+// 直接開啟 /citizen-report/list 或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { citizenReport } = storeToRefs(store);
 
 const activeCategory = ref('');

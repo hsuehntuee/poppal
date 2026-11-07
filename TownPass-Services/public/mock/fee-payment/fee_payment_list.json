@@ -563,6 +563,57 @@
           "is_hot": false,
           "search_type_list": [
             {
+              "name": "輸入資料",
+              "type": "form",
+              "form_format": [
+                {
+                  "type": "input",
+                  "label": "身分證字號 / 統一編號",
+                  "required": true,
+                  "field": "tax_id",
+                  "description": "範例：A123456789 或 12345678"
+                },
+                {
+                  "type": "select",
+                  "label": "稅目",
+                  "required": true,
+                  "field": "tax_type",
+                  "description": "",
+                  "default_option": "請選擇稅目",
+                  "options": [
+                    { "label": "房屋稅", "value": "房屋稅" },
+                    { "label": "地價稅", "value": "地價稅" },
+                    { "label": "使用牌照稅", "value": "使用牌照稅" },
+                    { "label": "契稅", "value": "契稅" },
+                    { "label": "印花稅", "value": "印花稅" },
+                    { "label": "娛樂稅", "value": "娛樂稅" }
+                  ]
+                }
+              ],
+              "notice": [
+                "行動支付限額、依各業者規定辦理。",
+                "地方稅相關問題，請洽臺北市稅捐稽徵處 (02)2394-9211。",
+                "逾期繳納須加徵滯納金，請於繳納期限內完成繳費。"
+              ]
+            },
+            {
+              "name": "繳費編號",
+              "type": "form",
+              "form_format": [
+                {
+                  "type": "input",
+                  "label": "繳款書編號",
+                  "required": true,
+                  "field": "payment_number",
+                  "description": "繳款書右上方之 16 碼銷帳編號"
+                }
+              ],
+              "notice": [
+                "行動支付限額、依各業者規定辦理。",
+                "地方稅相關問題，請洽臺北市稅捐稽徵處 (02)2394-9211。"
+              ]
+            },
+            {
               "name": "掃描",
               "type": "scan"
             }

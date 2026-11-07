@@ -194,7 +194,11 @@ class Runner {
   }
   /** 定位器裡的模板；沒有值的定位器整個略過 */
   finders(step: Step): Locator[] {
-    return step.find
+    return this.fillLocators(step.find);
+  }
+  /** 把 {{entity}} 之類的模板填進定位器；沒有值的定位器直接丟掉（skip_if_visible 也用這個） */
+  fillLocators(list: Locator[]): Locator[] {
+    return list
       .map((f) => {
         const out: Locator = { ...f };
         for (const k of ['text', 'label', 'css', 'option'] as const) {
@@ -257,7 +261,7 @@ class Runner {
       return;
     }
 
-    if (step.skip_if_visible && step.skip_if_visible.some((l) => isVisible(locate([l])))) return this.advance();
+    if (step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])))) return this.advance();
 
     let el = await waitFor(() => locate(this.finders(step)), 6000);
     let picked: { label: string; score: number } | null = null;
@@ -484,7 +488,7 @@ class Runner {
   /** 這一步是不是已經做完了（狀態感知） */
   isStepDone(step: Step): boolean {
     if (step.url && !new RegExp(step.url).test(location.pathname)) return false;
-    if (step.skip_if_visible && step.skip_if_visible.some((l) => isVisible(locate([l])))) return true;
+    if (step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])))) return true;
     if (step.done_when === 'change') {
       const el = locate(this.finders(step)) as HTMLSelectElement | null;
       if (!el || el.tagName !== 'SELECT') return false;
@@ -928,7 +932,7 @@ export function locate(finders: Locator[]): HTMLElement | null {
       if (f.css) el = scope.querySelector<HTMLElement>(f.css);
       else if (f.option) el = byOption(f.option, scope);
       else if (f.label) el = byLabel(f.label, scope);
-      else if (f.text) el = byText(f.text, f.exact, f.role, scope) ?? byOption(f.text, scope);
+      else if (f.text) el = byText(f.text, f.exact, f.role, scope) ?? (f.exact || f.role ? null : byOption(f.text, scope)); // 指定了 exact / role 就不要退回去抓 <select>（否則「公廁」會抓到下拉選單本體）
       else if (f.role) el = byRole(f.role, scope);
       if (el && isVisible(el)) return el;
     }

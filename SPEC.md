@@ -523,6 +523,12 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - **Repo**：`github.com/hsuehntuee/poppal`（私人），GGUF / ONNX 權重走 Git LFS；不含 llama.cpp 執行檔、訓練 checkpoint、HF 合併權重與零樣本向量模型（都可重下／重算）。
 - **後端**：展示不需要任何伺服器——網頁、模型、決策全部在 APK 與手機的 llama-server 裡。`deploy/` 的 docker compose（nginx + llama-server）是「有網路時的備援／筆電不在場」用，尚未部署。
 
+### 第六輪（2026-11-07 夜：遞迴稽核網站版城市通）
+- `eval/AUDIT.md`：iframe BFS 走訪 174 頁，0 缺檔、0 例外；18 頁直接開啟會空白，根因都是「子頁只讀 Pinia store、只有父頁會填」→ 每個 store 加 `ensureLoaded()`，子頁自己載 mock（有話要說清單／表單／查詢、優惠券／票券內頁、票夾兌換、災情表單、熱點）。`/fee-payment/detail/tax-1` 原本一進去就被導到掃描頁（地方稅只有掃描分頁）→ 補上輸入資料／繳費編號分頁；未知 id 不再跳掃描；`/fee-payment` 導到其他繳費。
+- 「查陳情進度」頁原本只有一個搜尋框 → 空白時列出最近案件（可點進明細）。
+- 找地點：頁面的下拉其實是自訂面板（原生 select 被 mousedown.prevent 攔掉），導覽改成「點開 → 點含公廁的分類 → 點公廁 → 看標記」四步，已知 entity 時第一步直接問「幫你選公廁，好嗎」；`exact`/`role` 定位器不再退回去抓 `<select>`；`skip_if_visible` 也支援 `{{entity}}`。registry 加英文別名（toilet / parking / charging / AED…）。
+- dev server 對缺檔回真 404 並記錄；靜態示範頁目錄會回自己的 index.html。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。

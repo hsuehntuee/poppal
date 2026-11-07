@@ -21,6 +21,9 @@ formStore.reset();
 
 const store = useCitizenReportStore();
 
+// 直接開啟表單頁或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { reportItemMap } = storeToRefs(store);
 
 const reportItem = computed(() =>

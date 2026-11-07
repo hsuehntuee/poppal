@@ -13,6 +13,10 @@ const router = useRouter();
 const route = useRoute();
 
 const store = useCouponStore();
+
+// 直接開啟優惠券詳情或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { couponListMap } = storeToRefs(store);
 
 const couponItem = computed(() => couponListMap.value.get(route.params.id as string));

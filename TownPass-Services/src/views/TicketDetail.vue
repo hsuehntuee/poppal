@@ -13,6 +13,10 @@ import BaseButton from '@/components/atoms/BaseButton.vue';
 const route = useRoute();
 const router = useRouter();
 const store = useCouponStore();
+
+// 直接開啟入場券詳情或重新整理時，父頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { ticketListMap } = storeToRefs(store);
 
 const ticketItem = computed(() => ticketListMap.value.get(route.params.id as string));

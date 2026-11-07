@@ -12,6 +12,9 @@ const store = useCouponStore();
 const route = useRoute();
 const router = useRouter();
 
+// 直接開啟場館頁或重新整理時，父頁尚未塞資料 → 自行載入（需在下方找不到即導回的判斷之前）
+store.ensureLoaded();
+
 const { ticketListMap, hotSpotListMap } = storeToRefs(store);
 
 const activeItem = computed(() => hotSpotListMap.value.get(route.params.id as string));

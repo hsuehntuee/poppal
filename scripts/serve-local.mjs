@@ -42,7 +42,14 @@ function serveStatic(res, dist, rel, { injectOverlay = false } = {}) {
   let file = path.join(dist, rel);
   if (!file.startsWith(dist)) return send(res, 403, 'forbidden');
   if (fs.existsSync(file) && fs.statSync(file).isDirectory() && fs.existsSync(path.join(file, 'index.html'))) file = path.join(file, 'index.html'); // 靜態示範頁（news/ 等）
-  else if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(dist, 'index.html'); // SPA fallback
+  else if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+    // 有副檔名的路徑（mock JSON、圖片…）找不到就真的回 404 並記錄，方便稽核缺檔；沒副檔名才是 SPA 路由
+    if (/\.[a-z0-9]{2,5}$/i.test(rel)) {
+      console.log(`404 ${rel}`);
+      return send(res, 404, "not found: " + rel);
+    }
+    file = path.join(dist, 'index.html'); // SPA fallback
+  }
   if (!fs.existsSync(file)) return send(res, 404, `not built: ${dist}\n先執行 pnpm build`);
   const ext = path.extname(file).toLowerCase();
   const type = MIME[ext] ?? 'application/octet-stream';

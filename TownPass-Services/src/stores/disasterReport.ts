@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import disasterReportingJson from '../../public/mock/disaster_reporting.json';
 
 export interface disasterReportData {
   id: string;
@@ -33,5 +34,15 @@ export const useDisasterReportStore = defineStore('disasterReport', () => {
     () => new Map(disasterReportFlat.value.map((item) => [item.id, item]))
   );
 
-  return { disasterReport, disasterReportMap };
+  /**
+   * 確保資料已載入（表單頁直接開啟、重新整理時使用）
+   * 父頁 DisasterReportView 已塞資料時不會重複載入
+   */
+  const ensureLoaded = async () => {
+    if (!disasterReport.value) {
+      disasterReport.value = disasterReportingJson.data;
+    }
+  };
+
+  return { disasterReport, disasterReportMap, ensureLoaded };
 });

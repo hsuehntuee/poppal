@@ -10,6 +10,9 @@ const route = useRoute();
 
 const store = useCouponStore();
 
+// 直接開啟兌換頁或重新整理時，票夾頁尚未塞資料 → 自行載入
+store.ensureLoaded();
+
 const { walletData } = storeToRefs(store);
 
 const onBackButtonClick = () => {

@@ -353,6 +353,8 @@ const router = createRouter({
       path: '/fee-payment',
       name: 'fee-payment',
       children: [
+        // /fee-payment 本身沒有頁面（之前是空白）→ 導到「其他繳費」
+        { path: '', redirect: { name: 'fee-payment-others' } },
         {
           path: 'others',
           name: 'fee-payment-others',

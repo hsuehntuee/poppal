@@ -1879,11 +1879,43 @@
    "ambiguous": false
   },
   {
+   "term": "drinking water",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "飲水機"
+  },
+  {
+   "term": "water fountain",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "飲水機"
+  },
+  {
    "term": "本市警察局受理之違規申訴案件",
    "tools": [
     "apply_service"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "breastfeeding",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "哺集乳室"
+  },
+  {
+   "term": "defibrillator",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "AED場所"
   },
   {
    "term": "family center",
@@ -1898,6 +1930,14 @@
     "hospital_fee_pay"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "nursing room",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "哺集乳室"
   },
   {
    "term": "registration",
@@ -1940,6 +1980,14 @@
     "citizen_report_search"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "parking lot",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "停車場"
   },
   {
    "term": "water meter",
@@ -2166,6 +2214,22 @@
    "ambiguous": false
   },
   {
+   "term": "bathroom",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
+  },
+  {
+   "term": "charging",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "充電站"
+  },
+  {
    "term": "disaster",
    "tools": [
     "disaster_report"
@@ -2178,6 +2242,22 @@
     "ivoting"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "restroom",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
+  },
+  {
+   "term": "washroom",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
   },
   {
    "term": "中正區戶政事務所",
@@ -2304,6 +2384,14 @@
     "find_place"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "charger",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "充電站"
   },
   {
    "term": "library",
@@ -2563,6 +2651,14 @@
     "police_report"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "toilet",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
   },
   {
    "term": "wallet",
@@ -3999,6 +4095,14 @@
   },
   {
    "term": "AED",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "AED場所"
+  },
+  {
+   "term": "aed",
    "tools": [
     "find_place"
    ],

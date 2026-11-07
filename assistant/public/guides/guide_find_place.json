@@ -1,57 +1,110 @@
 {
- "id": "guide_find_place",
- "title": {
-  "zh": "找地點"
- },
- "entry": "/surrounding-service",
- "match": {
-  "url": "^/surrounding-service"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/surrounding-service",
-   "find": [
-    {
-     "option": "{{entity}}"
-    },
-    {
-     "css": "#findPlace"
-    },
-    {
-     "css": "select"
-    }
-   ],
-   "say": {
-    "zh": "選「{{entity}}」"
-   },
-   "done_when": "change",
-   "say_default": {
-    "zh": "在最上面的下拉選單選你要找的地點類型"
-   },
-   "more": {
-    "zh": "最上面的下拉選單；按「幫我選」我直接幫你選好"
-   }
+  "id": "guide_find_place",
+  "title": {
+    "zh": "找地點"
   },
-  {
-   "id": "look",
-   "url": "^/surrounding-service",
-   "find": [
+  "entry": "/surrounding-service",
+  "match": {
+    "url": "^/surrounding-service"
+  },
+  "steps": [
     {
-     "css": ".leaflet-marker-icon"
+      "id": "pick",
+      "url": "^/surrounding-service",
+      "find": [
+        {
+          "option": "{{entity}}"
+        },
+        {
+          "css": "#findPlace"
+        },
+        {
+          "css": "select"
+        }
+      ],
+      "say": {
+        "zh": "選「{{entity}}」"
+      },
+      "say_default": {
+        "zh": "點最上面的下拉選單，選你要找的地點類型"
+      },
+      "more": {
+        "zh": "點開後會列出分類，再點裡面的項目"
+      },
+      "done_when": "change",
+      "skip_if_visible": [
+        {
+          "text": "防空避難設備"
+        },
+        {
+          "text": "無搜尋紀錄"
+        }
+      ]
     },
     {
-     "text": "公里"
+      "id": "group",
+      "url": "^/surrounding-service",
+      "find": [
+        {
+          "text": "{{entity}}",
+          "role": "button"
+        }
+      ],
+      "say": {
+        "zh": "點有「{{entity}}」的那一類"
+      },
+      "say_default": {
+        "zh": "點你要找的分類"
+      },
+      "more": {
+        "zh": "分類會展開，裡面有你要找的項目"
+      },
+      "done_when": "click",
+      "skip_if_missing": true,
+      "skip_if_visible": [
+        {
+          "text": "{{entity}}",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "id": "place",
+      "url": "^/surrounding-service",
+      "find": [
+        {
+          "text": "{{entity}}",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "點「{{entity}}」"
+      },
+      "say_default": {
+        "zh": "點你要找的項目"
+      },
+      "done_when": "click",
+      "skip_if_missing": true
+    },
+    {
+      "id": "look",
+      "url": "^/surrounding-service",
+      "find": [
+        {
+          "css": ".leaflet-marker-icon"
+        },
+        {
+          "text": "公里"
+        }
+      ],
+      "say": {
+        "zh": "點地圖上的標記看地址"
+      },
+      "more": {
+        "zh": "也可以按「展開列表」看清單"
+      },
+      "done_when": "manual",
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "點地圖上的標記看地址"
-   },
-   "done_when": "manual",
-   "more": {
-    "zh": "也可以往下滑看清單"
-   },
-   "final": true
-  }
- ]
+  ]
 }
