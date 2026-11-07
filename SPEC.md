@@ -564,6 +564,13 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - 真機踩雷：`TownPass/assets/models/` 裡的 GGUF 其實還是 16:14 的舊模型（重訓後沒再跑 `prepare-llama-jni.mjs`），而 App 比對「APK asset 跟私有副本是否相同」又只看長度與中段 64 KB（LoRA 沒動到的 embedding 佔檔案大半）→ 兩層都說「一樣」。改成：模型副本用 APK 的 `lastUpdateTime` 當版本戳（`.stamp` 檔），APK 一換就重複製；並以 md5 確認 APK 內的 asset 等於 `tools/llm/out` 的新權重。
 - 清掉重訓殘留（`tools/llm/out_r2`、舊 HF 目錄、各 `.bak`，約 2.7 GB）；現行權重只留 `tools/llm/out/{gemma-270m-decider-hf, *.gguf}` 與 `tools/encoder/ckpt/cls-services.ckpt.pt`。
 
+### 第十二輪（2026-11-08 凌晨：真機數據、輸入不截斷、全部服務）
+- 1k 測試集在手機 App 內 NPU 上實跑：Gemma 決策器 93.9% / 97.6%（兩輪）/ 範圍外 99.2%，p50 65 ms（含 adb 轉發）；與筆電 GPU 逐項一致。同一支手機同一顆模型 CPU 6 執行緒：冷提示（換頁、選項不同）318 ms vs NPU 94 ms；前綴快取命中時兩者都只剩 10 幾 ms。先前記的「CPU 7.4 秒」是 App 內備援在負載下量的，重測不出來，作廢。數據在 `eval/PHONE.md`。
+- 「找不到這個服務 → 看全部服務」按鈕還寫死到舊的 `/fee-payment/others`，所以只看得到幾項繳費 → 改到 `/all-services/`。
+- 陪伴輸入步驟不再提早截斷：只有「定長數字打滿」（水號 10 碼）才自動下一步；自由文字、不定長度一律等使用者按 Enter、面板「填好了」、或自己去按畫面上的下一個鈕（放大鏡、查詢、下一個欄位 → 一次把兩步都算完成）。打到合格會閃一句「打完再按放大鏡」。正在打字的欄位不算「已完成」（重新定位時不會把人跳過去）。影響 16 個輸入步驟（圖書、陳情三欄、災情、聯醫、停車費、其他費用、疫苗、親子館、水表度數 1–8 碼…）。
+- ⌨️ 鈕：Android 收鍵盤不會 blur，所以 focus() 等於沒按 → 先 blur 再 focus、捲到看得到、亮框重放；圖示鈕的「幫我按「」」改用定位器文字 / aria-label / 這一步的說明當名稱。
+- APK 內模型以 APK 安裝時間當版本戳；`prepare-llama-jni.mjs` 一律重新複製 GGUF。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。

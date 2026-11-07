@@ -54,7 +54,7 @@
   "guide_other_q": "That sounds like a different service. Leave this page to find it?",
   "guide_unknown": "Sorry, I did not get that. Please say it again",
   "guide_step": "Step {n} of {total}",
-  "guide_keyboard": "Keyboard",
+  "guide_keyboard": "Type",
   "guide_no_digits": "No digits heard. Say it again or use the keyboard",
   "guide_back": "Back",
   "guide_listening": "Listening…",
@@ -116,5 +116,6 @@
   "settings": "Settings",
   "guide_digits_short": "Needs {need} digits, you have {have}",
   "guide_digits_long": "Max {need} digits, you have {have}",
-  "guide_digits_only": "Digits only"
+  "guide_digits_only": "Digits only",
+  "guide_after_typing": "When you're done: {text}"
 }

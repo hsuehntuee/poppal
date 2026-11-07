@@ -265,7 +265,8 @@ async function go(code: Code) {
 }
 
 function goAll() {
-  location.href = SERVICES_BASE + '/fee-payment/others';
+  // 新版總覽頁（catalog 產生，33 個服務分五類），不是舊的「其他費用」
+  location.href = SERVICES_BASE + '/all-services/';
 }
 
 function reset() {

@@ -443,7 +443,10 @@ class Runner {
     const isSelect = !!this.target && this.target.tagName === 'SELECT';
     const clickable = !!this.target && (/^(BUTTON|A|LABEL)$/.test(this.target.tagName) || isSelect);
     const selOpt = isSelect ? (this.selectValue ?? (pendingOption && pendingOption.select === this.target ? pendingOption : null)) : null;
-    const label = isSelect ? (selOpt ? selOpt.text : '') : (this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || this.target?.textContent?.trim().slice(0, 12) || '');
+    // 按鈕名稱：定位器的文字 → 元素文字 → 無障礙名稱 → 這一步的說明（「按放大鏡」→「放大鏡」）；圖示鈕才不會變成「幫我按「」」
+    const anyText = step.find.map((l) => this.tpl(l.text || l.label || l.option || '')).find((t) => t) || '';
+    const aria = this.target?.getAttribute('aria-label') || this.target?.getAttribute('title') || '';
+    const label = isSelect ? (selOpt ? selOpt.text : '') : (anyText || this.target?.textContent?.trim().slice(0, 12) || aria.slice(0, 12) || say.replace(/^[按點點選]+/, '').replace(/[「」。！]/g, '').slice(0, 12));
     // 主要動作鍵：有按鈕目標 → 幫我按「查詢」；其他 → 下一步（輸入欄位會先檢查）
     const mains: PanelButton[] = [];
     if (clickable) {
@@ -574,11 +577,57 @@ class Runner {
       if (!el) return false;
       const v = el.value ?? '';
       if (!v.trim()) return false;
+      if (document.activeElement === el && !this.isComplete(step, v)) return false; // 還在打，不算完成
       if (!step.accept || step.accept === 'text') return true;
       const r = extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len });
       return r.ok && r.value === v.trim();
     }
     return false;
+  }
+
+  /** 「打滿就一定完成」：只有定長數字（min_len == max_len）而且碼數剛好才算 */
+  isComplete(step: Step, v: string): boolean {
+    if (step.accept !== 'digits' && step.accept !== 'phone') return false;
+    if (!step.max_len || step.min_len !== step.max_len) return false;
+    const n = (v.match(/\d/g) || []).length;
+    if (n !== step.max_len) return false;
+    const r = extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len });
+    return r.ok && r.value === v.trim();
+  }
+
+  /** 下一步要操作的元素（在同一頁才找得到） */
+  nextStepTarget(): HTMLElement | null {
+    const next = this.guide.steps[this.state.step + 1];
+    if (!next || this.step?.final) return null;
+    if (next.url && !new RegExp(next.url).test(location.pathname)) return null;
+    const el = locate(this.finders(next));
+    return el && isVisible(el) ? el : null;
+  }
+
+  /** 下一步的一句話（「按放大鏡」），拿來提示「打完再…」 */
+  nextStepHint(): string {
+    const next = this.guide.steps[this.state.step + 1];
+    if (!next || this.step?.final) return '';
+    if (next.url && !new RegExp(next.url).test(location.pathname)) return '';
+    return this.tx(next.say).replace(/[。！!]+$/, '');
+  }
+
+  /** 使用者領先：一次跳過 n 步（自己按了下一個鈕） */
+  skipAhead(n: number) {
+    if (this.busy) return;
+    this.selfStreak++;
+    this.busy = true;
+    this.clearStep();
+    const target = this.state.step + n;
+    if (this.step?.final || target >= this.guide.steps.length) {
+      this.busy = false;
+      return this.finish();
+    }
+    this.state.step = target;
+    this.freeStep = -1;
+    saveState(this.state);
+    this.busy = false;
+    this.run();
   }
 
   /** 輸入不合格時說清楚為什麼：數字欄位講「要幾碼、現在幾碼」，不要只說聽不懂 */
@@ -654,16 +703,51 @@ class Runner {
       }
       case 'input': {
         const token = this.stepToken;
+        const input = el as HTMLInputElement;
+        const valid = () => {
+          const v = input.value ?? '';
+          const r = step.accept ? extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len }) : { ok: v.trim().length > 0, value: v };
+          return r.ok && r.value === v.trim();
+        };
+        let hinted = false;
         const check = () => {
           if (token !== this.stepToken) return; // 這一步已經結束
           if (this.confirming) return; // 預填中，等使用者按「對」
-          const v = (el as HTMLInputElement).value ?? '';
-          const r = step.accept ? extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len }) : { ok: v.trim().length > 0, value: v };
-          if (r.ok && r.value === v.trim()) this.advanceBy('self');
+          const v = input.value ?? '';
+          // 只有「定長數字打滿」（水號 10 碼）才自動下一步；自由文字 / 不定長度絕不提早截斷，
+          // 等使用者按 Enter、面板的「填好了」、或自己去按畫面上的下一個鈕
+          if (this.isComplete(step, v)) return this.advanceBy('self');
+          if (!hinted && valid()) {
+            hinted = true;
+            const nx = this.nextStepHint();
+            if (nx) this.ui.flash(this.t('guide_after_typing', { text: nx }));
+          }
         };
         const h = debounce(check, 600);
-        el.addEventListener('input', h);
-        this.cleanup.push(() => el.removeEventListener('input', h));
+        input.addEventListener('input', h);
+        this.cleanup.push(() => input.removeEventListener('input', h));
+        // Enter（單行欄位）= 我打完了
+        const onKey = (e: KeyboardEvent) => {
+          if (e.key !== 'Enter' || input.tagName === 'TEXTAREA' || token !== this.stepToken) return;
+          if (valid()) this.advanceBy('self');
+        };
+        input.addEventListener('keydown', onKey);
+        this.cleanup.push(() => input.removeEventListener('keydown', onKey));
+        // 使用者自己去按／點下一步的目標（放大鏡、查詢、下一個欄位）= 這一步做完了
+        const onNext = (ev: Event) => {
+          if (token !== this.stepToken || !valid()) return;
+          const nextEl = this.nextStepTarget();
+          const n = ev.target as Node | null;
+          if (!nextEl || !n || !(nextEl === n || nextEl.contains(n))) return;
+          const next = this.guide.steps[this.state.step + 1];
+          // 按鈕類的下一步也一起算做完（他已經按了）；欄位類的下一步就正常進到那一步
+          const skipNextToo = ev.type === 'click' && next && next.done_when !== 'input' && next.done_when !== 'change';
+          setTimeout(() => token === this.stepToken && this.skipAhead(skipNextToo ? 2 : 1), ev.type === 'click' ? 150 : 0);
+        };
+        document.addEventListener('click', onNext, true);
+        document.addEventListener('focusin', onNext, true);
+        this.cleanup.push(() => document.removeEventListener('click', onNext, true));
+        this.cleanup.push(() => document.removeEventListener('focusin', onNext, true));
         check();
         break;
       }
@@ -762,13 +846,20 @@ class Runner {
     this.run();
   }
 
-  /** 叫出鍵盤：數字欄位設成數字鍵盤，然後 focus */
+  /** 叫出鍵盤：把游標放回發亮的那個欄位（Android 收鍵盤不會 blur，所以先 blur 再 focus 才會再彈出來） */
   keyboard() {
     if (this.ui.focusInput()) return;
     const el = this.target as HTMLInputElement | null;
     if (!el) return;
-    if (this.step?.accept === 'digits' || this.step?.accept === 'phone') el.setAttribute('inputmode', 'numeric');
+    if (this.step?.accept === 'digits' || this.step?.accept === 'phone') el.setAttribute('inputmode', this.step?.accept === 'phone' ? 'tel' : 'numeric');
+    el.scrollIntoView({ block: 'center' });
+    if (document.activeElement === el) el.blur();
     el.focus();
+    try {
+      const n = el.value.length;
+      el.setSelectionRange(n, n);
+    } catch (_) { /* number / select 不支援 */ }
+    this.ui.place(el);
   }
 
   /** 真的回上一頁：有瀏覽紀錄就 history.back()，導覽步驟也退一步 */

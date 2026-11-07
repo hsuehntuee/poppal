@@ -94,5 +94,7 @@
   "settings": "Settings",
   "guide_digits_short": "ต้องมี {need} หลัก ตอนนี้ {have} หลัก",
   "guide_digits_long": "ได้สูงสุด {need} หลัก ตอนนี้ {have} หลัก",
-  "guide_digits_only": "ใส่ได้เฉพาะตัวเลข"
+  "guide_digits_only": "ใส่ได้เฉพาะตัวเลข",
+  "guide_after_typing": "พิมพ์เสร็จแล้ว: {text}",
+  "guide_keyboard": "พิมพ์"
 }

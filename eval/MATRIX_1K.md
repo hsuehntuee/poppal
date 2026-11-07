@@ -1,6 +1,6 @@
 # MATRIX_1K: testset_1k.json (1052 items)
 
-Generated 2026-11-07T15:53:22.028Z
+Generated 2026-11-07T16:18:45.339Z
 
 Composition: tag ambiguous=8, foreign=114, normal=802, oos=128; lang en=157, id=43, th=43, vi=43, zh=679, zh-en=87; style ambiguous=8, asr=159, colloquial=200, english=157, foreign=129, keyword=61, long=122, mixed=87, nearmiss=92, param=37
 
@@ -22,6 +22,7 @@ In-scope hit rates are over non-NONE items (including foreign); "oos" is the NON
 | embed-nofuse-before | laptop | 46.4% | 61.7% | 49.2% | 0.39 | 5 ms |  |
 | llm-fuse-after | laptop-gpu | 93.6% | 97.6% | 99.2% | 0.04 | 40 ms |  |
 | llm-fuse-before | laptop-gpu | 52.9% | 61.7% | 82.0% | 0.36 | 39 ms |  |
+| llm-fuse-phone | S26-NPU-inapp | 93.9% | 97.6% | 99.2% | 0.04 | 65 ms |  |
 | llm-nofuse-after | laptop-gpu | 93.1% | 97.2% | 99.2% | 0.04 | 41 ms |  |
 | llm-nofuse-before | laptop-gpu | 51.4% | 60.9% | 82.0% | 0.38 | 39 ms |  |
 | llmcs-fuse-before | laptop-gpu | 72.3% | 87.2% | 80.5% | 0.21 | 40 ms |  |
@@ -66,6 +67,7 @@ In-scope hit rates are over non-NONE items (including foreign); "oos" is the NON
 | embed-nofuse-before | 44.6% | 58.9% | 37.7% | 52.7% | 51.9% | 48.9% | 35.5% | 56.8% | 42.1% | 25.0% | 49.2% |
 | llm-fuse-after | 93.6% | 98.2% | 90.4% | 88.4% | 96.1% | 95.7% | 97.4% | 97.3% | 93.9% | 87.5% | 99.2% |
 | llm-fuse-before | 54.1% | 64.3% | 48.2% | 52.7% | 61.0% | 54.7% | 46.1% | 86.5% | 35.1% | 75.0% | 82.0% |
+| llm-fuse-phone | 93.6% | 98.2% | 91.2% | 88.4% | 96.1% | 95.7% | 98.7% | 97.3% | 94.7% | 87.5% | 99.2% |
 | llm-nofuse-after | 91.1% | 100.0% | 88.6% | 88.4% | 96.1% | 95.7% | 98.7% | 94.6% | 93.9% | 87.5% | 99.2% |
 | llm-nofuse-before | 54.1% | 64.3% | 44.7% | 51.4% | 61.0% | 54.0% | 40.8% | 78.4% | 35.1% | 75.0% | 82.0% |
 | llmcs-fuse-before | 78.3% | 87.5% | 71.1% | 76.0% | 83.1% | 71.9% | 69.7% | 86.5% | 43.0% | 75.0% | 80.5% |
@@ -140,6 +142,12 @@ Most common confusions: G -> NONE x3; H -> NONE x2; J -> NONE x2; K -> J x2; Q -
 Worst 10 tools: a ui_elder 0.0% (0/23); b ui_normal 0.0% (0/24); c read_aloud 0.0% (0/23); d scan_bill 0.0% (0/24); e home_all 0.0% (0/22); f ivoting 0.0% (0/23); g survey 0.0% (0/21); h neighborhood 0.0% (0/22); i city_radio 0.0% (0/22); j green_map 0.0% (0/21)
 
 Most common confusions: l -> L x21; f -> F x14; g -> G x13; k -> K x13; h -> H x12; b -> NONE x11; K -> J x10; d -> D x9; j -> O x9; c -> NONE x7; i -> NONE x7; a -> NONE x6
+
+### llm-fuse-phone
+
+Worst 10 tools: H fee_history 78.3% (18/23); a ui_elder 78.3% (18/23); j green_map 85.7% (18/21); J citizen_report 86.7% (26/30); Q coupon 87.5% (21/24); b ui_normal 87.5% (21/24); K citizen_report_search 88.0% (22/25); G fee_pay_other 88.9% (24/27); c read_aloud 91.3% (21/23); k pet_map 91.7% (22/24)
+
+Most common confusions: G -> NONE x3; H -> NONE x2; K -> J x2; a -> ASK(ab) x2; a -> ASK(ba) x2; j -> O x2; k -> ASK(kj) x2; A -> NONE x1; A -> ASK(AG) x1; C -> ASK(CD) x1; D -> ASK(DR) x1; E -> B x1
 
 ### llm-nofuse-after
 

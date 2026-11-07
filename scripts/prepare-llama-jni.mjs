@@ -44,5 +44,6 @@ const modelSrc = path.join(root, 'tools', 'llm', 'out', 'gemma-3-270m-decider-Q8
 const modelDir = path.join(root, 'TownPass', 'assets', 'models');
 fs.mkdirSync(modelDir, { recursive: true });
 const modelDst = path.join(modelDir, path.basename(modelSrc));
-if (!fs.existsSync(modelDst) || fs.statSync(modelDst).size !== fs.statSync(modelSrc).size) fs.copyFileSync(modelSrc, modelDst);
+// 一律重新複製：LoRA 重訓後檔案大小不變，只比大小曾經讓舊模型出貨
+fs.copyFileSync(modelSrc, modelDst);
 console.log(`model ready: ${modelDst} (${(fs.statSync(modelDst).size / 1e6).toFixed(0)} MB)`);

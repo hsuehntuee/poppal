@@ -54,7 +54,7 @@
   "guide_other_q": "你說的好像是別的服務。要離開這裡去找嗎？",
   "guide_unknown": "沒聽懂，可以再說一次",
   "guide_step": "第 {n} 步，共 {total} 步",
-  "guide_keyboard": "鍵盤",
+  "guide_keyboard": "打字",
   "guide_no_digits": "沒聽到數字，再說一次或用鍵盤",
   "guide_back": "上一頁",
   "guide_listening": "聽你說…",
@@ -116,5 +116,6 @@
   "settings": "設定",
   "guide_digits_short": "要 {need} 碼，現在 {have} 碼，再補 {missing} 碼",
   "guide_digits_long": "只能 {need} 碼，現在 {have} 碼，多了",
-  "guide_digits_only": "只能填數字"
+  "guide_digits_only": "只能填數字",
+  "guide_after_typing": "打完再{text}"
 }

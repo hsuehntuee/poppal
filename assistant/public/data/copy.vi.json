@@ -94,5 +94,7 @@
   "settings": "Settings",
   "guide_digits_short": "Cần {need} chữ số, hiện có {have}",
   "guide_digits_long": "Tối đa {need} chữ số, hiện có {have}",
-  "guide_digits_only": "Chỉ nhập số"
+  "guide_digits_only": "Chỉ nhập số",
+  "guide_after_typing": "Nhập xong rồi: {text}",
+  "guide_keyboard": "Gõ"
 }

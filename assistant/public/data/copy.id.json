@@ -94,5 +94,7 @@
   "settings": "Settings",
   "guide_digits_short": "Perlu {need} digit, sekarang {have}",
   "guide_digits_long": "Maksimal {need} digit, sekarang {have}",
-  "guide_digits_only": "Hanya angka"
+  "guide_digits_only": "Hanya angka",
+  "guide_after_typing": "Setelah selesai: {text}",
+  "guide_keyboard": "Ketik"
 }
