@@ -28,6 +28,19 @@ if os.path.isfile(_place_list):
         for p in _g.get('places', []):
             if p.get('name'):
                 _place_group[p['name']] = _g.get('name', '')
+# 陳情：all_report 的分類標題 → 裡面的項目（頁面是「先點分類展開、再點項目」）
+_report_group = {}
+_report_groups = []
+_cr = os.path.join(ROOT, 'TownPass-Services', 'public', 'mock', 'citizen_report.json')
+if os.path.isfile(_cr):
+    for _c in json.load(open(_cr, encoding='utf-8'))['data'].get('all_report', []):
+        if _c.get('name'):
+            _report_groups.append(_c['name'])
+        for _k in ('service_requesting', 'problem_reporting'):
+            for _it in _c.get(_k, []):
+                if _it.get('name'):
+                    _report_group[_it['name']] = _c.get('name', '')
+                    entities.setdefault('J', []).append(_it['name'])
 guides = {}
 for p in glob.glob(os.path.join(PUB, 'guides', 'guide_*.json')):
     g = json.load(open(p, encoding='utf-8'))
@@ -156,6 +169,14 @@ for tool_id, amap in ALIASES.items():
 for i in index:
     if 'find_place' in i['tools']:
         g = _place_group.get(i.get('entity') or i['term'])
+        if g:
+            i['group'] = g
+    if 'citizen_report' in i['tools']:
+        _e = i.get('entity') or i['term']
+        g = _report_group.get(_e)
+        if not g:
+            # 不是頁面上的項目（噪音、垃圾…）：找名字裡含這個詞的分類，至少把那一類點開
+            g = next((n for n in _report_groups if _e in n), None)
         if g:
             i['group'] = g
 index.sort(key=lambda x: (-len(x['term']), x['term']))

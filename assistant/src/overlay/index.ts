@@ -73,6 +73,10 @@ interface Step {
 }
 interface Guide {
   id: string;
+  /** false：這份導覽不會「使用者會了就躲起來」（多層清單每一下都要亮框帶路） */
+  collapse?: boolean;
+  /** 'quiet'：最後一步做完就安靜退場（不顯示「完成了」）*/
+  finish?: 'quiet';
   title: Record<Lang, string>;
   entry?: string;
   match?: { url: string };
@@ -153,6 +157,7 @@ async function start(state: State) {
   const inScope = (guide.match && new RegExp(guide.match.url).test(location.pathname)) || guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
   if (!inScope) {
     clearState();
+    mountFab(); // 不在範圍就當作沒有陪伴：泡泡鈕還是要有
     return;
   }
   const copy = await loadCopy(state.lang);
@@ -286,7 +291,7 @@ class Runner {
     }
     saveState(this.state);
     // 連續兩步都自己完成 → 使用者會了，收成小圓鈕躲起來（卡住或點圓鈕再出來）
-    if (!this.collapsed && this.selfStreak >= 2) this.collapse();
+    if (!this.collapsed && this.selfStreak >= 2 && this.guide.collapse !== false) this.collapse();
     const quiet = this.collapsed;
 
     const onRightPage = !step.url || new RegExp(step.url).test(location.pathname);
@@ -332,6 +337,12 @@ class Runner {
     }
     if (picked) {
       say = this.t('guide_maybe', { text: picked.label });
+    } else {
+      // 說明寫「點「{{entity}}」」但這一頁找到的是後備目標（例如「更多項目」）→ 改用 say_default，不要叫人點一個不在畫面上的東西
+      const ent = this.state.params?.entity;
+      if (ent && step.say_default && !(el.textContent || '').includes(ent)) {
+        say = this.tx(step.say_default);
+      }
     }
     // 目標被提示視窗（modal）蓋住 → 先把視窗的「確認 / 關閉」當臨時目標，關掉後再回到這一步
     const cover = coveringButton(el);
@@ -355,9 +366,9 @@ class Runner {
       this.startTracking();
       this.selectValue = null;
       this.ui.show({
-        say: this.t('guide_close_popup', { text: cover.textContent?.trim().slice(0, 10) || '' }),
+        say: this.t('guide_close_popup', { text: cover.textContent?.trim().slice(0, 10) || this.t('guide_close') }),
         stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
-        buttons: [{ label: `${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => cover.click() }], // 下面的 click 監聽器會重跑（之前這裡又排一次 run → 次數算兩次，馬上變成「關不掉」）
+        buttons: [{ label: `${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || this.t('guide_close') })}`, onClick: () => cover.click() }], // 下面的 click 監聽器會重跑（之前這裡又排一次 run → 次數算兩次，馬上變成「關不掉」）
         icons: [{ label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }]
       });
       this.ui.hideInput();
@@ -381,9 +392,12 @@ class Runner {
     this.watchDone(step, el);
     this.armStuck();
     if (quiet) {
+      // 躲起來：面板收成小圓鈕、畫面不變暗，但亮框還是要帶路（跟著亮框走永遠走得通）
       this.ui.setDim(false);
-      this.ui.place(null);
-      return; // 躲起來：只默默看進度，畫面還給使用者
+      this.startTracking();
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      this.ui.place(el);
+      return;
     }
     if (this.freeStep === this.state.step) {
       // 使用者說「不是這個」：不框、不暗，讓他自己從清單選；選好監聽器會前進
@@ -744,9 +758,18 @@ class Runner {
           const n = ev.target as Node | null;
           if (!nextEl || !n || !(nextEl === n || nextEl.contains(n))) return;
           const next = this.guide.steps[this.state.step + 1];
+          const nextIsField = !!next && (next.done_when === 'input' || next.done_when === 'change');
+          // 手機上按鈕被碰到會先 focusin 再 click：按鈕類的下一步只認 click（不然 focusin 先跳一步，click 就對不上了）
+          if (ev.type === 'focusin' && !nextIsField) return;
           // 按鈕類的下一步也一起算做完（他已經按了）；欄位類的下一步就正常進到那一步
-          const skipNextToo = ev.type === 'click' && next && next.done_when !== 'input' && next.done_when !== 'change';
-          setTimeout(() => token === this.stepToken && this.skipAhead(skipNextToo ? 2 : 1), ev.type === 'click' ? 150 : 0);
+          const skipNextToo = ev.type === 'click' && !nextIsField;
+          tplog('overlay', `step ${this.state.step + 1} ${step.id}: user went to next target (${ev.type}), skip ${skipNextToo ? 2 : 1}`);
+          const go = (left: number) => {
+            if (token !== this.stepToken) return;
+            if (this.busy && left > 0) return void setTimeout(() => go(left - 1), 200);
+            this.skipAhead(skipNextToo ? 2 : 1);
+          };
+          setTimeout(() => go(10), ev.type === 'click' ? 150 : 0);
         };
         document.addEventListener('click', onNext, true);
         document.addEventListener('focusin', onNext, true);
@@ -762,6 +785,18 @@ class Runner {
         };
         el.addEventListener('change', h);
         this.cleanup.push(() => el.removeEventListener('change', h));
+        break;
+      }
+      case 'manual': {
+        // 目標是按鈕 / 連結：使用者自己點了就算完成（一般模式面板上沒有「下一步」鈕）
+        if (!/^(BUTTON|A|LABEL)$/.test(el.tagName) && el.getAttribute('role') !== 'button') break;
+        const token = this.stepToken;
+        const h = (ev: Event) => {
+          const n = ev.target as Node | null;
+          if (n && (el === n || el.contains(n))) setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
+        };
+        document.addEventListener('click', h, true);
+        this.cleanup.push(() => document.removeEventListener('click', h, true));
         break;
       }
       case 'route':
@@ -810,8 +845,11 @@ class Runner {
   selfStreak = 0;
   collapsed = false;
   advanceBy(who: 'self' | 'panel') {
-    if (who === 'self') this.selfStreak++;
-    else this.selfStreak = 0;
+    // 可有可無的結構步驟（點開分類、點項目…skip_if_missing）不算「使用者會了」：多層清單每一下都還要亮框帶路
+    const structural = !!this.step?.skip_if_missing;
+    if (who === 'self') {
+      if (!structural) this.selfStreak++;
+    } else this.selfStreak = 0;
     this.advance();
   }
   collapse() {
@@ -1036,6 +1074,12 @@ class Runner {
       if (el && document.contains(el) && isVisible(el)) this.ui.place(el);
       // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
       if (++tick % 4 === 0 && !this.busy && !this.confirming) {
+        // 目標被後來跳出的視窗蓋住（例如按 Enter 跳出地圖）→ 重新定位，走「先關掉這個提示」
+        if (el && this.target === el && this.coverAttempts < 2 && coveringButton(el)) {
+          tplog('overlay', `step ${this.state.step + 1}: target got covered, re-run`);
+          this.run();
+          return;
+        }
         const st = this.step;
         if (st && st.skip_if_visible && this.fillLocators(st.skip_if_visible).some((l) => isVisible(locate([l])))) {
           tplog('overlay', `step ${this.state.step + 1} ${st.id}: done by user, moving on`);
@@ -1084,6 +1128,13 @@ class Runner {
     this.ui.setShield(false);
     this.ui.setDim(false);
     this.ui.place(null);
+    if (this.guide.finish === 'quiet') {
+      // 地圖類：最後一步點了標記，頁面會跳出地址卡，面板別蓋住它，直接退場
+      for (const c of this.cleanupAll.splice(0)) c();
+      this.ui.destroy();
+      mountFab();
+      return;
+    }
     this.ui.show({ say: this.t('guide_done'), buttons: [{ label: this.t('guide_close'), onClick: () => this.ui.destroy() }] });
     if (this.loud) this.speak(this.t('guide_done'));
   }
@@ -1128,7 +1179,7 @@ export function locate(finders: Locator[]): HTMLElement | null {
       else if (f.label) el = byLabel(f.label, scope);
       else if (f.text) el = byText(f.text, f.exact, f.role, scope) ?? (f.exact || f.role ? null : byOption(f.text, scope)); // 指定了 exact / role 就不要退回去抓 <select>（否則「公廁」會抓到下拉選單本體）
       else if (f.role) el = byRole(f.role, scope);
-      if (el && isVisible(el)) return el;
+      if (el && isReachable(el)) return el;
     }
   }
   return null;
@@ -1162,7 +1213,7 @@ function byText(text: string, exact = false, role?: Locator['role'], scope: Pare
       const s = (el.textContent ?? '').replace(/\s+/g, ' ').trim();
       if (!(exact ? s === want : s.includes(want))) continue;
     }
-    if (!isVisible(el)) continue;
+    if (!isReachable(el)) continue;
     const clickable = el.closest<HTMLElement>('button, a, [role=button], label, [onclick], .cursor-pointer') ?? el;
     if (role === 'button' && !/^(BUTTON|A)$/.test(clickable.tagName) && clickable.getAttribute('role') !== 'button') continue;
     best = clickable;
@@ -1175,7 +1226,9 @@ function byLabel(label: string, scope: ParentNode = document): HTMLElement | nul
   for (const l of scope.querySelectorAll<HTMLLabelElement>('label')) {
     if (!(l.textContent ?? '').trim().startsWith(label)) continue;
     const forId = l.getAttribute('for');
-    const el = (forId ? document.getElementById(forId) : l.querySelector('input,textarea,select')) as HTMLElement | null;
+    // for 指到的欄位若有自己的（名字不同的）label，就是網頁寫錯了 → 改用標籤旁邊的欄位
+    const forOk = !!forId && [...scope.querySelectorAll<HTMLLabelElement>(`label[for="${forId}"]`)].every((o) => o === l || (o.textContent ?? '').trim().startsWith(label));
+    const el = (forOk ? document.getElementById(forId!) : l.querySelector('input,textarea,select')) as HTMLElement | null;
     // radio / checkbox 本身常是隱藏的，目標改成 label（點 label 就等於點它）
     if (el && /^(radio|checkbox)$/.test((el as HTMLInputElement).type || '')) return l;
     if (el && isDisplayed(el)) return el;
@@ -1199,6 +1252,20 @@ function isDisplayed(el: HTMLElement | null): boolean {
 }
 
 /** 真的看得到：沒被任何 overflow:hidden / clip 的祖先裁掉（例如收合的清單） */
+/** 找得到（可以捲過去）：只排除被「收合」的祖先（overflow hidden/clip 且高度接近 0）裁掉的元素；
+ *  可捲動容器裡暫時在畫面外的項目算找得到，定位後會 scrollIntoView。 */
+function isReachable(el: HTMLElement | null): boolean {
+  if (!el || !isDisplayed(el)) return false;
+  let p = el.parentElement;
+  while (p && p !== document.body) {
+    const cs = getComputedStyle(p);
+    const ov = cs.overflow + cs.overflowY;
+    if (/hidden|clip/.test(ov) && !/auto|scroll/.test(ov) && p.getBoundingClientRect().height < 2) return false;
+    p = p.parentElement;
+  }
+  return true;
+}
+
 function isVisible(el: HTMLElement | null): boolean {
   if (!el || !isDisplayed(el)) return false;
   const r = el.getBoundingClientRect();
@@ -1692,7 +1759,16 @@ function coveringButton(el: HTMLElement): HTMLElement | null {
   if (!c || c === document.body) return null;
   const btns = [...c.querySelectorAll<HTMLElement>('button, a[href], [role=button]')].filter((b) => isVisible(b));
   if (!btns.length) return null;
-  return btns.find((b) => /確認|關閉|知道|好|OK|取消|繼續|稍後|略過/i.test(b.textContent || '')) ?? btns[btns.length - 1];
+  const byText = btns.find((b) => /確認|關閉|知道|好|OK|取消|繼續|稍後|略過/i.test(b.textContent || '') || /close|關閉/i.test((b.getAttribute('aria-label') || '') + (b.querySelector('img')?.getAttribute('alt') || '')));
+  if (byText) return byText;
+  // 沒有文字的圖示鈕：挑最靠視窗頂端、最右邊的那顆（通常就是右上角的 X），不要挑輸入框裡的清除鈕
+  const cr = c.getBoundingClientRect();
+  const icon = btns
+    .filter((b) => !(b.textContent || '').trim())
+    .map((b) => ({ b, r: b.getBoundingClientRect() }))
+    .filter(({ r }) => r.top - cr.top < 80)
+    .sort((a, z) => a.r.top - z.r.top || z.r.right - a.r.right)[0];
+  return icon?.b ?? btns[btns.length - 1];
 }
 
 /* ---------- 迷路偵測：亂點、亂滑、一直換頁 → 帥氣登場 ---------- */

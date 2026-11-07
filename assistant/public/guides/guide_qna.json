@@ -1,35 +1,35 @@
 {
- "id": "guide_qna",
- "title": {
-  "zh": "功能教學"
- },
- "entry": "/qna",
- "match": {
-  "url": "^/qna"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/qna",
-   "find": [
+  "id": "guide_qna",
+  "title": {
+    "zh": "功能教學"
+  },
+  "entry": "/qna",
+  "match": {
+    "url": "^/qna"
+  },
+  "steps": [
     {
-     "text": "{{entity}}"
-    },
-    {
-     "css": "main"
+      "id": "pick",
+      "url": "^/qna",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "css": "main"
+        }
+      ],
+      "say": {
+        "zh": "點「{{entity}}」"
+      },
+      "done_when": "click",
+      "say_default": {
+        "zh": "點你想看的主題"
+      },
+      "more": {
+        "zh": "點開會展開說明"
+      },
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "點「{{entity}}」"
-   },
-   "done_when": "manual",
-   "say_default": {
-    "zh": "點你想看的主題"
-   },
-   "more": {
-    "zh": "點開會展開說明"
-   },
-   "final": true
-  }
- ]
+  ]
 }

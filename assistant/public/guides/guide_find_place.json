@@ -110,10 +110,17 @@
         "zh": "點地圖上的標記看地址"
       },
       "more": {
-        "zh": "也可以按「展開列表」看清單"
+        "zh": "點了標記會跳出地址卡；也可以按「展開列表」看清單"
       },
-      "done_when": "manual",
-      "final": true
+      "done_when": "click",
+      "final": true,
+      "skip_if_visible": [
+        {
+          "css": ".floating-box.bottom-24"
+        }
+      ]
     }
-  ]
+  ],
+  "collapse": false,
+  "finish": "quiet"
 }

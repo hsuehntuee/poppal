@@ -24,11 +24,22 @@ function load(): LogEntry[] {
   return buf!;
 }
 let flushTimer = 0;
+/** 寫回時跟 localStorage 裡的合併（小幫手頁與服務頁各有自己的記憶體緩衝，不合併會互相蓋掉） */
 function flush() {
   clearTimeout(flushTimer);
   flushTimer = window.setTimeout(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(load().slice(-MAX)));
+      let disk: LogEntry[] = [];
+      try {
+        disk = JSON.parse(localStorage.getItem(KEY) || '[]');
+      } catch {
+        disk = [];
+      }
+      const mine = load();
+      const seen = new Set(mine.map((e) => `${e.t}|${e.src}|${e.msg}`));
+      const merged = disk.filter((e) => !seen.has(`${e.t}|${e.src}|${e.msg}`)).concat(mine).sort((a, b) => a.t - b.t).slice(-MAX);
+      buf = merged;
+      localStorage.setItem(KEY, JSON.stringify(merged));
     } catch {
       /* ignore */
     }

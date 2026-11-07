@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:town_pass/page/city_service/model/my_service_model.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
+import 'package:town_pass/service/assistant_service.dart';
 import 'package:town_pass/gen/assets.gen.dart';
 import 'package:town_pass/util/tp_app_bar.dart';
 import 'package:town_pass/util/tp_route.dart';
@@ -36,6 +37,8 @@ class PerkView extends StatelessWidget {
         ],
       ),
       body: TPInAppWebView(
+        // 優惠分頁也要有小幫手泡泡與陪伴層
+        initialUserScripts: Get.isRegistered<AssistantService>() ? Get.find<AssistantService>().userScripts : null,
         onWebViewCreated: (controller) {
           controller.loadUrl(
             urlRequest: URLRequest(url: WebUri('${kDevServiceUrl}coupon/')),

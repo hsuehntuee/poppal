@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'dart:io' show Platform;
 import 'package:get/get.dart';
 import 'package:town_pass/gen/assets.gen.dart';
 import 'package:town_pass/service/assistant_service.dart';
@@ -48,8 +49,17 @@ class TPWebView extends StatelessWidget {
 
   final RxBool canGoBack = RxBool(false);
 
+  // 開 WebView 遠端除錯（chrome://inspect 可看 console / DOM）；開發用
+  static bool _dbg = false;
+  void _enableDebug() {
+    if (_dbg || !Platform.isAndroid) return;
+    _dbg = true;
+    InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _enableDebug();
     // Android 實體返回鍵：網頁有上一頁就回網頁的上一頁，沒有才關掉 WebView
     return PopScope(
       canPop: false,

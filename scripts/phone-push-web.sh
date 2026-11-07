@@ -12,6 +12,8 @@ else
   adb shell mkdir -p "$DEV/js"
   adb push TownPass/assets/web "$DEV/" | tail -1
   adb push TownPass/assets/js/guide-overlay.js "$DEV/js/guide-overlay.js" | tail -1
+  # adb 推進去的檔案是 shell 擁有的，App 讀不到 → 開放權限
+  adb shell chmod -R 777 /sdcard/Android/data/com.example.townpass/files/override
   echo "pushed web + overlay to $DEV"
 fi
 adb shell am force-stop com.example.townpass

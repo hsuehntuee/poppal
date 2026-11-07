@@ -92,7 +92,7 @@ const isShowLocaionModal = ref(false);
       </div>
 
       <div class="citizen-report-form__form-group">
-        <label for="location" class="font-semibold text-grey-700">案件主旨*</label>
+        <label for="title" class="font-semibold text-grey-700">案件主旨*</label>
         <BaseInput
           v-model="reportForm.title"
           id="title"

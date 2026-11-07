@@ -48,3 +48,4 @@ TownPass/assets/models/
 tools/llm/out_r2/
 
 TownPass/android/.kotlin/
+scripts/.probe.js

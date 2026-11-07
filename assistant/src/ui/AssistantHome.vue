@@ -161,7 +161,7 @@ async function onVoice() {
   off();
   if (!r.text) {
     phase.value = 'idle';
-    notice.value = !navigator.onLine ? t('stt_offline_hint') : t('retry');
+    notice.value = !navigator.onLine ? t('stt_offline_hint') : t('stt_retry');
     if (r.error) tplog('home', 'stt error', { error: r.error, online: navigator.onLine }, 'warn');
     return;
   }

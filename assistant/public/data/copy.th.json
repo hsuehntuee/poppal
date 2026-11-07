@@ -96,5 +96,6 @@
   "guide_digits_long": "ได้สูงสุด {need} หลัก ตอนนี้ {have} หลัก",
   "guide_digits_only": "ใส่ได้เฉพาะตัวเลข",
   "guide_after_typing": "พิมพ์เสร็จแล้ว: {text}",
-  "guide_keyboard": "พิมพ์"
+  "guide_keyboard": "พิมพ์",
+  "stt_retry": "พูดอีกครั้ง"
 }

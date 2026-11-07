@@ -1,53 +1,53 @@
 {
- "id": "guide_library",
- "title": {
-  "zh": "圖書借閱"
- },
- "entry": "/library-service",
- "match": {
-  "url": "^/library-service"
- },
- "steps": [
-  {
-   "id": "search",
-   "url": "^/library-service",
-   "find": [
-    {
-     "css": "input[placeholder]"
-    },
-    {
-     "text": "關鍵字搜尋"
-    }
-   ],
-   "say": {
-    "zh": "輸入要找的書名"
-   },
-   "done_when": "input",
-   "more": {
-    "zh": "也可以看下面的熱門排行"
-   },
-   "accept": "text"
+  "id": "guide_library",
+  "title": {
+    "zh": "圖書借閱"
   },
-  {
-   "id": "go",
-   "url": "^/library-service",
-   "find": [
+  "entry": "/library-service",
+  "match": {
+    "url": "^/library-service"
+  },
+  "steps": [
     {
-     "css": ".search-button"
+      "id": "search",
+      "url": "^/library-service",
+      "find": [
+        {
+          "css": "input[placeholder]"
+        },
+        {
+          "text": "關鍵字搜尋"
+        }
+      ],
+      "say": {
+        "zh": "輸入要找的書名"
+      },
+      "done_when": "input",
+      "more": {
+        "zh": "也可以看下面的熱門排行"
+      },
+      "accept": "text"
     },
     {
-     "role": "button",
-     "text": "搜尋"
+      "id": "go",
+      "url": "^/library-service",
+      "find": [
+        {
+          "css": ".search-button"
+        },
+        {
+          "role": "button",
+          "text": "搜尋"
+        }
+      ],
+      "say": {
+        "zh": "按放大鏡"
+      },
+      "done_when": "click",
+      "more": {
+        "zh": "結果點進去可以預約"
+      },
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按放大鏡"
-   },
-   "done_when": "manual",
-   "more": {
-    "zh": "結果點進去可以預約"
-   },
-   "final": true
-  }
- ]
+  ]
 }

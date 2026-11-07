@@ -1,159 +1,190 @@
 {
- "id": "guide_citizen_report",
- "title": {
-  "zh": "陳情投訴"
- },
- "entry": "/citizen-report",
- "match": {
-  "url": "^/citizen-report"
- },
- "steps": [
-  {
-   "id": "pick_hot",
-   "url": "^/citizen-report/?$",
-   "find": [
-    {
-     "text": "{{entity}}"
-    },
-    {
-     "text": "更多項目"
-    }
-   ],
-   "say": {
-    "zh": "點「{{entity}}」"
-   },
-   "done_when": "route",
-   "say_default": {
-    "zh": "點「更多項目」看全部類別"
-   },
-   "more": {
-    "zh": "常見項目在上面的格子裡；沒看到就點「更多項目」"
-   }
+  "id": "guide_citizen_report",
+  "title": {
+    "zh": "陳情投訴"
   },
-  {
-   "id": "pick_list",
-   "url": "^/citizen-report/list",
-   "find": [
-    {
-     "text": "{{entity}}"
-    },
-    {
-     "text": "民眾陳情"
-    }
-   ],
-   "say": {
-    "zh": "點「{{entity}}」"
-   },
-   "done_when": "route",
-   "say_default": {
-    "zh": "點你要反映的類別，再點裡面的項目"
-   },
-   "more": {
-    "zh": "先點類別展開，再點裡面的項目"
-   },
-   "skip_if_missing": true
+  "entry": "/citizen-report",
+  "match": {
+    "url": "^/citizen-report"
   },
-  {
-   "id": "location",
-   "url": "^/citizen-report/form/",
-   "find": [
+  "steps": [
     {
-     "label": "發生地點"
+      "id": "pick_hot",
+      "url": "^/citizen-report/?$",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "text": "更多項目"
+        }
+      ],
+      "say": {
+        "zh": "點「{{entity}}」"
+      },
+      "done_when": "route",
+      "say_default": {
+        "zh": "點「更多項目」看全部類別"
+      },
+      "more": {
+        "zh": "常見項目在上面的格子裡；沒看到就點「更多項目」"
+      }
     },
     {
-     "css": "#location"
+      "id": "pick_group",
+      "url": "^/citizen-report/list",
+      "find": [
+        {
+          "text": "{{group}}",
+          "role": "button"
+        }
+      ],
+      "say": {
+        "zh": "點「{{group}}」"
+      },
+      "say_default": {
+        "zh": "點你要反映的類別"
+      },
+      "more": {
+        "zh": "展開後再點裡面的項目"
+      },
+      "done_when": "click",
+      "skip_if_missing": true,
+      "skip_if_visible": [
+        {
+          "text": "{{entity}}",
+          "exact": true
+        }
+      ]
     },
     {
-     "css": "input[placeholder*=\"地址\"]"
-    }
-   ],
-   "say": {
-    "zh": "輸入發生地點"
-   },
-   "done_when": "input",
-   "more": {
-    "zh": "寫完整地址，或按旁邊的定位按鈕"
-   },
-   "accept": "text"
-  },
-  {
-   "id": "subject",
-   "url": "^/citizen-report/form/",
-   "find": [
-    {
-     "label": "案件主旨"
+      "id": "pick_list",
+      "url": "^/citizen-report/list",
+      "find": [
+        {
+          "text": "{{entity}}",
+          "exact": true
+        },
+        {
+          "css": "a[href*='/citizen-report/form/']"
+        }
+      ],
+      "say": {
+        "zh": "點「{{entity}}」"
+      },
+      "say_default": {
+        "zh": "點你要反映的項目"
+      },
+      "done_when": "route",
+      "skip_if_missing": true,
+      "more": {
+        "zh": "展開的那一類裡面挑一個最接近的"
+      }
     },
     {
-     "css": "input[placeholder*=\"主旨\"]"
-    }
-   ],
-   "say": {
-    "zh": "輸入案件主旨"
-   },
-   "done_when": "input",
-   "more": {
-    "zh": "一句話說發生什麼事"
-   },
-   "accept": "text"
-  },
-  {
-   "id": "desc",
-   "url": "^/citizen-report/form/",
-   "find": [
-    {
-     "label": "描述"
+      "id": "location",
+      "url": "^/citizen-report/form/",
+      "find": [
+        {
+          "label": "發生地點"
+        },
+        {
+          "css": "#location"
+        },
+        {
+          "css": "input[placeholder*=\"地址\"]"
+        }
+      ],
+      "say": {
+        "zh": "輸入發生地點"
+      },
+      "done_when": "input",
+      "more": {
+        "zh": "寫完整地址，或按旁邊的定位按鈕"
+      },
+      "accept": "text"
     },
     {
-     "css": "textarea"
-    }
-   ],
-   "say": {
-    "zh": "輸入描述"
-   },
-   "done_when": "input",
-   "more": {
-    "zh": "人、事、時、地、物，可以用說的"
-   },
-   "accept": "text"
-  },
-  {
-   "id": "agree",
-   "url": "^/citizen-report/form/",
-   "find": [
-    {
-     "text": "同意"
-    }
-   ],
-   "say": {
-    "zh": "點「同意」"
-   },
-   "done_when": "click",
-   "more": {
-    "zh": "同意個資使用才能送出"
-   }
-  },
-  {
-   "id": "submit",
-   "url": "^/citizen-report/form/",
-   "find": [
-    {
-     "role": "button",
-     "text": "送出"
+      "id": "subject",
+      "url": "^/citizen-report/form/",
+      "find": [
+        {
+          "css": "#title"
+        },
+        {
+          "label": "案件主旨"
+        },
+        {
+          "css": "input[placeholder*=\"主旨\"]"
+        }
+      ],
+      "say": {
+        "zh": "輸入案件主旨"
+      },
+      "done_when": "input",
+      "more": {
+        "zh": "一句話說發生什麼事"
+      },
+      "accept": "text"
     },
     {
-     "role": "button",
-     "text": "確認送出"
+      "id": "desc",
+      "url": "^/citizen-report/form/",
+      "find": [
+        {
+          "label": "描述"
+        },
+        {
+          "css": "textarea"
+        }
+      ],
+      "say": {
+        "zh": "輸入描述"
+      },
+      "done_when": "input",
+      "more": {
+        "zh": "人、事、時、地、物，可以用說的"
+      },
+      "accept": "text"
+    },
+    {
+      "id": "agree",
+      "url": "^/citizen-report/form/",
+      "find": [
+        {
+          "text": "同意"
+        }
+      ],
+      "say": {
+        "zh": "點「同意」"
+      },
+      "done_when": "click",
+      "more": {
+        "zh": "同意個資使用才能送出"
+      }
+    },
+    {
+      "id": "submit",
+      "url": "^/citizen-report/form/",
+      "find": [
+        {
+          "role": "button",
+          "text": "送出"
+        },
+        {
+          "role": "button",
+          "text": "確認送出"
+        }
+      ],
+      "say": {
+        "zh": "按「送出」"
+      },
+      "done_when": "route",
+      "more": {
+        "zh": "送出前再看一次內容"
+      },
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按「送出」"
-   },
-   "done_when": "route",
-   "more": {
-    "zh": "送出前再看一次內容"
-   },
-   "confirm": true,
-   "final": true
-  }
- ]
+  ]
 }

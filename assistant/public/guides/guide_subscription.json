@@ -1,58 +1,58 @@
 {
- "id": "guide_subscription",
- "title": {
-  "zh": "訂閱通知"
- },
- "entry": "/subscription",
- "match": {
-  "url": "^/subscription"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/subscription",
-   "find": [
-    {
-     "text": "{{entity}}"
-    },
-    {
-     "css": "input[type=checkbox]"
-    }
-   ],
-   "say": {
-    "zh": "勾選「{{entity}}」"
-   },
-   "done_when": "click",
-   "say_default": {
-    "zh": "勾選你想收到的通知"
-   },
-   "more": {
-    "zh": "可以勾好幾個"
-   }
+  "id": "guide_subscription",
+  "title": {
+    "zh": "訂閱通知"
   },
-  {
-   "id": "submit",
-   "url": "^/subscription",
-   "find": [
+  "entry": "/subscription",
+  "match": {
+    "url": "^/subscription"
+  },
+  "steps": [
     {
-     "role": "button",
-     "text": "訂閱"
+      "id": "pick",
+      "url": "^/subscription",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "css": "input[type=checkbox]"
+        }
+      ],
+      "say": {
+        "zh": "勾選「{{entity}}」"
+      },
+      "done_when": "click",
+      "say_default": {
+        "zh": "勾選你想收到的通知"
+      },
+      "more": {
+        "zh": "可以勾好幾個"
+      }
     },
     {
-     "role": "button",
-     "text": "送出"
-    },
-    {
-     "role": "button",
-     "text": "確認"
+      "id": "submit",
+      "url": "^/subscription",
+      "find": [
+        {
+          "role": "button",
+          "text": "訂閱"
+        },
+        {
+          "role": "button",
+          "text": "送出"
+        },
+        {
+          "role": "button",
+          "text": "確認"
+        }
+      ],
+      "say": {
+        "zh": "按「訂閱」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按「訂閱」"
-   },
-   "done_when": "manual",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ]
 }
