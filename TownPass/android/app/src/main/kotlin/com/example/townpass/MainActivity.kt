@@ -8,6 +8,10 @@ class MainActivity: FlutterActivity() {
     companion object {
         init {
             // 先把 llama-server 的依賴載進 App 程序（classloader namespace：看得到 vendor 的 libcdsprpc / libOpenCL）
+            // vendor 的 FastRPC（public library）先用 Java 這邊載進程序，ggml-hexagon 之後 dlopen 同名就找得到
+            for (lib in listOf("cdsprpc", "adsprpc")) {
+                try { System.loadLibrary(lib); android.util.Log.i("llm-server", "loadLibrary $lib ok") } catch (e: Throwable) { android.util.Log.e("llm-server", "loadLibrary $lib: $e") }
+            }
             try { System.loadLibrary("polaris_server") } catch (e: Throwable) { android.util.Log.e("llm-server", "loadLibrary polaris_server: $e") }
         }
     }
