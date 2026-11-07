@@ -355,10 +355,11 @@ class Runner {
     }
     if (cover) {
       if (quiet) {
-        // 躲起來的時候不管提示視窗，使用者自己關
+        // 躲起來的時候不管提示視窗，使用者自己關；關掉後亮框要回來，所以追蹤照跑
         this.target = el;
         this.watchDone(step, el);
         this.armStuck();
+        this.startTracking();
         return;
       }
       this.coverAttempts++;
@@ -744,13 +745,20 @@ class Runner {
         const h = debounce(check, 600);
         input.addEventListener('input', h);
         this.cleanup.push(() => input.removeEventListener('input', h));
-        // Enter（單行欄位）= 我打完了
+        // Enter（單行欄位）= 我打完了。下一步還是欄位時，Enter 只代表「打完了」，不讓網頁拿去做別的事
+        // （有話要說的表單按 Enter 會跳出地圖視窗）；下一步是按鈕（放大鏡）就放行，讓網頁照常送出
         const onKey = (e: KeyboardEvent) => {
-          if (e.key !== 'Enter' || input.tagName === 'TEXTAREA' || token !== this.stepToken) return;
+          if (e.key !== 'Enter' || e.target !== input || input.tagName === 'TEXTAREA' || token !== this.stepToken) return;
+          const next = this.guide.steps[this.state.step + 1];
+          const nextIsField = !!next && (next.done_when === 'input' || next.done_when === 'change');
+          if (nextIsField) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
           if (valid()) this.advanceBy('self');
         };
-        input.addEventListener('keydown', onKey);
-        this.cleanup.push(() => input.removeEventListener('keydown', onKey));
+        document.addEventListener('keydown', onKey, true);
+        this.cleanup.push(() => document.removeEventListener('keydown', onKey, true));
         // 使用者自己去按／點下一步的目標（放大鏡、查詢、下一個欄位）= 這一步做完了
         const onNext = (ev: Event) => {
           if (token !== this.stepToken || !valid()) return;
@@ -1075,7 +1083,7 @@ class Runner {
       // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
       if (++tick % 4 === 0 && !this.busy && !this.confirming) {
         // 目標被後來跳出的視窗蓋住（例如按 Enter 跳出地圖）→ 重新定位，走「先關掉這個提示」
-        if (el && this.target === el && this.coverAttempts < 2 && coveringButton(el)) {
+        if (el && this.target === el && !this.collapsed && this.coverAttempts < 2 && coveringButton(el)) {
           tplog('overlay', `step ${this.state.step + 1}: target got covered, re-run`);
           this.run();
           return;
@@ -1199,6 +1207,11 @@ function byOption(text: string, scope: ParentNode = document): HTMLElement | nul
 }
 
 function byText(text: string, exact = false, role?: Locator['role'], scope: ParentNode = document): HTMLElement | null {
+  // 先找「整個文字就是這幾個字」的元素（按鈕「同意」），找不到才接受「包含」（避免抓到一段含有這幾個字的說明文）
+  if (!exact) return byTextOnce(text, true, role, scope) ?? byTextOnce(text, false, role, scope);
+  return byTextOnce(text, true, role, scope);
+}
+function byTextOnce(text: string, exact: boolean, role?: Locator['role'], scope: ParentNode = document): HTMLElement | null {
   const want = text.trim();
   const all = scope.querySelectorAll<HTMLElement>('*');
   let best: HTMLElement | null = null;
@@ -1333,6 +1346,8 @@ class Ui {
         .shield.on { display: block; }
         .spot { position: fixed; z-index: 2147483000; border-radius: 10px; pointer-events: none; display: none;
                 box-shadow: 0 0 0 4px #2eb6c7, 0 0 0 9999px rgba(0,0,0,.55); transition: top .25s, left .25s, width .25s, height .25s; }
+        /* 躲起來時只留亮框、不壓暗畫面 */
+        .spot.soft { box-shadow: 0 0 0 4px #2eb6c7, 0 0 14px 2px rgba(46,182,199,.6); }
         .panel { position: fixed; z-index: 2147483001; left: 0; right: 0; bottom: 0; background: #fff; color: #171b1d;
                  font-family: 'PingFang TC', Roboto, system-ui, sans-serif; font-size: ${16 * scale}px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
                  border-radius: 18px 18px 0 0; box-shadow: 0 -6px 20px rgba(0,0,0,.18); max-height: 42vh; overflow: auto; }
@@ -1467,6 +1482,7 @@ class Ui {
   setDim(on: boolean) {
     this.dimWanted = on;
     this.dim.classList.toggle('on', on && this.spot.style.display !== 'block');
+    this.spot.classList.toggle('soft', !on); // 不要暗 → 亮框也不要帶 9999px 的黑影
   }
 
   show(o: { say: string; more?: string; stepText?: string; buttons: PanelButton[]; icons?: PanelButton[]; extra?: PanelButton }) {

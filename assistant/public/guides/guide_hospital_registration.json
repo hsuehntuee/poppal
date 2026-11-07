@@ -1,70 +1,71 @@
 {
- "id": "guide_hospital_registration",
- "title": {
-  "zh": "聯醫掛號"
- },
- "entry": "/hospital-registration",
- "match": {
-  "url": "^/hospital-registration"
- },
- "steps": [
-  {
-   "id": "branch",
-   "url": "^/hospital-registration",
-   "find": [
+  "id": "guide_hospital_registration",
+  "title": {
+    "zh": "聯醫掛號"
+  },
+  "entry": "/hospital-registration",
+  "match": {
+    "url": "^/hospital-registration"
+  },
+  "steps": [
     {
-     "option": "{{entity}}"
+      "id": "branch",
+      "url": "^/hospital-registration",
+      "find": [
+        {
+          "option": "{{entity}}"
+        },
+        {
+          "css": "#branch"
+        }
+      ],
+      "say": {
+        "zh": "選院區"
+      },
+      "done_when": "change"
     },
     {
-     "css": "#branch"
-    }
-   ],
-   "say": {
-    "zh": "選院區"
-   },
-   "done_when": "change"
-  },
-  {
-   "id": "dept",
-   "url": "^/hospital-registration",
-   "find": [
+      "id": "dept",
+      "url": "^/hospital-registration",
+      "find": [
+        {
+          "css": "#dept"
+        }
+      ],
+      "say": {
+        "zh": "選科別"
+      },
+      "done_when": "change"
+    },
     {
-     "css": "#dept"
-    }
-   ],
-   "say": {
-    "zh": "選科別"
-   },
-   "done_when": "change"
-  },
-  {
-   "id": "slot",
-   "url": "^/hospital-registration",
-   "find": [
+      "id": "slot",
+      "url": "^/hospital-registration",
+      "find": [
+        {
+          "text": "醫師"
+        }
+      ],
+      "say": {
+        "zh": "點一個醫師與時段"
+      },
+      "done_when": "click"
+    },
     {
-     "text": "醫師"
+      "id": "submit",
+      "url": "^/hospital-registration",
+      "find": [
+        {
+          "role": "button",
+          "text": "確認掛號"
+        }
+      ],
+      "say": {
+        "zh": "按「確認掛號」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "點一個醫師與時段"
-   },
-   "done_when": "click"
-  },
-  {
-   "id": "submit",
-   "url": "^/hospital-registration",
-   "find": [
-    {
-     "role": "button",
-     "text": "確認掛號"
-    }
-   ],
-   "say": {
-    "zh": "按「確認掛號」"
-   },
-   "done_when": "click",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ],
+  "finish": "quiet"
 }

@@ -152,7 +152,11 @@
       "url": "^/citizen-report/form/",
       "find": [
         {
-          "text": "同意"
+          "label": "同意"
+        },
+        {
+          "text": "同意",
+          "exact": true
         }
       ],
       "say": {
@@ -179,12 +183,13 @@
       "say": {
         "zh": "按「送出」"
       },
-      "done_when": "route",
+      "done_when": "click",
       "more": {
         "zh": "送出前再看一次內容"
       },
       "confirm": true,
       "final": true
     }
-  ]
+  ],
+  "finish": "quiet"
 }

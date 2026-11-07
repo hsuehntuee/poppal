@@ -1,93 +1,94 @@
 {
- "id": "guide_vaccine",
- "title": {
-  "zh": "疫苗預約"
- },
- "entry": "/vaccine",
- "match": {
-  "url": "^/vaccine"
- },
- "steps": [
-  {
-   "id": "type",
-   "url": "^/vaccine",
-   "find": [
+  "id": "guide_vaccine",
+  "title": {
+    "zh": "疫苗預約"
+  },
+  "entry": "/vaccine",
+  "match": {
+    "url": "^/vaccine"
+  },
+  "steps": [
     {
-     "option": "{{entity}}"
+      "id": "type",
+      "url": "^/vaccine",
+      "find": [
+        {
+          "option": "{{entity}}"
+        },
+        {
+          "css": "#vaccine_type"
+        }
+      ],
+      "say": {
+        "zh": "選疫苗種類「{{entity}}」"
+      },
+      "done_when": "change",
+      "say_default": {
+        "zh": "選疫苗種類"
+      }
     },
     {
-     "css": "#vaccine_type"
-    }
-   ],
-   "say": {
-    "zh": "選疫苗種類「{{entity}}」"
-   },
-   "done_when": "change",
-   "say_default": {
-    "zh": "選疫苗種類"
-   }
-  },
-  {
-   "id": "site",
-   "url": "^/vaccine",
-   "find": [
-    {
-     "css": "#site"
-    }
-   ],
-   "say": {
-    "zh": "選接種地點"
-   },
-   "done_when": "change"
-  },
-  {
-   "id": "date",
-   "url": "^/vaccine",
-   "find": [
-    {
-     "label": "日期"
+      "id": "site",
+      "url": "^/vaccine",
+      "find": [
+        {
+          "css": "#site"
+        }
+      ],
+      "say": {
+        "zh": "選接種地點"
+      },
+      "done_when": "change"
     },
     {
-     "css": "#date"
-    }
-   ],
-   "say": {
-    "zh": "選日期"
-   },
-   "done_when": "input",
-   "accept": "text"
-  },
-  {
-   "id": "slot",
-   "url": "^/vaccine",
-   "find": [
-    {
-     "label": "上午"
+      "id": "date",
+      "url": "^/vaccine",
+      "find": [
+        {
+          "label": "日期"
+        },
+        {
+          "css": "#date"
+        }
+      ],
+      "say": {
+        "zh": "選日期"
+      },
+      "done_when": "input",
+      "accept": "text"
     },
     {
-     "label": "下午"
-    }
-   ],
-   "say": {
-    "zh": "選上午或下午"
-   },
-   "done_when": "click"
-  },
-  {
-   "id": "submit",
-   "url": "^/vaccine",
-   "find": [
+      "id": "slot",
+      "url": "^/vaccine",
+      "find": [
+        {
+          "label": "上午"
+        },
+        {
+          "label": "下午"
+        }
+      ],
+      "say": {
+        "zh": "選上午或下午"
+      },
+      "done_when": "click"
+    },
     {
-     "role": "button",
-     "text": "預約"
+      "id": "submit",
+      "url": "^/vaccine",
+      "find": [
+        {
+          "role": "button",
+          "text": "預約"
+        }
+      ],
+      "say": {
+        "zh": "按「預約」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按「預約」"
-   },
-   "done_when": "click",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ],
+  "finish": "quiet"
 }

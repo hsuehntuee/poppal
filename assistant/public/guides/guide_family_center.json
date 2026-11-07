@@ -1,106 +1,107 @@
 {
- "id": "guide_family_center",
- "title": {
-  "zh": "親子館"
- },
- "entry": "/family-center",
- "match": {
-  "url": "^/family-center"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/family-center/?$",
-   "find": [
+  "id": "guide_family_center",
+  "title": {
+    "zh": "親子館"
+  },
+  "entry": "/family-center",
+  "match": {
+    "url": "^/family-center"
+  },
+  "steps": [
     {
-     "text": "{{entity}}"
+      "id": "pick",
+      "url": "^/family-center/?$",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "css": "a[href*=\"family-center/\"]"
+        }
+      ],
+      "say": {
+        "zh": "點你要去的親子館"
+      },
+      "done_when": "route",
+      "say_default": "點你要去的親子館"
     },
     {
-     "css": "a[href*=\"family-center/\"]"
-    }
-   ],
-   "say": {
-    "zh": "點你要去的親子館"
-   },
-   "done_when": "route",
-   "say_default": "點你要去的親子館"
-  },
-  {
-   "id": "activity",
-   "url": "^/family-center/",
-   "find": [
-    {
-     "role": "button",
-     "text": "報名"
-    }
-   ],
-   "say": {
-    "zh": "點活動的「報名」"
-   },
-   "done_when": "click"
-  },
-  {
-   "id": "name",
-   "url": "^/family-center/",
-   "find": [
-    {
-     "label": "家長姓名"
+      "id": "activity",
+      "url": "^/family-center/",
+      "find": [
+        {
+          "role": "button",
+          "text": "報名"
+        }
+      ],
+      "say": {
+        "zh": "點活動的「報名」"
+      },
+      "done_when": "click"
     },
     {
-     "css": "#parent_name"
-    }
-   ],
-   "say": {
-    "zh": "輸入家長姓名"
-   },
-   "done_when": "input",
-   "accept": "text"
-  },
-  {
-   "id": "phone",
-   "url": "^/family-center/",
-   "find": [
-    {
-     "label": "聯絡電話"
+      "id": "name",
+      "url": "^/family-center/",
+      "find": [
+        {
+          "label": "家長姓名"
+        },
+        {
+          "css": "#parent_name"
+        }
+      ],
+      "say": {
+        "zh": "輸入家長姓名"
+      },
+      "done_when": "input",
+      "accept": "text"
     },
     {
-     "css": "#phone"
-    }
-   ],
-   "say": {
-    "zh": "輸入聯絡電話"
-   },
-   "done_when": "input",
-   "accept": "phone"
-  },
-  {
-   "id": "age",
-   "url": "^/family-center/",
-   "find": [
+      "id": "phone",
+      "url": "^/family-center/",
+      "find": [
+        {
+          "label": "聯絡電話"
+        },
+        {
+          "css": "#phone"
+        }
+      ],
+      "say": {
+        "zh": "輸入聯絡電話"
+      },
+      "done_when": "input",
+      "accept": "phone"
+    },
     {
-     "css": "#child_age"
-    }
-   ],
-   "say": {
-    "zh": "選小孩年齡"
-   },
-   "done_when": "change"
-  },
-  {
-   "id": "submit",
-   "url": "^/family-center/",
-   "find": [
+      "id": "age",
+      "url": "^/family-center/",
+      "find": [
+        {
+          "css": "#child_age"
+        }
+      ],
+      "say": {
+        "zh": "選小孩年齡"
+      },
+      "done_when": "change"
+    },
     {
-     "role": "button",
-     "text": "送出報名"
+      "id": "submit",
+      "url": "^/family-center/",
+      "find": [
+        {
+          "role": "button",
+          "text": "送出報名"
+        }
+      ],
+      "say": {
+        "zh": "按「送出報名」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按「送出報名」"
-   },
-   "done_when": "click",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ],
+  "finish": "quiet"
 }
