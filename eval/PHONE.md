@@ -1,14 +1,14 @@
 # On-phone numbers (Galaxy S26 Ultra, 2026-11-08)
 
-Same 1,052-utterance set as `MATRIX_1K.md`, decider served by the llama-server running **inside the TownPass APK** on the Hexagon NPU (`llm-fuse-phone` row), measured over `adb forward` from the laptop (adds ~30 ms per request).
+Same test set as `MATRIX_1K.md` (1,027 utterances after the water-meter service was removed on 2026-11-08), decider served by the llama-server running **inside the TownPass APK** on the Hexagon NPU (`llm-fuse-phone` row), measured over `adb forward` from the laptop (adds ~30 ms per request).
 
 | run | where | first-round | two-round | out-of-scope | p50 | p90 | max |
 |---|---|---|---|---|---|---|---|
-| llm-fuse-phone | S26 NPU, in-app | 93.9% | 97.6% | 99.2% | 65 ms | 72 ms | 174 ms |
+| llm-fuse-phone | S26 NPU, in-app | 93.2% | 97.3% | 99.2% | 63 ms | | |
 | llm-fuse-after | laptop RTX GPU | 93.6% | 97.6% | 99.2% | 40 ms | | |
-| cls-fuse-r3 | e5 classifier, WebView ONNX | 95.0% | 96.9% | 90.6% | 6 ms | | |
+| cls-fuse-r3 | e5 classifier, WebView ONNX | 94.9% | 96.8% | 90.6% | 6 ms | | |
 
-| llm-fuse-phone-2nd | S26 NPU + e5 second opinion | 93.6% | 97.7% | 99.2% | 59 ms | | |
+| llm-fuse-phone-2nd | S26 NPU + e5 second opinion | 93.2% | 97.4% | 99.2% | 64 ms | | |
 
 Phone and laptop agree on every item class; repeated phone runs land between 93.6% and 93.9% first-round (3 items at the ASK threshold).
 
