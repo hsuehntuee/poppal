@@ -100,5 +100,11 @@
   "stt_retry": "Nói lại",
   "guide_which_el": "Bạn muốn cái nào?",
   "guide_resume": "Quay lại {text}",
-  "guide_self_do": "Bạn tự bấm cái này nhé"
+  "guide_self_do": "Bạn tự bấm cái này nhé",
+  "guide_skip": "Bỏ qua",
+  "guide_form_fill": "Nhập {text}",
+  "guide_form_select": "Chọn {text}",
+  "guide_form_check_any": "Chọn ít nhất một: {text}",
+  "guide_form_check": "Đánh dấu {text}",
+  "guide_form_upload": "Thêm ảnh? Không thì bỏ qua"
 }

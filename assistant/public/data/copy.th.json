@@ -100,5 +100,11 @@
   "stt_retry": "พูดอีกครั้ง",
   "guide_which_el": "คุณหมายถึงอันไหน?",
   "guide_resume": "กลับไปทำ {text} ต่อ",
-  "guide_self_do": "กรุณากดอันนี้เอง"
+  "guide_self_do": "กรุณากดอันนี้เอง",
+  "guide_skip": "ข้าม",
+  "guide_form_fill": "กรอก {text}",
+  "guide_form_select": "เลือก {text}",
+  "guide_form_check_any": "ติ๊กอย่างน้อยหนึ่ง: {text}",
+  "guide_form_check": "ติ๊ก {text}",
+  "guide_form_upload": "เพิ่มรูป? ไม่ก็ข้าม"
 }

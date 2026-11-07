@@ -74,6 +74,12 @@ interface Step {
   prefill?: string;
   /** 任選一個：把所有符合定位器的元素都框起來，點任何一個都算完成 */
   pick_any?: boolean;
+  /** 表單逐欄：到了這一頁就掃描畫面上的欄位，展開成一欄一步（這一步本身不是目標） */
+  walk_form?: boolean;
+  /** 可略過（非必填欄位、附件）：面板多一顆「略過」 */
+  optional?: boolean;
+  /** 程式展開出來的（不是腳本寫的） */
+  generated?: boolean;
 }
 interface Guide {
   id: string;
@@ -298,7 +304,7 @@ class Runner {
     return this.state.mode !== 'normal';
   }
 
-  async run() {
+  async run(): Promise<void> {
     this.clearStep();
     // 換步驟：面板不再鎖邊；上一步的欄位若還有焦點就放掉（否則鍵盤收了面板還卡在底下蓋住下一個按鈕）
     this.ui.sideLocked = false;
@@ -328,6 +334,22 @@ class Runner {
     const quiet = this.collapsed;
 
     const onRightPage = !step.url || new RegExp(step.url).test(location.pathname);
+    if (onRightPage && step.walk_form) {
+      // 表單逐欄：等表單真的畫出來（換頁後 Vue 還在渲染），再掃描欄位展開成一欄一步，取代這個占位步驟
+      await waitFor(() => (document.querySelector('form input:not([type=hidden]), form textarea, form select') ? true : null), 4000);
+      const gen = scanForm(this);
+      tplog('overlay', `walk_form ${step.id}: ${gen.length} fields`, { fields: gen.map((g) => g.id) });
+      // 逐欄引導時面板要一直在（「略過」在面板上），不躲起來
+      this.guide.collapse = false;
+      this.selfStreak = 0;
+      if (this.collapsed) {
+        this.collapsed = false;
+        this.ui.expand();
+      }
+      this.guide.steps.splice(this.state.step, 1, ...gen);
+      if (!gen.length) return this.run();
+      step = this.step!;
+    }
     if (onRightPage) {
       this.state.resume = location.pathname;
       this.state.left = false;
@@ -535,6 +557,7 @@ class Runner {
     } else if (step.done_when === 'manual' || manualNext || step.accept) {
       mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ›', onClick: () => this.doAction() });
     }
+    if (step.optional) mains.push({ label: this.t('guide_skip'), secondary: true, onClick: () => this.advanceBy('panel') });
     this.ui.show({
       say,
       more: showMore ? more : '',
@@ -2202,6 +2225,85 @@ interface Cand {
 }
 
 /** 這一頁所有看得到、可互動的元素與它們的文字 */
+/** 表單逐欄：照畫面順序把可填的欄位變成一步一步（欄位用 data-tp-field 標起來當定位器） */
+let fieldSeq = 0;
+function scanForm(runner: Runner): Step[] {
+  const form = [...document.querySelectorAll<HTMLFormElement>('form')].find((f) => f.querySelector('input:not([type=hidden]), textarea, select'));
+  const root: ParentNode = form ?? document.body;
+  const url = runner.step?.url;
+  const out: Step[] = [];
+  const seenGroup = new Set<Element>();
+  const labelOf = (el: HTMLElement): string => {
+    const id = el.getAttribute('id');
+    let t = id ? document.querySelector(`label[for="${id}"]`)?.textContent || '' : '';
+    if (!t) t = el.closest('label')?.textContent || '';
+    if (!t) {
+      const block = el.closest('div, li, fieldset');
+      t = block?.querySelector('label, p, legend')?.textContent || '';
+    }
+    return t.replace(/[\s*：:]+/g, ' ').trim().slice(0, 16);
+  };
+  const requiredOf = (el: HTMLElement): boolean => {
+    if ((el as HTMLInputElement).required) return true;
+    const id = el.getAttribute('id');
+    const lab = (id ? document.querySelector(`label[for="${id}"]`)?.textContent : '') || el.closest('div, li')?.querySelector('label, p')?.textContent || '';
+    return /\*/.test(lab);
+  };
+  const mark = (el: HTMLElement): string => {
+    const key = el.getAttribute('data-tp-field') || `f${++fieldSeq}`;
+    el.setAttribute('data-tp-field', key);
+    return key;
+  };
+  for (const el of root.querySelectorAll<HTMLElement>('input, textarea, select')) {
+    if (el.closest('#tp-guide-host') || (el as HTMLInputElement).disabled) continue;
+    const type = ((el as HTMLInputElement).type || '').toLowerCase();
+    if (type === 'hidden' || type === 'submit' || type === 'button') continue;
+    if (type === 'file') {
+      // 附件：目標是看得到的上傳鈕（label for=...），可略過；一個上傳區只算一步
+      const id = el.getAttribute('id');
+      const lab = id ? document.querySelector<HTMLElement>(`label[for="${id}"]`) : null;
+      const zone = el.closest<HTMLElement>('section, div');
+      if (!lab || !isDisplayed(lab) || (zone && seenGroup.has(zone))) continue;
+      if (zone) seenGroup.add(zone);
+      const key = mark(lab);
+      out.push({ id: `form_upload_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_upload') }, done_when: 'manual', optional: true, generated: true });
+      continue;
+    }
+    if (type === 'checkbox' || type === 'radio') {
+      const lab = el.closest<HTMLElement>('label') ?? (el.id ? document.querySelector<HTMLElement>(`label[for="${el.id}"]`) : null);
+      if (!lab || !isDisplayed(lab)) continue;
+      // 同一個容器裡的多個勾選框 = 一組（至少勾一個）；單獨一個 = 勾選它
+      const group = lab.parentElement && lab.parentElement.querySelectorAll('input[type=checkbox], input[type=radio]').length > 1 ? lab.parentElement : null;
+      if (group) {
+        if (seenGroup.has(group)) continue;
+        seenGroup.add(group);
+        const labels = [...group.querySelectorAll<HTMLElement>('label')].filter((l) => l.querySelector('input[type=checkbox], input[type=radio]'));
+        const key = `g${++fieldSeq}`;
+        for (const l of labels) l.setAttribute('data-tp-field', key);
+        const title = (group.parentElement?.querySelector('p, label')?.textContent || '').replace(/[\s*：:]+/g, ' ').trim().slice(0, 16);
+        const req = /\*/.test(group.closest('div')?.parentElement?.textContent?.slice(0, 40) || '');
+        out.push({ id: `form_group_${key}`, url, find: [{ css: `label[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_check_any', { text: title }) }, done_when: 'click', pick_any: true, optional: !req, generated: true,
+          skip_if_visible: [{ css: `label[data-tp-field="${key}"] input:checked` }] });
+      } else {
+        const key = mark(lab);
+        out.push({ id: `form_check_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_check', { text: labelOf(el) || lab.textContent?.trim().slice(0, 16) || '' }) }, done_when: 'click', generated: true,
+          skip_if_visible: [{ css: `[data-tp-field="${key}"] input:checked` }] });
+      }
+      continue;
+    }
+    if (!isDisplayed(el)) continue;
+    const key = mark(el);
+    const name = labelOf(el) || (el as HTMLInputElement).placeholder || '';
+    if (el.tagName === 'SELECT') {
+      out.push({ id: `form_select_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_select', { text: name }) }, done_when: 'change', optional: !requiredOf(el), generated: true });
+    } else {
+      const digits = /^(tel|number)$/.test(type) || /^[0-9]+$/.test((el as HTMLInputElement).placeholder || '');
+      out.push({ id: `form_fill_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_fill', { text: name }) }, done_when: 'input', accept: digits ? 'digits' : 'text', optional: !requiredOf(el), generated: true });
+    }
+  }
+  return out;
+}
+
 /** 禁區：導航／破壞類元素永遠不由版面感知自動挑、也不代按（導覽腳本精確指名時才算目標） */
 const FORBIDDEN_TEXT = /^(返回|上一頁|回上一頁|關閉|首頁|回到城市通|回首頁|取消|清除|清空|刪除|移除|登出|重設|重置|back|close|cancel|delete|remove|logout|reset|home)$/i;
 function isForbidden(el: HTMLElement): boolean {

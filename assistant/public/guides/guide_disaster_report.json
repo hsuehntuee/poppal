@@ -31,27 +31,14 @@
       }
     },
     {
-      "id": "detail",
+      "id": "form",
       "url": "^/disaster-report/form/",
-      "find": [
-        {
-          "label": "地點描述"
-        },
-        {
-          "css": "textarea"
-        },
-        {
-          "css": "input"
-        }
-      ],
+      "find": [],
       "say": {
-        "zh": "描述地點與災情"
+        "zh": "照畫面填"
       },
-      "done_when": "input",
-      "more": {
-        "zh": "可以用說的"
-      },
-      "accept": "text"
+      "done_when": "manual",
+      "walk_form": true
     },
     {
       "id": "submit",

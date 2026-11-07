@@ -100,5 +100,11 @@
   "stt_retry": "Ulangi",
   "guide_which_el": "Yang mana yang kamu mau?",
   "guide_resume": "Kembali ke {text}",
-  "guide_self_do": "Silakan tekan sendiri"
+  "guide_self_do": "Silakan tekan sendiri",
+  "guide_skip": "Lewati",
+  "guide_form_fill": "Isi {text}",
+  "guide_form_select": "Pilih {text}",
+  "guide_form_check_any": "Centang minimal satu: {text}",
+  "guide_form_check": "Centang {text}",
+  "guide_form_upload": "Tambah foto? Lewati jika tidak"
 }

@@ -1,72 +1,63 @@
 {
- "id": "guide_apply",
- "title": {
-  "zh": "申辦服務"
- },
- "entry": "/",
- "match": {
-  "url": "^/(form/)?$"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/$",
-   "find": [
-    {
-     "text": "{{entity}}"
-    },
-    {
-     "css": "input[placeholder*=\"問題\"]"
-    }
-   ],
-   "say": {
-    "zh": "點「{{entity}}」"
-   },
-   "done_when": "route",
-   "say_default": {
-    "zh": "在搜尋框輸入要申辦的項目"
-   },
-   "more": {
-    "zh": "或在搜尋框輸入要申辦的項目"
-   }
+  "id": "guide_apply",
+  "title": {
+    "zh": "申辦服務"
   },
-  {
-   "id": "form",
-   "url": "^/form/",
-   "find": [
-    {
-     "css": "input"
-    },
-    {
-     "css": "select"
-    },
-    {
-     "css": "textarea"
-    }
-   ],
-   "say": {
-    "zh": "照畫面填資料"
-   },
-   "done_when": "manual",
-   "more": {
-    "zh": "填完按最下面的「下一步」"
-   }
+  "entry": "/",
+  "match": {
+    "url": "^/(form/)?$"
   },
-  {
-   "id": "next",
-   "url": "^/form/",
-   "find": [
+  "steps": [
     {
-     "role": "button",
-     "text": "下一步"
+      "id": "pick",
+      "url": "^/$",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "css": "input[placeholder*=\"問題\"]"
+        }
+      ],
+      "say": {
+        "zh": "點「{{entity}}」"
+      },
+      "done_when": "route",
+      "say_default": {
+        "zh": "在搜尋框輸入要申辦的項目"
+      },
+      "more": {
+        "zh": "或在搜尋框輸入要申辦的項目"
+      }
+    },
+    {
+      "id": "form",
+      "url": "^/form/",
+      "find": [],
+      "say": {
+        "zh": "照畫面填資料"
+      },
+      "done_when": "manual",
+      "more": {
+        "zh": "填完按最下面的「下一步」"
+      },
+      "walk_form": true
+    },
+    {
+      "id": "next",
+      "url": "^/form/",
+      "find": [
+        {
+          "role": "button",
+          "text": "下一步"
+        }
+      ],
+      "say": {
+        "zh": "按「下一步」"
+      },
+      "done_when": "route",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "按「下一步」"
-   },
-   "done_when": "route",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ]
 }

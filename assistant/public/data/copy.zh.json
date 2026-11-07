@@ -121,5 +121,11 @@
   "stt_retry": "再說一次",
   "guide_which_el": "你要的是哪一個？",
   "guide_resume": "回去繼續「{text}」",
-  "guide_self_do": "這個請你自己按"
+  "guide_self_do": "這個請你自己按",
+  "guide_skip": "略過",
+  "guide_form_fill": "輸入「{text}」",
+  "guide_form_select": "選「{text}」",
+  "guide_form_check_any": "勾「{text}」，至少一項",
+  "guide_form_check": "勾選「{text}」",
+  "guide_form_upload": "要加照片嗎？不用就略過"
 }
