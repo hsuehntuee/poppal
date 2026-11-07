@@ -20,10 +20,14 @@ entities = json.load(open(os.path.join(ROOT, 'tools', 'tinycls', 'data', 'entiti
 # 找地點：place_list.json 的每個項目名稱（捐血站、親子館、無障礙廁所…）直接進 find_place 的 covers，
 # entity 就是頁面上的項目全名，導覽才點得到（mine_mock.py 也會挖，這裡保證不靠它的快取）
 _place_list = os.path.join(ROOT, 'TownPass-Services', 'public', 'mock', 'place_list.json')
+_place_group = {}  # 項目名稱 → 頁面上的分類標題（導覽要先點開那一類）
 if os.path.isfile(_place_list):
     for _g in json.load(open(_place_list, encoding='utf-8'))['list']:
         entities.setdefault('O', [])
         entities['O'] += [p['name'] for p in _g.get('places', []) if p.get('name')]
+        for p in _g.get('places', []):
+            if p.get('name'):
+                _place_group[p['name']] = _g.get('name', '')
 guides = {}
 for p in glob.glob(os.path.join(PUB, 'guides', 'guide_*.json')):
     g = json.load(open(p, encoding='utf-8'))
@@ -149,6 +153,11 @@ for tool_id, amap in ALIASES.items():
                     i['entity'] = target
             continue
         index.append({'term': alias, 'tools': [tool_id], 'ambiguous': False, 'entity': target})
+for i in index:
+    if 'find_place' in i['tools']:
+        g = _place_group.get(i.get('entity') or i['term'])
+        if g:
+            i['group'] = g
 index.sort(key=lambda x: (-len(x['term']), x['term']))
 
 registry = {

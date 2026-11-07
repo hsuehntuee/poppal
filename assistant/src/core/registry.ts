@@ -38,6 +38,8 @@ export interface Tool {
   examples: string[];
 }
 export interface IndexEntry {
+  /** 找地點：這個項目在頁面上屬於哪一類（導覽先點開那一類） */
+  group?: string;
   term: string;
   tools: string[];
   ambiguous: boolean;
@@ -66,6 +68,7 @@ export function toolByCode(r: Registry, code: Code): Tool | undefined {
 }
 
 export interface Hit {
+  group?: string;
   term: string;
   tools: string[];
   ambiguous: boolean;
@@ -89,7 +92,7 @@ export function lookup(r: Registry, text: string): Hit[] {
       from = i + 1;
       if (covered.slice(i, i + term.length).some(Boolean)) continue;
       for (let k = i; k < i + term.length; k++) covered[k] = true;
-      hits.push({ term: e.term, tools: e.tools, ambiguous: e.ambiguous, entity: e.entity });
+      hits.push({ term: e.term, tools: e.tools, ambiguous: e.ambiguous, entity: e.entity, group: e.group });
     }
   }
   return hits;
@@ -133,7 +136,10 @@ export function extractParams(tool: Tool, text: string, hits: Hit[] = []): Recor
   }
   // 查表命中的具體項目：index 可能把口語別名（違停）對到頁面上的項目（停車管理及收費問題）
   const hit = hits.find((h) => h.tools.includes(tool.id) && (h.entity || tool.covers.includes(h.term)));
-  if (hit) out.entity = hit.entity ?? hit.term;
+  if (hit) {
+    out.entity = hit.entity ?? hit.term;
+    if (hit.group) out.group = hit.group;
+  }
   return out;
 }
 

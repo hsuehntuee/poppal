@@ -8,7 +8,7 @@ import { settings, applyMode, type Mode, type EngineKind } from '../core/setting
 import { stt, langId, translate, tts, openExternal, phoneCall, hasBridge, onSttPartial } from '../core/bridge';
 import { createDecider } from '../engines';
 import { loadRegistry, toolByCode, extractParams, invoke, type Registry, type Hit } from '../core/registry';
-import { fuseWithRegistry } from '../core/fuse';
+import { fuseWithRegistry, rescueCandidates, secondOpinion } from '../core/fuse';
 import { tplog, onTripleTap } from '../core/log';
 import { callBridge } from '../core/bridge';
 
@@ -30,6 +30,9 @@ const decider = ref<Decider | null>(null);
 const engineKind = ref<EngineKind>(settings.engine);
 const llmUrl = ref(settings.llmUrl);
 const showSettings = ref(false);
+// 線條圖示（不用表情符號）
+const ICON_GEAR = "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z\"/></svg>";
+const ICON_MIC = "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8\"/></svg>";
 const askMode = ref(settings.mode === null);
 /** 偵測到英文輸入時提議切換介面語言 */
 const langOffer = ref<string | null>(null);
@@ -92,6 +95,25 @@ onMounted(async () => {
     await handleText(q);
   }
 });
+
+/** 第二意見引擎：e5 分類器（主引擎已經是 cls 就不用另外載） */
+let secondCache: Decider | null | undefined;
+async function secondDecider(): Promise<Decider | null> {
+  if (!catalog.value || !decider.value) return null;
+  if (decider.value.name.startsWith('cls')) return null;
+  if (secondCache !== undefined) return secondCache;
+  try {
+    secondCache = await createDecider({
+      kind: 'cls',
+      llmUrl: llmUrl.value,
+      sets: [{ options: serviceOptions(catalog.value), instruction: catalog.value.instruction, noneCode: catalog.value.none_code, setId: 'services' }]
+    });
+  } catch (e) {
+    tplog('home', 'second engine unavailable', String(e), 'warn');
+    secondCache = null;
+  }
+  return secondCache;
+}
 
 async function bootEngine() {
   if (!catalog.value) return;
@@ -197,7 +219,22 @@ async function runDecision(text: string) {
   const fused = fuseWithRegistry(registry.value, text, probs.value);
   probs.value = fused.probs;
   hits.value = fused.hits;
-  const d0 = decide(probs.value, catalog.value.none_code);
+  // 模型說 NONE 但句子裡有查表命中的具體詞 → 叫第二個模型（e5 分類器）再理解一次，兩個模型都指向同一個服務才採用
+  let d0 = decide(probs.value, catalog.value.none_code);
+  const cands = rescueCandidates(d0, registry.value, fused.hits);
+  if (cands.length) {
+    const second = await secondDecider();
+    if (second) {
+      try {
+        const sp = fuseWithRegistry(registry.value, text, await second.score(serviceRequest(catalog.value, text))).probs;
+        const d1 = secondOpinion(d0, cands, sp);
+        if (d1 !== d0) tplog('home', `second opinion (${second.name}) rescued "${text}" → ${d1.kind === 'GO' ? d1.code : d1.kind}`, { cands, top: Object.entries(sp).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, p]) => `${c}:${p.toFixed(2)}`).join(' ') });
+        d0 = d1;
+      } catch (e) {
+        tplog('home', 'second opinion failed', String(e), 'warn');
+      }
+    }
+  }
   tplog('home', `decide "${text}" → ${d0.kind}${d0.kind === 'GO' ? ' ' + d0.code : d0.kind === 'ASK' ? ' ' + d0.codes.join('/') : ''}`, {
     engine: decider.value.name, ms: lastMs.value, info: decider.value.info(),
     top: Object.entries(probs.value).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([c, p]) => `${c}:${p.toFixed(2)}`).join(' '),
@@ -350,13 +387,13 @@ function openRecent(s: ServiceEntry) {
     <div v-if="askMode" class="modal">
       <div class="card col" style="text-align: center">
         <p style="font-size: 1.2em; font-weight: 700; margin: 0.2em 0">{{ t('mode_pick') }}</p>
-        <button class="tile" @click="chooseMode('kid')"><span class="ic">🧒</span><span><b>{{ t('mode_kid') }}</b><small>{{ t('mode_kid_sub') }}</small></span></button>
-        <button class="tile" @click="chooseMode('normal')"><span class="ic">🙂</span><span><b>{{ t('mode_normal') }}</b><small>{{ t('mode_normal_sub') }}</small></span></button>
-        <button class="tile" @click="chooseMode('elder')"><span class="ic">👓</span><span><b>{{ t('mode_elder') }}</b><small>{{ t('mode_elder_sub') }}</small></span></button>
+        <button class="tile" @click="chooseMode('kid')"><span><b>{{ t('mode_kid') }}</b><small>{{ t('mode_kid_sub') }}</small></span></button>
+        <button class="tile" @click="chooseMode('normal')"><span><b>{{ t('mode_normal') }}</b><small>{{ t('mode_normal_sub') }}</small></span></button>
+        <button class="tile" @click="chooseMode('elder')"><span><b>{{ t('mode_elder') }}</b><small>{{ t('mode_elder_sub') }}</small></span></button>
       </div>
     </div>
 
-    <button ref="gearEl" class="gear" :aria-label="t('settings')" @click="showSettings = !showSettings">⚙</button>
+    <button ref="gearEl" class="gear" :aria-label="t('settings')" @click="showSettings = !showSettings" v-html="ICON_GEAR"></button>
 
     <!-- 設定：引擎、語言、模式 -->
     <div v-if="showSettings" class="card col" style="margin: 3.6em 1em 0">
@@ -373,7 +410,7 @@ function openRecent(s: ServiceEntry) {
         <h1 style="margin: 0.3em 0">{{ t('ask_what') }}</h1>
         <p v-if="status" class="muted" style="font-size: 0.8em; margin: 0">{{ status }}</p>
         <button class="mic" :class="{ on: phase === 'listening' }" :disabled="phase === 'boot' || phase === 'thinking'" @click="onVoice">
-          <span class="icon">🎤</span>
+          <span class="icon" v-html="ICON_MIC"></span>
           <span>{{ phase === 'listening' ? t('listening') : phase === 'thinking' ? t('thinking') : t('hold_to_talk') }}</span>
         </button>
         <p v-if="heard && (phase === 'thinking' || phase === 'listening')" class="muted">{{ t('heard') }}{{ heard }}</p>
@@ -390,9 +427,10 @@ function openRecent(s: ServiceEntry) {
           <button class="btn secondary" style="min-height: 2.2em; padding: 0.3em 0.9em" :class="{ on: uiLang === 'zh' }" @click="setLang('zh')">中文</button>
           <button class="btn secondary" style="min-height: 2.2em; padding: 0.3em 0.9em" :class="{ on: uiLang === 'en' }" @click="setLang('en')">English</button>
         </div>
-        <form class="row" @submit.prevent="onTyped">
-          <input v-model="typed" :placeholder="t('type_placeholder')" style="flex: 1; padding: 0.8em; border-radius: 12px; border: 1px solid #ccc; font: inherit" />
-          <button class="btn" type="submit">{{ t('send') }}</button>
+        <!-- 輸入框 + 送出永遠同一排（大字模式也不換行：input 預設有最小寬度，要 min-width:0 才縮得了） -->
+        <form class="row" style="flex-wrap: nowrap" @submit.prevent="onTyped">
+          <input v-model="typed" :placeholder="t('type_placeholder')" style="flex: 1; min-width: 0; padding: 0.8em; border-radius: 12px; border: 1px solid #ccc; font: inherit" />
+          <button class="btn" type="submit" style="flex: 0 0 auto; white-space: nowrap">{{ t('send') }}</button>
         </form>
 
         <button class="btn ghost" style="margin-top: 0.4em; min-height: 2.2em" @click="showRecent = !showRecent">{{ t('shortcuts') }} {{ showRecent ? '▴' : '▾' }}</button>
@@ -417,7 +455,7 @@ function openRecent(s: ServiceEntry) {
 
         <template v-if="decision?.kind === 'GO'">
           <h2>{{ t('go_q', { title: titleOf(svc(decision.code)!) }) }}</h2>
-          <button class="btn big" @click="go(decision.code)">{{ t('go_yes') }} ➜</button>
+          <button class="btn big" @click="go(decision.code)">{{ t('go_yes') }} ›</button>
           <button class="btn big secondary" @click="onReject([decision.code])">{{ t('go_no') }}</button>
         </template>
 
@@ -430,10 +468,10 @@ function openRecent(s: ServiceEntry) {
         <template v-else>
           <h2>{{ t('none_title') }}</h2>
           <button class="btn big secondary" @click="goAll">{{ t('none_all') }}</button>
-          <button class="btn big secondary" @click="phoneCall('1999')">📞 {{ t('none_call') }}</button>
+          <button class="btn big secondary" @click="phoneCall('1999')">{{ t('none_call') }}</button>
         </template>
 
-        <button class="btn ghost" @click="reset">↺ {{ t('retry') }}</button>
+        <button class="btn big secondary" @click="reset">{{ t('retry') }}</button>
 
       </section>
     </main>
@@ -464,7 +502,7 @@ function openRecent(s: ServiceEntry) {
 @keyframes pop { from { transform: scale(.3) rotate(-8deg); opacity: 0; } }
 @keyframes bob { 50% { transform: translateY(-8px) scale(1.06); } }
 @keyframes splashOut { 0%, 72% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-.gear { position: fixed; top: 10px; right: 12px; z-index: 20; width: 2.6em; height: 2.6em; border-radius: 50%; border: 0; background: #fff; color: var(--tp-primary); font-size: 1.1em;
+.gear { position: fixed; top: 10px; right: 12px; z-index: 20; width: 2.6em; height: 2.6em; border-radius: 50%; border: 0; background: #fff; color: var(--tp-primary); font-size: 1.1em; display: inline-flex; align-items: center; justify-content: center;
   box-shadow: 0 3px 10px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
 .gear:active { transform: scale(.92); }
 .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 1em; z-index: 50; }
@@ -474,7 +512,7 @@ function openRecent(s: ServiceEntry) {
   background: var(--tp-primary); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3em;
   font-size: 1em; font-weight: 700; box-shadow: 0 8px 24px rgba(46,182,199,.45); cursor: pointer;
 }
-.mic .icon { font-size: 3em; }
+.mic .icon { font-size: 3em; display: inline-flex; }
 .mic.on { background: var(--tp-warn); animation: pulse 1s infinite; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
 h1 { font-size: 1.5em; } h2 { font-size: 1.3em; margin: 0.3em 0; }

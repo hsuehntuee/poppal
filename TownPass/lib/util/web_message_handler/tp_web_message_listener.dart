@@ -11,6 +11,7 @@ abstract class TPWebMessageListener {
         UserinfoWebMessageHandler(),
         LaunchMapWebMessageHandler(),
         PhoneCallMessageHandler(),
+        CloseWebViewMessageHandler(),
         Agree1999MessageHandler(),
         LocationMessageHandler(),
         DeviceInfoMessageHandler(),

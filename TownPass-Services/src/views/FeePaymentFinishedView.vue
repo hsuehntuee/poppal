@@ -6,6 +6,7 @@ import ServiceStep from '@/components/molecules/ServiceStep.vue';
 import { useFeePaymentStore } from '@/stores/fee-payment';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useConnectionMessage } from '@/composables/useConnectionMessage';
 
 const route = useRoute();
 const router = useRouter();
@@ -17,6 +18,13 @@ const paymentItem = computed(() => {
   const concatenatedData = paymentList.value.flatMap((item) => item.data);
   return concatenatedData.find((item) => item.id === route.params.id)!;
 });
+
+// 回到城市通：在 App 裡就關掉 WebView 回首頁；瀏覽器裡就回服務首頁
+function backToApp() {
+  // @ts-ignore
+  if (typeof flutterObject !== 'undefined' && flutterObject) useConnectionMessage('close_webview', null);
+  else router.push('/');
+}
 </script>
 
 <template>
@@ -53,7 +61,7 @@ const paymentItem = computed(() => {
       <BaseButton
         :shape="'rounded'"
         class="mt-10 w-1/2"
-        @click="router.push({ name: 'fee-payment-others' })"
+        @click="backToApp()"
       >
         回到城市通
       </BaseButton>

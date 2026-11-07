@@ -45,9 +45,17 @@ await decider.ready({ sets });
 console.error(`[${engine}] ready in ${Date.now() - t0} ms`, decider.info());
 
 const registry = args.fuse ? (JSON.parse(fs.readFileSync(path.join(root, 'assistant/public/data/registry.json'), 'utf8')) as Registry) : null;
+// --second cls：第二意見（跟 App 同一條規則：主模型說 NONE + 查表有候選 → 另一個模型同意才救）
+let second = null as Awaited<ReturnType<typeof makeDecider>> | null;
+if (args.second) {
+  second = await makeDecider(String(args.second));
+  await second.ready({ sets });
+  console.error(`[second:${args.second}] ready`, second.info());
+}
 const summary = await runEval(decider, catalog, items, {
   thresholds: th,
   registry,
+  second,
   alpha: num(args.alpha, 4),
   onProgress: (i, r) => {
     const mark = r.firstHit ? '✓' : r.twoRoundHit ? '~' : '✗';

@@ -8,7 +8,13 @@ Same 1,052-utterance set as `MATRIX_1K.md`, decider served by the llama-server r
 | llm-fuse-after | laptop RTX GPU | 93.6% | 97.6% | 99.2% | 40 ms | | |
 | cls-fuse-r3 | e5 classifier, WebView ONNX | 95.0% | 96.9% | 90.6% | 6 ms | | |
 
-Phone and laptop agree on every item class (the 0.3 pt difference is 3 items at the ASK threshold).
+| llm-fuse-phone-2nd | S26 NPU + e5 second opinion | 93.6% | 97.7% | 99.2% | 59 ms | | |
+
+Phone and laptop agree on every item class; repeated phone runs land between 93.6% and 93.9% first-round (3 items at the ASK threshold).
+
+## Second opinion (shipped)
+
+The decider says "out of scope" for some phrasings that a Taipei resident would expect to work, e.g. 我想看漫畫 (library has comics). Instead of a keyword rule, the app asks a second model: when Gemma answers NONE with p < 0.995 **and** the sentence contains an unambiguous catalog term, the e5 classifier (already loaded as the fallback, 6 ms) scores the sentence; only if its top choice is one of the services the term points to, with p >= 0.8, does the app go there (still shown as a confirm, "要去【X】嗎？"). The lexicon never decides, it only decides when to ask the second model. Effect on the 1k set: out-of-scope detection unchanged (99.2%), first-round unchanged, one already-missed item becomes a confirm instead of "not found"; all 12 comic/book phrasings that used to dead-end now route to the library. The eval CLI reproduces it with `--second cls`.
 
 ## NPU vs CPU on the same phone, same model, same server build
 

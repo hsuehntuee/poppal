@@ -131,10 +131,10 @@ function mountFab() {
                border: 0; border-radius: 999px; padding: 10px 14px 10px 12px; background: #2eb6c7; color: #fff; font: 700 15px 'PingFang TC', Roboto, system-ui, sans-serif;
                box-shadow: 0 6px 18px rgba(46,182,199,.45); -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; animation: in .4s cubic-bezier(.2,1.4,.4,1); }
       button:active { transform: scale(.95); }
-      .ic { font-size: 18px; line-height: 1; }
+      .ic { display: inline-flex; line-height: 1; }
       @keyframes in { from { transform: scale(.5); opacity: 0; } }
     </style>
-    <button type="button" aria-label="${label}"><span class="ic">🎤</span><span>${label}</span></button>`;
+    <button type="button" aria-label="${label}"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></span><span>${label}</span></button>`;
   root.querySelector('button')!.addEventListener('click', (ev) => {
     ev.stopPropagation();
     tplog('overlay', 'fab → assistant', { url: location.pathname });
@@ -339,7 +339,7 @@ class Runner {
       // 按了兩次還關不掉（例如定位被拒、提示一直跳）：不再代按，請使用者處理或離開
       this.ui.setDim(false);
       this.ui.place(null);
-      this.ui.show({ say: this.t('guide_popup_stuck'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [{ label: this.t('guide_next') + ' ➜', onClick: () => { this.coverAttempts = 0; this.run(); } }], icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }] });
+      this.ui.show({ say: this.t('guide_popup_stuck'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [{ label: this.t('guide_next') + ' ›', onClick: () => { this.coverAttempts = 0; this.run(); } }], icons: [{ label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }] });
       return;
     }
     if (cover) {
@@ -357,8 +357,8 @@ class Runner {
       this.ui.show({
         say: this.t('guide_close_popup', { text: cover.textContent?.trim().slice(0, 10) || '' }),
         stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
-        buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => cover.click() }], // 下面的 click 監聽器會重跑（之前這裡又排一次 run → 次數算兩次，馬上變成「關不掉」）
-        icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }]
+        buttons: [{ label: `${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => cover.click() }], // 下面的 click 監聽器會重跑（之前這裡又排一次 run → 次數算兩次，馬上變成「關不掉」）
+        icons: [{ label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }]
       });
       this.ui.hideInput();
       const h = () => setTimeout(() => this.run(), 700);
@@ -390,7 +390,7 @@ class Runner {
       this.ui.setDim(false);
       this.ui.place(null);
       this.ui.hideInput();
-      this.ui.show({ say: this.t('guide_free_pick'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [], icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }] });
+      this.ui.show({ say: this.t('guide_free_pick'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [], icons: [{ label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }] });
       return;
     }
     // 陪伴：框住頁面上真正的欄位 / 按鈕，使用者自己操作 App；面板只說明該做什麼
@@ -455,9 +455,9 @@ class Runner {
     const mains: PanelButton[] = [];
     if (clickable) {
       // 使用者自己點畫面上框起來的東西；長輩 / 小朋友多一顆「幫我按」當備援
-      if (this.loud) mains.push({ label: `✓ ${isSelect && !label ? this.t('guide_pick_one') : this.t(isSelect ? 'guide_select_for_me' : 'guide_press_for_me', { text: label })}`, secondary: true, onClick: () => this.doAction() });
+      if (this.loud) mains.push({ label: `${isSelect && !label ? this.t('guide_pick_one') : this.t(isSelect ? 'guide_select_for_me' : 'guide_press_for_me', { text: label })}`, secondary: true, onClick: () => this.doAction() });
     } else if (step.done_when === 'manual' || manualNext || step.accept) {
-      mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ➜', onClick: () => this.doAction() });
+      mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ›', onClick: () => this.doAction() });
     }
     this.ui.show({
       say,
@@ -465,15 +465,15 @@ class Runner {
       stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
       buttons: [
         // 數字欄位不用「用說的」（辨識數字不可靠）：直接用數字鍵盤
-        ...(step.accept && step.accept !== 'digits' && step.accept !== 'phone' ? [{ label: '🎤', icon: true, title: this.t('guide_voice'), onClick: () => this.onVoice() }] : []),
-        ...(step.accept ? [{ label: '⌨️', icon: true, secondary: true, title: this.t('guide_keyboard'), onClick: () => this.keyboard() }] : []),
+        ...(step.accept && step.accept !== 'digits' && step.accept !== 'phone' ? [{ label: ICON.mic, icon: true, title: this.t('guide_voice'), onClick: () => this.onVoice() }] : []),
+        ...(step.accept ? [{ label: ICON.keyboard, icon: true, secondary: true, title: this.t('guide_keyboard'), onClick: () => this.keyboard() }] : []),
         ...mains
       ],
       icons: [
-        { label: '❓', title: this.t('guide_help'), onClick: () => this.help() },
-        { label: '🔊', title: this.t('guide_repeat'), onClick: () => this.speak(say + (more ? '。' + more : '')) },
-        { label: '‹', title: this.t('guide_back'), onClick: () => this.goBack() },
-        { label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }
+        { label: ICON.help, title: this.t('guide_help'), onClick: () => this.help() },
+        { label: ICON.speaker, title: this.t('guide_repeat'), onClick: () => this.speak(say + (more ? '。' + more : '')) },
+        { label: ICON.back, title: this.t('guide_back'), onClick: () => this.goBack() },
+        { label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }
       ],
       // 框的東西不是使用者要的（例如小幫手猜錯分類）→ 這一步自己選，選好再接手
       extra: this.target && step.done_when !== 'manual' ? { label: this.t('guide_not_this'), onClick: () => this.notThis() } : undefined
@@ -519,10 +519,10 @@ class Runner {
       say: this.t('guide_go_via', { text: label }),
       more: path.length > 1 ? path.map((e) => '「' + e.label.slice(0, 8) + '」').join(' → ') : '',
       stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
-      buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: label })}`, onClick: () => el!.click() }],
+      buttons: [{ label: `${this.t('guide_press_for_me', { text: label })}`, onClick: () => el!.click() }],
       icons: [
-        { label: '🔊', title: this.t('guide_repeat'), onClick: () => this.speak(this.t('guide_go_via', { text: label })) },
-        { label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }
+        { label: ICON.speaker, title: this.t('guide_repeat'), onClick: () => this.speak(this.t('guide_go_via', { text: label })) },
+        { label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }
       ]
     });
     this.ui.hideInput();
@@ -1014,7 +1014,7 @@ class Runner {
     this.stuckTimer = window.setTimeout(async () => {
       if (!this.step) return;
       if (this.collapsed) return this.expand(); // 躲著但使用者卡住了 → 出來
-      const ok = await this.ui.ask(this.t('guide_stuck'), this.t('guide_help'), '📞 1999');
+      const ok = await this.ui.ask(this.t('guide_stuck'), this.t('guide_help'), '1999');
       if (ok) this.help();
       else phoneCall('1999');
     }, STUCK_MS);
@@ -1030,9 +1030,18 @@ class Runner {
     clearInterval(this.trackTimer);
     this.lostSince = 0;
     // 背景分頁 / WebView 暫停時 rAF 不跑，用 interval 補
+    let tick = 0;
     this.trackTimer = window.setInterval(() => {
       const el = this.target;
       if (el && document.contains(el) && isVisible(el)) this.ui.place(el);
+      // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
+      if (++tick % 4 === 0 && !this.busy && !this.confirming) {
+        const st = this.step;
+        if (st && st.skip_if_visible && this.fillLocators(st.skip_if_visible).some((l) => isVisible(locate([l])))) {
+          tplog('overlay', `step ${this.state.step + 1} ${st.id}: done by user, moving on`);
+          this.advanceBy('self');
+        }
+      }
     }, 150);
     const loop = () => {
       const el = this.target;
@@ -1208,6 +1217,9 @@ function isVisible(el: HTMLElement | null): boolean {
 
 /* ---------- UI（Shadow DOM，不吃服務頁的 CSS） ---------- */
 
+/** 線條圖示（不用表情符號）：label 以 <svg 開頭就當 HTML 塞進去 */
+const ICON = {"mic": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8\"/></svg>", "keyboard": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M7 10h.01M11 10h.01M15 10h.01M7 14h10\"/></svg>", "help": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01\"/></svg>", "speaker": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 10v4h3l5 4V6L7 10H4zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11\"/></svg>", "back": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 5l-7 7 7 7\"/></svg>", "close": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg>", "gear": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z\"/></svg>"};
+
 interface PanelButton {
   label: string;
   secondary?: boolean;
@@ -1287,7 +1299,6 @@ class Ui {
         * { -webkit-tap-highlight-color: transparent; }
         button:focus { outline: none; }
         .panel.kid { border-top: 4px solid #5fd0bf; }
-        .panel.kid .say::before { content: '🙋 '; }
         .panel.kid button { border-radius: 16px; }
       </style>
       <div class="dim"></div>
@@ -1415,7 +1426,8 @@ class Ui {
     this.btns.innerHTML = '';
     for (const b of o.buttons) {
       const el = document.createElement('button');
-      el.textContent = b.label;
+      if (b.label.startsWith('<svg')) el.innerHTML = b.label;
+      else el.textContent = b.label;
       el.className = (b.secondary ? 'secondary ' : '') + (b.icon ? 'icon' : 'main');
       if (b.title) el.title = b.title;
       el.addEventListener('click', (ev) => {
@@ -1428,7 +1440,8 @@ class Ui {
     icons.innerHTML = '';
     for (const b of o.icons ?? []) {
       const el = document.createElement('button');
-      el.textContent = b.label;
+      if (b.label.startsWith('<svg')) el.innerHTML = b.label;
+      else el.textContent = b.label;
       if (b.title) el.title = b.title;
       el.setAttribute('aria-label', b.title ?? b.label);
       el.addEventListener('click', (ev) => {
@@ -1814,8 +1827,8 @@ async function heroEntrance(why: string) {
     </style>
     <div class="bg">
       <div class="card">
-        <div class="ring"><div class="icon">🎤</div></div>
-        <h1>${title}</h1>
+        <div class="ring"><div class="icon"><svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></div></div>
+        <h1>${title.replace(/</g, '&lt;').split(String.fromCharCode(10)).join('<br>')}</h1>
         <p>${sub}</p>
         <div class="btns">
           <button class="go">${copy.lost_help || '幫我'}</button>

@@ -139,6 +139,23 @@ class Agree1999MessageHandler extends TPWebMessageHandler {
   }
 }
 
+/// 服務頁的「回到城市通」：關掉這個 WebView 回 App 首頁（原本 demo 是跳到「其他費用」）
+class CloseWebViewMessageHandler extends TPWebMessageHandler {
+  @override
+  String get name => 'close_webview';
+
+  @override
+  handle({
+    required Object? message,
+    required WebUri? sourceOrigin,
+    required bool isMainFrame,
+    required Function(WebMessage reply)? onReply,
+  }) async {
+    onReply?.call(replyWebMessage(data: true));
+    Get.back();
+  }
+}
+
 class PhoneCallMessageHandler extends TPWebMessageHandler {
   @override
   String get name => 'phone_call';

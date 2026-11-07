@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
+import 'package:town_pass/service/offline_web_service.dart';
 import 'package:town_pass/page/city_service/model/my_service_model.dart';
 
 /// 小幫手入口頁網址。用 --dart-define=ASSISTANT_URL=... 覆寫；預設跟著 DEV_SERVICE_URL。
@@ -23,11 +25,23 @@ class AssistantService extends GetxService {
   String get assistantUrl => kAssistantUrl.isNotEmpty ? kAssistantUrl : '${kDevServiceUrl}assistant/';
 
   Future<AssistantService> init() async {
+    // 開發用覆蓋資料夾（見 OfflineWebService.overrideDir）：讀不到就回 APK 內建的
     try {
-      _overlaySource = await rootBundle.loadString('assets/js/guide-overlay.js');
-    } catch (_) {
-      _overlaySource = '';
+      final String? o = await OfflineWebService.overrideDir();
+      final File? f = o == null ? null : File('$o/assets/js/guide-overlay.js');
+      if (f != null && f.existsSync()) _overlaySource = await f.readAsString();
+    } catch (e) {
+      print('[assistant] override overlay failed: $e');
     }
+    if (_overlaySource.isEmpty) {
+      try {
+        _overlaySource = await rootBundle.loadString('assets/js/guide-overlay.js');
+      } catch (e) {
+        print('[assistant] bundled overlay failed: $e');
+        _overlaySource = '';
+      }
+    }
+    print('[assistant] overlay source ${_overlaySource.length} chars, url=$assistantUrl');
     return this;
   }
 

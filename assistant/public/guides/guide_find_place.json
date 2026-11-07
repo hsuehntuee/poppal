@@ -23,21 +23,22 @@
         }
       ],
       "say": {
-        "zh": "選「{{entity}}」"
+        "zh": "點開「請選擇要找的服務地圖」"
       },
       "say_default": {
-        "zh": "點最上面的下拉選單，選你要找的地點類型"
+        "zh": "點開「請選擇要找的服務地圖」"
       },
       "more": {
-        "zh": "點開後會列出分類，再點裡面的項目"
+        "zh": "清單會展開，再點有「{{entity}}」的那一類"
       },
       "done_when": "change",
       "skip_if_visible": [
         {
-          "text": "交通運輸、停車場、充電站"
+          "text": "{{group}}",
+          "role": "button"
         },
         {
-          "text": "無搜尋紀錄"
+          "css": ".leaflet-marker-icon"
         }
       ]
     },
@@ -46,33 +47,33 @@
       "url": "^/surrounding-service",
       "find": [
         {
-          "text": "{{entity}}",
+          "text": "{{group}}",
           "role": "button"
         }
       ],
       "say": {
-        "zh": "點有「{{entity}}」的那一類"
+        "zh": "點「{{group}}」"
       },
       "say_default": {
-        "zh": "點你要找的分類"
+        "zh": "點有「{{entity}}」的那一類"
       },
       "more": {
-        "zh": "分類會展開，裡面有你要找的項目"
+        "zh": "展開後就會看到「{{entity}}」"
       },
       "done_when": "click",
       "skip_if_missing": true,
       "skip_if_visible": [
         {
-          "css": ".leaflet-marker-icon"
-        },
-        {
           "text": "{{entity}}",
           "exact": true
+        },
+        {
+          "css": ".leaflet-marker-icon"
         }
       ]
     },
     {
-      "id": "place",
+      "id": "item",
       "url": "^/surrounding-service",
       "find": [
         {

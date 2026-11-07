@@ -2,7 +2,8 @@ import type { Catalog, Code, Decider, Decision, Probs, Thresholds } from '../cor
 import { DEFAULT_THRESHOLDS } from '../core/types';
 import { decide, reject } from '../core/decide';
 import { serviceRequest } from '../core/catalog';
-import { fuseWithRegistry } from '../core/fuse';
+import { fuseWithRegistry, rescueCandidates, secondOpinion } from '../core/fuse';
+import type { Hit } from '../core/registry';
 import type { Registry } from '../core/registry';
 
 export type Tag = 'normal' | 'ambiguous' | 'oos' | 'foreign';
@@ -56,7 +57,7 @@ export async function runEval(
   decider: Decider,
   catalog: Catalog,
   items: TestItem[],
-  opts: { thresholds?: Thresholds; onProgress?: (i: number, r: ItemResult) => void; delayMs?: number; registry?: Registry | null; alpha?: number } = {}
+  opts: { thresholds?: Thresholds; onProgress?: (i: number, r: ItemResult) => void; delayMs?: number; registry?: Registry | null; alpha?: number; second?: Decider | null } = {}
 ): Promise<EvalSummary> {
   const th = opts.thresholds ?? DEFAULT_THRESHOLDS;
   const none = catalog.none_code;
@@ -72,9 +73,23 @@ export async function runEval(
     } catch (e) {
       probs = { [none]: 1 };
     }
-    if (opts.registry) probs = fuseWithRegistry(opts.registry, it.text, probs, opts.alpha).probs;
+    let hits: Hit[] = [];
+    if (opts.registry) {
+      const f = fuseWithRegistry(opts.registry, it.text, probs, opts.alpha);
+      probs = f.probs;
+      hits = f.hits;
+    }
     const ms = now() - t0;
-    const first = decide(probs, none, th);
+    let first = decide(probs, none, th);
+    // 第二意見（跟 App 同一條規則）：主模型說 NONE + 查表有候選 → 另一個模型同意才救
+    if (opts.second) {
+      const cands = rescueCandidates(first, opts.registry ?? null, hits);
+      if (cands.length) {
+        let sp = await opts.second.score(serviceRequest(catalog, it.text));
+        if (opts.registry) sp = fuseWithRegistry(opts.registry, it.text, sp, opts.alpha).probs;
+        first = secondOpinion(first, cands, sp);
+      }
+    }
     let firstHit = false;
     let twoRoundHit = false;
     let asks = 0;

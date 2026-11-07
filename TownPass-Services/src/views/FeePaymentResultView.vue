@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
+import { useConnectionMessage } from '@/composables/useConnectionMessage';
 import { storeToRefs } from 'pinia';
 import { useFeePaymentStore } from '@/stores/fee-payment';
 import FixedTitleSection from '@/components/molecules/FixedTitleSection.vue';
@@ -51,6 +52,13 @@ const onSubmitClick = () => {
     params: { id: paymentItem.value.id, bill_id: paymentModel.value.join(',') }
   });
 };
+
+// 回到城市通：在 App 裡就關掉 WebView 回首頁；瀏覽器裡就回服務首頁
+function backToApp() {
+  // @ts-ignore
+  if (typeof flutterObject !== 'undefined' && flutterObject) useConnectionMessage('close_webview', null);
+  else router.push('/');
+}
 </script>
 
 <template>
@@ -107,7 +115,7 @@ const onSubmitClick = () => {
       <BaseButton
         :shape="'rounded'"
         class="mt-10 w-1/2"
-        @click="router.push({ name: 'fee-payment-others' })"
+        @click="backToApp()"
       >
         回到城市通
       </BaseButton>

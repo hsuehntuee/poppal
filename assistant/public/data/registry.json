@@ -1885,7 +1885,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "其他獨立項目"
   },
   {
    "term": "特殊境遇家庭扶助之家庭暴力被害人補助",
@@ -1900,7 +1901,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "無障礙廁所"
+   "entity": "無障礙廁所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "原住民參加技術士技能檢定獎勵金申請",
@@ -1936,7 +1938,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "區公所"
+   "entity": "區公所",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "payment history",
@@ -1958,7 +1961,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "捐血站"
+   "entity": "捐血站",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "drinking water",
@@ -1966,7 +1970,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "飲水機／提供飲水店家"
+   "entity": "飲水機／提供飲水店家",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "riverside park",
@@ -1974,7 +1979,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "河濱公園"
+   "entity": "河濱公園",
+   "group": "河岸樂騎"
   },
   {
    "term": "water fountain",
@@ -1982,7 +1988,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "飲水機／提供飲水店家"
+   "entity": "飲水機／提供飲水店家",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "本市警察局受理之違規申訴案件",
@@ -1997,7 +2004,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "哺集乳室"
+   "entity": "哺集乳室",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "defibrillator",
@@ -2005,7 +2013,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "AED 場所"
+   "entity": "AED 場所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "family center",
@@ -2027,7 +2036,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "哺集乳室"
+   "entity": "哺集乳室",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "registration",
@@ -2042,7 +2052,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "指定吸菸區（Designated Smoking Area）"
+   "entity": "指定吸菸區（Designated Smoking Area）",
+   "group": "其他獨立項目"
   },
   {
    "term": "公車站牌資訊看板改版設計",
@@ -2092,7 +2103,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "停車場"
+   "entity": "停車場",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "water meter",
@@ -2141,7 +2153,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "TaipeiFree"
   },
   {
    "term": "counseling",
@@ -2149,7 +2162,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "心理諮商、治療所"
+   "entity": "心理諮商、治療所",
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "vegetarian",
@@ -2157,7 +2171,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "素食友善店家"
+   "entity": "素食友善店家",
+   "group": "友善店家"
   },
   {
    "term": "water bill",
@@ -2171,7 +2186,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "停管處受理之申訴案件",
@@ -2192,7 +2208,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "原住民急難關懷慰問金",
@@ -2262,14 +2279,16 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "Free Wifi",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "complaint",
@@ -2291,7 +2310,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "TaipeiFree"
+   "entity": "TaipeiFree",
+   "group": "TaipeiFree"
   },
   {
    "term": "subscribe",
@@ -2383,7 +2403,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "charging",
@@ -2391,7 +2412,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "機車充電站"
+   "entity": "機車充電站",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "disaster",
@@ -2413,7 +2435,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "washroom",
@@ -2421,7 +2444,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "中正區戶政事務所",
@@ -2435,21 +2459,24 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "公平貿易友善店家",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "哺集乳室友善店家",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "大貓熊保育員講解",
@@ -2477,21 +2504,24 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "微笑單車 2.0",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "心理諮商、治療所",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "梅花鹿保育員時間",
@@ -2505,7 +2535,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "產業局資料使用費",
@@ -2604,7 +2635,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "機車充電站"
+   "entity": "機車充電站",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "library",
@@ -2619,7 +2651,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "郵箱"
+   "entity": "郵箱",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "parking",
@@ -2641,7 +2674,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "防空避難設備"
+   "entity": "防空避難設備",
+   "group": "其他獨立項目"
   },
   {
    "term": "smoking",
@@ -2649,7 +2683,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "指定吸菸區（Designated Smoking Area）"
+   "entity": "指定吸菸區（Designated Smoking Area）",
+   "group": "其他獨立項目"
   },
   {
    "term": "tuition",
@@ -2671,7 +2706,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "微笑單車 2.0"
+   "entity": "微笑單車 2.0",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "中山地政事務所",
@@ -2707,7 +2743,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "TaipeiFree"
+   "entity": "TaipeiFree",
+   "group": "TaipeiFree"
   },
   {
    "term": "公訓處自費課程",
@@ -2742,7 +2779,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "士林寵物登記站",
@@ -2791,7 +2829,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "熱帶雨林室內館",
@@ -2812,7 +2851,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "聯合醫院醫療費",
@@ -2840,7 +2880,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "臺北市立動物園",
@@ -2910,7 +2951,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "X尋寶探險隊",
@@ -2946,7 +2988,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公私立高中職以下學校"
+   "entity": "公私立高中職以下學校",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "toilet",
@@ -2954,7 +2997,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "wallet",
@@ -2976,7 +3020,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "TaipeiFree"
+   "entity": "TaipeiFree",
+   "group": "TaipeiFree"
   },
   {
    "term": "全民動物醫院",
@@ -3060,14 +3105,16 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "性別友善廁所",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "成美河濱公園",
@@ -3109,7 +3156,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "美堤河濱公園",
@@ -3130,7 +3178,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "華中河濱公園",
@@ -3144,21 +3193,24 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "親子友善廁所",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "計程車招呼站",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "象山親山步道",
@@ -3172,7 +3224,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "其他獨立項目"
   },
   {
    "term": "857.7",
@@ -3194,7 +3247,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "穆斯林友善店家"
+   "entity": "穆斯林友善店家",
+   "group": "友善店家"
   },
   {
    "term": "queue",
@@ -3328,7 +3382,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "地政事務所",
@@ -3342,7 +3397,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "報水表度數",
@@ -3503,7 +3559,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "沙漠動物區",
@@ -3517,7 +3574,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "河岸樂騎"
   },
   {
    "term": "深夜音樂館",
@@ -3531,14 +3589,16 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "狗便清潔袋",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "看全部服務",
@@ -3580,7 +3640,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "萬華親子館",
@@ -3653,7 +3714,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "微笑單車 2.0"
+   "entity": "微笑單車 2.0",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "call",
@@ -3668,7 +3730,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "計程車招呼站"
+   "entity": "計程車招呼站",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "wifi",
@@ -3676,7 +3739,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "TaipeiFree"
+   "entity": "TaipeiFree",
+   "group": "TaipeiFree"
   },
   {
    "term": "一般模式",
@@ -3815,7 +3879,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "台北畫刊",
@@ -3850,7 +3915,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "單峰駱駝",
@@ -4021,7 +4087,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "心理諮商、治療所"
+   "entity": "心理諮商、治療所",
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "念給我聽",
@@ -4043,7 +4110,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "行動裝置充電"
+   "entity": "行動裝置充電",
+   "group": "友善店家"
   },
   {
    "term": "托育資訊",
@@ -4108,7 +4176,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "早安臺北",
@@ -4136,7 +4205,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "友善店家"
   },
   {
    "term": "有話要說",
@@ -4179,7 +4249,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "機車充電站"
+   "entity": "機車充電站",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "正午新聞",
@@ -4236,14 +4307,16 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "河岸樂騎"
   },
   {
    "term": "河濱廁所",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "河岸樂騎"
   },
   {
    "term": "流感疫苗",
@@ -4279,7 +4352,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "TaipeiFree"
+   "entity": "TaipeiFree",
+   "group": "TaipeiFree"
   },
   {
    "term": "用水度數",
@@ -4649,7 +4723,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "AED 場所"
+   "entity": "AED 場所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "aed",
@@ -4657,7 +4732,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "AED 場所"
+   "entity": "AED 場所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "不要念",
@@ -4736,7 +4812,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "垃圾清運點"
+   "entity": "垃圾清運點",
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "停車位",
@@ -4744,7 +4821,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "停車場"
+   "entity": "停車場",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "停車單",
@@ -4758,7 +4836,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "停車費",
@@ -4829,7 +4908,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "北投區",
@@ -4844,7 +4924,8 @@
     "counter_calling",
     "find_place"
    ],
-   "ambiguous": true
+   "ambiguous": true,
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "南港區",
@@ -4895,7 +4976,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "指定吸菸區（Designated Smoking Area）"
+   "entity": "指定吸菸區（Designated Smoking Area）",
+   "group": "其他獨立項目"
   },
   {
    "term": "和安里",
@@ -4917,7 +4999,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "哺集乳室"
+   "entity": "哺集乳室",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "圓山里",
@@ -4974,7 +5057,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "垃圾清運點"
+   "entity": "垃圾清運點",
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "堰塞湖",
@@ -5220,7 +5304,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "揚雅里",
@@ -5382,7 +5467,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "洗選蛋",
@@ -5403,7 +5489,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "滿意度",
@@ -5460,7 +5547,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "地區直飲台"
+   "entity": "地區直飲台",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "看病錢",
@@ -5657,7 +5745,8 @@
     "family_center",
     "find_place"
    ],
-   "ambiguous": true
+   "ambiguous": true,
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "計程車",
@@ -5708,7 +5797,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "臺北市心理機構"
+   "entity": "臺北市心理機構",
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "醫療費",
@@ -5737,7 +5827,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "防空避難設備"
+   "entity": "防空避難設備",
+   "group": "其他獨立項目"
   },
   {
    "term": "雙連里",
@@ -5752,7 +5843,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "AED 場所"
+   "entity": "AED 場所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "電線掉",
@@ -5896,7 +5988,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "機車充電站"
+   "entity": "機車充電站",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "兌換",
@@ -5924,7 +6017,8 @@
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "公所",
@@ -5932,7 +6026,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "區公所"
+   "entity": "區公所",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "公投",
@@ -5990,7 +6085,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "指定吸菸區（Designated Smoking Area）"
+   "entity": "指定吸菸區（Designated Smoking Area）",
+   "group": "其他獨立項目"
   },
   {
    "term": "和平",
@@ -6012,7 +6108,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "飲水機／提供飲水店家"
+   "entity": "飲水機／提供飲水店家",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "噪音",
@@ -6034,7 +6131,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公私立高中職以下學校"
+   "entity": "公私立高中職以下學校",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "國小",
@@ -6042,7 +6140,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公私立高中職以下學校"
+   "entity": "公私立高中職以下學校",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "地圖",
@@ -6123,7 +6222,8 @@
     "tuition_pay"
    ],
    "ambiguous": true,
-   "entity": "公私立高中職以下學校"
+   "entity": "公私立高中職以下學校",
+   "group": "區公所、學校、遊戲場所"
   },
   {
    "term": "學費",
@@ -6153,7 +6253,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "郵箱"
+   "entity": "郵箱",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "寵物",
@@ -6168,7 +6269,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "今日使用道路集會路段"
+   "entity": "今日使用道路集會路段",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "小米",
@@ -6212,7 +6314,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "公廁"
+   "entity": "公廁",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "廚餘",
@@ -6220,7 +6323,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "廚餘週三日收受點"
+   "entity": "廚餘週三日收受點",
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "廢車",
@@ -6266,7 +6370,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "AED 場所"
+   "entity": "AED 場所",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "性侵",
@@ -6324,7 +6429,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "指定吸菸區（Designated Smoking Area）"
+   "entity": "指定吸菸區（Designated Smoking Area）",
+   "group": "其他獨立項目"
   },
   {
    "term": "招牌",
@@ -6339,7 +6445,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "捐血站"
+   "entity": "捐血站",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "掃描",
@@ -6424,7 +6531,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "施工資訊"
+   "entity": "施工資訊",
+   "group": "交通運輸、停車場、充電站"
   },
   {
    "term": "朗讀",
@@ -6621,7 +6729,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "穆斯林友善店家"
+   "entity": "穆斯林友善店家",
+   "group": "友善店家"
   },
   {
    "term": "漫畫",
@@ -6678,7 +6787,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "狗便清潔袋"
+   "entity": "狗便清潔袋",
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "申訴",
@@ -6807,7 +6917,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "素食友善店家"
+   "entity": "素食友善店家",
+   "group": "友善店家"
   },
   {
    "term": "統計",
@@ -6864,7 +6975,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "舊衣回收箱"
+   "entity": "舊衣回收箱",
+   "group": "垃圾清潔、舊衣回收"
   },
   {
    "term": "芭樂",
@@ -6994,7 +7106,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "心理諮商、治療所"
+   "entity": "心理諮商、治療所",
+   "group": "可通訊心理諮商之心理機構"
   },
   {
    "term": "證明",
@@ -7095,7 +7208,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "防空避難設備"
+   "entity": "防空避難設備",
+   "group": "其他獨立項目"
   },
   {
    "term": "還書",
@@ -7110,14 +7224,16 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "郵箱"
+   "entity": "郵箱",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "郵箱",
    "tools": [
     "find_place"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "鄰里",
@@ -7174,7 +7290,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "防空避難設備"
+   "entity": "防空避難設備",
+   "group": "其他獨立項目"
   },
   {
    "term": "附近",
@@ -7238,7 +7355,8 @@
     "find_place"
    ],
    "ambiguous": false,
-   "entity": "哺集乳室"
+   "entity": "哺集乳室",
+   "group": "飲水機、公廁、哺集乳室、AED 場所"
   },
   {
    "term": "餵食",

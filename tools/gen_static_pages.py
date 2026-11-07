@@ -50,12 +50,12 @@ page('construction', '施工資訊', '<div class="muted" style="margin:4px 0 8px
     ('萬華區 西園路二段', '污水下水道接管 · 2026-10-28 ～ 11-20', '<span class="tag">巷道封閉</span>'),
 ]))
 
-apps = [('臺北通', '市政服務單一入口', '🏙️'), ('臺北等公車', '即時公車動態', '🚌'), ('YouBike 2.0', '公共自行車租借', '🚲'), ('臺北市立圖書館', '借閱、預約、電子書', '📚'),
-        ('臺北市動物園', '園區導覽、活動', '🐼'), ('臺北旅遊網', '景點、活動、住宿', '🗺️'), ('臺北市停車', '路邊停車查詢、繳費', '🅿️'), ('臺北市消防局', '防災資訊、避難所', '🚒')]
+apps = [('臺北通', '市政服務單一入口', ''), ('臺北等公車', '即時公車動態', ''), ('YouBike 2.0', '公共自行車租借', ''), ('臺北市立圖書館', '借閱、預約、電子書', ''),
+        ('臺北市動物園', '園區導覽、活動', ''), ('臺北旅遊網', '景點、活動、住宿', ''), ('臺北市停車', '路邊停車查詢、繳費', ''), ('臺北市消防局', '防災資訊、避難所', '')]
 page('apps', '市政 APP', ''.join(f'<div class="card"><a class="row" href="#"><span class="ic">{i}</span><span><h3>{n}</h3><div class="muted">{d}</div></span><span class="chev">›</span></a></div>' for n, d, i in apps)
      + '<div class="note">示範資料：實際版本會連到各 App 的商店頁。</div>')
 
-life = [('親子館', '/family-center', '🧸'), ('愛遊動物園', '/zoo', '🐼'), ('簡單森呼吸', '/green-map', '🌳'), ('寵物安心遛', '/pet-map', '🐶'), ('台北電台', '/city-radio', '📻'), ('民生物資', '/essential-goods', '🛒'), ('圖書借閱', '/library-service/', '📚'), ('找地點', '/surrounding-service/', '📍')]
+life = [('親子館', '/family-center', ''), ('愛遊動物園', '/zoo', ''), ('簡單森呼吸', '/green-map', ''), ('寵物安心遛', '/pet-map', ''), ('台北電台', '/city-radio', ''), ('民生物資', '/essential-goods', ''), ('圖書借閱', '/library-service/', ''), ('找地點', '/surrounding-service/', '')]
 page('city-life', '城市生活', ''.join(f'<div class="card"><a class="row" href="{u}"><span class="ic">{i}</span><span><h3>{n}</h3></span><span class="chev">›</span></a></div>' for n, u, i in life))
 
 page('invoice', '電子發票', '''<div class="kpi"><div class="card"><div class="k">本期中獎</div><div class="v">1 張</div></div><div class="card"><div class="k">已歸戶發票</div><div class="v">37 張</div></div></div>
@@ -96,7 +96,7 @@ page('dashboard', '市政資訊儀表板', '''<div class="muted" style="margin:4
 page('faq', '功能教學', cards([
     ('小幫手怎麼用？', '', '<p>按首頁右下角的「小幫手」，說一句話（例如「我要繳水費」），它會幫你找到服務並陪你一步一步做。</p>'),
     ('小幫手什麼時候會自己出現？', '', '<p>只有在你連續亂點 5 下的時候，它才會出來問要不要幫忙；其他時候都安靜躲著。</p>'),
-    ('字太小怎麼辦？', '', '<p>小幫手 ⚙ 裡選「長輩」，字會放大並且每一步唸給你聽。</p>'),
+    ('字太小怎麼辦？', '', '<p>小幫手的「設定」裡選「長輩」，字會放大並且每一步唸給你聽。</p>'),
     ('沒有網路也能用嗎？', '', '<p>可以。服務頁與小幫手都在手機裡；語音辨識需先下載離線語言包。</p>'),
     ('怎麼綁定帳單？', '', '<p>帳務 → 新增綁定，選擇項目並輸入號碼。</p>'),
 ]))
@@ -110,11 +110,11 @@ page('privacy', '隱私權政策', '''<div class="card"><h3>資料蒐集</h3><p>
 import json as _json
 _cat = _json.load(open(os.path.join(ROOT, 'assistant', 'public', 'data', 'catalog.json'), encoding='utf-8'))
 _groups = [
-    ('💳 繳費與帳務', ['water_fee_pay', 'parking_fee_pay', 'local_tax_pay', 'tuition_pay', 'hospital_fee_pay', 'fee_pay_other', 'fee_history', 'water_meter_report']),
-    ('📣 通報與陳情', ['citizen_report', 'citizen_report_search', 'disaster_report', 'police_report', 'call_1999']),
-    ('🏥 健康醫療', ['vaccine', 'hospital_registration']),
-    ('🏙️ 生活服務', ['find_place', 'library', 'counter_calling', 'apply_service', 'subscription', 'coupon', 'ticket_wallet', 'family_center', 'essential_goods', 'zoo', 'green_map', 'pet_map', 'city_radio']),
-    ('🗳️ 市政參與', ['ivoting', 'survey', 'neighborhood', 'dashboard', 'qna']),
+    (' 繳費與帳務', ['water_fee_pay', 'parking_fee_pay', 'local_tax_pay', 'tuition_pay', 'hospital_fee_pay', 'fee_pay_other', 'fee_history', 'water_meter_report']),
+    (' 通報與陳情', ['citizen_report', 'citizen_report_search', 'disaster_report', 'police_report', 'call_1999']),
+    (' 健康醫療', ['vaccine', 'hospital_registration']),
+    (' 生活服務', ['find_place', 'library', 'counter_calling', 'apply_service', 'subscription', 'coupon', 'ticket_wallet', 'family_center', 'essential_goods', 'zoo', 'green_map', 'pet_map', 'city_radio']),
+    (' 市政參與', ['ivoting', 'survey', 'neighborhood', 'dashboard', 'qna']),
 ]
 _by = {sv['id']: sv for sv in _cat['services']}
 _skip = {'ui_elder', 'ui_normal', 'read_aloud', 'scan_bill', 'home_all'}
