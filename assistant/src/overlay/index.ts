@@ -307,11 +307,11 @@ class Runner {
       this.ui.show({
         say: this.t('guide_close_popup', { text: cover.textContent?.trim().slice(0, 10) || '' }),
         stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
-        buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => { cover.click(); setTimeout(() => this.run(), 500); } }],
+        buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => cover.click() }], // 下面的 click 監聽器會重跑（之前這裡又排一次 run → 次數算兩次，馬上變成「關不掉」）
         icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }]
       });
       this.ui.hideInput();
-      const h = () => setTimeout(() => this.run(), 500);
+      const h = () => setTimeout(() => this.run(), 700);
       cover.addEventListener('click', h, { once: true });
       this.cleanup.push(() => cover.removeEventListener('click', h));
       return;

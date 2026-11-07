@@ -516,6 +516,13 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - **離線語音**：網頁端離線時叫 App 用手機內建的離線辨識（`onDevice`）；失敗時提示先到「設定 → Google → 語音 → 離線語音辨識」下載「中文（台灣）」。
 - **原 App 點不進去的 24 個入口全部修通**（市政服務、防疫醫療、市政APP、城市生活、施工資訊、市政新聞、發票、收據、帳單設定、新增綁定、歷程與授權、訂閱、通知／快速登入開關、登出、語言、停用帳號、意見回饋送出、訊息清除／全部已讀…），需要頁面的用 `tools/gen_static_pages.py` 產生的內建示範頁（news / construction / apps / city-life / invoice / receipt / bill-settings / dashboard / faq / privacy），外連 dashboard.gov.taipei 與 id.taipei 也改成內建頁，離線都能開。Flutter 本身沒有任何網路 API；只剩首頁橫幅／活動的遠端圖片離線時顯示不出來。
 
+### 第五輪（2026-11-07 深夜）
+- **找地點收斂**：使用者已經說了要找什麼（「找廁所」→ 查表 entity = 公廁），到下拉選單那一步直接問「幫你選「公廁」，好嗎？」，好 → 選好、地圖出現標記、進下一步；「我自己選」→ 留給使用者。手機的原生選單打開時網頁什麼都框不到，所以不再等使用者在系統選單裡找。
+- 提示視窗（定位未允許）的「幫我按」之前把重試次數算了兩次，第一次就變成「關不掉」；修掉。
+- **PopPal 泡泡夥伴**：按「小幫手」進來先 1.2 秒泡泡登場動畫（純炫技，`?nosplash` 可關）。
+- **Repo**：`github.com/hsuehntuee/poppal`（私人），GGUF / ONNX 權重走 Git LFS；不含 llama.cpp 執行檔、訓練 checkpoint、HF 合併權重與零樣本向量模型（都可重下／重算）。
+- **後端**：展示不需要任何伺服器——網頁、模型、決策全部在 APK 與手機的 llama-server 裡。`deploy/` 的 docker compose（nginx + llama-server）是「有網路時的備援／筆電不在場」用，尚未部署。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。
