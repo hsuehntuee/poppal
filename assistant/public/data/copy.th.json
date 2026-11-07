@@ -1,7 +1,7 @@
 {
   "lang": "th",
   "stt_lang": "th-TH",
-  "app_title": "ผู้ช่วย",
+  "app_title": "Polaris · ผู้ช่วย TownPass",
   "ask_what": "อยากทำอะไร?",
   "hold_to_talk": "กดค้างเพื่อพูด",
   "listening": "กำลังฟัง…",
@@ -90,5 +90,6 @@
   "guide_free_pick": "ได้ เลือกจากรายการเองนะ เลือกแล้วฉันไปต่อ",
   "lang_offer_en": "เปลี่ยนหน้าจอเป็นภาษาอังกฤษไหม?",
   "lang_offer_yes": "ใช่",
-  "lang_offer_no": "ไม่"
+  "lang_offer_no": "ไม่",
+  "settings": "Settings"
 }

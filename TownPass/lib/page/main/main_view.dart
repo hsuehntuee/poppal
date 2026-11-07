@@ -28,7 +28,7 @@ class MainView extends GetView<MainViewController> {
         label: const Text('小幫手', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
         onPressed: () => TPRoute.openUri(
           uri: Get.find<AssistantService>().assistantUrl,
-          forceTitle: '小幫手',
+          forceTitle: 'Polaris 台北通小幫手',
         ),
       ),
       bottomNavigationBar: Container(

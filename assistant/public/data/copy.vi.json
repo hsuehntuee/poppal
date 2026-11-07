@@ -1,7 +1,7 @@
 {
   "lang": "vi",
   "stt_lang": "vi-VN",
-  "app_title": "Trợ lý",
+  "app_title": "Polaris · Trợ lý TownPass",
   "ask_what": "Bạn muốn làm gì?",
   "hold_to_talk": "Giữ để nói",
   "listening": "Đang nghe…",
@@ -90,5 +90,6 @@
   "guide_free_pick": "Được, bạn tự chọn trong danh sách; chọn xong tôi tiếp tục",
   "lang_offer_en": "Chuyển giao diện sang tiếng Anh?",
   "lang_offer_yes": "Có",
-  "lang_offer_no": "Không"
+  "lang_offer_no": "Không",
+  "settings": "Settings"
 }

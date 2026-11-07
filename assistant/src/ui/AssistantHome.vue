@@ -75,9 +75,11 @@ const isElder = computed(() => mode.value === 'elder');
 /** 長輩與小朋友都把結果唸出來 */
 const readAloud = computed(() => mode.value !== 'normal');
 
-const titleEl = ref<HTMLElement | null>(null);
+const gearEl = ref<HTMLElement | null>(null);
+/** 最近用過：預設收起，點一下才展開 */
+const showRecent = ref(false);
 onMounted(async () => {
-  if (titleEl.value) onTripleTap(titleEl.value, () => (location.hash = '#/debug'));
+  if (gearEl.value) onTripleTap(gearEl.value, () => (location.hash = '#/debug'));
   applyMode(settings.mode ?? 'normal');
   copy.value = await loadCopy(uiLang.value);
   catalog.value = await loadCatalog();
@@ -353,14 +355,10 @@ function openRecent(s: ServiceEntry) {
       </div>
     </div>
 
-    <header class="top">
-      <strong ref="titleEl" style="user-select: none">{{ t('app_title') }}</strong>
-      <span class="muted" style="font-size: 0.8em">{{ status }}</span>
-      <button class="btn ghost" style="margin-left: auto; min-height: 2em" @click="showSettings = !showSettings">⚙</button>
-    </header>
+    <button ref="gearEl" class="gear" :aria-label="t('settings')" @click="showSettings = !showSettings">⚙</button>
 
     <!-- 設定：引擎、語言、模式 -->
-    <div v-if="showSettings" class="card col" style="margin: 0 1em">
+    <div v-if="showSettings" class="card col" style="margin: 3.6em 1em 0">
       <div class="row">
         <button v-for="l in ['zh', 'en', 'vi', 'id', 'th']" :key="l" class="btn" :class="{ secondary: uiLang !== l }" style="min-height: 2.4em" @click="setLang(l)">{{ l }}</button>
       </div>
@@ -374,6 +372,7 @@ function openRecent(s: ServiceEntry) {
       <!-- 問句 + 麥克風 -->
       <section v-if="phase !== 'result'" class="col" style="text-align: center">
         <h1 style="margin: 0.3em 0">{{ t('ask_what') }}</h1>
+        <p v-if="status" class="muted" style="font-size: 0.8em; margin: 0">{{ status }}</p>
         <button class="mic" :class="{ on: phase === 'listening' }" :disabled="phase === 'boot' || phase === 'thinking'" @click="onVoice">
           <span class="icon">🎤</span>
           <span>{{ phase === 'listening' ? t('listening') : phase === 'thinking' ? t('thinking') : t('hold_to_talk') }}</span>
@@ -397,8 +396,8 @@ function openRecent(s: ServiceEntry) {
           <button class="btn" type="submit">{{ t('send') }}</button>
         </form>
 
-        <div class="muted" style="margin-top: 0.6em">{{ t('shortcuts') }}</div>
-        <div class="row shortcuts" style="justify-content: center">
+        <button class="btn ghost" style="margin-top: 0.4em; min-height: 2.2em" @click="showRecent = !showRecent">{{ t('shortcuts') }} {{ showRecent ? '▴' : '▾' }}</button>
+        <div v-if="showRecent" class="row shortcuts" style="justify-content: center">
           <button v-for="s in recentServices" :key="s.id" class="btn secondary" @click="openRecent(s)">{{ titleOf(s) }}</button>
         </div>
       </section>
@@ -466,8 +465,9 @@ function openRecent(s: ServiceEntry) {
 @keyframes pop { from { transform: scale(.3) rotate(-8deg); opacity: 0; } }
 @keyframes bob { 50% { transform: translateY(-8px) scale(1.06); } }
 @keyframes splashOut { 0%, 72% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-.top { display: flex; align-items: center; gap: 0.6em; padding: 0.8em 1em; background: var(--tp-primary); color: #fff; }
-.top .muted { color: #e6f7fa; }
+.gear { position: fixed; top: 10px; right: 12px; z-index: 20; width: 2.6em; height: 2.6em; border-radius: 50%; border: 0; background: #fff; color: var(--tp-primary); font-size: 1.1em;
+  box-shadow: 0 3px 10px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
+.gear:active { transform: scale(.92); }
 .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 1em; z-index: 50; }
 .modal .card { width: 100%; max-width: 420px; }
 .mic {

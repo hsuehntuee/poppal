@@ -70,7 +70,7 @@ def build_examples(prompts, catalog):
     """回傳 [(prompt_text, answer_letter)]，服務集 + 指令集一起練"""
     ex = []
     # 服務
-    rows = load_jsonl(os.path.join(TINY_DATA, 'services.jsonl')) + load_jsonl(os.path.join(TINY_DATA, 'services.mined.jsonl')) + load_jsonl(os.path.join(TINY_DATA, 'services.generated.jsonl'))
+    rows = load_jsonl(os.path.join(TINY_DATA, 'services.jsonl')) + load_jsonl(os.path.join(TINY_DATA, 'services.mined.jsonl')) + load_jsonl(os.path.join(TINY_DATA, 'services.generated.jsonl')) + load_jsonl(os.path.join(TINY_DATA, 'services.en.jsonl'))
     for s in catalog['services']:
         for t in [s['title']['zh']] + s['examples'] + s['keywords']:
             rows.append({'text': t, 'label': s['code']})

@@ -200,7 +200,7 @@ extension MyServiceIdExt on MyServiceItemId {
           icon: Assets.svg.iconTalk.svg(),
           category: MyServiceCategory.cityService,
           destinationUrl: kAssistantUrl.isNotEmpty ? kAssistantUrl : '${kDevServiceUrl}assistant/',
-          forceWebViewTitle: '小幫手',
+          forceWebViewTitle: 'Polaris 台北通小幫手',
         ),
       MyServiceItemId.devService => MyServiceItem(
           title: '開發中服務',

@@ -40,3 +40,6 @@ submission/**/*.txt
 # App 內建的 llama-server 執行檔與 .so（node scripts/prepare-llama-jni.mjs 重建）
 TownPass/android/app/src/main/jniLibs/
 TownPass/assets/models/
+
+# model backups made by training scripts
+*.bak

@@ -1,7 +1,7 @@
 {
   "lang": "en",
   "stt_lang": "en-US",
-  "app_title": "Assistant",
+  "app_title": "Polaris · TownPass Assistant",
   "ask_what": "What do you want to do?",
   "hold_to_talk": "Hold to talk",
   "listening": "Listening…",
@@ -112,5 +112,6 @@
   "lang_offer_yes": "Yes",
   "lang_offer_no": "No",
   "guide_not_this_kid": "Not this one!",
-  "guide_free_pick_kid": "OK, you pick; I'll be back once you have"
+  "guide_free_pick_kid": "OK, you pick; I'll be back once you have",
+  "settings": "Settings"
 }

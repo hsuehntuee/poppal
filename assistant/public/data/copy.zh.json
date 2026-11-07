@@ -1,7 +1,7 @@
 {
   "lang": "zh",
   "stt_lang": "zh-TW",
-  "app_title": "小幫手",
+  "app_title": "Polaris 台北通小幫手",
   "ask_what": "你想做什麼？",
   "hold_to_talk": "按著說話",
   "listening": "聽你說…",
@@ -112,5 +112,6 @@
   "lang_offer_yes": "Yes 切換",
   "lang_offer_no": "不用 No",
   "guide_not_this_kid": "不是這個！我自己選",
-  "guide_free_pick_kid": "好呀，你自己選；選好我再來"
+  "guide_free_pick_kid": "好呀，你自己選；選好我再來",
+  "settings": "設定"
 }

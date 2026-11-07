@@ -1,7 +1,7 @@
 {
   "lang": "id",
   "stt_lang": "id-ID",
-  "app_title": "Asisten",
+  "app_title": "Polaris · Asisten TownPass",
   "ask_what": "Mau melakukan apa?",
   "hold_to_talk": "Tahan untuk bicara",
   "listening": "Mendengarkan…",
@@ -90,5 +90,6 @@
   "guide_free_pick": "Oke, pilih sendiri dari daftar; setelah itu aku lanjut",
   "lang_offer_en": "Ganti tampilan ke bahasa Inggris?",
   "lang_offer_yes": "Ya",
-  "lang_offer_no": "Tidak"
+  "lang_offer_no": "Tidak",
+  "settings": "Settings"
 }

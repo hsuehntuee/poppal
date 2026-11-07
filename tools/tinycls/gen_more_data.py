@@ -212,7 +212,7 @@ C['m'] = dict(
 ZH_PRE = ['', '', '', '我想', '我要', '請幫我', '幫我', '欸', '那個', '可以幫我', '麻煩', '嗯', '請問', '我想問一下', '拜託你', '老闆', '喂', '我想知道']
 ZH_SUF = ['', '', '', '', '啦', '喔', '啊', '嗎', '謝謝', '一下', '拜託', '，快一點', '，我不太會', '，謝謝你']
 SITU = ['我阿嬤問我', '剛剛朋友跟我說', '因為最近太忙', '我是第一次用', '早上出門前', '在捷運上', '我爸媽不太會用手機', '昨天晚上', '我老公說', '等一下要出門', '上禮拜就想了', '我現在在家', '請問', '我今天剛好有空', '老師叫我們', '我人在國外']
-EN_PRE = ['', '', 'please ', 'can you help me ', 'I want to ', 'hey, ', 'how do I ', 'I need to ', 'could you ']
+EN_PRE = ['', 'please ', 'hey, ', 'hi, ']
 HOMO = {'繳': '缴', '費': '廢', '稅': '睡', '報': '抱', '掛': '褂', '查': '茶', '票': '飄', '圖書館': '圖書管', '疫苗': '意苗', '陳情': '陳青', '申請': '申清', '補助': '補住', '度數': '渡數', '叫號': '叫好', '朗讀': '狼讀', '放大': '方大', '公園': '公圓', '步道': '步到', '電台': '電太', '廣播': '光播', '淹水': '煙水', '詐騙': '炸騙', '報案': '抱岸', '停車': '亭車', '里長': '李長', '問卷': '問捲', '投票': '頭票', '訂閱': '定閱', '優惠': '有惠', '折價券': '折價卷', '掃描': '騷描', '掃': '嫂', '首頁': '手頁', '客服': '可服'}
 NUMW = {'1999': '一九九九', '10': '十'}
 
@@ -410,13 +410,18 @@ def main():
             for pre in EN_PRE:
                 sents.add((pre + e).strip())
         sents.update(c['vi'] + c['id'] + c['th'])
-        # foreign: prefix variants
-        for lang, pre in (('vi', ['Làm ơn ', 'Cho tôi hỏi, ']), ('id', ['Tolong ', 'Mau tanya, ']), ('th', ['ช่วย', 'ขอถามหน่อย '])):
-            for s in c[lang]:
-                for p_ in pre:
-                    sents.add(p_ + s[0].lower() + s[1:] if lang != 'th' else p_ + s)
         per[code] = len(sents)
         rows += [{'text': s, 'label': code} for s in sents]
+    cat = json.load(open(os.path.join(ROOT, 'assistant/public/data/catalog.json'), encoding='utf-8'))
+    PFX = {'vi': ['Tôi muốn ', 'Cho tôi ', 'Giúp tôi '], 'id': ['Saya mau ', 'Tolong ', 'Bagaimana cara '], 'th': ['ฉันอยาก', 'ช่วย', 'ขอ'], 'en': ['I want to ', 'please ', 'show me ']}
+    for sv in cat['services']:
+        for lg, pre in PFX.items():
+            t = sv['title'].get(lg)
+            if not t:
+                continue
+            rows.append({'text': t, 'label': sv['code']})
+            for p_ in pre:
+                rows.append({'text': p_ + (t if lg == 'th' else t[0].lower() + t[1:]), 'label': sv['code']})
     for s in NONE_SEEDS:
         rows.append({'text': s, 'label': 'Z'})
     # none: combos of chit-chat prefixes
@@ -447,4 +452,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-                
