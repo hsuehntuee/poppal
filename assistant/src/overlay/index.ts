@@ -389,6 +389,7 @@ class Runner {
     }
     if (!el) {
       if (step.skip_if_missing) return this.advance();
+      if (step.final && this.pickedFinal) return this.finish(); // 最後一步按過了，目標也消失了（頁面換成完成畫面）→ 完成
       // 版面感知後備：抓這一頁所有可互動元素，用這一步的意圖挑最像的
       const goal = this.state.params?.entity || this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || say.replace(/[「」]/g, '');
       const best = await this.autoPick(goal, step);
@@ -557,7 +558,7 @@ class Runner {
     } else if (step.done_when === 'manual' || manualNext || step.accept) {
       mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ›', onClick: () => this.doAction() });
     }
-    if (step.optional) mains.push({ label: this.t('guide_skip'), secondary: true, onClick: () => this.advanceBy('panel') });
+    if (step.optional) mains.push({ label: this.t('guide_skip'), secondary: true, wide: true, onClick: () => this.advanceBy('panel') });
     this.ui.show({
       say,
       more: showMore ? more : '',
@@ -830,7 +831,11 @@ class Runner {
         const group = this.targets.length > 1 ? this.targets : [el];
         const h = (ev: Event) => {
           const n = ev.target as Node | null;
-          if (n && group.some((g) => g === n || g.contains(n) || (n as Element).contains?.(g))) setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
+          if (n && group.some((g) => g === n || g.contains(n) || (n as Element).contains?.(g))) {
+            this.pendingAdvance = true; // 使用者剛點了目標：接下來跳出的視窗是結果，不要當成「被蓋住」重跑
+            if (step.final) this.pickedFinal = true;
+            setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
+          }
         };
         document.addEventListener('click', h, true);
         this.cleanup.push(() => document.removeEventListener('click', h, true));
@@ -1225,7 +1230,7 @@ class Runner {
       // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
       if (++tick % 4 === 0 && !this.busy && !this.confirming) {
         // 目標被後來跳出的視窗蓋住（例如按 Enter 跳出地圖）→ 重新定位，走「先關掉這個提示」
-        if (el && this.target === el && !this.collapsed && this.coverAttempts < 2 && coveringButton(el)) {
+        if (el && this.target === el && !this.collapsed && !this.pendingAdvance && this.coverAttempts < 2 && coveringButton(el)) {
           tplog('overlay', `step ${this.state.step + 1}: target got covered, re-run`);
           this.run();
           return;
@@ -1256,6 +1261,7 @@ class Runner {
         if (!this.lostSince) this.lostSince = Date.now();
         else if (Date.now() - this.lostSince > 1500) {
           this.target = null;
+          if (this.step?.final && this.pickedFinal) return void this.finish();
           this.run();
           return;
         }
@@ -1278,7 +1284,13 @@ class Runner {
     else this.ui.place(this.target);
   }
 
+  /** 使用者剛點了目標，正在等 150 ms 後前進 */
+  pendingAdvance = false;
+  /** 最後一步的目標已經被點過 */
+  pickedFinal = false;
+
   clearStep() {
+    this.pendingAdvance = false;
     this.targets = [];
     this.stepToken++;
     cancelAnimationFrame(this.raf);
@@ -1481,6 +1493,7 @@ function scrollParent(el: HTMLElement): HTMLElement {
 
 function isReachable(el: HTMLElement | null): boolean {
   if (!el || !isDisplayed(el)) return false;
+  if ((el as HTMLButtonElement).disabled || el.getAttribute('aria-disabled') === 'true') return false; // 按不下去的鈕不是目標
   let p = el.parentElement;
   while (p && p !== document.body) {
     const cs = getComputedStyle(p);
@@ -1515,6 +1528,8 @@ const ICON = {"mic": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill
 interface PanelButton {
   label: string;
   secondary?: boolean;
+  /** 自己一排（略過） */
+  wide?: boolean;
   icon?: boolean;
   title?: string;
   onClick: () => void;
@@ -1560,11 +1575,12 @@ class Ui {
                 box-shadow: 0 0 0 4px #2eb6c7, 0 0 0 9999px rgba(0,0,0,.55); transition: top .25s, left .25s, width .25s, height .25s; }
         /* 躲起來時只留亮框、不壓暗畫面 */
         .spot.soft { box-shadow: 0 0 0 4px #2eb6c7, 0 0 14px 2px rgba(46,182,199,.6); }
+        .spot.extra, .spot.soft.many { box-shadow: 0 0 0 3px #2eb6c7; border-radius: 8px; }
         .panel { position: fixed; z-index: 2147483001; left: 0; right: 0; bottom: 0; background: #fff; color: #171b1d;
-                 font-family: 'PingFang TC', Roboto, system-ui, sans-serif; font-size: ${16 * scale}px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+                 font-family: 'PingFang TC', Roboto, system-ui, sans-serif; font-size: ${16 * scale}px; padding: 10px 14px 12px;
                  border-radius: 18px 18px 0 0; box-shadow: 0 -6px 20px rgba(0,0,0,.18); max-height: 42vh; overflow: auto; }
-        .panel.top { top: 0; bottom: auto; border-radius: 0 0 18px 18px; padding-top: calc(10px + env(safe-area-inset-top)); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
-        .panel.kb { max-height: 30vh; padding-top: 6px; padding-bottom: 6px; }
+        .panel.top { top: 0; bottom: auto; border-radius: 0 0 18px 18px; padding-top: 10px; padding-bottom: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+        .panel.kb { max-height: 46vh; padding-top: 6px; padding-bottom: 8px; }
         .panel.kb .more, .panel.kb .icons, .panel.kb .step { display: none; }
         .panel.kb .say { font-size: 1em; }
         .panel.kb .btns { margin-top: 6px; }
@@ -1576,7 +1592,8 @@ class Ui {
         .say { font-weight: 700; font-size: 1.15em; line-height: 1.3; margin-top: 4px; }
         .more { color: #475259; margin-top: 4px; line-height: 1.35; font-size: .9em; display: none; }
         .more.on { display: block; }
-        .btns { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; }
+        .btns { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; flex-wrap: wrap; }
+        .btns button.wide { flex: 1 1 100%; }
         button { font: inherit; font-weight: 600; border: 0; border-radius: 12px; padding: .5em .8em; background: #2eb6c7; color: #fff; min-height: 2.6em; }
         button.secondary { background: #fff; color: #2eb6c7; border: 2px solid #2eb6c7; }
         button.icon { flex: 0 0 auto; width: 3em; padding: 0; font-size: 1.2em; }
@@ -1724,7 +1741,7 @@ class Ui {
       const el = document.createElement('button');
       if (b.label.startsWith('<svg')) el.innerHTML = b.label;
       else el.textContent = b.label;
-      el.className = (b.secondary ? 'secondary ' : '') + (b.icon ? 'icon' : 'main');
+      el.className = (b.secondary ? 'secondary ' : '') + (b.icon ? 'icon' : 'main') + (b.wide ? ' wide' : '');
       if (b.title) el.title = b.title;
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
@@ -1930,9 +1947,9 @@ class Ui {
     if (!els.length) return this.place(null);
     this.place(els[0]);
     this.dodgeMini(els.map((e) => e.getBoundingClientRect()));
-    this.spot.classList.add('soft');
+    this.spot.classList.add('soft', 'many');
     this.dim.classList.remove('on');
-    const pad = 6;
+    const pad = 3;
     while (this.extraSpots.length < els.length - 1) {
       const d = document.createElement('div');
       d.className = 'spot soft extra';
@@ -1952,6 +1969,7 @@ class Ui {
 
   place(el: HTMLElement | null) {
     if (el === null || !document.contains(el)) this.extraSpots.forEach((d) => (d.style.display = 'none'));
+    this.spot.classList.remove('many');
     if (!el || !document.contains(el)) {
       this.spot.style.display = 'none';
       this.dim.classList.toggle('on', this.dimWanted);
@@ -2229,7 +2247,9 @@ interface Cand {
 let fieldSeq = 0;
 function scanForm(runner: Runner): Step[] {
   const form = [...document.querySelectorAll<HTMLFormElement>('form')].find((f) => f.querySelector('input:not([type=hidden]), textarea, select'));
-  const root: ParentNode = form ?? document.body;
+  // 有些欄位（個資同意）寫在 <form> 外面：範圍用「表單的上一層容器」
+  let root: ParentNode = form ?? document.body;
+  if (form && form.parentElement && form.parentElement !== document.body && form.parentElement.querySelectorAll('input, textarea, select').length > form.querySelectorAll('input, textarea, select').length) root = form.parentElement;
   const url = runner.step?.url;
   const out: Step[] = [];
   const seenGroup = new Set<Element>();
@@ -2280,9 +2300,15 @@ function scanForm(runner: Runner): Step[] {
         const labels = [...group.querySelectorAll<HTMLElement>('label')].filter((l) => l.querySelector('input[type=checkbox], input[type=radio]'));
         const key = `g${++fieldSeq}`;
         for (const l of labels) l.setAttribute('data-tp-field', key);
-        const title = (group.parentElement?.querySelector('p, label')?.textContent || '').replace(/[\s*：:]+/g, ' ').trim().slice(0, 16);
-        const req = /\*/.test(group.closest('div')?.parentElement?.textContent?.slice(0, 40) || '');
-        out.push({ id: `form_group_${key}`, url, find: [{ css: `label[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_check_any', { text: title }) }, done_when: 'click', pick_any: true, optional: !req, generated: true,
+        const title = (group.parentElement?.querySelector('p, h3, h4, label, legend')?.textContent || '').replace(/[\s*：:]+/g, ' ').trim().slice(0, 20);
+        const isRadio = !!group.querySelector('input[type=radio]');
+        // 單選（radio）= 一題一答，必填；多選看標題有沒有 *
+        const req = isRadio || /\*/.test(group.closest('div')?.parentElement?.textContent?.slice(0, 40) || '');
+        // 單選題（radio）或直的一排：整組框一個就好；多選橫排的一個一個框
+        const vertical = labels.length > 1 && Math.abs(labels[0].getBoundingClientRect().left - labels[1].getBoundingClientRect().left) < 8;
+        const boxed = isRadio || vertical;
+        if (boxed) (group as HTMLElement).setAttribute('data-tp-field', key + 'box');
+        out.push({ id: `form_group_${key}`, url, find: boxed ? [{ css: `[data-tp-field="${key}box"]` }] : [{ css: `label[data-tp-field="${key}"]` }], say: { zh: runner.t(isRadio ? 'guide_form_pick_one' : 'guide_form_check_any', { text: title }) }, done_when: 'click', pick_any: !boxed, optional: !req, generated: true,
           skip_if_visible: [{ css: `label[data-tp-field="${key}"] input:checked` }] });
       } else {
         const key = mark(lab);

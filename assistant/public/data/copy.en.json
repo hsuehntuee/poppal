@@ -127,5 +127,6 @@
   "guide_form_select": "Choose {text}",
   "guide_form_check_any": "Tick at least one: {text}",
   "guide_form_check": "Tick {text}",
-  "guide_form_upload": "Add a photo? Skip if not"
+  "guide_form_upload": "Add a photo? Skip if not",
+  "guide_form_pick_one": "Pick one: {text}"
 }

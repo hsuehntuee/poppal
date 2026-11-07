@@ -107,20 +107,27 @@
       "url": "^/fee-payment/result/fee-6",
       "find": [
         {
+          "css": "label:has(input[type=checkbox]), a.underline"
+        },
+        {
           "text": "全部繳清",
           "exact": true
         }
       ],
       "say": {
-        "zh": "點「全部繳清」",
-        "en": "Tap \"全部繳清\""
+        "zh": "勾要繳的帳單，或點「全部繳清」"
       },
       "more": {
-        "zh": "會把所有帳單都勾起來",
-        "en": "This ticks every bill"
+        "zh": "可以只勾其中幾張"
       },
       "done_when": "click",
-      "skip_if_missing": true
+      "skip_if_missing": true,
+      "pick_any": true,
+      "skip_if_visible": [
+        {
+          "css": "label input[type=checkbox]:checked"
+        }
+      ]
     },
     {
       "id": "go_pay",

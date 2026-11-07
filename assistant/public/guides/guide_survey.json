@@ -1,58 +1,56 @@
 {
- "id": "guide_survey",
- "title": {
-  "zh": "意見調查"
- },
- "entry": "/survey",
- "match": {
-  "url": "^/survey"
- },
- "steps": [
-  {
-   "id": "pick",
-   "url": "^/survey/?$",
-   "find": [
+  "id": "guide_survey",
+  "title": {
+    "zh": "意見調查"
+  },
+  "entry": "/survey",
+  "match": {
+    "url": "^/survey"
+  },
+  "steps": [
     {
-     "text": "{{entity}}"
+      "id": "pick",
+      "url": "^/survey/?$",
+      "find": [
+        {
+          "text": "{{entity}}"
+        },
+        {
+          "css": "a[href*=\"survey/\"]"
+        }
+      ],
+      "say": {
+        "zh": "點一份問卷"
+      },
+      "done_when": "route",
+      "say_default": "點一份問卷"
     },
     {
-     "css": "a[href*=\"survey/\"]"
-    }
-   ],
-   "say": {
-    "zh": "點一份問卷"
-   },
-   "done_when": "route",
-   "say_default": "點一份問卷"
-  },
-  {
-   "id": "answer",
-   "url": "^/survey/",
-   "find": [
+      "id": "answer",
+      "url": "^/survey/",
+      "find": [],
+      "say": {
+        "zh": "一題一題答"
+      },
+      "done_when": "manual",
+      "walk_form": true
+    },
     {
-     "css": "label"
+      "id": "submit",
+      "url": "^/survey/",
+      "find": [
+        {
+          "role": "button",
+          "text": "送出"
+        }
+      ],
+      "say": {
+        "zh": "按「送出」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "每一題點一個答案"
-   },
-   "done_when": "manual"
-  },
-  {
-   "id": "submit",
-   "url": "^/survey/",
-   "find": [
-    {
-     "role": "button",
-     "text": "送出"
-    }
-   ],
-   "say": {
-    "zh": "按「送出」"
-   },
-   "done_when": "click",
-   "confirm": true,
-   "final": true
-  }
- ]
+  ],
+  "finish": "quiet"
 }

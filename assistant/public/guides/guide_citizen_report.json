@@ -82,90 +82,14 @@
       }
     },
     {
-      "id": "location",
+      "id": "form",
       "url": "^/citizen-report/form/",
-      "find": [
-        {
-          "label": "發生地點"
-        },
-        {
-          "css": "#location"
-        },
-        {
-          "css": "input[placeholder*=\"地址\"]"
-        }
-      ],
+      "find": [],
       "say": {
-        "zh": "輸入發生地點"
+        "zh": "照畫面填"
       },
-      "done_when": "input",
-      "more": {
-        "zh": "寫完整地址，或按旁邊的定位按鈕"
-      },
-      "accept": "text"
-    },
-    {
-      "id": "subject",
-      "url": "^/citizen-report/form/",
-      "find": [
-        {
-          "css": "#title"
-        },
-        {
-          "label": "案件主旨"
-        },
-        {
-          "css": "input[placeholder*=\"主旨\"]"
-        }
-      ],
-      "say": {
-        "zh": "輸入案件主旨"
-      },
-      "done_when": "input",
-      "more": {
-        "zh": "一句話說發生什麼事"
-      },
-      "accept": "text"
-    },
-    {
-      "id": "desc",
-      "url": "^/citizen-report/form/",
-      "find": [
-        {
-          "label": "描述"
-        },
-        {
-          "css": "textarea"
-        }
-      ],
-      "say": {
-        "zh": "輸入描述"
-      },
-      "done_when": "input",
-      "more": {
-        "zh": "人、事、時、地、物，可以用說的"
-      },
-      "accept": "text"
-    },
-    {
-      "id": "agree",
-      "url": "^/citizen-report/form/",
-      "find": [
-        {
-          "label": "同意"
-        },
-        {
-          "text": "同意",
-          "exact": true
-        }
-      ],
-      "say": {
-        "zh": "點「同意」"
-      },
-      "done_when": "click",
-      "more": {
-        "zh": "同意個資使用才能送出"
-      }
+      "done_when": "manual",
+      "walk_form": true
     },
     {
       "id": "submit",

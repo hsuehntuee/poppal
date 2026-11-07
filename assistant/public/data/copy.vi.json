@@ -106,5 +106,6 @@
   "guide_form_select": "Chọn {text}",
   "guide_form_check_any": "Chọn ít nhất một: {text}",
   "guide_form_check": "Đánh dấu {text}",
-  "guide_form_upload": "Thêm ảnh? Không thì bỏ qua"
+  "guide_form_upload": "Thêm ảnh? Không thì bỏ qua",
+  "guide_form_pick_one": "Chọn một: {text}"
 }
