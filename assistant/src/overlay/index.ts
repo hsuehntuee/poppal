@@ -1273,6 +1273,17 @@ function isDisplayed(el: HTMLElement | null): boolean {
 /** 真的看得到：沒被任何 overflow:hidden / clip 的祖先裁掉（例如收合的清單） */
 /** 找得到（可以捲過去）：只排除被「收合」的祖先（overflow hidden/clip 且高度接近 0）裁掉的元素；
  *  可捲動容器裡暫時在畫面外的項目算找得到，定位後會 scrollIntoView。 */
+/** 最近的可捲動祖先（沒有就是整頁） */
+function scrollParent(el: HTMLElement): HTMLElement {
+  let p = el.parentElement;
+  while (p && p !== document.body) {
+    const cs = getComputedStyle(p);
+    if (/auto|scroll/.test(cs.overflowY) && p.scrollHeight > p.clientHeight + 2) return p;
+    p = p.parentElement;
+  }
+  return (document.scrollingElement as HTMLElement) || document.body;
+}
+
 function isReachable(el: HTMLElement | null): boolean {
   if (!el || !isDisplayed(el)) return false;
   let p = el.parentElement;
@@ -1747,6 +1758,27 @@ class Ui {
         this.lastSwitch = nowTs;
         this.syncPadding();
       }
+    }
+    // 面板跟目標重疊（鍵盤開著、畫面很矮時常發生）→ 把頁面捲一下，讓目標露在面板外面；面板不要壓在要填的欄位上
+    const pr = this.panel.getBoundingClientRect();
+    const overlap = this.panel.style.display !== 'none' && r.bottom > pr.top && r.top < pr.bottom;
+    if (overlap && Date.now() - this.lastScrollNudge > 700) {
+      this.lastScrollNudge = Date.now();
+      const sc = scrollParent(el);
+      const top0 = sc === document.scrollingElement || sc === document.body ? window.scrollY : sc.scrollTop;
+      let isTopNow = this.panel.classList.contains('top');
+      let dy = isTopNow ? r.top - (pr.bottom + 10) : r.bottom - (pr.top - 10);
+      // 往上捲不動了（已經在最上面）→ 面板改放下面、把頁面往下捲，讓欄位露在面板上方
+      if (dy < 0 && top0 + dy < 0) {
+        this.panel.classList.toggle('top', !isTopNow);
+        this.lastSwitch = Date.now();
+        this.syncPadding();
+        isTopNow = !isTopNow;
+        const pr2 = this.panel.getBoundingClientRect();
+        dy = isTopNow ? r.top - (pr2.bottom + 10) : r.bottom - (pr2.top - 10);
+      }
+      if (sc === document.scrollingElement || sc === document.body) window.scrollBy({ top: dy, behavior: 'smooth' });
+      else sc.scrollBy({ top: dy, behavior: 'smooth' });
     }
     Object.assign(this.spot.style, {
       display: 'block',
