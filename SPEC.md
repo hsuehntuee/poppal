@@ -556,6 +556,14 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - **首頁精簡**：拿掉頁內藍色橫幅，右上角只剩圓形 ⚙（長按 1.2 秒進儀表板）；最近用過預設收起；標題「Polaris 台北通小幫手」（App 內圖示與按鈕仍叫小幫手）。
 - **看全部服務** → 由 catalog 產生的總覽頁（33 個服務分五類），不再是官方申辦表單頁。
 
+### 第十一輪（2026-11-08 凌晨：1k 測試集與重訓）
+- Sonnet 子代理依「功能 → 情境 → 句子」做了 1,052 句的測試集（`assistant/public/data/testset_1k.json`：口語 200、辨識錯字 159、英文 157、外語 129、長句 122、近似混淆 92、中英夾雜 87、關鍵字 61、帶參數 37、範圍外 128），與訓練句去重；結果在 `eval/MATRIX_1K.md`。
+- 原本的模型在這份難的測試集上掉很多：cls 首輪 77.4%、llm 52.9%。llm 的主因是出貨程式 `tokenToCode` 只收 A–Z，後加的 13 個服務與 App 工具（小寫代號）永遠選不到 → 已修。
+- 擴資料三輪（`tools/tinycls/data/services.generated.jsonl`）重訓 e5 分類器與 Gemma LoRA 後：cls 95.0% / 96.9%（兩輪）/ 範圍外 90.6%；llm 93.6% / 97.6% / 99.2%，延遲不變（6 ms / 40 ms）。新權重已進 APK（`prepare-llama-jni.mjs` 會同步模型 asset）。
+- 查表抽參數：entity 95.2%，自由參數 50%（車牌、身分證、案件編號、地址、書名這幾種還沒有抽取規則）。
+- 真機踩雷：`TownPass/assets/models/` 裡的 GGUF 其實還是 16:14 的舊模型（重訓後沒再跑 `prepare-llama-jni.mjs`），而 App 比對「APK asset 跟私有副本是否相同」又只看長度與中段 64 KB（LoRA 沒動到的 embedding 佔檔案大半）→ 兩層都說「一樣」。改成：模型副本用 APK 的 `lastUpdateTime` 當版本戳（`.stamp` 檔），APK 一換就重複製；並以 md5 確認 APK 內的 asset 等於 `tools/llm/out` 的新權重。
+- 清掉重訓殘留（`tools/llm/out_r2`、舊 HF 目錄、各 `.bak`，約 2.7 GB）；現行權重只留 `tools/llm/out/{gemma-270m-decider-hf, *.gguf}` 與 `tools/encoder/ckpt/cls-services.ckpt.pt`。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。

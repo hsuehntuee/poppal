@@ -46,3 +46,5 @@ TownPass/assets/models/
 
 # second-round training leftovers (HF merge, F16 gguf)
 tools/llm/out_r2/
+
+TownPass/android/.kotlin/

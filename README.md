@@ -48,4 +48,4 @@ Laptop dev server (static files + overlay injection + `/llm` proxy):
 node scripts/serve-local.mjs --port 5180 --llm http://127.0.0.1:8080
 ```
 
-Evaluation: `cd assistant; pnpm eval` → `eval/MATRIX.md`.
+Evaluation: `cd assistant; pnpm eval` → `eval/MATRIX.md`; the 1,052-utterance set (`--testset assistant/public/data/testset_1k.json`) → `eval/MATRIX_1K.md`: first-round hit 95.0% (e5 classifier, 6 ms) / 93.6% (Gemma decider, 40 ms), out-of-scope detection 90.6% / 99.2%.

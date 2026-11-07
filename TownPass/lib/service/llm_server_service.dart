@@ -63,21 +63,43 @@ class LlmServerService extends GetxService {
       if (ext != null) '${ext.path}/gguf/$modelName',
       '${(await getApplicationSupportDirectory()).path}/gguf/$modelName',
     ];
-    for (final String p in candidates) {
-      if (File(p).existsSync() && File(p).lengthSync() > 1000000) {
-        _modelPath = p;
-        _set('model', p);
+    // 私有目錄已經有一份：確認跟 APK 裡的是同一份（換了新權重要重新複製）
+    final String target = candidates.last;
+    // 版本戳 = APK 的 lastUpdateTime：APK 換了就重新複製（內容比對不可靠：LoRA 沒動到的 embedding 佔了檔案一大半）
+    final File stamp = File('$target.stamp');
+    String apkStamp = '';
+    try {
+      apkStamp = '${await _ch.invokeMethod<int>('apkUpdateTime')}';
+    } catch (_) {
+      apkStamp = '';
+    }
+    if (File(target).existsSync() && File(target).lengthSync() > 1000000) {
+      final String have = stamp.existsSync() ? stamp.readAsStringSync().trim() : '';
+      if (apkStamp.isNotEmpty && have == apkStamp) {
+        _modelPath = target;
+        _set('model', '$target (stamp $apkStamp)');
         return;
+      }
+      _set('model-outdated', 'APK updated ($have -> $apkStamp), re-copying');
+    } else {
+      for (final String p in candidates) {
+        if (p != target && File(p).existsSync() && File(p).lengthSync() > 1000000) {
+          _modelPath = p;
+          _set('model', p);
+          return;
+        }
       }
     }
     // APK 裡的 assets/models/<modelName> → 私有目錄（Kotlin 端串流複製，一次就好）
-    final String target = candidates.last;
     try {
       _set('copying-model', target);
       final int? n = await _ch.invokeMethod<int>('copyAsset', <String, String>{'key': 'flutter_assets/assets/models/$modelName', 'dest': target});
       if (n != null && n > 1000000) {
         _modelPath = target;
-        _set('model', '$target ($n bytes, copied from APK)');
+        try {
+          stamp.writeAsStringSync(apkStamp);
+        } catch (_) {}
+        _set('model', '$target ($n bytes, copied from APK, stamp $apkStamp)');
         return;
       }
       _set('no-model', 'copy returned $n');
