@@ -80,6 +80,8 @@ interface Step {
   optional?: boolean;
   /** 程式展開出來的（不是腳本寫的） */
   generated?: boolean;
+  /** manual 步驟但不給「下一步」鈕（要真的做完才會前進，例如單選題） */
+  no_next?: boolean;
 }
 interface Guide {
   id: string;
@@ -283,7 +285,7 @@ class Runner {
     return list
       .map((f) => {
         const out: Locator = { ...f };
-        for (const k of ['text', 'label', 'css', 'option'] as const) {
+        for (const k of ['text', 'label', 'css', 'option', 'within'] as const) {
           const v = f[k];
           if (!v) continue;
           if (/\{\{\w+\}\}/.test(v)) {
@@ -330,8 +332,14 @@ class Runner {
     }
     saveState(this.state);
     // 連續兩步都自己完成 → 使用者會了，收成小圓鈕躲起來（卡住或點圓鈕再出來）
-    if (!this.collapsed && this.selfStreak >= 2 && this.guide.collapse !== false) this.collapse();
-    const quiet = this.collapsed;
+    if (!this.collapsed && this.selfStreak >= 2 && this.guide.collapse !== false && !step.final) this.collapse(); // 最後一步不躲
+    if (this.collapsed && step.final) {
+      // 躲著但到了最後一步：出來，最後一下（送出／確認付款）一定要看得到亮框
+      this.collapsed = false;
+      this.selfStreak = 0;
+      this.ui.expand();
+    }
+    let quiet = this.collapsed;
 
     const onRightPage = !step.url || new RegExp(step.url).test(location.pathname);
     if (onRightPage && step.walk_form) {
@@ -346,6 +354,7 @@ class Runner {
         this.collapsed = false;
         this.ui.expand();
       }
+      quiet = false; // 面板回來了，這一欄的文字要畫上去
       this.guide.steps.splice(this.state.step, 1, ...gen);
       if (!gen.length) return this.run();
       step = this.step!;
@@ -357,7 +366,8 @@ class Runner {
     }
     let say = this.tx(step.say);
     if (/「」/.test(say) && step.say_default) say = this.tx(step.say_default);
-    const more = this.tx(step.more);
+    let more = this.tx(step.more);
+    if (more === say) more = ''; // 補充跟主句一樣就不重複
     if (!quiet) this.renderPanel(say, more);
 
     if (!onRightPage) {
@@ -369,7 +379,7 @@ class Runner {
     }
 
     // 等目標出現的同時也一直看「已經完成的跡象」（例如地圖標記已經載入）：資料慢半拍時不用傻等 6 秒
-    const skipNow = () => !!step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])));
+    const skipNow = () => !!step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => evidenceVisible(l));
     if (skipNow()) return this.advance();
     const SKIP = {} as unknown as HTMLElement;
     // 可有可無的步驟（skip_if_missing）只等 1.5 秒，不然每一步都要等滿才跳過
@@ -391,7 +401,9 @@ class Runner {
       if (step.skip_if_missing) return this.advance();
       if (step.final && this.pickedFinal) return this.finish(); // 最後一步按過了，目標也消失了（頁面換成完成畫面）→ 完成
       // 版面感知後備：抓這一頁所有可互動元素，用這一步的意圖挑最像的
-      const goal = this.state.params?.entity || this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || say.replace(/[「」]/g, '');
+      // 後備的目標詞：這一步的定位器真的用到 {{entity}} 才拿實體當目標（「點地圖上的標記」不能因為下拉選單裡有「公廁」就挑到下拉選單）
+      const usesEntity = step.find.some((l) => /\{\{entity\}\}/.test((l.text || '') + (l.label || '') + (l.option || '') + (l.within || '')));
+      const goal = (usesEntity ? this.state.params?.entity : '') || this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || say.replace(/[「」]/g, '');
       const best = await this.autoPick(goal, step);
       if (best && best.ambiguous && best.ambiguous.length > 1) return this.askWhich(step, best.ambiguous, say);
       if (best) {
@@ -464,10 +476,22 @@ class Runner {
     if (!coveringButton(el)) this.coverAttempts = 0;
 
     if (step.confirm && this.loud && !quiet) {
+      // 先問（面板會變高），再用變高後的面板框目標、避開它：問句不能蓋住要按的東西；問的期間亮框跟著捲動
+      this.target = el;
+      this.ui.setDim(false);
       const label = this.tpl(step.find[0]?.text || '');
-      const ok = await this.ui.ask(this.t('guide_confirm_q', { text: label }), this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
-      if (!ok) return; // 留在這一步，使用者自己決定
+      const tok = this.stepToken;
+      const asking = this.ui.ask(this.t('guide_confirm_q', { text: label }), this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
+      this.ui.place(el);
+      this.watchDone(step, el); // 問的期間自己去按亮框也算
+      this.startTracking();
+      const ok = await asking;
+      if (tok !== this.stepToken) return; // 問的時候使用者已經自己按了
+      if (!ok) return; // 留在這一步，使用者自己決定：亮框留著，自己按了也算
       this.renderPanel(say, more);
+      this.target = el;
+      this.armStuck();
+      return this.doAction(); // 說好了 → 幫他按
     }
 
     this.target = el;
@@ -549,13 +573,13 @@ class Runner {
     // 按鈕名稱：定位器的文字 → 元素文字 → 無障礙名稱 → 這一步的說明（「按放大鏡」→「放大鏡」）；圖示鈕才不會變成「幫我按「」」
     const anyText = step.find.map((l) => this.tpl(l.text || l.label || l.option || '')).find((t) => t) || '';
     const aria = this.target?.getAttribute('aria-label') || this.target?.getAttribute('title') || '';
-    const label = isSelect ? (selOpt ? selOpt.text : '') : (anyText || this.target?.textContent?.trim().slice(0, 12) || aria.slice(0, 12) || say.replace(/^[按點點選]+/, '').replace(/[「」。！]/g, '').slice(0, 12));
+    const label = isSelect ? (selOpt ? selOpt.text : '') : (anyText || (this.target?.innerText || this.target?.textContent || '').trim().split(String.fromCharCode(10))[0].trim().slice(0, 12) || aria.slice(0, 12) || say.replace(/^[按點點選]+/, '').replace(/[「」。！]/g, '').slice(0, 12));
     // 主要動作鍵：有按鈕目標 → 幫我按「查詢」；其他 → 下一步（輸入欄位會先檢查）
     const mains: PanelButton[] = [];
     if (clickable) {
       // 使用者自己點畫面上框起來的東西；長輩 / 小朋友多一顆「幫我按」當備援
       if (this.loud) mains.push({ label: `${isSelect && !label ? this.t('guide_pick_one') : this.t(isSelect ? 'guide_select_for_me' : 'guide_press_for_me', { text: label })}`, secondary: true, onClick: () => this.doAction() });
-    } else if (step.done_when === 'manual' || manualNext || step.accept) {
+    } else if ((step.done_when === 'manual' && !step.no_next) || manualNext || step.accept) {
       mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ›', onClick: () => this.doAction() });
     }
     if (step.optional) mains.push({ label: this.t('guide_skip'), secondary: true, wide: true, onClick: () => this.advanceBy('panel') });
@@ -693,10 +717,32 @@ class Runner {
     return best.score >= 0.3 ? best : null;
   }
 
+  /** 按了送出後，頁面有沒有把某些欄位標成錯誤（紅框、「不能為空」）：有就回傳那些欄位的逐欄步驟 */
+  async validationFixes(): Promise<Step[]> {
+    const url0 = location.pathname;
+    await new Promise((r) => setTimeout(r, 700));
+    if (location.pathname !== url0) return [];
+    const badCls = /(^|[\s-])(warn|error|invalid|is-invalid|has-error)([\s-]|$)/;
+    const bad = [...document.querySelectorAll<HTMLElement>('input, textarea, select, label')].filter((el) => {
+      if (el.closest('#tp-guide-host') || !isDisplayed(el)) return false;
+      if (el.getAttribute('aria-invalid') === 'true' || badCls.test(String(el.className))) return true;
+      // 自訂樣式的勾選／單選：錯誤標在 label 裡的 span 上
+      return el.tagName === 'LABEL' && [...el.children].some((c) => badCls.test(String((c as HTMLElement).className)));
+    });
+    if (!bad.length) return [];
+    const gen = scanForm(this);
+    return gen
+      .filter((st) => {
+        const t = locate(st.find);
+        return !!t && bad.some((b) => t === b || t.contains(b) || b.contains(t));
+      })
+      .map((st) => ({ ...st, optional: false }));
+  }
+
   /** 這一步是不是已經做完了（狀態感知） */
   isStepDone(step: Step): boolean {
     if (step.url && !new RegExp(step.url).test(location.pathname)) return false;
-    if (step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])))) return true;
+    if (step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => evidenceVisible(l))) return true;
     if (step.done_when === 'change') {
       const el = locate(this.finders(step)) as HTMLSelectElement | null;
       if (!el || el.tagName !== 'SELECT') return false;
@@ -706,7 +752,7 @@ class Runner {
     if (step.done_when === 'input') {
       const el = locate(this.finders(step)) as HTMLInputElement | null;
       if (!el) return false;
-      const v = el.value ?? '';
+      const v = fieldValue(el);
       if (!v.trim()) return false;
       if (document.activeElement === el && !this.isComplete(step, v)) return false; // 還在打，不算完成
       if (!step.accept || step.accept === 'text') return true;
@@ -853,13 +899,13 @@ class Runner {
         const check = () => {
           if (token !== this.stepToken) return; // 這一步已經結束
           if (this.confirming) return; // 預填中，等使用者按「對」
-          const v = input.value ?? '';
+          const v = fieldValue(input);
           // 只有「定長數字打滿」（水號 10 碼）才自動下一步；自由文字 / 不定長度絕不提早截斷，
           // 等使用者按 Enter、面板的「填好了」、或自己去按畫面上的下一個鈕
           if (this.isComplete(step, v)) return this.advanceBy('self');
-          // 日期／時間欄位：原生選擇器選好就有值，選好就是完成（游標還留在欄位上）
-          if (/^(date|time|datetime-local|month)$/.test(input.type || '') && v.trim()) return this.advanceBy('self');
-          if (!hinted && valid()) {
+          // 日期／時間／唯讀欄位：選擇器選好就有值，選好就是完成（游標還留在欄位上）
+          if ((input.readOnly || /^(date|time|datetime-local|month)$/.test(input.type || '')) && v.trim()) return this.advanceBy('self');
+          if (!hinted && !input.readOnly && valid()) {
             hinted = true;
             const nx = this.nextStepHint();
             if (nx) this.ui.flash(this.t('guide_after_typing', { text: nx }));
@@ -868,6 +914,15 @@ class Runner {
         const h = debounce(check, 600);
         input.addEventListener('input', h);
         this.cleanup.push(() => input.removeEventListener('input', h));
+        // 唯讀的選擇器欄位：使用者點了它之後跳出的視窗（日曆、多選清單）是這一步的一部分，不要當成「被蓋住」
+        if (input.readOnly) {
+          const onTap = (ev: Event) => {
+            const n = ev.target as Node | null;
+            if (n && (input === n || input.contains(n) || (input.parentElement && input.parentElement.contains(n)))) this.pendingAdvance = true;
+          };
+          document.addEventListener('click', onTap, true);
+          this.cleanup.push(() => document.removeEventListener('click', onTap, true));
+        }
         // Enter（單行欄位）= 我打完了。下一步還是欄位時，Enter 只代表「打完了」，不讓網頁拿去做別的事
         // （有話要說的表單按 Enter 會跳出地圖視窗）；下一步是按鈕（放大鏡）就放行，讓網頁照常送出
         const onKey = (e: KeyboardEvent) => {
@@ -1020,12 +1075,23 @@ class Runner {
     this.run();
   }
 
-  advance() {
+  async advance() {
     if (this.busy) return;
     this.busy = true;
     const step = this.step;
     this.clearStep();
     if (!step || step.final || this.state.step + 1 >= this.guide.steps.length) {
+      // 送出之後頁面說某些欄位沒填好 → 還沒完成：先回頭補那些欄位，再回到送出
+      if (step && step.done_when === 'click') {
+        const fixes = await this.validationFixes();
+        if (fixes.length) {
+          tplog('overlay', `step ${this.state.step + 1} ${step.id}: page rejected the form, going back to ${fixes.map((f) => f.id).join(',')}`);
+          this.guide.steps.splice(this.state.step, 1, ...fixes, step);
+          this.busy = false;
+          this.ui.flash(this.t('guide_form_missing'));
+          return this.run();
+        }
+      }
       this.busy = false;
       return this.finish();
     }
@@ -1070,8 +1136,8 @@ class Runner {
 
   help() {
     this.selfStreak = 0;
-    const more = this.tx(this.step?.more) || this.tx(this.step?.say);
-    this.ui.forceMore(more);
+    const more = this.tx(this.step?.more);
+    if (more) this.ui.forceMore(more);
     this.speak(more);
   }
 
@@ -1226,6 +1292,17 @@ class Runner {
     let tick = 0;
     this.trackTimer = window.setInterval(() => {
       const el = this.target;
+      // 跳出的視窗（多選清單、日曆）的按鈕在面板底下 → 面板讓開；視窗關了再回來
+      if (!this.collapsed && !this.confirming) {
+        const pop = popupEl(el);
+        const want = !!pop && (this.ui.aside || this.ui.popupCoversPanel(pop));
+        if (want !== this.ui.aside) {
+          tplog('overlay', want ? 'popup over panel → step aside' : 'popup gone → back');
+          this.ui.setAside(want, this.t('guide_mini'));
+          if (!want) this.placeTargets();
+        }
+      }
+      if (this.ui.aside) return;
       if (el && document.contains(el) && isVisible(el)) this.placeTargets();
       // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
       if (++tick % 4 === 0 && !this.busy && !this.confirming) {
@@ -1238,7 +1315,7 @@ class Runner {
         const st = this.step;
         // 輸入步驟：欄位有值而且游標已經離開（例如用日曆選好日期、或點到別處）→ 這一步做完了
         if (st && st.done_when === 'input' && el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && document.activeElement !== el && !this.confirming) {
-          const v = (el as HTMLInputElement).value ?? '';
+          const v = fieldValue(el as HTMLInputElement);
           const r = st.accept ? extract(v, st.accept, { minLen: st.min_len, maxLen: st.max_len }) : { ok: v.trim().length > 0, value: v };
           if (v.trim() && r.ok && r.value === v.trim()) {
             tplog('overlay', `step ${this.state.step + 1} ${st.id}: filled and left the field, moving on`);
@@ -1246,7 +1323,7 @@ class Runner {
             return;
           }
         }
-        if (st && st.skip_if_visible && this.fillLocators(st.skip_if_visible).some((l) => isVisible(locate([l])))) {
+        if (st && st.skip_if_visible && this.fillLocators(st.skip_if_visible).some((l) => evidenceVisible(l))) {
           tplog('overlay', `step ${this.state.step + 1} ${st.id}: done by user, moving on`);
           this.advanceBy('self');
         }
@@ -1262,6 +1339,11 @@ class Runner {
         else if (Date.now() - this.lostSince > 1500) {
           this.target = null;
           if (this.step?.final && this.pickedFinal) return void this.finish();
+          // 唯讀選擇器欄位：使用者點過它（跳出清單）、選完頁面把欄位收起來改顯示所選的字 → 做完了
+          if (this.step?.done_when === 'input' && this.pendingAdvance && (el as HTMLInputElement).readOnly) {
+            tplog('overlay', `step ${this.state.step + 1} ${this.step.id}: picker field replaced by its value, moving on`);
+            return void this.advanceBy('self');
+          }
           this.run();
           return;
         }
@@ -1290,6 +1372,8 @@ class Runner {
   pickedFinal = false;
 
   clearStep() {
+    if (this.ui.aside) this.ui.setAside(false, this.t('guide_mini')); // 讓開的面板回來
+    this.ui.cancelAsk(); // 上一步的問句收掉
     this.pendingAdvance = false;
     this.targets = [];
     this.stepToken++;
@@ -1504,6 +1588,28 @@ function isReachable(el: HTMLElement | null): boolean {
   return true;
 }
 
+/** 「完成跡象」看不看得到：自訂樣式的 checkbox / radio 本體常是 0x0 隱藏，改看它的 label */
+/** 欄位的值；唯讀選擇器欄位一開始就塞著的提示字（掃描時記在 data-tp-init）不算 */
+function fieldValue(el: HTMLInputElement | HTMLTextAreaElement): string {
+  const v = el.value ?? '';
+  const init = el.getAttribute('data-tp-init');
+  return init !== null && v === init ? '' : v;
+}
+
+function evidenceVisible(l: Locator): boolean {
+  const el = l.css && !l.within ? document.querySelector<HTMLElement>(l.css) : locate([l]);
+  return isEvidenceVisible(el);
+}
+
+function isEvidenceVisible(el: HTMLElement | null): boolean {
+  if (!el) return false;
+  if (el.tagName === 'INPUT' && /^(checkbox|radio)$/.test((el as HTMLInputElement).type)) {
+    const lab = el.closest<HTMLElement>('label') ?? (el.id ? document.querySelector<HTMLElement>(`label[for="${CSS.escape(el.id)}"]`) : null);
+    if (lab) return isVisible(lab);
+  }
+  return isVisible(el);
+}
+
 function isVisible(el: HTMLElement | null): boolean {
   if (!el || !isDisplayed(el)) return false;
   const r = el.getBoundingClientRect();
@@ -1686,6 +1792,42 @@ class Ui {
     return this.keyboard && (inPanel || (!!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)));
   }
 
+  /** 面板暫時讓開（跳出的視窗按鈕在面板底下）：縮成小圓鈕，視窗關了再回來 */
+  aside = false;
+  private asideHadMini = false;
+  /** 視窗裡有沒有按鈕被面板壓住 */
+  popupCoversPanel(pop: HTMLElement): boolean {
+    const pr = this.panel.getBoundingClientRect();
+    if (this.panel.style.display === 'none' || pr.height < 1) return false;
+    for (const b of pop.querySelectorAll<HTMLElement>('button, a[href], [role=button], label, li')) {
+      if (!isDisplayed(b)) continue;
+      const r = b.getBoundingClientRect();
+      if (r.width > 0 && r.height > 0 && r.bottom > pr.top && r.top < pr.bottom && r.right > pr.left && r.left < pr.right) return true;
+    }
+    return false;
+  }
+  setAside(on: boolean, label: string) {
+    if (on === this.aside) return;
+    this.aside = on;
+    const mini = this.root.querySelector<HTMLButtonElement>('.mini')!;
+    if (on) {
+      this.asideHadMini = mini.classList.contains('on');
+      if (!this.asideHadMini) {
+        mini.textContent = label;
+        mini.style.top = '';
+        mini.onclick = (ev) => { ev.stopPropagation(); };
+        mini.classList.add('on');
+      }
+      this.panel.style.display = 'none';
+      this.place(null);
+      this.setDim(false);
+    } else if (!this.asideHadMini) {
+      mini.classList.remove('on');
+      this.panel.style.display = '';
+    }
+    this.syncPadding();
+  }
+
   /** 使用者會了：面板收成右下角的小圓鈕，亮框與變暗都收掉 */
   collapse(label: string, onTap: () => void) {
     const mini = this.root.querySelector<HTMLButtonElement>('.mini')!;
@@ -1772,6 +1914,13 @@ class Ui {
     this.more.classList.add('on');
   }
 
+  cancelAsk() {
+    if (!this.askEl.classList.contains('on')) return;
+    this.askEl.classList.remove('on');
+    this.askEl.innerHTML = '';
+    this.syncPadding();
+  }
+
   /** 在面板裡問一個是/否的問題 */
   ask(q: string, yes: string, no: string): Promise<boolean> {
     return new Promise((resolve) => {
@@ -1790,6 +1939,7 @@ class Ui {
         b.addEventListener('click', (ev) => {
           ev.stopPropagation();
           this.askEl.classList.remove('on');
+          this.syncPadding();
           resolve(v);
         });
         row.appendChild(b);
@@ -1798,6 +1948,7 @@ class Ui {
       mk(no, false, true);
       this.askEl.append(p, row);
       this.askEl.classList.add('on');
+      this.syncPadding(); // 問句讓面板變高：頁面底部要留更多空間
     });
   }
 
@@ -1968,8 +2119,9 @@ class Ui {
   }
 
   place(el: HTMLElement | null) {
-    if (el === null || !document.contains(el)) this.extraSpots.forEach((d) => (d.style.display = 'none'));
+    if (el === null || !document.contains(el) || this.aside) this.extraSpots.forEach((d) => (d.style.display = 'none'));
     this.spot.classList.remove('many');
+    if (this.aside) { this.spot.style.display = 'none'; return; } // 讓開中：亮框也收起來（跳出的視窗是使用者現在要看的）
     if (!el || !document.contains(el)) {
       this.spot.style.display = 'none';
       this.dim.classList.toggle('on', this.dimWanted);
@@ -2021,6 +2173,14 @@ class Ui {
       const top0 = sc === document.scrollingElement || sc === document.body ? window.scrollY : sc.scrollTop;
       let isTopNow = this.panel.classList.contains('top');
       let dy = isTopNow ? r.top - (pr.bottom + 10) : r.bottom - (pr.top - 10);
+      const maxTop = sc === document.scrollingElement || sc === document.body ? document.documentElement.scrollHeight - innerHeight : sc.scrollHeight - sc.clientHeight;
+      // 往下捲不動了（目標在頁面最底）而面板在下面壓著它 → 面板改放上面
+      if (dy > 0 && !isTopNow && top0 + dy > maxTop + 1 && r.top >= panelH + 12) {
+        this.panel.classList.add('top');
+        this.lastSwitch = Date.now();
+        this.syncPadding();
+        return;
+      }
       // 往上捲不動了（已經在最上面）→ 面板改放下面、把頁面往下捲，讓欄位露在面板上方
       if (dy < 0 && top0 + dy < 0) {
         this.panel.classList.toggle('top', !isTopNow);
@@ -2050,6 +2210,23 @@ class Ui {
 }
 
 /** 目標中心點被別的東西蓋住（提示視窗）時，回傳那個視窗裡適合用來關掉它的按鈕 */
+/** 現在有沒有一個視窗（modal / 多選清單 / 日曆）蓋在頁面上：畫面中央往上找 fixed 或高 z-index 的大容器；目標自己所在的容器不算 */
+function popupEl(target: HTMLElement | null): HTMLElement | null {
+  const hit = document.elementFromPoint(innerWidth / 2, innerHeight * 0.4) as HTMLElement | null;
+  if (!hit || hit.closest('#tp-guide-host')) return null;
+  let c: HTMLElement | null = hit;
+  while (c && c !== document.body) {
+    const cs = getComputedStyle(c);
+    if (cs.position === 'fixed' || (cs.position === 'absolute' && parseInt(cs.zIndex || '0', 10) >= 10) || c.getAttribute('role') === 'dialog') break;
+    c = c.parentElement;
+  }
+  if (!c || c === document.body) return null;
+  if (target && c.contains(target)) return null;
+  const r = c.getBoundingClientRect();
+  if (r.width < innerWidth * 0.6 || r.height < innerHeight * 0.4) return null;
+  return c;
+}
+
 function coveringButton(el: HTMLElement): HTMLElement | null {
   const r = el.getBoundingClientRect();
   const x = Math.min(innerWidth - 1, Math.max(0, r.left + r.width / 2));
@@ -2253,21 +2430,27 @@ function scanForm(runner: Runner): Step[] {
   const url = runner.step?.url;
   const out: Step[] = [];
   const seenGroup = new Set<Element>();
-  const labelOf = (el: HTMLElement): string => {
+  /** 欄位的標題文字：label[for] → 包著它的 label → 往上最多 4 層找第一個 label / p / h / legend */
+  const titleTextOf = (el: HTMLElement): string => {
     const id = el.getAttribute('id');
-    let t = id ? document.querySelector(`label[for="${id}"]`)?.textContent || '' : '';
+    let t = id ? document.querySelector(`label[for="${CSS.escape(id)}"]`)?.textContent || '' : '';
     if (!t) t = el.closest('label')?.textContent || '';
-    if (!t) {
-      const block = el.closest('div, li, fieldset');
-      t = block?.querySelector('label, p, legend')?.textContent || '';
+    let p: HTMLElement | null = el.parentElement;
+    for (let i = 0; i < 4 && !t.trim() && p && p !== document.body; i++, p = p.parentElement) {
+      const h = [...p.querySelectorAll<HTMLElement>('label, p, h2, h3, h4, legend')].find((x) => !x.contains(el) && (x.textContent || '').trim());
+      if (h && p.querySelectorAll('input, select, textarea').length <= 4) t = h.textContent || '';
     }
-    return t.replace(/[\s*：:]+/g, ' ').trim().slice(0, 16);
+    return t;
+  };
+  const labelOf = (el: HTMLElement): string => {
+    let t = titleTextOf(el).replace(/[\s*：:]+/g, ' ').trim();
+    if (!t && el.tagName === 'SELECT') t = ((el as HTMLSelectElement).options[0]?.text || '').trim(); // 「請選擇縣市」
+    return t.replace(/\s*[A-Za-z][A-Za-z ()'-]*$/, '').trim().slice(0, 16) || t.slice(0, 16); // 去掉後面的英文副標
   };
   const requiredOf = (el: HTMLElement): boolean => {
     if ((el as HTMLInputElement).required) return true;
-    const id = el.getAttribute('id');
-    const lab = (id ? document.querySelector(`label[for="${id}"]`)?.textContent : '') || el.closest('div, li')?.querySelector('label, p')?.textContent || '';
-    return /\*/.test(lab);
+    if (/warn|error|invalid/.test(el.className)) return true; // 網頁已經把它標紅了
+    return /\*/.test(titleTextOf(el));
   };
   const mark = (el: HTMLElement): string => {
     const key = el.getAttribute('data-tp-field') || `f${++fieldSeq}`;
@@ -2307,8 +2490,14 @@ function scanForm(runner: Runner): Step[] {
         // 單選題（radio）或直的一排：整組框一個就好；多選橫排的一個一個框
         const vertical = labels.length > 1 && Math.abs(labels[0].getBoundingClientRect().left - labels[1].getBoundingClientRect().left) < 8;
         const boxed = isRadio || vertical;
-        if (boxed) (group as HTMLElement).setAttribute('data-tp-field', key + 'box');
-        out.push({ id: `form_group_${key}`, url, find: boxed ? [{ css: `[data-tp-field="${key}box"]` }] : [{ css: `label[data-tp-field="${key}"]` }], say: { zh: runner.t(isRadio ? 'guide_form_pick_one' : 'guide_form_check_any', { text: title }) }, done_when: 'click', pick_any: !boxed, optional: !req, generated: true,
+        if (boxed) {
+          // 題目跟選項一起框：外層只有「題目 + 選項」這兩三個孩子時，框外層
+          const parent = group.parentElement;
+          const titleEl = parent?.querySelector('p, h3, h4, label, legend');
+          const box = parent && titleEl && !group.contains(titleEl) && parent.children.length <= 3 && parent.querySelectorAll('input, select, textarea').length === group.querySelectorAll('input').length ? parent : group;
+          (box as HTMLElement).setAttribute('data-tp-field', key + 'box');
+        }
+        out.push({ id: `form_group_${key}`, url, find: boxed ? [{ css: `[data-tp-field="${key}box"]` }] : [{ css: `label[data-tp-field="${key}"]` }], say: { zh: runner.t(isRadio ? 'guide_form_pick_one' : 'guide_form_check_any', { text: title }) }, done_when: boxed ? 'manual' : 'click', no_next: boxed, pick_any: !boxed, optional: !req, generated: true,
           skip_if_visible: [{ css: `label[data-tp-field="${key}"] input:checked` }] });
       } else {
         const key = mark(lab);
@@ -2324,6 +2513,13 @@ function scanForm(runner: Runner): Step[] {
       out.push({ id: `form_select_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_select', { text: name }) }, done_when: 'change', optional: !requiredOf(el), generated: true });
     } else {
       const digits = /^(tel|number)$/.test(type) || /^[0-9]+$/.test((el as HTMLInputElement).placeholder || '');
+      if ((el as HTMLInputElement).readOnly || /^(date|time|datetime-local|month)$/.test(type)) {
+        // 唯讀欄位 = 點了會跳出選擇器（日曆、時間）：叫人「點它選一個」，不給麥克風／鍵盤，選好有值就完成
+        // 一開始就塞著的提示字（「請選擇…」）記下來，之後值還是它就當沒填
+        if (!el.hasAttribute('data-tp-init')) el.setAttribute('data-tp-init', (el as HTMLInputElement).value ?? '');
+        out.push({ id: `form_pick_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_pick', { text: name }) }, done_when: 'input', optional: !requiredOf(el), generated: true });
+        continue;
+      }
       out.push({ id: `form_fill_${key}`, url, find: [{ css: `[data-tp-field="${key}"]` }], say: { zh: runner.t('guide_form_fill', { text: name }) }, done_when: 'input', accept: digits ? 'digits' : 'text', optional: !requiredOf(el), generated: true });
     }
   }

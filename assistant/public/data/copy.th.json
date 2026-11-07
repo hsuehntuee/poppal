@@ -107,5 +107,7 @@
   "guide_form_check_any": "ติ๊กอย่างน้อยหนึ่ง: {text}",
   "guide_form_check": "ติ๊ก {text}",
   "guide_form_upload": "เพิ่มรูป? ไม่ก็ข้าม",
-  "guide_form_pick_one": "เลือกหนึ่งข้อ: {text}"
+  "guide_form_pick_one": "เลือกหนึ่งข้อ: {text}",
+  "guide_form_pick": "แตะ {text} แล้วเลือก",
+  "guide_form_missing": "ยังกรอกไม่ครบ กรอกช่องนี้ก่อน"
 }

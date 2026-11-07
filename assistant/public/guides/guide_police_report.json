@@ -9,42 +9,97 @@
   },
   "steps": [
     {
+      "id": "agree_box",
+      "url": "^/police-report/?$",
+      "find": [
+        {
+          "label": "本人已詳閱須知並同意繼續"
+        },
+        {
+          "css": "label:has(input[type=checkbox])"
+        }
+      ],
+      "say": {
+        "zh": "勾「本人已詳閱須知並同意繼續」"
+      },
+      "done_when": "click",
+      "skip_if_visible": [
+        {
+          "css": "input[type=checkbox]:checked"
+        }
+      ]
+    },
+    {
       "id": "agree",
       "url": "^/police-report/?$",
       "find": [
         {
           "role": "button",
-          "text": "同意"
-        },
-        {
-          "role": "button",
-          "text": "我同意"
-        },
-        {
-          "css": "button"
+          "text": "同意",
+          "exact": true
         }
       ],
       "say": {
-        "zh": "看完說明，按「同意」"
+        "zh": "按「同意」"
       },
-      "done_when": "route",
-      "more": {
-        "zh": "網路報案前要先同意注意事項"
-      }
+      "done_when": "route"
     },
     {
       "id": "form",
       "url": "^/police-report/form",
       "find": [],
       "say": {
-        "zh": "照畫面填報案資料"
+        "zh": "照畫面填"
       },
       "done_when": "manual",
-      "more": {
-        "zh": "急事請直接打 110"
-      },
-      "final": true,
       "walk_form": true
+    },
+    {
+      "id": "next",
+      "url": "^/police-report/form",
+      "find": [
+        {
+          "role": "button",
+          "text": "下一步",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "按「下一步」"
+      },
+      "done_when": "click"
+    },
+    {
+      "id": "form2",
+      "url": "^/police-report/form",
+      "find": [],
+      "say": {
+        "zh": "照畫面填第二頁"
+      },
+      "done_when": "manual",
+      "walk_form": true
+    },
+    {
+      "id": "submit",
+      "url": "^/police-report/form",
+      "find": [
+        {
+          "role": "button",
+          "text": "送出",
+          "exact": true
+        },
+        {
+          "role": "button",
+          "text": "確認送出"
+        }
+      ],
+      "say": {
+        "zh": "按「送出」"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-  ]
+  ],
+  "finish": "quiet"
 }

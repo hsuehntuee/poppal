@@ -48,6 +48,7 @@ Iterating on the web apps without rebuilding the APK (the app prefers an overrid
 node scripts/bundle-web.mjs; sh scripts/phone-push-web.sh        # push web + overlay, restart app
 sh scripts/phone-push-web.sh --clear                              # back to the bundled build
 sh scripts/phone-probe.sh [tap]                                   # companion state on the phone (needs the debug build)
+node --experimental-websocket scripts/phone-autowalk.mjs <case> <guide> <url> '{}' 0 [normal|elder|kid]   # auto-walk a guide on the phone, screenshot every action
 ```
 
 Laptop dev server (static files + overlay injection + `/llm` proxy):

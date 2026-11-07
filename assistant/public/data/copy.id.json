@@ -107,5 +107,7 @@
   "guide_form_check_any": "Centang minimal satu: {text}",
   "guide_form_check": "Centang {text}",
   "guide_form_upload": "Tambah foto? Lewati jika tidak",
-  "guide_form_pick_one": "Pilih satu: {text}"
+  "guide_form_pick_one": "Pilih satu: {text}",
+  "guide_form_pick": "Ketuk {text} lalu pilih",
+  "guide_form_missing": "Masih ada yang kosong, isi ini dulu"
 }

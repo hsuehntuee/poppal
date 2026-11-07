@@ -66,10 +66,9 @@
       "final": true,
       "skip_if_visible": [
         {
+          "within": "{{entity}}",
           "text": "取消訂閱",
-          "role": "button",
-          "exact": true,
-          "within": "{{entity}}"
+          "exact": true
         }
       ]
     }

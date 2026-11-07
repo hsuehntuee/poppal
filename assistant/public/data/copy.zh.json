@@ -128,5 +128,7 @@
   "guide_form_check_any": "勾「{text}」，至少一項",
   "guide_form_check": "勾選「{text}」",
   "guide_form_upload": "要加照片嗎？不用就略過",
-  "guide_form_pick_one": "「{text}」選一個"
+  "guide_form_pick_one": "「{text}」選一個",
+  "guide_form_pick": "點「{text}」選一個",
+  "guide_form_missing": "有欄位還沒填好，先補這個"
 }

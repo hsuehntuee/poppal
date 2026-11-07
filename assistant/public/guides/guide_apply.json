@@ -49,15 +49,43 @@
       "find": [
         {
           "role": "button",
-          "text": "下一步"
+          "text": "下一步",
+          "exact": true
         }
       ],
       "say": {
         "zh": "按「下一步」"
       },
-      "done_when": "route",
-      "confirm": true,
+      "done_when": "click",
+      "confirm": false
+    },
+    {
+      "id": "form2",
+      "url": "^/form/",
+      "find": [],
+      "say": {
+        "zh": "照畫面填"
+      },
+      "done_when": "manual",
+      "walk_form": true
+    },
+    {
+      "id": "submit",
+      "url": "^/form/",
+      "find": [
+        {
+          "role": "button",
+          "text": "送出",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "確認沒問題就按「送出」"
+      },
+      "done_when": "click",
+      "confirm": false,
       "final": true
     }
-  ]
+  ],
+  "finish": "quiet"
 }
