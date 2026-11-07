@@ -309,13 +309,13 @@ python -I tools/tinycls/mine_mock.py
 python -I tools/registry/build_registry.py
 python -I tools/gen_static_pages.py
 python -I tools/gen_find_place.py
-# 3. 把網頁打進 APK，編 release
+# 3. 把網頁與手機版 llama-server 打進 APK，編 release
 node scripts/bundle-web.mjs
+node scripts/prepare-llama-jni.mjs     # llama-server 執行檔 + .so → android/app/src/main/jniLibs（App 自己啟動，不靠 adb）
 cd TownPass; .\.fvm\flutter_sdk\bin\flutter.bat build apk --release --dart-define=LLM_URL=http://localhost:8080 --dart-define=OFFLINE_WEB=true; cd ..
 adb install -r TownPass\build\app\outputs\flutter-apk\app-release.apk
-# 4. 手機 NPU 的 llama-server（第一次 -Push，之後每次開機 -Start）
-.\scripts\phone-npu.ps1 -Push
-.\scripts\phone-npu.ps1 -Start
+# 4. 模型放到 App 的外部檔案夾（一次就好；App 啟動時會自己起 llama-server，NPU 起不來退 CPU，每 20 秒看管）
+.\scripts\phone-npu.ps1 -PushModel
 # 5. 筆電開發：serve-local（靜態 + 注入引導層 + /llm 轉發）
 node scripts/serve-local.mjs --port 5180 --llm http://127.0.0.1:8080
 ```

@@ -4,7 +4,7 @@
  * 只有開發者看得到；資料來自 localStorage 的 tp_debug_log、llama-server /health /props、頁面 FPS、registry。
  */
 import { onMounted, onUnmounted, ref, computed } from 'vue';
-import { readLog, clearLog, type LogEntry } from '../core/log';
+import { readLog, clearLog, tplog, type LogEntry } from '../core/log';
 import { settings } from '../core/settings';
 import { hasBridge, callBridge } from '../core/bridge';
 
@@ -13,7 +13,13 @@ const log = ref<LogEntry[]>([]);
 const filter = ref<'all' | 'warn' | 'error'>('all');
 const device = ref<Record<string, unknown>>({});
 const state = ref<Record<string, string | null>>({});
-const llm = ref({ url: '', status: '…', rttMs: 0, model: '', ctx: 0, slots: 0, ok: false });
+const llm = ref({ url: '', status: '…', rttMs: 0, model: '', ctx: 0, slots: 0, ok: false, err: '' });
+/** 決策引擎實際在用什麼：最近一筆 engine ready 的 info（跟探測分開，探測失敗不代表引擎沒在用） */
+const engineNow = computed(() => {
+  const e = log.value.find((x) => x.src === 'home' && x.msg === 'engine ready');
+  const d: any = e?.data ?? {};
+  return { engine: String(d.engine ?? '—'), url: String(d.url ?? ''), model: String(d.model ?? ''), t: e?.t ?? 0 };
+});
 const rtt = ref<number[]>([]);
 const fps = ref(0);
 const fpsHist = ref<number[]>([]);
@@ -83,31 +89,52 @@ function refresh() {
 }
 
 async function probeLlm() {
-  const urls = Array.from(new Set([settings.llmUrl, 'http://localhost:8080']));
+  // 先探引擎自己回報的網址，再探 App 注入的、手機本地、設定值；相對路徑 /llm 在手機上會被 SPA fallback 回 index.html，放最後
+  const cands = [engineNow.value.url, (window as any).__TP_LLM_URL__ as string, 'http://localhost:8080', settings.llmUrl].filter((u) => !!u);
+  const urls = Array.from(new Set(cands));
+  const errs: string[] = [];
   for (const u of urls) {
     const base = u.replace(/\/$/, '');
     const t0 = performance.now();
     try {
-      const r = await fetch(base + '/health', { signal: AbortSignal.timeout(2500) });
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 2500);
+      const r = await fetch(base + '/health', { signal: ctrl.signal }).finally(() => clearTimeout(timer));
       const ms = Math.round(performance.now() - t0);
+      if (!r.ok) {
+        errs.push(`${base} → HTTP ${r.status}`);
+        continue;
+      }
+      const j = await r.json().catch(() => null);
+      if (!j || j.status === undefined) {
+        errs.push(`${base} → 不是 llama-server 的回應`);
+        continue;
+      }
       llm.value.url = base;
-      llm.value.status = r.ok ? 'ONLINE' : String(r.status);
-      llm.value.ok = r.ok;
+      llm.value.status = 'ONLINE';
+      llm.value.ok = true;
       llm.value.rttMs = ms;
+      llm.value.err = '';
       rtt.value = [...rtt.value, ms].slice(-80);
       if (!llm.value.model) {
-        const p = await fetch(base + '/props', { signal: AbortSignal.timeout(2500) }).then((x) => x.json());
-        llm.value.model = String(p?.model_path || p?.model || '').split(/[\\/]/).pop() || '';
-        llm.value.ctx = p?.default_generation_settings?.n_ctx ?? 0;
-        llm.value.slots = p?.total_slots ?? 0;
+        try {
+          const p = await fetch(base + '/props').then((x) => x.json());
+          llm.value.model = String(p?.model_path || p?.model || '').split(/[\\/]/).pop() || '';
+          llm.value.ctx = p?.default_generation_settings?.n_ctx ?? 0;
+          llm.value.slots = p?.total_slots ?? 0;
+        } catch {
+          /* 舊版沒有 /props */
+        }
       }
       return;
-    } catch {
-      llm.value.url = base;
-      llm.value.status = 'OFFLINE';
-      llm.value.ok = false;
+    } catch (e) {
+      errs.push(`${base} → ${(e as Error).name}: ${(e as Error).message}`.slice(0, 120));
     }
   }
+  llm.value.status = 'OFFLINE';
+  llm.value.ok = false;
+  llm.value.err = errs.join(' | ');
+  tplog('debug', 'llm probe failed', errs, 'warn');
 }
 
 async function probeDevice() {
@@ -251,7 +278,7 @@ onUnmounted(() => {
     <header class="top">
       <div class="brand">
         <span class="dot" :class="{ on: llm.ok }"></span>
-        <b>POPPAL</b><span class="sub">// dev console</span>
+        <b>POLARIS</b><span class="sub">// dev console</span>
       </div>
       <div class="meta">v{{ APP_BUILD }} · up {{ uptime }} · {{ (device.phone as string) || (device.ua as string)?.slice(0, 24) }}</div>
       <nav><a href="#/">← 小幫手</a><a href="#/eval">評測</a></nav>
@@ -265,10 +292,12 @@ onUnmounted(() => {
         <div class="s">最近 {{ decideHist.length }} 次 · GO {{ kindCount.GO }} · ASK {{ kindCount.ASK }} · NONE {{ kindCount.NONE }}</div>
       </div>
       <div class="dtile glow-purple">
-        <div class="k">llama-server</div>
-        <div class="v" :class="llm.ok ? 'ok' : 'bad'">{{ llm.status }} <small>{{ llm.rttMs }}ms</small></div>
-        <div class="s mono">{{ llm.model || llm.url }}</div>
-        <div class="s">ctx {{ llm.ctx }} · slots {{ llm.slots }} · {{ settings.engine }}</div>
+        <div class="k">決策引擎（實際在用）</div>
+        <div class="v" style="font-size: 1.2em">{{ engineNow.engine }}<small v-if="engineNow.url">@ {{ engineNow.url }}</small></div>
+        <div class="s mono">{{ engineNow.model || (engineNow.engine === 'cls' ? 'e5-small 微調分類器（WebView 內）' : '') }}</div>
+        <div class="k" style="margin-top: 6px">llama-server 探測</div>
+        <div class="v" style="font-size: 1.1em" :class="llm.ok ? 'ok' : 'bad'">{{ llm.status }} <small>{{ llm.rttMs }}ms</small></div>
+        <div class="s mono">{{ llm.ok ? llm.url + ' · ctx ' + llm.ctx + ' · slots ' + llm.slots : llm.err }}</div>
       </div>
       <div class="dtile glow-yellow">
         <div class="k">LLM prompt 吞吐</div>

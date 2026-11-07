@@ -1,4 +1,4 @@
-# 手機 NPU 推理（路線 B）：llama.cpp 官方 Snapdragon（Hexagon HTP）版 + 微調好的 Gemma 3 270M。
+﻿# 手機 NPU 推理（路線 B）：llama.cpp 官方 Snapdragon（Hexagon HTP）版 + 微調好的 Gemma 3 270M。
 # 全部放在 /data/local/tmp/llama/，不 root、不安裝任何東西；-Remove 就清得一乾二淨。
 #
 #   .\scripts\phone-npu.ps1 -Push      # 推二進位、函式庫、模型到手機（第一次）
@@ -8,8 +8,9 @@
 #   .\scripts\phone-npu.ps1 -Forward   # adb forward 18080 → 手機 8080，筆電可用 pnpm eval --url http://127.0.0.1:18080
 #   .\scripts\phone-npu.ps1 -Remove    # 刪掉 /data/local/tmp/llama 與 adb forward（App 另外用 -Uninstall）
 #   .\scripts\phone-npu.ps1 -Uninstall # 解除安裝 TownPass（com.example.townpass）
+#   .\scripts\phone-npu.ps1 -PushModel # 把模型放到 App 的外部檔案夾，App 自己會啟動 llama-server（現在的正式做法；上面的 -Push/-Start 是舊的 adb 路線）
 param(
-  [switch]$Push, [switch]$Start, [switch]$Stop, [switch]$Status, [switch]$Forward, [switch]$Remove, [switch]$Uninstall,
+  [switch]$Push, [switch]$Start, [switch]$Stop, [switch]$Status, [switch]$Forward, [switch]$Remove, [switch]$Uninstall, [switch]$PushModel,
   [string]$Model = 'tools/llm/out/gemma-3-270m-decider-Q8_0.gguf',
   [string]$Device = 'HTP0'   # NPU；改成 none 就純 CPU
 )
@@ -20,6 +21,12 @@ $pkg = Join-Path $root 'tools\llama-android\snapdragon\llama-b12180'
 $dev = '/data/local/tmp/llama'
 $envStr = "export LD_LIBRARY_PATH=$dev/lib ADSP_LIBRARY_PATH=$dev/lib CDSP_LIBRARY_PATH=$dev/lib"
 
+if ($PushModel) {
+  $m = Split-Path -Leaf $Model
+  adb shell "mkdir -p /sdcard/Android/data/com.example.townpass/files/gguf"
+  adb push (Join-Path $root $Model) "/sdcard/Android/data/com.example.townpass/files/gguf/$m"
+  adb shell "ls -la /sdcard/Android/data/com.example.townpass/files/gguf/"
+}
 if ($Push) {
   adb shell "mkdir -p $dev/bin $dev/lib $dev/gguf"
   adb push (Join-Path $pkg 'bin\llama-server') (Join-Path $pkg 'bin\llama-bench') "$dev/bin/"

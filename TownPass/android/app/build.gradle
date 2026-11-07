@@ -48,6 +48,13 @@ android {
         versionName = flutterVersionName
     }
 
+    // llama-server 執行檔與 .so 在 jniLibs：要解壓到 nativeLibraryDir 才能用 Process.start 執行
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

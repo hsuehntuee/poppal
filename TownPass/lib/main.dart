@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:town_pass/gen/assets.gen.dart';
 import 'package:town_pass/service/account_service.dart';
 import 'package:town_pass/service/assistant_service.dart';
+import 'package:town_pass/service/llm_server_service.dart';
 import 'package:town_pass/service/device_service.dart';
 import 'package:town_pass/service/geo_locator_service.dart';
 import 'package:town_pass/service/notification_service.dart';
@@ -40,6 +41,8 @@ Future<void> initServices() async {
 
   Get.put<SubscriptionService>(SubscriptionService());
   await Get.putAsync<AssistantService>(() async => await AssistantService().init());
+  // 手機本地 llama-server：App 自己啟動與看管（不再靠 adb）
+  await Get.putAsync<LlmServerService>(() async => await LlmServerService().init());
 }
 
 class MyApp extends StatelessWidget {

@@ -36,7 +36,6 @@ const langOffer = ref<string | null>(null);
 /** 啟動泡泡動畫：按「小幫手」進來的那 1.2 秒。?nosplash 可關 */
 const splash = ref(!new URLSearchParams(location.search).has('nosplash') && !location.hash.includes('debug'));
 const splashHold = new URLSearchParams(location.search).has('splashhold');
-const bubbles = Array.from({ length: 10 }, (_, i) => ({ left: (i * 37) % 100, size: 14 + ((i * 53) % 40), delay: (i % 7) * 0.06, dur: 0.9 + ((i * 29) % 50) / 100 }));
 /** 圖騰：抽象線條（Lissajous 曲線 + 輻條 + 環），用 stroke-dashoffset 一筆一筆畫出來 */
 function lissajous(a: number, b: number, phase: number, r: number, n = 240) {
   const pts: string[] = [];
@@ -51,7 +50,7 @@ function lissajous(a: number, b: number, phase: number, r: number, n = 240) {
 const totemCurves = [
   { d: lissajous(3, 2, Math.PI / 2, 92), delay: 0, color: 'url(#tg1)' },
   { d: lissajous(5, 4, Math.PI / 4, 78), delay: 0.15, color: 'url(#tg2)' },
-  { d: lissajous(2, 3, 0, 64), delay: 0.3, color: '#ffffff' },
+  { d: lissajous(2, 3, 0, 64), delay: 0.3, color: '#8b5cf6' },
   { d: lissajous(4, 5, Math.PI / 3, 50), delay: 0.45, color: 'url(#tg1)' }
 ];
 const spokes = Array.from({ length: 12 }, (_, i) => (i * 360) / 12);
@@ -322,28 +321,27 @@ function openRecent(s: ServiceEntry) {
   <div class="page">
     <!-- 啟動泡泡：純炫技 -->
     <div v-if="splash" class="splash" :class="{ hold: splashHold }" @click="splash = false">
-      <span v-for="(b, i) in bubbles" :key="i" class="b" :style="{ left: b.left + '%', width: b.size + 'px', height: b.size + 'px', animationDelay: b.delay + 's', animationDuration: b.dur + 's' }"></span>
       <div class="brand">
         <svg class="totem" viewBox="0 0 240 240" aria-hidden="true">
           <defs>
-            <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" /><stop offset=".5" stop-color="#a7f3ff" /><stop offset="1" stop-color="#c77dff" /></linearGradient>
-            <linearGradient id="tg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dffbf6" /><stop offset="1" stop-color="#5ef2ff" /></linearGradient>
+            <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2eb6c7" /><stop offset=".55" stop-color="#5fd0bf" /><stop offset="1" stop-color="#8b5cf6" /></linearGradient>
+            <linearGradient id="tg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#176b78" /><stop offset="1" stop-color="#2eb6c7" /></linearGradient>
             <filter id="glow"><feGaussianBlur stdDeviation="2.2" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
           </defs>
-          <g class="ring ring-a"><circle cx="120" cy="120" r="108" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" stroke-dasharray="6 10" /></g>
-          <g class="ring ring-b"><circle cx="120" cy="120" r="100" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-dasharray="2 14" /></g>
+          <g class="ring ring-a"><circle cx="120" cy="120" r="108" fill="none" stroke="rgba(46,182,199,.55)" stroke-width="1.2" stroke-dasharray="6 10" /></g>
+          <g class="ring ring-b"><circle cx="120" cy="120" r="100" fill="none" stroke="rgba(139,92,246,.45)" stroke-width="1" stroke-dasharray="2 14" /></g>
           <g class="spokes" opacity=".9">
-            <line v-for="(a, i) in spokes" :key="i" x1="120" y1="16" x2="120" y2="34" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" :transform="'rotate(' + a + ' 120 120)'" />
+            <line v-for="(a, i) in spokes" :key="i" x1="120" y1="16" x2="120" y2="34" stroke="#2eb6c7" stroke-width="1.6" stroke-linecap="round" :transform="'rotate(' + a + ' 120 120)'" />
           </g>
           <g>
             <path v-for="(c, i) in totemCurves" :key="i" class="curve" :d="c.d" fill="none" :stroke="c.color" stroke-width="2" stroke-linecap="round" pathLength="1" :style="{ animationDelay: c.delay + 's' }" />
           </g>
-          <g class="orbit"><circle cx="120" cy="28" r="4" fill="#fff" /><circle cx="120" cy="212" r="2.5" fill="#5ef2ff" /></g>
-          <g class="orbit orbit-r"><circle cx="212" cy="120" r="3" fill="#c77dff" /></g>
-          <circle class="core" cx="120" cy="120" r="9" fill="#fff" />
+          <g class="orbit"><circle cx="120" cy="28" r="4" fill="#2eb6c7" /><circle cx="120" cy="212" r="2.5" fill="#8b5cf6" /></g>
+          <g class="orbit orbit-r"><circle cx="212" cy="120" r="3" fill="#5fd0bf" /></g>
+          <circle class="core" cx="120" cy="120" r="9" fill="#2eb6c7" />
         </svg>
-        <h1>PopPal</h1>
-        <p>泡泡夥伴 · 城市通小幫手</p>
+        <h1>Polaris</h1>
+        <p>城市通小幫手</p>
       </div>
     </div>
     <!-- 第一次使用：字要大一點嗎 -->
@@ -449,12 +447,10 @@ function openRecent(s: ServiceEntry) {
 <style scoped>
 .page { min-height: 100vh; display: flex; flex-direction: column; }
 .splash { position: fixed; inset: 0; z-index: 100; overflow: hidden; display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 50% 30%, #4fd3c4 0%, #1f9fb3 45%, #0d3f52 100%); animation: splashOut 1.7s ease-in forwards; }
-.splash .b { position: absolute; bottom: -14vh; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.75), rgba(255,255,255,.08) 60%, rgba(255,255,255,.25));
-  border: 1.5px solid rgba(255,255,255,.6); animation: rise 1.2s cubic-bezier(.2,.6,.3,1) forwards; }
-.splash .brand { position: relative; text-align: center; color: #fff; animation: pop .7s cubic-bezier(.2,1.5,.4,1); }
-.splash .totem { width: 210px; height: 210px; display: block; margin: 0 auto 4px; filter: drop-shadow(0 0 18px rgba(167,243,255,.55)); animation: totemIn .9s cubic-bezier(.2,1.3,.4,1); }
-.splash .curve { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .95s cubic-bezier(.4,0,.2,1) forwards; filter: drop-shadow(0 0 4px rgba(255,255,255,.8)); }
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, #f4fbfc 55%, #e6f5f7 100%); animation: splashOut 1.7s ease-in forwards; }
+.splash .brand { position: relative; text-align: center; color: #176b78; animation: pop .7s cubic-bezier(.2,1.5,.4,1); }
+.splash .totem { width: 210px; height: 210px; display: block; margin: 0 auto 4px; filter: drop-shadow(0 6px 22px rgba(46,182,199,.35)); animation: totemIn .9s cubic-bezier(.2,1.3,.4,1); }
+.splash .curve { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .95s cubic-bezier(.4,0,.2,1) forwards; filter: drop-shadow(0 0 3px rgba(46,182,199,.45)); }
 .splash.hold { animation: none; }
 .splash .ring { transform-origin: 120px 120px; animation: spin 6s linear infinite; }
 .splash .ring-b { animation-direction: reverse; animation-duration: 9s; }
@@ -465,9 +461,10 @@ function openRecent(s: ServiceEntry) {
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes corePulse { 50% { transform: scale(1.5); opacity: .7; } }
 @keyframes totemIn { from { transform: scale(.4) rotate(-40deg); opacity: 0; } }
-.splash h1 { font-size: 3.2em; margin: .05em 0 0; letter-spacing: 3px; font-weight: 900; text-shadow: 0 8px 28px rgba(0,0,0,.3); background: linear-gradient(90deg,#fff,#dffbf6,#fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.splash p { margin: .25em 0 0; opacity: .92; font-weight: 600; letter-spacing: 1px; }
-@keyframes rise { to { transform: translateY(-125vh) scale(1.4); opacity: 0; } }
+.splash h1 { font-size: 4em; margin: 0; letter-spacing: 1px; font-weight: 700; font-style: italic;
+  font-family: 'Dancing Script', 'Great Vibes', 'Segoe Script', 'Snell Roundhand', 'Brush Script MT', cursive;
+  background: linear-gradient(90deg,#176b78,#2eb6c7,#8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.splash p { margin: .1em 0 0; color: #5e6d76; font-weight: 500; letter-spacing: 3px; font-style: normal; font-family: 'PingFang TC', 'Noto Sans TC', Roboto, system-ui, sans-serif; }
 @keyframes pop { from { transform: scale(.3) rotate(-8deg); opacity: 0; } }
 @keyframes bob { 50% { transform: translateY(-8px) scale(1.06); } }
 @keyframes splashOut { 0%, 72% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
