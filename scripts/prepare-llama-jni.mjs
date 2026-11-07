@@ -32,6 +32,8 @@ for (const name of libs) {
 }
 // libOpenCL.so 替身（tools/llama-android/stub）：App 程序看不到 vendor 的 libOpenCL.so，沒有它整個執行檔連結不起來
 fs.copyFileSync(path.join(root, 'tools', 'llama-android', 'stub', 'libOpenCL.so'), path.join(dst, 'libOpenCL.so'));
+// JNI 殼：在 App 程序裡呼叫 llama_server()（NPU 要在 App 程序裡才看得到 vendor 的 FastRPC）
+fs.copyFileSync(path.join(root, 'tools', 'llama-android', 'stub', 'libpolaris_server.so'), path.join(dst, 'libpolaris_server.so'));
 const exe = path.join(src, 'bin', 'llama-server');
 fs.copyFileSync(exe, path.join(dst, 'libllama-server-bin.so'));
 total += fs.statSync(exe).size;

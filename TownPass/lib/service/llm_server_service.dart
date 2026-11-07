@@ -86,6 +86,15 @@ class LlmServerService extends GetxService {
     }
   }
 
+  Map<String, String> get _env => <String, String>{
+        'LD_LIBRARY_PATH': _nativeDir!,
+        'ADSP_LIBRARY_PATH': _nativeDir!,
+        'CDSP_LIBRARY_PATH': _nativeDir!,
+        'DSP_LIBRARY_PATH': _nativeDir!,
+        'GGML_HEXAGON_VERBOSE': '1',
+        'HOME': _nativeDir!,
+      };
+
   Future<bool> _healthy() async {
     try {
       final HttpClient c = HttpClient()..connectionTimeout = const Duration(seconds: 1);
@@ -110,15 +119,43 @@ class LlmServerService extends GetxService {
     }
     _starting = true;
     try {
-      // 先 NPU，起不來再 CPU
-      final bool ok = await _start(npu: !_cpuFallback);
-      if (!ok && !_cpuFallback) {
-        _cpuFallback = true;
-        await _start(npu: false);
+      // 1) 在 App 程序裡起（Hexagon NPU 只有在 App 程序裡才看得到 vendor 的 FastRPC）；只能起一次
+      if (!_inProcTried) {
+        _inProcTried = true;
+        if (await _startInProcess()) return;
       }
+      // 2) 退回另外 exec 的子程序（純 CPU）
+      _cpuFallback = true;
+      await _start(npu: false);
     } finally {
       _starting = false;
     }
+  }
+
+  bool _inProcTried = false;
+
+  Future<bool> _startInProcess() async {
+    final List<String> args = <String>['-m', _modelPath!, '-ngl', '99', '--host', '127.0.0.1', '--port', '$port', '-c', '2048', '-np', '2', '--cache-reuse', '256', '-t', '6'];
+    _set('starting-inproc', args.join(' '));
+    try {
+      final int? rc = await _ch.invokeMethod<int>('startServerInProcess', <String, dynamic>{'args': args});
+      if (rc != 0) {
+        _set('inproc-failed', 'rc=$rc');
+        return false;
+      }
+    } catch (e) {
+      _set('inproc-failed', e.toString());
+      return false;
+    }
+    for (int i = 0; i < 60; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      if (await _healthy()) {
+        _set('running-inproc');
+        return true;
+      }
+    }
+    _set('inproc-timeout');
+    return false;
   }
 
   Future<bool> _start({required bool npu}) async {
@@ -138,12 +175,7 @@ class LlmServerService extends GetxService {
     ];
     _set(npu ? 'starting-npu' : 'starting-cpu', '$exe ${args.join(' ')}');
     try {
-      _proc = await Process.start(exe, args, workingDirectory: dir, environment: <String, String>{
-        'LD_LIBRARY_PATH': dir,
-        'ADSP_LIBRARY_PATH': dir,
-        'CDSP_LIBRARY_PATH': dir,
-        'HOME': (await getApplicationSupportDirectory()).path,
-      });
+      _proc = await Process.start(exe, args, workingDirectory: dir, environment: _env);
     } catch (e) {
       _set('spawn-failed', e.toString());
       return false;

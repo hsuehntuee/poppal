@@ -5,12 +5,29 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
+    companion object {
+        init {
+            // 先把 llama-server 的依賴載進 App 程序（classloader namespace：看得到 vendor 的 libcdsprpc / libOpenCL）
+            try { System.loadLibrary("polaris_server") } catch (e: Throwable) { android.util.Log.e("llm-server", "loadLibrary polaris_server: $e") }
+        }
+    }
+    private external fun nativeStartServer(args: Array<String>, libDir: String): Int
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         // 給 Dart 端拿 nativeLibraryDir（jniLibs 解壓的位置，llama-server 執行檔就在這裡）
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "townpass/native").setMethodCallHandler { call, result ->
             when (call.method) {
                 "nativeLibraryDir" -> result.success(applicationInfo.nativeLibraryDir)
+                // 在 App 程序裡啟動 llama-server（NPU 路線）
+                "startServerInProcess" -> {
+                    val args = (call.argument<List<String>>("args") ?: emptyList()).toTypedArray()
+                    try {
+                        result.success(nativeStartServer(args, applicationInfo.nativeLibraryDir))
+                    } catch (e: Throwable) {
+                        result.error("start_failed", e.toString(), null)
+                    }
+                }
                 // 串流把 APK 裡的 asset 複製到檔案（模型 290MB，不能一次讀進記憶體）
                 "copyAsset" -> {
                     val key = call.argument<String>("key")!!
