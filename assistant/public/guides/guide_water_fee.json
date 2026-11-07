@@ -147,21 +147,52 @@
       "url": "^/fee-payment/payment/",
       "find": [
         {
-          "text": "請選擇繳費方式"
+          "text": "台北富邦信用卡",
+          "role": "button"
+        },
+        {
+          "text": "悠遊付",
+          "role": "button"
+        },
+        {
+          "css": "button.rounded-md"
         }
       ],
       "say": {
-        "zh": "選一種付款方式",
+        "zh": "點一種付款方式",
         "en": "Choose a payment method"
       },
       "more": {
-        "zh": "信用卡或行動支付都可以，選好後畫面會再問你一次",
-        "en": "Credit card or mobile payment. The page will ask you to confirm"
+        "zh": "信用卡或行動支付都可以，點了畫面會再問你一次"
       },
-      "done_when": "route",
+      "done_when": "click"
+    },
+    {
+      "id": "confirm_pay",
+      "url": "^/fee-payment/payment/",
+      "find": [
+        {
+          "text": "是",
+          "role": "button",
+          "exact": true
+        },
+        {
+          "text": "確認",
+          "role": "button",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "按「是」"
+      },
+      "more": {
+        "zh": "這一步才會真的送出付款"
+      },
+      "done_when": "click",
       "confirm": true,
       "final": true
     }
   ],
-  "note": "entry 直接進水費頁：原服務「其他」頁的分類展開在 build 後壞掉（grid-rows-[0fr] 蓋過 [1fr]），前兩步只給手動從 /fee-payment/others 走的人用，引導層會自動跳到符合網址的步驟。"
+  "note": "entry 直接進水費頁：原服務「其他」頁的分類展開在 build 後壞掉（grid-rows-[0fr] 蓋過 [1fr]），前兩步只給手動從 /fee-payment/others 走的人用，引導層會自動跳到符合網址的步驟。",
+  "finish": "quiet"
 }

@@ -332,7 +332,11 @@ class Runner {
       tplog('overlay', `step ${this.state.step + 1} ${step.id}: target not found`, { url: location.pathname, find: step.find }, 'warn');
       this.ui.setDim(false); // 找不到就不要把整頁變黑
       this.ui.place(null);
-      if (quiet) return;
+      if (quiet) {
+        // 躲起來時找不到下一步的東西（例如查無帳單的終點頁）：要出來說一聲，不能默默卡住
+        this.collapsed = false;
+        this.ui.expand();
+      }
       const hint = this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '');
       this.renderPanel(hint ? this.t('guide_not_found', { text: hint }) : say, more, true);
       return;
@@ -357,11 +361,12 @@ class Runner {
     }
     if (cover) {
       if (quiet) {
-        // 躲起來的時候不管提示視窗，使用者自己關；關掉後亮框要回來，所以追蹤照跑
-        this.target = el;
-        this.watchDone(step, el);
-        this.armStuck();
+        // 躲起來的時候：亮框指向提示視窗裡的那顆鈕（不然亮框會框在視窗底下的東西上，變成一條怪橫條），按了就重跑這一步
+        this.target = cover;
         this.startTracking();
+        const h = () => setTimeout(() => this.run(), 700);
+        cover.addEventListener('click', h, { once: true });
+        this.cleanup.push(() => cover.removeEventListener('click', h));
         return;
       }
       this.coverAttempts++;
@@ -1097,6 +1102,16 @@ class Runner {
           return;
         }
         const st = this.step;
+        // 輸入步驟：欄位有值而且游標已經離開（例如用日曆選好日期、或點到別處）→ 這一步做完了
+        if (st && st.done_when === 'input' && el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && document.activeElement !== el && !this.confirming) {
+          const v = (el as HTMLInputElement).value ?? '';
+          const r = st.accept ? extract(v, st.accept, { minLen: st.min_len, maxLen: st.max_len }) : { ok: v.trim().length > 0, value: v };
+          if (v.trim() && r.ok && r.value === v.trim()) {
+            tplog('overlay', `step ${this.state.step + 1} ${st.id}: filled and left the field, moving on`);
+            this.advanceBy('self');
+            return;
+          }
+        }
         if (st && st.skip_if_visible && this.fillLocators(st.skip_if_visible).some((l) => isVisible(locate([l])))) {
           tplog('overlay', `step ${this.state.step + 1} ${st.id}: done by user, moving on`);
           this.advanceBy('self');
@@ -1833,7 +1848,12 @@ function coveringButton(el: HTMLElement): HTMLElement | null {
   if (!c || c === document.body) return null;
   const btns = [...c.querySelectorAll<HTMLElement>('button, a[href], [role=button]')].filter((b) => isVisible(b));
   if (!btns.length) return null;
-  const byText = btns.find((b) => /確認|關閉|知道|好|OK|取消|繼續|稍後|略過/i.test(b.textContent || '') || /close|關閉/i.test((b.getAttribute('aria-label') || '') + (b.querySelector('img')?.getAttribute('alt') || '')));
+  const label = (b: HTMLElement) => (b.textContent || '').trim();
+  // 先挑「往前走」的鈕（確認、是、好、同意、繼續），再挑關閉類，最後才是取消 / 否
+  const byText =
+    btns.find((b) => /^(確認|確定|是|好|OK|同意|繼續|知道了|我知道了)$/i.test(label(b))) ??
+    btns.find((b) => /確認|關閉|知道|繼續|同意/.test(label(b)) || /close|關閉/i.test((b.getAttribute('aria-label') || '') + (b.querySelector('img')?.getAttribute('alt') || ''))) ??
+    btns.find((b) => /取消|否|稍後|略過/.test(label(b)));
   if (byText) return byText;
   // 沒有文字的圖示鈕：挑最靠視窗頂端、最右邊的那顆（通常就是右上角的 X），不要挑輸入框裡的清除鈕
   const cr = c.getBoundingClientRect();

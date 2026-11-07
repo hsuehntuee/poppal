@@ -1,103 +1,177 @@
 {
- "id": "guide_hospital_fee",
- "title": {
-  "zh": "繳聯合醫院醫療費"
- },
- "entry": "/fee-payment/detail/fee-9",
- "match": {
-  "url": "^/fee-payment/detail/fee-9"
- },
- "steps": [
-  {
-   "id": "fill",
-   "url": "^/fee-payment/detail/fee-9",
-   "find": [
+  "id": "guide_hospital_fee",
+  "title": {
+    "zh": "繳聯合醫院醫療費"
+  },
+  "entry": "/fee-payment/detail/fee-9",
+  "match": {
+    "url": "^/fee-payment/detail/fee-9"
+  },
+  "steps": [
     {
-     "label": "身分證字號"
+      "id": "fill",
+      "url": "^/fee-payment/detail/fee-9",
+      "find": [
+        {
+          "label": "證件號碼"
+        },
+        {
+          "css": "input[placeholder*='證件']"
+        },
+        {
+          "css": "input"
+        }
+      ],
+      "say": {
+        "zh": "輸入證件號碼"
+      },
+      "done_when": "input",
+      "more": {
+        "zh": "身分證或居留證號碼"
+      },
+      "accept": "text"
     },
     {
-     "css": "input"
-    }
-   ],
-   "say": {
-    "zh": "輸入身分證字號"
-   },
-   "done_when": "input",
-   "more": {
-    "zh": "輸入資料分頁：身分證字號、出生日期；或切到「繳費編號」分頁"
-   },
-   "accept": "text"
-  },
-  {
-   "id": "search",
-   "url": "^/fee-payment/detail/fee-9",
-   "find": [
+      "id": "birth",
+      "url": "^/fee-payment/detail/fee-9",
+      "find": [
+        {
+          "css": "input.base-input:not([id])"
+        },
+        {
+          "label": "出生日期"
+        }
+      ],
+      "say": {
+        "zh": "點出生日期，從日曆選一天"
+      },
+      "more": {
+        "zh": "先選年月再點日子"
+      },
+      "done_when": "input",
+      "accept": "text"
+    },
     {
-     "role": "button",
-     "text": "查詢"
-    }
-   ],
-   "say": {
-    "zh": "按「查詢」"
-   },
-   "done_when": "route",
-   "more": {
-    "zh": "最下面藍色的大按鈕"
-   }
-  },
-  {
-   "id": "select_all",
-   "url": "^/fee-payment/result/",
-   "find": [
+      "id": "office",
+      "url": "^/fee-payment/detail/fee-9",
+      "find": [
+        {
+          "label": "院區"
+        },
+        {
+          "css": "select"
+        }
+      ],
+      "say": {
+        "zh": "選院區"
+      },
+      "more": {
+        "zh": "不確定就選「所有院區」"
+      },
+      "done_when": "change"
+    },
     {
-     "text": "全部繳清",
-     "exact": true
-    }
-   ],
-   "say": {
-    "zh": "點「全部繳清」"
-   },
-   "done_when": "click",
-   "more": {
-    "zh": "會把所有帳單都勾起來"
-   },
-   "skip_if_missing": true
-  },
-  {
-   "id": "go_pay",
-   "url": "^/fee-payment/result/",
-   "find": [
+      "id": "search",
+      "url": "^/fee-payment/detail/fee-9",
+      "find": [
+        {
+          "role": "button",
+          "text": "查詢"
+        }
+      ],
+      "say": {
+        "zh": "按「查詢」"
+      },
+      "done_when": "route",
+      "more": {
+        "zh": "最下面藍色的大按鈕"
+      }
+    },
     {
-     "role": "button",
-     "text": "前往繳費"
-    }
-   ],
-   "say": {
-    "zh": "按「前往繳費」"
-   },
-   "done_when": "route",
-   "more": {
-    "zh": "最下面藍色的大按鈕"
-   },
-   "confirm": true
-  },
-  {
-   "id": "choose_way",
-   "url": "^/fee-payment/payment/",
-   "find": [
+      "id": "select_all",
+      "url": "^/fee-payment/result/",
+      "find": [
+        {
+          "text": "全部繳清",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "點「全部繳清」"
+      },
+      "done_when": "click",
+      "more": {
+        "zh": "會把所有帳單都勾起來"
+      },
+      "skip_if_missing": true
+    },
     {
-     "text": "請選擇繳費方式"
+      "id": "go_pay",
+      "url": "^/fee-payment/result/",
+      "find": [
+        {
+          "role": "button",
+          "text": "前往繳費"
+        }
+      ],
+      "say": {
+        "zh": "按「前往繳費」"
+      },
+      "done_when": "route",
+      "more": {
+        "zh": "最下面藍色的大按鈕"
+      },
+      "confirm": true
+    },
+    {
+      "id": "choose_way",
+      "url": "^/fee-payment/payment/",
+      "find": [
+        {
+          "text": "台北富邦信用卡",
+          "role": "button"
+        },
+        {
+          "text": "悠遊付",
+          "role": "button"
+        },
+        {
+          "css": "button.rounded-md"
+        }
+      ],
+      "say": {
+        "zh": "點一種付款方式"
+      },
+      "done_when": "click",
+      "more": {
+        "zh": "信用卡或行動支付都可以，點了畫面會再問你一次"
+      }
+    },
+    {
+      "id": "confirm_pay",
+      "url": "^/fee-payment/payment/",
+      "find": [
+        {
+          "text": "是",
+          "role": "button",
+          "exact": true
+        },
+        {
+          "text": "確認",
+          "role": "button",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "按「是」"
+      },
+      "more": {
+        "zh": "這一步才會真的送出付款"
+      },
+      "done_when": "click",
+      "confirm": true,
+      "final": true
     }
-   ],
-   "say": {
-    "zh": "選一種付款方式"
-   },
-   "done_when": "route",
-   "more": {
-    "zh": "信用卡或行動支付都可以，選好後畫面會再問你一次"
-   },
-   "confirm": true,
-   "final": true
-  }
- ]
+  ],
+  "finish": "quiet"
 }
