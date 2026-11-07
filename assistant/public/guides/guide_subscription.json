@@ -32,6 +32,13 @@
         {
           "text": "訂閱",
           "role": "button",
+          "exact": true,
+          "within": "{{entity}}"
+        },
+        {
+          "text": "取消訂閱",
+          "role": "button",
+          "exact": true,
           "within": "{{entity}}"
         }
       ]
@@ -43,18 +50,28 @@
         {
           "text": "訂閱",
           "role": "button",
+          "exact": true,
           "within": "{{entity}}"
         },
         {
           "text": "訂閱",
-          "role": "button"
+          "role": "button",
+          "exact": true
         }
       ],
       "say": {
         "zh": "按「訂閱」"
       },
       "done_when": "click",
-      "final": true
+      "final": true,
+      "skip_if_visible": [
+        {
+          "text": "取消訂閱",
+          "role": "button",
+          "exact": true,
+          "within": "{{entity}}"
+        }
+      ]
     }
   ],
   "collapse": false,
