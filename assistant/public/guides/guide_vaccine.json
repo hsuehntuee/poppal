@@ -71,7 +71,8 @@
       "say": {
         "zh": "選上午或下午"
       },
-      "done_when": "click"
+      "done_when": "click",
+      "pick_any": true
     },
     {
       "id": "submit",

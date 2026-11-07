@@ -72,6 +72,8 @@ interface Step {
   skip_if_missing?: boolean;
   /** 預填用哪個參數（預設用 step.id） */
   prefill?: string;
+  /** 任選一個：把所有符合定位器的元素都框起來，點任何一個都算完成 */
+  pick_any?: boolean;
 }
 interface Guide {
   id: string;
@@ -96,6 +98,10 @@ interface State {
   lang: Lang;
   /** 小幫手從使用者的話抽出的參數（例如 fill_water_number → 1234567890），到對應步驟時預填並請使用者確認 */
   params?: Record<string, string>;
+  /** 最後一次在導覽範圍內的網址（按返回離開後「回去繼續」用） */
+  resume?: string;
+  /** 已經離開過一次（再離開就真的結束） */
+  left?: boolean;
 }
 
 /* ---------- 入口 ---------- */
@@ -123,18 +129,18 @@ async function boot() {
 }
 
 /** 服務頁右下角的小幫手泡泡鈕：隨時叫得出小幫手（登場畫面與導覽進行中會收起來） */
-function mountFab() {
+function mountFab(labelOverride?: string, onClick?: () => void) {
   if (document.getElementById('tp-fab-host')) return;
   const host = document.createElement('div');
   host.id = 'tp-fab-host';
   const root = host.attachShadow({ mode: 'open' });
   const lang = lsGet('tp_assistant_lang') || 'zh';
-  const label = { zh: '小幫手', en: 'Helper', vi: 'Trợ lý', id: 'Asisten', th: 'ผู้ช่วย' }[lang] || '小幫手';
+  const label = labelOverride || { zh: '小幫手', en: 'Helper', vi: 'Trợ lý', id: 'Asisten', th: 'ผู้ช่วย' }[lang] || '小幫手';
   root.innerHTML = `
     <style>
       :host { all: initial; }
-      button { position: fixed; right: 12px; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 2147482998; display: flex; align-items: center; gap: 6px;
-               border: 0; border-radius: 999px; padding: 10px 14px 10px 12px; background: #2eb6c7; color: #fff; font: 700 15px 'PingFang TC', Roboto, system-ui, sans-serif;
+      button { position: fixed; right: 0; top: 62%; z-index: 2147482998; display: flex; align-items: center; gap: 6px;
+               border: 0; border-radius: 999px 0 0 999px; padding: 10px 12px 10px 12px; background: #2eb6c7; color: #fff; font: 700 15px 'PingFang TC', Roboto, system-ui, sans-serif;
                box-shadow: 0 6px 18px rgba(46,182,199,.45); -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; animation: in .4s cubic-bezier(.2,1.4,.4,1); }
       button:active { transform: scale(.95); }
       .ic { display: inline-flex; line-height: 1; }
@@ -143,6 +149,7 @@ function mountFab() {
     <button type="button" aria-label="${label}"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></span><span>${label}</span></button>`;
   root.querySelector('button')!.addEventListener('click', (ev) => {
     ev.stopPropagation();
+    if (onClick) return onClick();
     tplog('overlay', 'fab → assistant', { url: location.pathname });
     location.href = `${BASE}?lang=${lang}&from=fab`;
   });
@@ -158,6 +165,28 @@ async function start(state: State) {
   // 使用者按返回離開了這個流程（網址既不是導覽範圍、也不是任何一步的頁面）→ 清掉狀態、不顯示
   const inScope = (guide.match && new RegExp(guide.match.url).test(location.pathname)) || guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
   if (!inScope) {
+    const last = guide.steps[state.step];
+    if (!last || last.final || state.step >= guide.steps.length - 1) {
+      // 最後一步之後整頁換掉：流程已經結束
+      clearState();
+      mountFab();
+      return;
+    }
+    if (state.resume && !state.left) {
+      // 按返回離開了流程（整頁換掉）：泡泡改成「回去繼續」，點了回到剛才那一頁；再離開一次才真的結束
+      state.left = true;
+      saveState(state);
+      const copy = await loadCopy(state.lang);
+      const title = guide.title?.[state.lang] || guide.title?.zh || '';
+      const label = (copy.guide_resume || '回去繼續「{text}」').replace('{text}', title);
+      tplog('overlay', 'left guide → resume pill', { resume: state.resume });
+      mountFab(label, () => {
+        state.left = false;
+        saveState(state);
+        location.href = state.resume!;
+      });
+      return;
+    }
     clearState();
     mountFab(); // 不在範圍就當作沒有陪伴：泡泡鈕還是要有
     return;
@@ -178,6 +207,8 @@ class Runner {
   decider: Decider | null = null;
   catalog: Catalog | null = null;
   lastPath = location.pathname;
+  lastInScope = location.pathname;
+  leftOnce = false;
   busy = false;
 
   constructor(
@@ -297,6 +328,11 @@ class Runner {
     const quiet = this.collapsed;
 
     const onRightPage = !step.url || new RegExp(step.url).test(location.pathname);
+    if (onRightPage) {
+      this.state.resume = location.pathname;
+      this.state.left = false;
+      saveState(this.state);
+    }
     let say = this.tx(step.say);
     if (/「」/.test(say) && step.say_default) say = this.tx(step.say_default);
     const more = this.tx(step.more);
@@ -315,17 +351,33 @@ class Runner {
     if (skipNow()) return this.advance();
     const SKIP = {} as unknown as HTMLElement;
     // 可有可無的步驟（skip_if_missing）只等 1.5 秒，不然每一步都要等滿才跳過
-    let el = await waitFor<HTMLElement>(() => (skipNow() ? SKIP : locate(this.finders(step))), step.skip_if_missing ? 1500 : 6000);
-    if (el === SKIP) return this.advance();
+    let el: HTMLElement | null = null;
     let picked: { label: string; score: number } | null = null;
+    if (this.chosen && this.chosen.step === this.state.step && document.contains(this.chosen.el) && isVisible(this.chosen.el)) {
+      el = this.chosen.el; // 使用者剛從候選裡挑的
+      picked = { label: this.chosen.label, score: 1 };
+    } else if (step.pick_any) {
+      const group = await waitFor<HTMLElement[]>(() => (skipNow() ? [SKIP] : (() => { const g = locateAll(this.finders(step)); return g.length ? g : null; })()), step.skip_if_missing ? 1500 : 6000);
+      if (group && group[0] === SKIP) return this.advance();
+      this.targets = group ?? [];
+      el = group ? group[0] : null;
+    } else {
+      el = await waitFor<HTMLElement>(() => (skipNow() ? SKIP : locate(this.finders(step))), step.skip_if_missing ? 1500 : 6000);
+      if (el === SKIP) return this.advance();
+    }
     if (!el) {
       if (step.skip_if_missing) return this.advance();
       // 版面感知後備：抓這一頁所有可互動元素，用這一步的意圖挑最像的
       const goal = this.state.params?.entity || this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || say.replace(/[「」]/g, '');
       const best = await this.autoPick(goal, step);
+      if (best && best.ambiguous && best.ambiguous.length > 1) return this.askWhich(step, best.ambiguous, say);
       if (best) {
+        // 同一步重新定位（亂滑、目標消失）卻換了一個元素 → 不默默換框，問
+        if (this.pickedFor === this.state.step && this.pickedEl && this.pickedEl !== best.el) return this.askWhich(step, [{ el: best.el, label: best.label, kind: '' }], say);
         el = best.el;
         picked = { label: best.label, score: best.score };
+        this.pickedFor = this.state.step;
+        this.pickedEl = best.el;
       }
     }
     if (!el) {
@@ -420,8 +472,8 @@ class Runner {
     this.renderPanel(say, more);
     this.ui.hideInput();
     el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    setTimeout(() => this.ui.place(this.target), 350);
-    this.ui.place(el);
+    setTimeout(() => this.placeTargets(), 350);
+    this.placeTargets();
     // 要填的欄位：直接把游標放進去（數字欄位開數字鍵盤），只有這一個地方能填；每一步只自動聚焦一次
     // （頁面剛載入時 Vue 可能把欄位換掉：上次聚焦的那個元素已經不在頁面上就再聚焦一次）
     if (step.accept && /^(INPUT|TEXTAREA)$/.test(el.tagName) && (this.focusedStep !== this.state.step || !this.focusedEl || !document.contains(this.focusedEl)) && !(el as HTMLInputElement).value) {
@@ -506,6 +558,27 @@ class Runner {
 
   /** 這一步交給使用者自己選：收掉亮框與變暗，監聽器留著，做完就繼續 */
   freeStep = -1;
+  /** 版面感知挑出來的目標（同一步） */
+  pickedFor = -1;
+  pickedEl: HTMLElement | null = null;
+  /** 使用者從候選裡挑的目標 */
+  chosen: { step: number; el: HTMLElement; label: string } | null = null;
+
+  /** 不確定是哪一個：不框、不暗，把候選列在面板上讓使用者挑（或自己選） */
+  askWhich(step: Step, cands: Cand[], say: string) {
+    tplog('overlay', `step ${this.state.step + 1} ${step.id}: not sure, asking`, { cands: cands.map((c) => c.label) });
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.trackTimer);
+    this.target = null;
+    this.ui.setDim(false);
+    this.ui.place(null);
+    this.ui.hideInput();
+    this.ui.show({ say, stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [], icons: [{ label: ICON.close, title: this.t('guide_exit'), onClick: () => this.exit() }] });
+    const opts: PanelButton[] = cands.map((c) => ({ label: c.label.slice(0, 16), onClick: () => { this.chosen = { step: this.state.step, el: c.el, label: c.label }; this.run(); } }));
+    opts.push({ label: this.t('guide_self_pick'), secondary: true, onClick: () => this.notThis() });
+    this.ui.choices(this.t('guide_which_el'), opts);
+  }
+
   notThis() {
     this.freeStep = this.state.step;
     tplog('overlay', 'not this → free pick', { step: this.state.step });
@@ -555,7 +628,7 @@ class Runner {
   }
 
   /** 版面感知：列出這一頁可互動的元素，依「目標文字」打分挑最像的（先字元相似度 + 別名，再問 LLM） */
-  async autoPick(goal: string, step: Step): Promise<{ el: HTMLElement; label: string; score: number } | null> {
+  async autoPick(goal: string, step: Step): Promise<{ el: HTMLElement; label: string; score: number; ambiguous?: Cand[] } | null> {
     const g = goal.trim();
     if (!g) return null;
     const cands = collectInteractive();
@@ -566,8 +639,14 @@ class Runner {
         if (el && isVisible(el) && !cands.some((c) => c.el === el)) cands.push({ el, label: se.label, kind: se.kind });
       }
     }
-    if (!cands.length) return null;
-    let best = cands.map((c) => ({ ...c, score: textSimilarity(g, c.label) })).sort((a, b) => b.score - a.score)[0];
+    const allowed = cands.filter((c) => !isForbidden(c.el));
+    if (!allowed.length) return null;
+    const ranked = allowed.map((c) => ({ ...c, score: textSimilarity(g, c.label) })).sort((a, b) => b.score - a.score);
+    let best = ranked[0];
+    // 前兩名分數接近 → 不要替使用者決定，列出來讓他挑
+    if (ranked.length > 1 && best.score >= 0.3 && ranked[1].score >= 0.3 && best.score - ranked[1].score < 0.12 && ranked[1].label !== best.label) {
+      return { ...best, ambiguous: ranked.slice(0, 3).filter((c) => c.score >= 0.3) };
+    }
     if (best.score >= 0.45) return best;
     // LLM（筆電 / 4090 的大模型才有用；手機上的 270M 只會挑服務，所以信心不夠就不採用）
     try {
@@ -696,7 +775,11 @@ class Runner {
       return;
     }
     if (el && /^(BUTTON|A|LABEL)$/.test(el.tagName)) {
-      if (step.confirm) {
+      if (isForbidden(el) && !step.find.some((f) => f.exact && f.text)) {
+        this.ui.flash(this.t('guide_self_do'));
+        return; // 返回／關閉／刪除這類不代按，請使用者自己來
+      }
+      if (step.confirm || needsConfirm(el)) {
         const ok = await this.ui.ask(this.t('guide_confirm_q', { text: this.tpl(step.find[0]?.text || '') }), this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
         if (!ok) return;
       }
@@ -721,9 +804,10 @@ class Runner {
     switch (step.done_when) {
       case 'click': {
         const token = this.stepToken;
+        const group = this.targets.length > 1 ? this.targets : [el];
         const h = (ev: Event) => {
           const n = ev.target as Node | null;
-          if (n && (el === n || el.contains(n) || (n as Element).contains?.(el))) setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
+          if (n && group.some((g) => g === n || g.contains(n) || (n as Element).contains?.(g))) setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
         };
         document.addEventListener('click', h, true);
         this.cleanup.push(() => document.removeEventListener('click', h, true));
@@ -831,7 +915,27 @@ class Runner {
     const step = this.step;
     if (!step) return;
     const inScope = (this.guide.match && new RegExp(this.guide.match.url).test(location.pathname)) || this.guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
-    if (!inScope) return this.exit();
+    if (!inScope) {
+      // 最後一步做完頁面自己跳走（繳費完成、案件受理）→ 就是完成，不是離開
+      if (step.final || this.state.step >= this.guide.steps.length - 1) return this.finish();
+      // 按了返回離開流程：先收成小條「回去繼續」，再離開一次才真的結束
+      if (this.leftOnce) return this.exit();
+      this.leftOnce = true;
+      this.clearStep();
+      this.ui.setDim(false);
+      this.ui.place(null);
+      const back = this.lastInScope;
+      this.collapsed = true;
+      this.ui.collapse(this.t('guide_resume', { text: this.tx(this.guide.title) }), () => {
+        this.collapsed = false;
+        this.leftOnce = false;
+        this.ui.expand();
+        if (back) location.href = back;
+      });
+      return;
+    }
+    this.leftOnce = false;
+    this.lastInScope = location.pathname;
     if (step.done_when === 'route' && this.target) return void this.advanceBy('self'); // 使用者自己走到下一頁
     // 其他情況：頁面變了就重新定位
     this.run();
@@ -1092,7 +1196,7 @@ class Runner {
     let tick = 0;
     this.trackTimer = window.setInterval(() => {
       const el = this.target;
-      if (el && document.contains(el) && isVisible(el)) this.ui.place(el);
+      if (el && document.contains(el) && isVisible(el)) this.placeTargets();
       // 每 600 ms 看一次「這一步已完成的跡象」（skip_if_visible）：使用者自己做了就跟上去，不要鎖在原地
       if (++tick % 4 === 0 && !this.busy && !this.confirming) {
         // 目標被後來跳出的視窗蓋住（例如按 Enter 跳出地圖）→ 重新定位，走「先關掉這個提示」
@@ -1132,7 +1236,7 @@ class Runner {
         }
       } else {
         this.lostSince = 0;
-        this.ui.place(el);
+        this.placeTargets();
       }
       this.raf = requestAnimationFrame(loop);
     };
@@ -1142,7 +1246,15 @@ class Runner {
   /** 每換一步就 +1；延遲觸發的監聽器（debounce / timer）拿到舊 token 就作廢，避免前進兩次 */
   stepToken = 0;
 
+  /** pick_any 的整組目標 */
+  targets: HTMLElement[] = [];
+  placeTargets() {
+    if (this.targets.length > 1 && this.step?.pick_any) this.ui.placeMany(this.targets.filter((t) => document.contains(t) && isVisible(t)));
+    else this.ui.place(this.target);
+  }
+
   clearStep() {
+    this.targets = [];
     this.stepToken++;
     cancelAnimationFrame(this.raf);
     clearInterval(this.trackTimer);
@@ -1232,6 +1344,29 @@ export function locate(finders: Locator[]): HTMLElement | null {
     }
   }
   return null;
+}
+
+/** 任選一個：回傳所有符合定位器、看得到、不在禁區的元素（css 用 querySelectorAll，文字用完全相同） */
+export function locateAll(finders: Locator[]): HTMLElement[] {
+  const out: HTMLElement[] = [];
+  for (const f of finders) {
+    if (f.css) {
+      for (const el of document.querySelectorAll<HTMLElement>(f.css)) if (isReachable(el) && !out.includes(el) && !isForbidden(el)) out.push(el);
+    } else if (f.text) {
+      for (const el of document.querySelectorAll<HTMLElement>(f.role === 'button' ? 'button, a, [role=button]' : f.role === 'input' ? 'input, textarea, select' : 'button, a, [role=button], label, li, div, span, p')) {
+        if (el.closest('#tp-guide-host')) continue;
+        const t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+        if (!(f.exact ? t === f.text : t.includes(f.text)) || !isReachable(el) || isForbidden(el)) continue;
+        const clickable = el.closest<HTMLElement>('button, a, [role=button], label') ?? el;
+        if (!out.includes(clickable)) out.push(clickable);
+      }
+    } else if (f.label) {
+      const el = byLabel(f.label);
+      if (el && !out.includes(el)) out.push(el);
+    }
+    if (out.length) break; // 第一個有命中的定位器就是這一組
+  }
+  return out;
 }
 
 /** 下拉選單：找選項文字 → 回傳 <select>，並記下要選的值 */
@@ -1426,7 +1561,7 @@ class Ui {
         .ask { display: none; margin-top: 8px; padding: 8px 10px; background: #edf8fa; border-radius: 12px; }
         .ask.on { display: block; }
         .flash { color: #e5464b; margin-top: 4px; font-size: .9em; }
-        .mini { position: fixed; right: 12px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 2147483001; display: none; border: 0; border-radius: 999px; padding: .6em 1em;
+        .mini { position: fixed; right: 0; top: 40%; z-index: 2147483001; display: none; border: 0; border-radius: 999px 0 0 999px; padding: .55em .9em .55em 1em; transition: top .25s;
                 background: #2eb6c7; color: #fff; font: 600 ${15 * scale}px 'PingFang TC', Roboto, system-ui, sans-serif; box-shadow: 0 6px 18px rgba(46,182,199,.45); }
         .mini.on { display: block; }
         .extra { display: block; width: 100%; margin-top: 6px; background: transparent; color: #738995; border: 0; min-height: 2.2em; font-weight: 600; text-decoration: underline; }
@@ -1513,6 +1648,7 @@ class Ui {
   collapse(label: string, onTap: () => void) {
     const mini = this.root.querySelector<HTMLButtonElement>('.mini')!;
     mini.textContent = label;
+    mini.style.top = '';
     mini.onclick = (ev) => {
       ev.stopPropagation();
       onTap();
@@ -1751,7 +1887,46 @@ class Ui {
   }
 
   /** 把發亮框放到目標上；null 就取消變暗 */
+  extraSpots: HTMLElement[] = [];
+  /** 小圓鈕跟目標重疊時挪開（頁面的按鈕常在右下角） */
+  dodgeMini(rects: DOMRect[]) {
+    const mini = this.root.querySelector<HTMLElement>('.mini');
+    if (!mini || !mini.classList.contains('on')) return;
+    const m = mini.getBoundingClientRect();
+    const hit = rects.find((r) => r.width > 0 && m.left < r.right + 8 && m.right > r.left - 8 && m.top < r.bottom + 8 && m.bottom > r.top - 8);
+    if (!hit) return;
+    let top = hit.bottom + 12;
+    if (top + m.height > innerHeight - 8) top = hit.top - m.height - 12;
+    if (top < 8) top = 8;
+    mini.style.top = top + 'px';
+  }
+  /** 一次框好幾個（任選一個）：第一個用主亮框（帶變暗），其餘用柔光框 */
+  placeMany(els: HTMLElement[]) {
+    if (!els.length) return this.place(null);
+    this.place(els[0]);
+    this.dodgeMini(els.map((e) => e.getBoundingClientRect()));
+    this.spot.classList.add('soft');
+    this.dim.classList.remove('on');
+    const pad = 6;
+    while (this.extraSpots.length < els.length - 1) {
+      const d = document.createElement('div');
+      d.className = 'spot soft extra';
+      this.root.appendChild(d);
+      this.extraSpots.push(d);
+    }
+    this.extraSpots.forEach((d, i) => {
+      const el = els[i + 1];
+      if (!el) {
+        d.style.display = 'none';
+        return;
+      }
+      const r = el.getBoundingClientRect();
+      Object.assign(d.style, { display: 'block', top: r.top - pad + 'px', left: r.left - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+    });
+  }
+
   place(el: HTMLElement | null) {
+    if (el === null || !document.contains(el)) this.extraSpots.forEach((d) => (d.style.display = 'none'));
     if (!el || !document.contains(el)) {
       this.spot.style.display = 'none';
       this.dim.classList.toggle('on', this.dimWanted);
@@ -1815,6 +1990,7 @@ class Ui {
       if (sc === document.scrollingElement || sc === document.body) window.scrollBy({ top: dy, behavior: 'smooth' });
       else sc.scrollBy({ top: dy, behavior: 'smooth' });
     }
+    this.dodgeMini([r]);
     Object.assign(this.spot.style, {
       display: 'block',
       top: r.top - pad + 'px',
@@ -2024,6 +2200,28 @@ interface Cand {
 }
 
 /** 這一頁所有看得到、可互動的元素與它們的文字 */
+/** 禁區：導航／破壞類元素永遠不由版面感知自動挑、也不代按（導覽腳本精確指名時才算目標） */
+const FORBIDDEN_TEXT = /^(返回|上一頁|回上一頁|關閉|首頁|回到城市通|回首頁|取消|清除|清空|刪除|移除|登出|重設|重置|back|close|cancel|delete|remove|logout|reset|home)$/i;
+function isForbidden(el: HTMLElement): boolean {
+  const label = (el.textContent || el.getAttribute('aria-label') || el.querySelector('img')?.getAttribute('alt') || '').replace(/\s+/g, ' ').trim();
+  if (FORBIDDEN_TEXT.test(label)) return true;
+  if (el.tagName === 'A') {
+    const href = el.getAttribute('href') || '';
+    if (/^(https?:|tel:|mailto:)/i.test(href)) return true; // 外部連結、撥號
+  }
+  if (!label) {
+    // 沒有文字的圖示鈕：在畫面最上面一排的就是返回 / 關閉
+    const r = el.getBoundingClientRect();
+    if (r.top < 64) return true;
+  }
+  return false;
+}
+/** 代按前要先問的動作（付款、送出、刪除、撥打…） */
+const CONFIRM_TEXT = /付款|繳費|送出|提交|確認掛號|預約|撥打|報名|投票|訂閱|刪除/;
+function needsConfirm(el: HTMLElement): boolean {
+  return CONFIRM_TEXT.test((el.textContent || '').trim());
+}
+
 function collectInteractive(): Cand[] {
   const out: Cand[] = [];
   const seen = new Set<HTMLElement>();

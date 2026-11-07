@@ -97,5 +97,8 @@
   "guide_digits_only": "Chỉ nhập số",
   "guide_after_typing": "Nhập xong rồi: {text}",
   "guide_keyboard": "Gõ",
-  "stt_retry": "Nói lại"
+  "stt_retry": "Nói lại",
+  "guide_which_el": "Bạn muốn cái nào?",
+  "guide_resume": "Quay lại {text}",
+  "guide_self_do": "Bạn tự bấm cái này nhé"
 }

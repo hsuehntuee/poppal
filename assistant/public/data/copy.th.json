@@ -97,5 +97,8 @@
   "guide_digits_only": "ใส่ได้เฉพาะตัวเลข",
   "guide_after_typing": "พิมพ์เสร็จแล้ว: {text}",
   "guide_keyboard": "พิมพ์",
-  "stt_retry": "พูดอีกครั้ง"
+  "stt_retry": "พูดอีกครั้ง",
+  "guide_which_el": "คุณหมายถึงอันไหน?",
+  "guide_resume": "กลับไปทำ {text} ต่อ",
+  "guide_self_do": "กรุณากดอันนี้เอง"
 }

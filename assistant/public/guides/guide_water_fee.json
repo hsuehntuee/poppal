@@ -147,15 +147,15 @@
       "url": "^/fee-payment/payment/",
       "find": [
         {
+          "css": "button.rounded-md"
+        },
+        {
           "text": "台北富邦信用卡",
           "role": "button"
         },
         {
           "text": "悠遊付",
           "role": "button"
-        },
-        {
-          "css": "button.rounded-md"
         }
       ],
       "say": {
@@ -165,7 +165,8 @@
       "more": {
         "zh": "信用卡或行動支付都可以，點了畫面會再問你一次"
       },
-      "done_when": "click"
+      "done_when": "click",
+      "pick_any": true
     },
     {
       "id": "confirm_pay",

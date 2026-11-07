@@ -42,11 +42,11 @@
       "url": "^/hospital-registration",
       "find": [
         {
-          "role": "button",
-          "text": "醫師"
+          "css": "button[class*='slot'], .slot button"
         },
         {
-          "css": "button[class*='slot'], .slot button"
+          "text": "醫師",
+          "role": "button"
         }
       ],
       "say": {
@@ -55,7 +55,8 @@
       "done_when": "click",
       "more": {
         "zh": "每位醫師下面的時間都可以選"
-      }
+      },
+      "pick_any": true
     },
     {
       "id": "submit",

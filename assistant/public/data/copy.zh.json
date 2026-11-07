@@ -118,5 +118,8 @@
   "guide_digits_long": "只能 {need} 碼，現在 {have} 碼，多了",
   "guide_digits_only": "只能填數字",
   "guide_after_typing": "打完再{text}",
-  "stt_retry": "再說一次"
+  "stt_retry": "再說一次",
+  "guide_which_el": "你要的是哪一個？",
+  "guide_resume": "回去繼續「{text}」",
+  "guide_self_do": "這個請你自己按"
 }

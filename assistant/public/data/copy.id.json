@@ -97,5 +97,8 @@
   "guide_digits_only": "Hanya angka",
   "guide_after_typing": "Setelah selesai: {text}",
   "guide_keyboard": "Ketik",
-  "stt_retry": "Ulangi"
+  "stt_retry": "Ulangi",
+  "guide_which_el": "Yang mana yang kamu mau?",
+  "guide_resume": "Kembali ke {text}",
+  "guide_self_do": "Silakan tekan sendiri"
 }

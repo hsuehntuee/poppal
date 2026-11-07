@@ -118,5 +118,8 @@
   "guide_digits_long": "Max {need} digits, you have {have}",
   "guide_digits_only": "Digits only",
   "guide_after_typing": "When you're done: {text}",
-  "stt_retry": "Say it again"
+  "stt_retry": "Say it again",
+  "guide_which_el": "Which one do you mean?",
+  "guide_resume": "Back to {text}",
+  "guide_self_do": "Please tap this one yourself"
 }
