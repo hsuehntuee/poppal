@@ -303,9 +303,13 @@ class Runner {
       return;
     }
 
-    if (step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])))) return this.advance();
-
-    let el = await waitFor(() => locate(this.finders(step)), 6000);
+    // 等目標出現的同時也一直看「已經完成的跡象」（例如地圖標記已經載入）：資料慢半拍時不用傻等 6 秒
+    const skipNow = () => !!step.skip_if_visible && this.fillLocators(step.skip_if_visible).some((l) => isVisible(locate([l])));
+    if (skipNow()) return this.advance();
+    const SKIP = {} as unknown as HTMLElement;
+    // 可有可無的步驟（skip_if_missing）只等 1.5 秒，不然每一步都要等滿才跳過
+    let el = await waitFor<HTMLElement>(() => (skipNow() ? SKIP : locate(this.finders(step))), step.skip_if_missing ? 1500 : 6000);
+    if (el === SKIP) return this.advance();
     let picked: { label: string; score: number } | null = null;
     if (!el) {
       if (step.skip_if_missing) return this.advance();

@@ -163,7 +163,7 @@ async function handleText(text: string) {
   if (det.lang && !['zh', 'en', 'und'].includes(det.lang) && det.conf >= 0.5) {
     forDecider = await translate(text, det.lang, 'zh');
     if (forDecider !== text) translated.value = forDecider;
-    if (['vi', 'id', 'th'].includes(det.lang) && uiLang.value !== det.lang) await setLang(det.lang);
+    // 介面不自動切成越／印／泰文：多國語言介面先不開（辨識錯語言會把人困在看不懂的介面）；只翻成中文丟給決策器
   } else if (det.lang === 'zh' && uiLang.value !== 'zh' && uiLang.value !== 'auto') {
     // 使用者用中文講話就切回中文介面
     await setLang('zh');
@@ -360,9 +360,7 @@ function openRecent(s: ServiceEntry) {
 
     <!-- 設定：引擎、語言、模式 -->
     <div v-if="showSettings" class="card col" style="margin: 3.6em 1em 0">
-      <div class="row">
-        <button v-for="l in ['zh', 'en', 'vi', 'id', 'th']" :key="l" class="btn" :class="{ secondary: uiLang !== l }" style="min-height: 2.4em" @click="setLang(l)">{{ l }}</button>
-      </div>
+      <!-- 語言列先拿掉：多國語言的語音辨識／服務頁面還沒到位，只留英文輸入時的提議切換 -->
       <div class="row">
         <button v-for="m in (['kid', 'normal', 'elder'] as Mode[])" :key="m" class="btn" :class="{ secondary: mode !== m }" style="min-height: 2.4em" @click="chooseMode(m)">{{ t('mode_' + m) }}</button>
       </div>
