@@ -543,6 +543,12 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - **根治**：`scripts/prepare-llama-jni.mjs` 把 Snapdragon 版 llama-server 執行檔（改名 `libllama-server-bin.so`）與 13 個 .so 放進 APK 的 jniLibs（`useLegacyPackaging` 解壓到 nativeLibraryDir），`LlmServerService` 在 App 啟動時用 `Process.start` 自己起伺服器（`ADSP_LIBRARY_PATH` 指到 nativeLibraryDir 讓 HTP 載入 `libggml-htp-v81.so`），NPU 起不來退 CPU，每 20 秒探 /health，掛了就重啟。模型放 App 外部檔案夾（`phone-npu.ps1 -PushModel`），不在 git 也不在 APK。
 - **Polaris 北極星**：登場畫面白底、線條圖騰改成青／紫、英文草寫斜體、副標「城市通小幫手」正體；App 內的圖示與按鈕仍叫「小幫手」。repo 名稱不變。
 
+### 第九輪（2026-11-07 深夜：NPU 真的在 App 裡跑起來）
+- 直接 exec 子程序拿不到 vendor 的 libcdsprpc / libOpenCL（linker namespace），所以改成 JNI 殼在 App 程序裡呼叫 `llama_server(argc, argv)`；再加上 AndroidManifest 的 `<uses-native-library libcdsprpc/libadsprpc/libOpenCL>`（Android 12+ 不宣告就看不到），Hexagon 才註冊得到 HTP0。
+- 實測（同一份 532 token 的提示）：App 內 NPU 81 ms（≈6500 tok/s）；App 內 CPU 7,400 ms（≈70 tok/s）；舊的 adb 子程序 NPU 也是 50 多 ms 一次決策，但拔線／鎖屏就死。現在伺服器隨 App 啟動、每 20 秒看管，NPU 起不來退 CPU，CPU 也起不來小幫手退回 WebView 內的 e5 分類器（6 ms、97.9%）。
+- 模型（292MB）進 APK assets，第一次啟動串流複製到私有目錄（0.2 秒）。APK 422MB。
+- README 改成英文精簡版；之後 commit 全英文。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。
