@@ -19,6 +19,8 @@ for act in "$@"; do
     enter) adb shell input keyevent 66 ;;
     tapxy:*) adb shell input tap $(echo "${act#tapxy:}" | tr ',' ' ') ;;
     tapel:*) XY=$(node --experimental-websocket scripts/phone-eval.mjs "townpass.local/" "(() => { const t = '${act#tapel:}'; const e = [...document.querySelectorAll('*')].find(x => x.children.length === 0 && x.textContent.trim() === t && (x.offsetWidth || x.offsetHeight)); if (!e) return 'none'; e.scrollIntoView({block: 'center'}); const r = e.getBoundingClientRect(); return Math.round((r.left + r.width / 2) * devicePixelRatio) + ' ' + Math.round((r.top + r.height / 2) * devicePixelRatio + 226); })()" 2>&1 | tail -1 | tr -d '"'); echo "tapel $XY"; sleep 0.8; [ "$XY" != "none" ] && adb shell input tap $XY ;;
+    uia:*) adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1; B=$(adb shell cat /sdcard/ui.xml | tr '>' '
+' | grep "text=\"${act#uia:}\"" | head -1 | grep -o 'bounds="[^"]*"' | sed 's/bounds=//; s/"//g; s/\]\[/,/; s/[][]//g'); echo "uia $B"; if [ -n "$B" ]; then X=$(( ( $(echo "$B" | cut -d, -f1) + $(echo "$B" | cut -d, -f3) ) / 2 )); Y=$(( ( $(echo "$B" | cut -d, -f2) + $(echo "$B" | cut -d, -f4) ) / 2 )); adb shell input tap $X $Y; fi ;;
     js:*) sh scripts/phone-probe.sh "${act#js:}" >/dev/null ;;
     sleep:*) sleep "${act#sleep:}" ;;
   esac

@@ -90,10 +90,6 @@ G['guide_qna'] = {'id': 'guide_qna', 'title': {'zh': '功能教學'}, 'entry': '
 G['guide_scan_bill'] = {'id': 'guide_scan_bill', 'title': {'zh': '掃描帳單'}, 'entry': '/fee-payment/scan', 'match': {'url': '^/fee-payment/scan'}, 'steps': [
     step('scan', '^/fee-payment/scan', [C('video'), C('main')], '把相機對準帳單上的條碼', '對準後會自動辨識', 'manual', final=True)]}
 
-G['guide_water_meter'] = {'id': 'guide_water_meter', 'title': {'zh': '報水表度數'}, 'entry': '/water-service', 'match': {'url': '^/water-service'}, 'steps': [
-    step('number', '^/water-service', [L('水號'), C('#water_number')], '輸入水號', '帳單右上角的 10 位數字', 'input', accept='digits', min_len=10, max_len=10),
-    step('value', '^/water-service', [L('本期度數'), C('#meter_value')], '輸入水表上的度數', '水表黑色數字那幾位', 'input', accept='digits', min_len=1, max_len=8),
-    step('submit', '^/water-service', [B('送出')], '按「送出」', '', 'click', confirm=True, final=True)]}
 G['guide_vaccine'] = {'id': 'guide_vaccine', 'title': {'zh': '疫苗預約'}, 'entry': '/vaccine', 'match': {'url': '^/vaccine'}, 'steps': [
     step('type', '^/vaccine', [dict(option='{{entity}}'), C('#vaccine_type')], '選疫苗種類「{{entity}}」', '', 'change', say_default='選疫苗種類'),
     step('site', '^/vaccine', [C('#site')], '選接種地點', '', 'change'),

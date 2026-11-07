@@ -161,10 +161,10 @@ extension MyServiceIdExt on MyServiceItemId {
         ),
       MyServiceItemId.waterMeter => MyServiceItem(
           title: '用水服務',
-          description: '繳交水費、查詢或自報用水度數',
+          description: '繳交水費',
           icon: Assets.svg.iconWaterMeter.svg(),
           category: MyServiceCategory.cityLife,
-          destinationUrl: '${kDevServiceUrl}water-service',
+          destinationUrl: '${kDevServiceUrl}fee-payment/detail/fee-6',
         ),
       MyServiceItemId.essentialGoods => MyServiceItem(
           title: '民生物資',
@@ -207,8 +207,8 @@ extension MyServiceIdExt on MyServiceItemId {
           description: '本機微服務 ($kDevServiceUrl)',
           icon: Assets.svg.iconDistrictOffice.svg(),
           category: MyServiceCategory.other,
-          // 與「申辦服務」(根目錄) 區隔，改指向用水服務
-          destinationUrl: '${kDevServiceUrl}water-service',
+          // 與「申辦服務」(根目錄) 區隔，改指向有話要說
+          destinationUrl: '${kDevServiceUrl}citizen-report',
         ),
     };
   }

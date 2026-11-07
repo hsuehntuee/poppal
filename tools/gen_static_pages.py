@@ -110,7 +110,7 @@ page('privacy', '隱私權政策', '''<div class="card"><h3>資料蒐集</h3><p>
 import json as _json
 _cat = _json.load(open(os.path.join(ROOT, 'assistant', 'public', 'data', 'catalog.json'), encoding='utf-8'))
 _groups = [
-    (' 繳費與帳務', ['water_fee_pay', 'parking_fee_pay', 'local_tax_pay', 'tuition_pay', 'hospital_fee_pay', 'fee_pay_other', 'fee_history', 'water_meter_report']),
+    (' 繳費與帳務', ['water_fee_pay', 'parking_fee_pay', 'local_tax_pay', 'tuition_pay', 'hospital_fee_pay', 'fee_pay_other', 'fee_history']),
     (' 通報與陳情', ['citizen_report', 'citizen_report_search', 'disaster_report', 'police_report', 'call_1999']),
     (' 健康醫療', ['vaccine', 'hospital_registration']),
     (' 生活服務', ['find_place', 'library', 'counter_calling', 'apply_service', 'subscription', 'coupon', 'ticket_wallet', 'family_center', 'essential_goods', 'zoo', 'green_map', 'pet_map', 'city_radio']),

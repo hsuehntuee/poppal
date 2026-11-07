@@ -1,8 +1,8 @@
-# MATRIX_1K: testset_1k.json (1052 items)
+# MATRIX_1K: testset_1k.json (1027 items)
 
-Generated 2026-11-07T16:56:47.855Z
+Generated 2026-11-07T21:25:16.765Z
 
-Composition: tag ambiguous=8, foreign=114, normal=802, oos=128; lang en=157, id=43, th=43, vi=43, zh=679, zh-en=87; style ambiguous=8, asr=159, colloquial=200, english=157, foreign=129, keyword=61, long=122, mixed=87, nearmiss=92, param=37
+Composition: tag ambiguous=8, foreign=111, normal=780, oos=128; lang en=153, id=42, th=42, vi=42, zh=663, zh-en=85; style ambiguous=8, asr=155, colloquial=196, english=153, foreign=126, keyword=60, long=119, mixed=85, nearmiss=90, param=35
 
 In-scope hit rates are over non-NONE items (including foreign); "oos" is the NONE detection rate. `fuse` = registry lookup fusion.
 
@@ -13,17 +13,17 @@ In-scope hit rates are over non-NONE items (including foreign); "oos" is the NON
 | cls-fuse-before | laptop | 77.4% | 89.3% | 64.1% | 0.18 | 6 ms |  |
 | cls-fuse-r1 | laptop | 91.6% | 95.9% | 60.9% | 0.08 | 38 ms |  |
 | cls-fuse-r2 | laptop | 91.1% | 95.2% | 91.4% | 0.07 | 6 ms |  |
-| cls-fuse-r3 | laptop | 95.0% | 96.9% | 90.6% | 0.04 | 6 ms |  |
+| cls-fuse-r3 | laptop | 94.9% | 96.8% | 90.6% | 0.04 | 6 ms |  |
 | cls-nofuse-before | laptop | 74.5% | 87.3% | 64.8% | 0.20 | 6 ms |  |
 | cls-nofuse-r1 | laptop | 90.9% | 95.2% | 61.7% | 0.09 | 45 ms |  |
 | cls-nofuse-r2 | laptop | 90.6% | 94.3% | 92.2% | 0.08 | 6 ms |  |
-| cls-nofuse-r3 | laptop | 94.8% | 96.3% | 90.6% | 0.04 | 6 ms |  |
+| cls-nofuse-r3 | laptop | 94.7% | 96.2% | 90.6% | 0.04 | 6 ms |  |
 | embed-fuse-before | laptop | 50.4% | 63.7% | 49.2% | 0.37 | 6 ms |  |
 | embed-nofuse-before | laptop | 46.4% | 61.7% | 49.2% | 0.39 | 5 ms |  |
 | llm-fuse-after | laptop-gpu | 93.6% | 97.6% | 99.2% | 0.04 | 40 ms |  |
 | llm-fuse-before | laptop-gpu | 52.9% | 61.7% | 82.0% | 0.36 | 39 ms |  |
-| llm-fuse-phone-2nd | S26-NPU-inapp | 93.6% | 97.7% | 99.2% | 0.04 | 59 ms |  |
-| llm-fuse-phone | S26-NPU-inapp | 93.9% | 97.6% | 99.2% | 0.04 | 65 ms |  |
+| llm-fuse-phone-2nd | S26-NPU-inapp | 93.2% | 97.4% | 99.2% | 0.04 | 64 ms |  |
+| llm-fuse-phone | S26-NPU-inapp | 93.2% | 97.3% | 99.2% | 0.04 | 63 ms |  |
 | llm-nofuse-after | laptop-gpu | 93.1% | 97.2% | 99.2% | 0.04 | 41 ms |  |
 | llm-nofuse-before | laptop-gpu | 51.4% | 60.9% | 82.0% | 0.38 | 39 ms |  |
 | llmcs-fuse-before | laptop-gpu | 72.3% | 87.2% | 80.5% | 0.21 | 40 ms |  |
@@ -41,8 +41,8 @@ In-scope hit rates are over non-NONE items (including foreign); "oos" is the NON
 
 | engine | first-round | two-round | NONE detection | avg asks |
 |---|---|---|---|---|
-| cls-nofuse | 74.5% -> 94.8% | 87.3% -> 96.3% | 64.8% -> 90.6% | 0.20 -> 0.04 |
-| cls-fuse | 77.4% -> 95.0% | 89.3% -> 96.9% | 64.1% -> 90.6% | 0.18 -> 0.04 |
+| cls-nofuse | 74.5% -> 94.7% | 87.3% -> 96.2% | 64.8% -> 90.6% | 0.20 -> 0.04 |
+| cls-fuse | 77.4% -> 94.9% | 89.3% -> 96.8% | 64.1% -> 90.6% | 0.18 -> 0.04 |
 | tiny-nofuse | 57.7% -> 66.2% | 71.3% -> 81.7% | 71.1% -> 95.3% | 0.25 -> 0.15 |
 | tiny-fuse | 60.7% -> 72.7% | 73.2% -> 85.4% | 71.1% -> 95.3% | 0.23 -> 0.12 |
 | llm-nofuse | 51.4% -> 93.1% | 60.9% -> 97.2% | 82.0% -> 99.2% | 0.38 -> 0.04 |
@@ -56,32 +56,32 @@ In-scope hit rates are over non-NONE items (including foreign); "oos" is the NON
 
 | run | colloquial | keyword | long | asr | mixed | english | nearmiss | param | foreign | ambiguous | NONE items |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| cls-fuse-before | 87.3% | 89.3% | 81.6% | 86.3% | 93.5% | 79.1% | 61.8% | 94.6% | 34.2% | 75.0% | 64.1% |
-| cls-fuse-r1 | 95.5% | 98.2% | 86.8% | 91.1% | 96.1% | 94.2% | 68.4% | 100.0% | 94.7% | 87.5% | 60.9% |
-| cls-fuse-r2 | 95.5% | 98.2% | 90.4% | 91.1% | 98.7% | 92.8% | 61.8% | 100.0% | 92.1% | 87.5% | 91.4% |
-| cls-fuse-r3 | 94.3% | 98.2% | 89.5% | 93.2% | 100.0% | 96.4% | 97.4% | 100.0% | 94.7% | 87.5% | 90.6% |
-| cls-nofuse-before | 83.4% | 87.5% | 70.2% | 82.9% | 93.5% | 79.9% | 57.9% | 94.6% | 34.2% | 75.0% | 64.8% |
-| cls-nofuse-r1 | 93.6% | 98.2% | 86.0% | 90.4% | 96.1% | 95.0% | 65.8% | 100.0% | 94.7% | 87.5% | 61.7% |
-| cls-nofuse-r2 | 94.3% | 98.2% | 87.7% | 90.4% | 98.7% | 93.5% | 61.8% | 100.0% | 92.1% | 87.5% | 92.2% |
-| cls-nofuse-r3 | 93.6% | 98.2% | 87.7% | 93.2% | 100.0% | 96.4% | 98.7% | 100.0% | 94.7% | 87.5% | 90.6% |
-| embed-fuse-before | 50.3% | 64.3% | 47.4% | 55.5% | 57.1% | 46.8% | 38.2% | 75.7% | 42.1% | 25.0% | 49.2% |
-| embed-nofuse-before | 44.6% | 58.9% | 37.7% | 52.7% | 51.9% | 48.9% | 35.5% | 56.8% | 42.1% | 25.0% | 49.2% |
-| llm-fuse-after | 93.6% | 98.2% | 90.4% | 88.4% | 96.1% | 95.7% | 97.4% | 97.3% | 93.9% | 87.5% | 99.2% |
-| llm-fuse-before | 54.1% | 64.3% | 48.2% | 52.7% | 61.0% | 54.7% | 46.1% | 86.5% | 35.1% | 75.0% | 82.0% |
-| llm-fuse-phone-2nd | 93.6% | 98.2% | 89.5% | 88.4% | 96.1% | 95.7% | 98.7% | 97.3% | 93.9% | 87.5% | 99.2% |
-| llm-fuse-phone | 93.6% | 98.2% | 91.2% | 88.4% | 96.1% | 95.7% | 98.7% | 97.3% | 94.7% | 87.5% | 99.2% |
-| llm-nofuse-after | 91.1% | 100.0% | 88.6% | 88.4% | 96.1% | 95.7% | 98.7% | 94.6% | 93.9% | 87.5% | 99.2% |
-| llm-nofuse-before | 54.1% | 64.3% | 44.7% | 51.4% | 61.0% | 54.0% | 40.8% | 78.4% | 35.1% | 75.0% | 82.0% |
-| llmcs-fuse-before | 78.3% | 87.5% | 71.1% | 76.0% | 83.1% | 71.9% | 69.7% | 86.5% | 43.0% | 75.0% | 80.5% |
-| llmcs-nofuse-before | 74.5% | 83.9% | 59.6% | 73.3% | 83.1% | 71.9% | 63.2% | 78.4% | 42.1% | 75.0% | 80.5% |
-| tiny-fuse-before | 77.7% | 91.1% | 53.5% | 79.5% | 79.2% | 47.5% | 56.6% | 86.5% | 3.5% | 62.5% | 71.1% |
-| tiny-fuse-r1 | 77.7% | 91.1% | 53.5% | 79.5% | 79.2% | 47.5% | 56.6% | 86.5% | 3.5% | 62.5% | 71.1% |
-| tiny-fuse-r2 | 83.4% | 96.4% | 73.7% | 87.0% | 85.7% | 56.1% | 51.3% | 94.6% | 29.8% | 50.0% | 95.3% |
-| tiny-fuse-r3 | 84.7% | 96.4% | 80.7% | 85.6% | 80.5% | 59.7% | 63.2% | 97.3% | 29.8% | 62.5% | 95.3% |
-| tiny-nofuse-before | 72.0% | 91.1% | 50.0% | 78.1% | 77.9% | 42.4% | 56.6% | 75.7% | 2.6% | 62.5% | 71.1% |
-| tiny-nofuse-r1 | 72.0% | 91.1% | 50.0% | 78.1% | 77.9% | 42.4% | 56.6% | 75.7% | 2.6% | 62.5% | 71.1% |
-| tiny-nofuse-r2 | 76.4% | 96.4% | 55.3% | 84.9% | 83.1% | 51.8% | 46.1% | 86.5% | 29.8% | 50.0% | 95.3% |
-| tiny-nofuse-r3 | 78.3% | 96.4% | 54.4% | 85.6% | 77.9% | 55.4% | 55.3% | 81.1% | 29.8% | 62.5% | 95.3% |
+| cls-fuse-before | 86.9% | 89.1% | 81.1% | 85.9% | 93.3% | 79.3% | 62.2% | 94.3% | 35.1% | 75.0% | 64.1% |
+| cls-fuse-r1 | 95.4% | 98.2% | 86.5% | 90.8% | 96.0% | 94.1% | 68.9% | 100.0% | 94.6% | 87.5% | 60.9% |
+| cls-fuse-r2 | 95.4% | 98.2% | 90.1% | 90.8% | 98.7% | 92.6% | 62.2% | 100.0% | 91.9% | 87.5% | 91.4% |
+| cls-fuse-r3 | 94.1% | 98.2% | 89.2% | 93.0% | 100.0% | 96.3% | 97.3% | 100.0% | 94.6% | 87.5% | 90.6% |
+| cls-nofuse-before | 83.0% | 87.3% | 69.4% | 82.4% | 93.3% | 80.0% | 58.1% | 94.3% | 35.1% | 75.0% | 64.8% |
+| cls-nofuse-r1 | 93.5% | 98.2% | 85.6% | 90.1% | 96.0% | 94.8% | 66.2% | 100.0% | 94.6% | 87.5% | 61.7% |
+| cls-nofuse-r2 | 94.1% | 98.2% | 87.4% | 90.1% | 98.7% | 93.3% | 62.2% | 100.0% | 91.9% | 87.5% | 92.2% |
+| cls-nofuse-r3 | 93.5% | 98.2% | 87.4% | 93.0% | 100.0% | 96.3% | 98.6% | 100.0% | 94.6% | 87.5% | 90.6% |
+| embed-fuse-before | 50.3% | 63.6% | 47.7% | 54.2% | 56.0% | 46.7% | 37.8% | 74.3% | 40.5% | 25.0% | 49.2% |
+| embed-nofuse-before | 44.4% | 58.2% | 37.8% | 51.4% | 50.7% | 48.9% | 35.1% | 54.3% | 40.5% | 25.0% | 49.2% |
+| llm-fuse-after | 93.5% | 98.2% | 90.1% | 88.0% | 96.0% | 95.6% | 97.3% | 97.1% | 93.7% | 87.5% | 99.2% |
+| llm-fuse-before | 52.9% | 63.6% | 47.7% | 51.4% | 60.0% | 54.1% | 45.9% | 85.7% | 36.0% | 75.0% | 82.0% |
+| llm-fuse-phone-2nd | 92.2% | 98.2% | 89.2% | 88.7% | 96.0% | 95.6% | 98.6% | 97.1% | 92.8% | 87.5% | 99.2% |
+| llm-fuse-phone | 91.5% | 98.2% | 90.1% | 88.7% | 96.0% | 95.6% | 98.6% | 97.1% | 92.8% | 87.5% | 99.2% |
+| llm-nofuse-after | 90.8% | 100.0% | 88.3% | 88.0% | 96.0% | 95.6% | 98.6% | 94.3% | 93.7% | 87.5% | 99.2% |
+| llm-nofuse-before | 52.9% | 63.6% | 44.1% | 50.0% | 60.0% | 53.3% | 40.5% | 80.0% | 36.0% | 75.0% | 82.0% |
+| llmcs-fuse-before | 77.8% | 87.3% | 71.2% | 75.4% | 82.7% | 71.9% | 70.3% | 85.7% | 44.1% | 75.0% | 80.5% |
+| llmcs-nofuse-before | 73.9% | 83.6% | 59.5% | 72.5% | 82.7% | 71.9% | 63.5% | 80.0% | 43.2% | 75.0% | 80.5% |
+| tiny-fuse-before | 78.4% | 92.7% | 54.1% | 78.9% | 80.0% | 47.4% | 56.8% | 88.6% | 3.6% | 62.5% | 71.1% |
+| tiny-fuse-r1 | 78.4% | 92.7% | 54.1% | 78.9% | 80.0% | 47.4% | 56.8% | 88.6% | 3.6% | 62.5% | 71.1% |
+| tiny-fuse-r2 | 83.0% | 96.4% | 73.9% | 86.6% | 86.7% | 56.3% | 51.4% | 94.3% | 28.8% | 50.0% | 95.3% |
+| tiny-fuse-r3 | 85.0% | 96.4% | 80.2% | 85.2% | 81.3% | 60.0% | 63.5% | 97.1% | 27.9% | 62.5% | 95.3% |
+| tiny-nofuse-before | 73.2% | 92.7% | 50.5% | 77.5% | 78.7% | 42.2% | 56.8% | 80.0% | 2.7% | 62.5% | 71.1% |
+| tiny-nofuse-r1 | 73.2% | 92.7% | 50.5% | 77.5% | 78.7% | 42.2% | 56.8% | 80.0% | 2.7% | 62.5% | 71.1% |
+| tiny-nofuse-r2 | 75.8% | 96.4% | 55.0% | 84.5% | 84.0% | 51.9% | 45.9% | 88.6% | 28.8% | 50.0% | 95.3% |
+| tiny-nofuse-r3 | 78.4% | 96.4% | 53.2% | 85.2% | 78.7% | 55.6% | 55.4% | 80.0% | 27.9% | 62.5% | 95.3% |
 
 ## Worst tools and top confusions (first round)
 
@@ -147,15 +147,15 @@ Most common confusions: l -> L x21; f -> F x14; g -> G x13; k -> K x13; h -> H x
 
 ### llm-fuse-phone-2nd
 
-Worst 10 tools: a ui_elder 73.9% (17/23); H fee_history 78.3% (18/23); Q coupon 83.3% (20/24); K citizen_report_search 84.0% (21/25); j green_map 85.7% (18/21); J citizen_report 86.7% (26/30); b ui_normal 87.5% (21/24); G fee_pay_other 88.9% (24/27); T call_1999 90.5% (19/21); c read_aloud 91.3% (21/23)
+Worst 10 tools: H fee_history 78.3% (18/23); a ui_elder 78.3% (18/23); Q coupon 83.3% (20/24); b ui_normal 83.3% (20/24); G fee_pay_other 85.2% (23/27); j green_map 85.7% (18/21); J citizen_report 86.7% (26/30); K citizen_report_search 88.0% (22/25); c read_aloud 91.3% (21/23); k pet_map 91.7% (22/24)
 
-Most common confusions: G -> NONE x3; a -> ASK(ab) x3; K -> J x2; Q -> ASK(RQ) x2; a -> ASK(ba) x2; j -> O x2; k -> ASK(kj) x2; A -> NONE x1; A -> ASK(AG) x1; C -> ASK(CD) x1; D -> ASK(DR) x1; E -> B x1
+Most common confusions: G -> NONE x3; K -> J x2; Q -> ASK(RQ) x2; a -> ASK(ab) x2; a -> ASK(ba) x2; j -> O x2; k -> ASK(kj) x2; A -> NONE x1; A -> ASK(AG) x1; C -> ASK(DC) x1; D -> ASK(RDG) x1; D -> NONE x1
 
 ### llm-fuse-phone
 
-Worst 10 tools: H fee_history 78.3% (18/23); a ui_elder 78.3% (18/23); j green_map 85.7% (18/21); J citizen_report 86.7% (26/30); Q coupon 87.5% (21/24); b ui_normal 87.5% (21/24); K citizen_report_search 88.0% (22/25); G fee_pay_other 88.9% (24/27); c read_aloud 91.3% (21/23); k pet_map 91.7% (22/24)
+Worst 10 tools: H fee_history 78.3% (18/23); a ui_elder 78.3% (18/23); Q coupon 83.3% (20/24); b ui_normal 83.3% (20/24); G fee_pay_other 85.2% (23/27); j green_map 85.7% (18/21); J citizen_report 86.7% (26/30); K citizen_report_search 88.0% (22/25); T call_1999 90.5% (19/21); c read_aloud 91.3% (21/23)
 
-Most common confusions: G -> NONE x3; H -> NONE x2; K -> J x2; a -> ASK(ab) x2; a -> ASK(ba) x2; j -> O x2; k -> ASK(kj) x2; A -> NONE x1; A -> ASK(AG) x1; C -> ASK(CD) x1; D -> ASK(DR) x1; E -> B x1
+Most common confusions: G -> NONE x3; a -> ASK(ab) x3; H -> NONE x2; K -> J x2; Q -> ASK(RQ) x2; j -> O x2; k -> ASK(kj) x2; A -> NONE x1; A -> ASK(AG) x1; C -> ASK(DC) x1; D -> ASK(RD) x1; D -> NONE x1
 
 ### llm-nofuse-after
 
@@ -171,7 +171,7 @@ Most common confusions: l -> L x21; k -> K x15; f -> F x14; g -> G x13; h -> H x
 
 ## Registry entity / parameter extraction (engine independent)
 
-entity 20/21 (95.2%); parameters 7/14 (50.0%).
+entity 20/21 (95.2%); parameters 5/12 (41.7%).
 
 Misses:
 - 車牌 ABC-1234 有沒有停車費 (want fill=ABC-1234, got -)
@@ -185,7 +185,7 @@ Misses:
 
 ## Notes and caveats
 
-- Per-tool counts: A=28, B=25, C=26, D=25, E=25, F=26, G=27, H=23, I=25, J=30, K=25, L=27, M=26, N=23, O=43, P=25, Q=24, R=21, S=21, T=21, U=23, V=24, W=21, X=21, Y=24, Z=128, a=23, b=24, c=23, d=24, e=22, f=23, g=21, h=22, i=22, j=21, k=24, l=23, m=23.
+- Per-tool counts: A=28, C=26, D=25, E=25, F=26, G=27, H=23, I=25, J=30, K=25, L=27, M=26, N=23, O=43, P=25, Q=24, R=21, S=21, T=21, U=23, V=24, W=21, X=21, Y=24, Z=128, a=23, b=24, c=23, d=24, e=22, f=23, g=21, h=22, i=22, j=21, k=24, l=23, m=23.
 - Test set and the round-2 training data were written by the same author in the same session; the training generator drops any sentence equal to a test sentence but cannot remove stylistic similarity. In particular the "X, not Y" near-miss sentences in the test set share a template with the round-3 training data (near-miss rose from 57.9% to 97.4% for cls). Excluding near-miss items (848 in-scope items) first-round is: cls-fuse 78.8% -> 94.8%, llm-fuse 72.5% -> 93.3%, tiny-fuse 73.6% (after).
 - llm-*-before was produced by the old GGUF through the old LlmDecider that only accepted A-Z letters, so the 13 lower-case tools (a..m) scored 0%; llmcs-*-before (eval/llm_cs.ts, same old GGUF but lower-case accepted) is the fair baseline for the model itself. assistant/src/engines/llm.ts was fixed (A-Za-z) by someone else during this work; llm-*-after uses the fixed decoder.
 - embed (zero-shot e5, no training) was only run before; it does not use the training data.

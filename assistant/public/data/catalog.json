@@ -36,37 +36,6 @@
       "guide_id": "guide_water_fee"
     },
     {
-      "id": "water_meter_report",
-      "code": "B",
-      "title": {
-        "zh": "報水表度數",
-        "en": "Report water meter",
-        "vi": "Báo chỉ số đồng hồ nước",
-        "id": "Lapor meteran air",
-        "th": "แจ้งเลขมิเตอร์น้ำ"
-      },
-      "desc": "自己抄水表、回報用水度數，或查詢用水度數",
-      "keywords": [
-        "水表",
-        "度數",
-        "抄表",
-        "用水度數",
-        "water meter"
-      ],
-      "examples": [
-        "我要報水表度數",
-        "自己抄水表怎麼報",
-        "report my water meter reading",
-        "水表的數字要回報",
-        "查用水度數"
-      ],
-      "route": {
-        "type": "internal",
-        "target": "/water-service"
-      },
-      "guide_id": "guide_water_meter"
-    },
-    {
       "id": "parking_fee_pay",
       "code": "C",
       "title": {

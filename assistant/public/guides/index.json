@@ -1,294 +1,285 @@
 {
- "guides": [
-  {
-   "id": "guide_water_fee",
-   "match": {
-    "url": "^/fee-payment/detail/fee-6"
-   },
-   "title": {
-    "zh": "繳水費",
-    "en": "Pay water bill"
-   }
-  },
-  {
-   "id": "guide_counter_calling",
-   "match": {
-    "url": "^/counter-calling/?$"
-   },
-   "title": {
-    "zh": "臨櫃叫號",
-    "en": "Counter queue"
-   }
-  },
-  {
-   "id": "guide_parking_fee",
-   "match": {
-    "url": "^/fee-payment/detail/fee-5"
-   },
-   "title": {
-    "zh": "繳停車費"
-   }
-  },
-  {
-   "id": "guide_local_tax",
-   "match": {
-    "url": "^/fee-payment/detail/tax-1"
-   },
-   "title": {
-    "zh": "繳地方稅"
-   }
-  },
-  {
-   "id": "guide_tuition",
-   "match": {
-    "url": "^/fee-payment/detail/fee-7"
-   },
-   "title": {
-    "zh": "繳學雜費"
-   }
-  },
-  {
-   "id": "guide_hospital_fee",
-   "match": {
-    "url": "^/fee-payment/detail/fee-9"
-   },
-   "title": {
-    "zh": "繳聯合醫院醫療費"
-   }
-  },
-  {
-   "id": "guide_fee_other",
-   "match": {
-    "url": "^/fee-payment/others"
-   },
-   "title": {
-    "zh": "繳其他費用"
-   }
-  },
-  {
-   "id": "guide_fee_history",
-   "match": {
-    "url": "^/fee-payment/history"
-   },
-   "title": {
-    "zh": "查繳費紀錄"
-   }
-  },
-  {
-   "id": "guide_citizen_report",
-   "match": {
-    "url": "^/citizen-report"
-   },
-   "title": {
-    "zh": "陳情投訴"
-   }
-  },
-  {
-   "id": "guide_citizen_search",
-   "match": {
-    "url": "^/citizen-report/?$"
-   },
-   "title": {
-    "zh": "查陳情進度"
-   }
-  },
-  {
-   "id": "guide_disaster_report",
-   "match": {
-    "url": "^/disaster-report"
-   },
-   "title": {
-    "zh": "災情通報"
-   }
-  },
-  {
-   "id": "guide_police_report",
-   "match": {
-    "url": "^/police-report"
-   },
-   "title": {
-    "zh": "警政報案"
-   }
-  },
-  {
-   "id": "guide_library",
-   "match": {
-    "url": "^/library-service"
-   },
-   "title": {
-    "zh": "圖書借閱"
-   }
-  },
-  {
-   "id": "guide_find_place",
-   "match": {
-    "url": "^/surrounding-service"
-   },
-   "title": {
-    "zh": "找地點"
-   }
-  },
-  {
-   "id": "guide_apply",
-   "match": {
-    "url": "^/(form/)?$"
-   },
-   "title": {
-    "zh": "申辦服務"
-   }
-  },
-  {
-   "id": "guide_coupon",
-   "match": {
-    "url": "^/coupon"
-   },
-   "title": {
-    "zh": "優惠票券"
-   }
-  },
-  {
-   "id": "guide_ticket_wallet",
-   "match": {
-    "url": "^/ticket-wallet"
-   },
-   "title": {
-    "zh": "票夾"
-   }
-  },
-  {
-   "id": "guide_subscription",
-   "match": {
-    "url": "^/subscription"
-   },
-   "title": {
-    "zh": "訂閱通知"
-   }
-  },
-  {
-   "id": "guide_qna",
-   "match": {
-    "url": "^/qna"
-   },
-   "title": {
-    "zh": "功能教學"
-   }
-  },
-  {
-   "id": "guide_scan_bill",
-   "match": {
-    "url": "^/fee-payment/scan"
-   },
-   "title": {
-    "zh": "掃描帳單"
-   }
-  },
-  {
-   "id": "guide_water_meter",
-   "match": {
-    "url": "^/water-service"
-   },
-   "title": {
-    "zh": "報水表度數"
-   }
-  },
-  {
-   "id": "guide_vaccine",
-   "match": {
-    "url": "^/vaccine"
-   },
-   "title": {
-    "zh": "疫苗預約"
-   }
-  },
-  {
-   "id": "guide_hospital_registration",
-   "match": {
-    "url": "^/hospital-registration"
-   },
-   "title": {
-    "zh": "聯醫掛號"
-   }
-  },
-  {
-   "id": "guide_family_center",
-   "match": {
-    "url": "^/family-center"
-   },
-   "title": {
-    "zh": "親子館"
-   }
-  },
-  {
-   "id": "guide_ivoting",
-   "match": {
-    "url": "^/ivoting"
-   },
-   "title": {
-    "zh": "網路投票"
-   }
-  },
-  {
-   "id": "guide_survey",
-   "match": {
-    "url": "^/survey"
-   },
-   "title": {
-    "zh": "意見調查"
-   }
-  },
-  {
-   "id": "guide_neighborhood",
-   "match": {
-    "url": "^/neighborhood"
-   },
-   "title": {
-    "zh": "里辦服務"
-   }
-  },
-  {
-   "id": "guide_city_radio",
-   "match": {
-    "url": "^/city-radio"
-   },
-   "title": {
-    "zh": "台北電台"
-   }
-  },
-  {
-   "id": "guide_green_map",
-   "match": {
-    "url": "^/green-map"
-   },
-   "title": {
-    "zh": "簡單森呼吸"
-   }
-  },
-  {
-   "id": "guide_pet_map",
-   "match": {
-    "url": "^/pet-map"
-   },
-   "title": {
-    "zh": "寵物安心遛"
-   }
-  },
-  {
-   "id": "guide_essential_goods",
-   "match": {
-    "url": "^/essential-goods"
-   },
-   "title": {
-    "zh": "民生物資"
-   }
-  },
-  {
-   "id": "guide_zoo",
-   "match": {
-    "url": "^/zoo"
-   },
-   "title": {
-    "zh": "愛遊動物園"
-   }
-  }
- ]
+  "guides": [
+    {
+      "id": "guide_water_fee",
+      "match": {
+        "url": "^/fee-payment/detail/fee-6"
+      },
+      "title": {
+        "zh": "繳水費",
+        "en": "Pay water bill"
+      }
+    },
+    {
+      "id": "guide_counter_calling",
+      "match": {
+        "url": "^/counter-calling/?$"
+      },
+      "title": {
+        "zh": "臨櫃叫號",
+        "en": "Counter queue"
+      }
+    },
+    {
+      "id": "guide_parking_fee",
+      "match": {
+        "url": "^/fee-payment/detail/fee-5"
+      },
+      "title": {
+        "zh": "繳停車費"
+      }
+    },
+    {
+      "id": "guide_local_tax",
+      "match": {
+        "url": "^/fee-payment/detail/tax-1"
+      },
+      "title": {
+        "zh": "繳地方稅"
+      }
+    },
+    {
+      "id": "guide_tuition",
+      "match": {
+        "url": "^/fee-payment/detail/fee-7"
+      },
+      "title": {
+        "zh": "繳學雜費"
+      }
+    },
+    {
+      "id": "guide_hospital_fee",
+      "match": {
+        "url": "^/fee-payment/detail/fee-9"
+      },
+      "title": {
+        "zh": "繳聯合醫院醫療費"
+      }
+    },
+    {
+      "id": "guide_fee_other",
+      "match": {
+        "url": "^/fee-payment/others"
+      },
+      "title": {
+        "zh": "繳其他費用"
+      }
+    },
+    {
+      "id": "guide_fee_history",
+      "match": {
+        "url": "^/fee-payment/history"
+      },
+      "title": {
+        "zh": "查繳費紀錄"
+      }
+    },
+    {
+      "id": "guide_citizen_report",
+      "match": {
+        "url": "^/citizen-report"
+      },
+      "title": {
+        "zh": "陳情投訴"
+      }
+    },
+    {
+      "id": "guide_citizen_search",
+      "match": {
+        "url": "^/citizen-report/?$"
+      },
+      "title": {
+        "zh": "查陳情進度"
+      }
+    },
+    {
+      "id": "guide_disaster_report",
+      "match": {
+        "url": "^/disaster-report"
+      },
+      "title": {
+        "zh": "災情通報"
+      }
+    },
+    {
+      "id": "guide_police_report",
+      "match": {
+        "url": "^/police-report"
+      },
+      "title": {
+        "zh": "警政報案"
+      }
+    },
+    {
+      "id": "guide_library",
+      "match": {
+        "url": "^/library-service"
+      },
+      "title": {
+        "zh": "圖書借閱"
+      }
+    },
+    {
+      "id": "guide_find_place",
+      "match": {
+        "url": "^/surrounding-service"
+      },
+      "title": {
+        "zh": "找地點"
+      }
+    },
+    {
+      "id": "guide_apply",
+      "match": {
+        "url": "^/(form/)?$"
+      },
+      "title": {
+        "zh": "申辦服務"
+      }
+    },
+    {
+      "id": "guide_coupon",
+      "match": {
+        "url": "^/coupon"
+      },
+      "title": {
+        "zh": "優惠票券"
+      }
+    },
+    {
+      "id": "guide_ticket_wallet",
+      "match": {
+        "url": "^/ticket-wallet"
+      },
+      "title": {
+        "zh": "票夾"
+      }
+    },
+    {
+      "id": "guide_subscription",
+      "match": {
+        "url": "^/subscription"
+      },
+      "title": {
+        "zh": "訂閱通知"
+      }
+    },
+    {
+      "id": "guide_qna",
+      "match": {
+        "url": "^/qna"
+      },
+      "title": {
+        "zh": "功能教學"
+      }
+    },
+    {
+      "id": "guide_scan_bill",
+      "match": {
+        "url": "^/fee-payment/scan"
+      },
+      "title": {
+        "zh": "掃描帳單"
+      }
+    },
+    {
+      "id": "guide_vaccine",
+      "match": {
+        "url": "^/vaccine"
+      },
+      "title": {
+        "zh": "疫苗預約"
+      }
+    },
+    {
+      "id": "guide_hospital_registration",
+      "match": {
+        "url": "^/hospital-registration"
+      },
+      "title": {
+        "zh": "聯醫掛號"
+      }
+    },
+    {
+      "id": "guide_family_center",
+      "match": {
+        "url": "^/family-center"
+      },
+      "title": {
+        "zh": "親子館"
+      }
+    },
+    {
+      "id": "guide_ivoting",
+      "match": {
+        "url": "^/ivoting"
+      },
+      "title": {
+        "zh": "網路投票"
+      }
+    },
+    {
+      "id": "guide_survey",
+      "match": {
+        "url": "^/survey"
+      },
+      "title": {
+        "zh": "意見調查"
+      }
+    },
+    {
+      "id": "guide_neighborhood",
+      "match": {
+        "url": "^/neighborhood"
+      },
+      "title": {
+        "zh": "里辦服務"
+      }
+    },
+    {
+      "id": "guide_city_radio",
+      "match": {
+        "url": "^/city-radio"
+      },
+      "title": {
+        "zh": "台北電台"
+      }
+    },
+    {
+      "id": "guide_green_map",
+      "match": {
+        "url": "^/green-map"
+      },
+      "title": {
+        "zh": "簡單森呼吸"
+      }
+    },
+    {
+      "id": "guide_pet_map",
+      "match": {
+        "url": "^/pet-map"
+      },
+      "title": {
+        "zh": "寵物安心遛"
+      }
+    },
+    {
+      "id": "guide_essential_goods",
+      "match": {
+        "url": "^/essential-goods"
+      },
+      "title": {
+        "zh": "民生物資"
+      }
+    },
+    {
+      "id": "guide_zoo",
+      "match": {
+        "url": "^/zoo"
+      },
+      "title": {
+        "zh": "愛遊動物園"
+      }
+    }
+  ]
 }

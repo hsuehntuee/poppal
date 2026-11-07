@@ -75,6 +75,14 @@ export class ClsDecider implements Decider {
     for (const r of res) logits[r.label] = Math.log(Math.max(r.score, 1e-12));
     const probs = softmax(logits, this.temperature);
     for (const o of req.options) if (!(o.code in probs)) probs[o.code] = 0;
+    // 模型訓練時有、目錄已經拔掉的類別：丟掉並重新正規化（不然會選到不存在的服務）
+    const keep = new Set([...req.options.map((o) => o.code), req.noneCode]);
+    let sum = 0;
+    for (const c of Object.keys(probs)) {
+      if (!keep.has(c)) delete probs[c];
+      else sum += probs[c];
+    }
+    if (sum > 0) for (const c of Object.keys(probs)) probs[c] /= sum;
     return probs;
   }
 

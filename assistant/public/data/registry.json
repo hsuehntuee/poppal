@@ -54,58 +54,6 @@
    ]
   },
   {
-   "id": "water_meter_report",
-   "code": "B",
-   "name": {
-    "zh": "報水表度數",
-    "en": "Report water meter",
-    "vi": "Báo chỉ số đồng hồ nước",
-    "id": "Lapor meteran air",
-    "th": "แจ้งเลขมิเตอร์น้ำ"
-   },
-   "description": "自己抄水表、回報用水度數，或查詢用水度數",
-   "invoke": {
-    "kind": "guide",
-    "guide": "guide_water_meter",
-    "entry": "/water-service"
-   },
-   "params": [
-    {
-     "name": "number",
-     "type": "digits",
-     "len": 10,
-     "min_len": 10,
-     "max_len": 10,
-     "label": "水號",
-     "step": "number"
-    },
-    {
-     "name": "value",
-     "type": "digits",
-     "len": null,
-     "min_len": 1,
-     "max_len": 8,
-     "label": "本期度數",
-     "step": "value"
-    }
-   ],
-   "keywords": [
-    "水表",
-    "度數",
-    "抄表",
-    "用水度數",
-    "water meter"
-   ],
-   "covers": [],
-   "examples": [
-    "我要報水表度數",
-    "自己抄水表怎麼報",
-    "report my water meter reading",
-    "水表的數字要回報",
-    "查用水度數"
-   ]
-  },
-  {
    "id": "parking_fee_pay",
    "code": "C",
    "name": {
@@ -254,8 +202,17 @@
      "len": null,
      "min_len": null,
      "max_len": null,
-     "label": "身分證字號",
+     "label": "證件號碼",
      "step": "fill"
+    },
+    {
+     "name": "birth",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "birth",
+     "step": "birth"
     }
    ],
    "keywords": [
@@ -2123,13 +2080,6 @@
    "group": "交通運輸、停車場、充電站"
   },
   {
-   "term": "water meter",
-   "tools": [
-    "water_meter_report"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "公園遊戲場改善優先順序",
    "tools": [
     "ivoting"
@@ -3449,13 +3399,6 @@
    "group": "垃圾清潔、舊衣回收"
   },
   {
-   "term": "報水表度數",
-   "tools": [
-    "water_meter_report"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "士林親子館",
    "tools": [
     "family_center"
@@ -4392,13 +4335,6 @@
    "ambiguous": false,
    "entity": "TaipeiFree",
    "group": "TaipeiFree"
-  },
-  {
-   "term": "用水度數",
-   "tools": [
-    "water_meter_report"
-   ],
-   "ambiguous": false
   },
   {
    "term": "申辦服務",
@@ -6380,13 +6316,6 @@
    "ambiguous": false
   },
   {
-   "term": "度數",
-   "tools": [
-    "water_meter_report"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "廁所",
    "tools": [
     "find_place"
@@ -6480,13 +6409,6 @@
    "term": "找書",
    "tools": [
     "library"
-   ],
-   "ambiguous": false
-  },
-  {
-   "term": "抄表",
-   "tools": [
-    "water_meter_report"
    ],
    "ambiguous": false
   },

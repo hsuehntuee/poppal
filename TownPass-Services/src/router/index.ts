@@ -45,7 +45,6 @@ import FeePaymentHistoryDetailView from '@/views/FeePaymentHistoryDetailView.vue
 import FeePaymentScanView from '@/views/FeePaymentScanView.vue';
 import FeePaymentStepView from '@/views/FeePaymentStepView.vue';
 import FeePaymentFinishedView from '@/views/FeePaymentFinishedView.vue';
-import WaterServiceView from '@/views/WaterServiceView.vue';
 import VaccineView from '@/views/VaccineView.vue';
 import HospitalRegistrationView from '@/views/HospitalRegistrationView.vue';
 import FamilyCenterView from '@/views/FamilyCenterView.vue';
@@ -422,14 +421,6 @@ const router = createRouter({
           }
         }
       ]
-    },
-    {
-      path: '/water-service',
-      name: 'water-service',
-      meta: {
-        title: '用水服務'
-      },
-      component: WaterServiceView
     },
     {
       path: '/vaccine',

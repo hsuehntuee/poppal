@@ -829,6 +829,8 @@ class Runner {
           // 只有「定長數字打滿」（水號 10 碼）才自動下一步；自由文字 / 不定長度絕不提早截斷，
           // 等使用者按 Enter、面板的「填好了」、或自己去按畫面上的下一個鈕
           if (this.isComplete(step, v)) return this.advanceBy('self');
+          // 日期／時間欄位：原生選擇器選好就有值，選好就是完成（游標還留在欄位上）
+          if (/^(date|time|datetime-local|month)$/.test(input.type || '') && v.trim()) return this.advanceBy('self');
           if (!hinted && valid()) {
             hinted = true;
             const nx = this.nextStepHint();

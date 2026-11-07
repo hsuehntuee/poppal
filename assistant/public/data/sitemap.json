@@ -1,1 +1,1926 @@
-{"version":1,"crawled_at":"2026-11-07T08:10:48.187Z","pages":{"/fee-payment/detail/fee-6":{"title":"繳費項目","elements":[{"label":"輸入資料","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(1)","effect":"same_page"},{"label":"掃描","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(2)","leads_to":"/fee-payment/scan"},{"label":"查詢","kind":"button","css":"section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button","effect":"same_page"},{"label":"水號","kind":"label","css":"div:nth-of-type(1)>div:nth-of-type(1)>div>label"},{"label":"水號","kind":"field","css":"#water_number","placeholder":"請輸入水號"}]},"/counter-calling":{"title":"臨櫃叫號","elements":[{"label":"地政事務所","kind":"link","css":"#app>div>div>a:nth-of-type(1)","leads_to":"/counter-calling/c-1"},{"label":"戶政事務所","kind":"link","css":"#app>div>div>a:nth-of-type(2)","leads_to":"/counter-calling/c-2"},{"label":"區公所","kind":"link","css":"#app>div>div>a:nth-of-type(3)","leads_to":"/counter-calling/c-3"},{"label":"稅捐處","kind":"link","css":"#app>div>div>a:nth-of-type(4)","leads_to":"/counter-calling/c-4"},{"label":"就業服務站","kind":"link","css":"#app>div>div>a:nth-of-type(5)","leads_to":"/counter-calling/c-5"}]},"/citizen-report":{"title":"有話要說","elements":[{"label":"教育事務","kind":"link","css":"div>ul>li:nth-of-type(1)>a","leads_to":"/citizen-report/form/R-1"},{"label":"公車、計程車、復康巴士問題","kind":"link","css":"div>ul>li:nth-of-type(2)>a","leads_to":"/citizen-report/form/R-2"},{"label":"停車管理及收費問題","kind":"link","css":"div>ul>li:nth-of-type(3)>a","leads_to":"/citizen-report/form/R-3"},{"label":"建築物使用管理、違建查報及拆除","kind":"link","css":"div>ul>li:nth-of-type(4)>a","leads_to":"/citizen-report/form/R-4"},{"label":"教育事務","kind":"link","css":"div>ul>li:nth-of-type(5)>a","leads_to":"/citizen-report/form/R-11"},{"label":"公車、計程車、復康巴士問題","kind":"link","css":"div>ul>li:nth-of-type(6)>a","leads_to":"/citizen-report/form/R-12"},{"label":"停車管理及收費問題","kind":"link","css":"div>ul>li:nth-of-type(7)>a","leads_to":"/citizen-report/form/R-13"},{"label":"建築物使用管理、違建查報及拆除","kind":"link","css":"div>ul>li:nth-of-type(8)>a","leads_to":"/citizen-report/form/R-14"},{"label":"教育事務","kind":"link","css":"div>ul>li:nth-of-type(9)>a","leads_to":"/citizen-report/form/R-15"},{"label":"公車、計程車、復康巴士問題","kind":"link","css":"div>ul>li:nth-of-type(10)>a","leads_to":"/citizen-report/form/R-16"},{"label":"更多項目","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(1)>div>a","leads_to":"/citizen-report/list"},{"label":"testA10-1130930-00160通報日期：2024","kind":"link","css":"div>ul>li:nth-of-type(1)>a","leads_to":"/citizen-report/search-detail/A10-1130930-00160"},{"label":"test2A10-1130930-00161通報日期：202","kind":"link","css":"div>ul>li:nth-of-type(2)>a","leads_to":"/citizen-report/search-detail/A10-1130930-00161"},{"label":"test3A10-1130930-00162通報日期：202","kind":"link","css":"div>ul>li:nth-of-type(3)>a","leads_to":"/citizen-report/search-detail/A10-1130930-00162"},{"label":"通報","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"查詢","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"撥打1999專線","kind":"button","css":"section:nth-of-type(2)>div:nth-of-type(1)>div>button","effect":"same_page"},{"label":"有話要說","kind":"button","css":"div:nth-of-type(2)>div>section>button:nth-of-type(1)","effect":"same_page"},{"label":"災情通報","kind":"button","css":"div:nth-of-type(2)>div>section>button:nth-of-type(2)","effect":"same_page"},{"label":"您遇到哪些問題?","kind":"field","css":"div>div>a>input","placeholder":"您遇到哪些問題?"},{"label":"搜尋案號關鍵字","kind":"field","css":"div>div:nth-of-type(1)>div:nth-of-type(1)>input","placeholder":"搜尋案號關鍵字"}]},"/fee-payment/others":{"title":"其他","elements":[{"label":"規費","kind":"button","css":"#app>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"稅費","kind":"button","css":"#app>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"罰鍰","kind":"button","css":"#app>ul>li:nth-of-type(3)>button","effect":"same_page"},{"label":"金門縣政府","kind":"button","css":"#app>ul>li:nth-of-type(4)>button","effect":"same_page"},{"label":"搜尋項目名稱","kind":"field","css":"#app>div>a>input","placeholder":"搜尋項目名稱"}]},"/":{"title":"申辦服務","elements":[{"label":"申辦","kind":"button","css":"#app>main>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"查詢","kind":"button","css":"#app>main>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"申訴類","kind":"button","css":"div>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"補助類","kind":"button","css":"div>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"申辦中(2)","kind":"button","css":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"已結案(1)","kind":"button","css":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"您遇到哪些問題?","kind":"field","css":"div:nth-of-type(1)>div>section>input","placeholder":"您遇到哪些問題?"}]},"/disaster-report":{"title":"災情通報","elements":[{"label":"電線(桿)或纜線受損","kind":"link","css":"li:nth-of-type(1)>div>div>a:nth-of-type(1)","leads_to":"/disaster-report/form/D-1-1"},{"label":"變電所、電廠受災","kind":"link","css":"li:nth-of-type(1)>div>div>a:nth-of-type(2)","leads_to":"/disaster-report/form/D-1-2"},{"label":"路燈故障","kind":"link","css":"li:nth-of-type(1)>div>div>a:nth-of-type(3)","leads_to":"/disaster-report/form/D-1-3"},{"label":"電力停電","kind":"link","css":"li:nth-of-type(1)>div>div>a:nth-of-type(4)","leads_to":"/disaster-report/form/D-1-4"},{"label":"橋樑基礎沖刷","kind":"link","css":"li:nth-of-type(2)>div>div>a:nth-of-type(1)","leads_to":"/disaster-report/form/D-2-1"},{"label":"橋樑斷裂","kind":"link","css":"li:nth-of-type(2)>div>div>a:nth-of-type(2)","leads_to":"/disaster-report/form/D-2-2"},{"label":"前述以外之橋梁災情","kind":"link","css":"li:nth-of-type(2)>div>div>a:nth-of-type(3)","leads_to":"/disaster-report/form/D-2-3"},{"label":"土石流","kind":"link","css":"li:nth-of-type(3)>div>div>a:nth-of-type(1)","leads_to":"/disaster-report/form/D-3-1"},{"label":"土石崩落","kind":"link","css":"li:nth-of-type(3)>div>div>a:nth-of-type(2)","leads_to":"/disaster-report/form/D-3-2"},{"label":"堰塞湖","kind":"link","css":"li:nth-of-type(3)>div>div>a:nth-of-type(3)","leads_to":"/disaster-report/form/D-3-3"},{"label":"建築物火災","kind":"link","css":"li:nth-of-type(4)>div>div>a:nth-of-type(1)","leads_to":"/disaster-report/form/D-4-1"},{"label":"危險物品火災","kind":"link","css":"li:nth-of-type(4)>div>div>a:nth-of-type(2)","leads_to":"/disaster-report/form/D-4-2"},{"label":"工廠火災","kind":"link","css":"li:nth-of-type(4)>div>div>a:nth-of-type(3)","leads_to":"/disaster-report/form/D-4-3"},{"label":"其他(前述以外火災)","kind":"link","css":"li:nth-of-type(4)>div>div>a:nth-of-type(4)","leads_to":"/disaster-report/form/D-4-4"},{"label":"民生、基礎設施災情","kind":"button","css":"div:nth-of-type(2)>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"橋梁災情","kind":"button","css":"div:nth-of-type(2)>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"土石災情","kind":"button","css":"div:nth-of-type(2)>ul>li:nth-of-type(3)>button","effect":"same_page"},{"label":"火災","kind":"button","css":"div:nth-of-type(2)>ul>li:nth-of-type(4)>button","effect":"same_page"},{"label":"您遇到哪些問題?","kind":"field","css":"#app>div>div:nth-of-type(1)>input","placeholder":"您遇到哪些問題?"}]},"/library-service":{"title":"圖書借閱","elements":[{"label":"關鍵字搜尋","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>a","leads_to":"/library-service/keyword-search"},{"label":"神奇柑仔店. 15, 冒牌的長髮公主餅乾著者：廣嶋玲子文 ;","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(1)>a","leads_to":"/library-service/book-detail/lib-book-6"},{"label":"歡迎光臨錢天堂 : 神奇柑仔店大圖鑑著者：廣嶋玲子文 ; j","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(2)>a","leads_to":"/library-service/book-detail/lib-book-5"},{"label":"底層邏輯 : 看清這個世界的底牌 = The underly","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(3)>a","leads_to":"/library-service/book-detail/lib-book-3"},{"label":"The winners : a novel著者：Fredri","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(4)>a","leads_to":"/library-service/book-detail/lib-book-4"},{"label":"我的第一本滑塊書 : 顏色配對著者：Anton Poitie","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(5)>a","leads_to":"/library-service/book-detail/lib-book-1"},{"label":"說給兒童的臺灣歷史著者：[天衛文化圖書製作] ; 林秋滿撰文","kind":"link","css":"div:nth-of-type(2)>div>div:nth-of-type(6)>a","leads_to":"/library-service/book-detail/lib-book-2"},{"label":"更多","kind":"link","css":"div:nth-of-type(1)>div:nth-of-type(3)>div:nth-of-type(1)>a","leads_to":"/library-service/ranking-list"},{"label":"1說給兒童的臺灣歷史點閱次數：14829585","kind":"link","css":"div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(1)>a","leads_to":"/library-service/book-detail/lib-book-2"},{"label":"2底層邏輯 : 看清這個世界的底牌 = The underl","kind":"link","css":"div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>a","leads_to":"/library-service/book-detail/lib-book-3"},{"label":"3歡迎光臨錢天堂 : 神奇柑仔店大圖鑑點閱次數：20400","kind":"link","css":"div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(3)>a","leads_to":"/library-service/book-detail/lib-book-5"},{"label":"4我的第一本滑塊書 : 顏色配對點閱次數：3450","kind":"link","css":"div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(4)>a","leads_to":"/library-service/book-detail/lib-book-1"},{"label":"5The winners : a novel點閱次數：500","kind":"link","css":"div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(5)>a","leads_to":"/library-service/book-detail/lib-book-4"},{"label":"更多","kind":"link","css":"div:nth-of-type(1)>div:nth-of-type(4)>div:nth-of-type(1)>a","leads_to":"/library-service/notice-list"},{"label":"太陽圖書館暫停對外服務2024/11/01","kind":"link","css":"div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(1)>a","leads_to":"https://tpml.gov.taipei/News_Content.aspx?n=E492D531630BC406&s=A2A01F99895FDED7&sms=78D644F2755ACCAA"},{"label":"113年「禮貌服務人員選拔」抽獎活動獲獎名單2024/11/","kind":"link","css":"div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(2)>a","leads_to":"/library-service/notice-detail/lib-notice-2"},{"label":"本館將於11月7日（星期四）休館日上午8時至下午8時進行資訊","kind":"link","css":"div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(3)>a","leads_to":"/library-service/notice-detail/lib-notice-3"},{"label":"Leaflet","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)","leads_to":"https://leafletjs.com"},{"label":"OpenStreetMap","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)","leads_to":"https://www.openstreetmap.org/copyright"},{"label":"館藏查詢","kind":"button","css":"#app>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"我的紀錄","kind":"button","css":"#app>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"分館地圖","kind":"button","css":"#app>section:nth-of-type(1)>button:nth-of-type(3)","effect":"same_page"},{"label":"可取書(1)","kind":"button","css":"div>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"處理中(1)","kind":"button","css":"div>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"排序中(0)","kind":"button","css":"div>ul>li:nth-of-type(3)>button","effect":"same_page"},{"label":"確認","kind":"button","css":"div>div>div:nth-of-type(3)>button","effect":"same_page"},{"label":"預約清單","kind":"option","css":"#reservation-list","value":"reservation-list"},{"label":"預約未取紀錄","kind":"option","css":"#reservation-list","value":"reservation-not-take-records"},{"label":"借閱中(2)","kind":"option","css":"#reservation-list","value":"borrowing-list"},{"label":"借閱歷史紀錄(2)","kind":"option","css":"#reservation-list","value":"borrow-history-list"}]},"/surrounding-service":{"title":"周邊服務","elements":[{"label":"Leaflet","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)","leads_to":"https://leafletjs.com"},{"label":"OpenStreetMap","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)","leads_to":"https://www.openstreetmap.org/copyright"},{"label":"確認","kind":"button","css":"div>div>div:nth-of-type(3)>button","effect":"same_page"},{"label":"微笑單車 2.0","kind":"option","css":"#findPlace","value":"pa-1"},{"label":"停車場","kind":"option","css":"#findPlace","value":"pa-3"},{"label":"公廁","kind":"option","css":"#findPlace","value":"pb-3"}]},"/coupon":{"title":"優惠","elements":[{"label":"人氣特展廣受好評的票券","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(1)>section:nth-of-type(2)>a:nth-of-type(1)","leads_to":"/coupon/list?tab=1&isList=Y"},{"label":"熱門場館熱門景點","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(1)>section:nth-of-type(2)>a:nth-of-type(2)","leads_to":"/coupon/list?tab=1&hotSpot=Y"},{"label":"更多","kind":"link","css":"section:nth-of-type(3)>div>div>a","leads_to":"/coupon/list?tab=1&isList=Y"},{"label":"| 臺北市立美術館 | 入場門票會員獨享市民優惠僅限營業時間","kind":"link","css":"section:nth-of-type(3)>ul>li:nth-of-type(1)>a","leads_to":"/coupon/ticket-detail/t-1?tab=1"},{"label":"| 臺北市立動物園 | 入場門票會員獨享僅限營業時間開放線上","kind":"link","css":"section:nth-of-type(3)>ul>li:nth-of-type(2)>a","leads_to":"/coupon/ticket-detail/t-2?tab=1"},{"label":"更多","kind":"link","css":"section:nth-of-type(2)>div>div>a","leads_to":"/coupon/list?tab=2&isList=Y"},{"label":"郭董私房菜贈粽子強強聯手 - 郭董私房菜 X 國宴主廚202","kind":"link","css":"section:nth-of-type(2)>ul>li:nth-of-type(1)>a","leads_to":"/coupon/coupon-detail/c-1?tab=2"},{"label":"阿爸手工皂滿千送百滿1000元送100元。2024/06/3","kind":"link","css":"section:nth-of-type(2)>ul>li:nth-of-type(2)>a","leads_to":"/coupon/coupon-detail/c-2?tab=2"},{"label":"沃田旅店餐飲消費滿1500送薑爆小卷(小份)、消費滿5000","kind":"link","css":"section:nth-of-type(2)>ul>li:nth-of-type(3)>a","leads_to":"/coupon/coupon-detail/c-3?tab=2"},{"label":"入場券","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"優惠券","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"搜尋票券或場館名稱","kind":"field","css":"div:nth-of-type(1)>section:nth-of-type(1)>a:nth-of-type(1)>input","placeholder":"搜尋票券或場館名稱"},{"label":"輸入店家名稱","kind":"field","css":"div:nth-of-type(2)>section:nth-of-type(1)>a:nth-of-type(1)>input","placeholder":"輸入店家名稱"}]},"/ticket-wallet":{"title":"票夾","elements":[{"label":"臺北市立美術館1張限當日使用","kind":"link","css":"div:nth-of-type(1)>ul>li:nth-of-type(1)>a","leads_to":"/ticket-wallet/exchange/t-1"},{"label":"兒童新樂園3張限當日使用","kind":"link","css":"div:nth-of-type(1)>ul>li:nth-of-type(2)>a","leads_to":"/ticket-wallet/exchange/t-3"},{"label":"臺北市立美術館限當日使用","kind":"link","css":"div:nth-of-type(1)>ul>li:nth-of-type(1)>a","leads_to":"/coupon/coupon-detail/t-1?needUse=Y&walletTab=2"},{"label":"兒童新樂園限當日使用","kind":"link","css":"div:nth-of-type(1)>ul>li:nth-of-type(2)>a","leads_to":"/coupon/coupon-detail/t-3?needUse=Y&walletTab=2"},{"label":"入場券","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"優惠券","kind":"button","css":"#app>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page","reveals":2},{"label":"我的訂單","kind":"button","css":"div:nth-of-type(1)>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"已結束","kind":"button","css":"div:nth-of-type(1)>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page"},{"label":"未兌換","kind":"button","css":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(1)","effect":"same_page"},{"label":"已兌換","kind":"button","css":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)","effect":"same_page","reveals":2},{"label":"已過期","kind":"button","css":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)","effect":"same_page","reveals":2},{"label":"郭董私房菜2024/06/30 截止","kind":"link","css":"div:nth-of-type(1)>ul>li>a","leads_to":"/ticket-wallet/exchange/c-1","requires_click":"#app>div>section:nth-of-type(1)>button:nth-of-type(2)","requires_label":"優惠券"},{"label":"郭董私房菜2024/06/30 截止","kind":"link","css":"div:nth-of-type(1)>ul>li>a","leads_to":"/coupon/coupon-detail/c-1?needUse=Y&walletTab=2","requires_click":"#app>div>section:nth-of-type(1)>button:nth-of-type(2)","requires_label":"優惠券"},{"label":"阿爸手工皂2024/09/01 14:00 兌換","kind":"link","css":"div:nth-of-type(1)>ul>li>a","leads_to":"/ticket-wallet/exchange/c-2","requires_click":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)","requires_label":"已兌換"},{"label":"阿爸手工皂2024/09/01 14:00 兌換","kind":"link","css":"div:nth-of-type(1)>ul>li>a","leads_to":"/coupon/coupon-detail/c-2?needUse=Y&walletTab=2","requires_click":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)","requires_label":"已兌換"},{"label":"查看優惠","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(1)>div>a","leads_to":"/coupon?tab=2","requires_click":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)","requires_label":"已過期"},{"label":"查看優惠","kind":"link","css":"section:nth-of-type(2)>div:nth-of-type(2)>div>a","leads_to":"/coupon?tab=2","requires_click":"div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)","requires_label":"已過期"}]},"/qna":{"title":"功能教學 • 城市通","elements":[{"label":"已透過悠遊付註冊台北通會員，請問如何登入？I have si","kind":"button","css":"div>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"已透過市民服務大平台或身分驗證申請註冊加入會員，超過時間沒有","kind":"button","css":"div>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"手機門號驗證出現身分證字號正確，生日錯誤的錯誤訊息。這是什麼","kind":"button","css":"div>ul>li:nth-of-type(3)>button","effect":"same_page"},{"label":"如何使用優惠券？How can I access the c","kind":"button","css":"div>ul>li:nth-of-type(4)>button","effect":"same_page"},{"label":"如何獲得優惠券？ How can I obtain the ","kind":"button","css":"div>ul>li:nth-of-type(5)>button","effect":"same_page"},{"label":"台北通帳號授權使用市府其他數位平台，可以取消使用授權嗎？'v","kind":"button","css":"div>ul>li:nth-of-type(6)>button","effect":"same_page"},{"label":"查看其他常見問題","kind":"button","css":"#app>div>div>button","leads_to":"/qna/categories"}]},"/fee-payment/history":{"title":"帳務紀錄","elements":[{"label":"近1年","kind":"option","css":"#\\31 ","value":"1"},{"label":"近2年","kind":"option","css":"#\\31 ","value":"2"},{"label":"近3年","kind":"option","css":"#\\31 ","value":"3"},{"label":"所有項目","kind":"option","css":"#all","value":"all"},{"label":"停車費","kind":"option","css":"#all","value":"fee-5"},{"label":"公訓處自費課程","kind":"option","css":"#all","value":"fee-11"},{"label":"所有狀態","kind":"option","css":"#all","value":"all"},{"label":"成功","kind":"option","css":"#all","value":"paid"},{"label":"處理中","kind":"option","css":"#all","value":"processing"},{"label":"失敗","kind":"option","css":"#all","value":"failed"}]},"/subscription":{"title":"訂閱","elements":[]},"/police-report":{"title":"警政報案","elements":[{"label":"同意","kind":"button","css":"#app>div>div:nth-of-type(2)>button","effect":"same_page"},{"label":"本人已詳閱須知並同意繼續","kind":"label","css":"#app>div>div:nth-of-type(2)>label"}]},"/citizen-report/list":{"title":"有話要說","elements":[{"label":"您遇到哪些問題?","kind":"field","css":"section>div:nth-of-type(2)>a>input","placeholder":"您遇到哪些問題?"}]},"/fee-payment/search":{"title":"搜尋繳費項目","elements":[{"label":"清除","kind":"link","css":"#app>div>div:nth-of-type(2)>a","leads_to":""},{"label":"搜尋繳費關鍵字","kind":"field","css":"#app>div>div:nth-of-type(1)>input","placeholder":"搜尋繳費關鍵字"}]},"/fee-payment/detail/fee-5":{"title":"繳費項目","elements":[{"label":"輸入資料","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(1)","effect":"same_page"},{"label":"繳費編號","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(2)","effect":"same_page"},{"label":"查詢","kind":"button","css":"section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button","effect":"same_page","reveals":1},{"label":"查詢","kind":"button","css":"section:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>button","effect":"same_page"},{"label":"汽車","kind":"label","css":"div:nth-of-type(1)>div:nth-of-type(1)>div>label:nth-of-type(1)"},{"label":"機車","kind":"label","css":"div:nth-of-type(1)>div:nth-of-type(1)>div>label:nth-of-type(2)"},{"label":"繳費編號","kind":"label","css":"div:nth-of-type(1)>div:nth-of-type(1)>div>label"},{"label":"繳費編號","kind":"field","css":"#payment_number","placeholder":"請輸入繳費編號"},{"label":"確認","kind":"button","css":"#headlessui-dialog-panel-4>div:nth-of-type(3)>button","requires_click":"section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button","requires_label":"查詢"}]},"/citizen-report/form/R-3":{"title":"有話要說","elements":[{"label":"送出","kind":"button","css":"#app>div>div:nth-of-type(1)>button","effect":"same_page"},{"label":"發生地點","kind":"label","css":"div>form>div:nth-of-type(1)>label"},{"label":"案件主旨*","kind":"label","css":"div>form>div:nth-of-type(2)>label"},{"label":"描述*","kind":"label","css":"div>form>div:nth-of-type(3)>label"},{"label":"最多上傳10個檔案","kind":"label","css":"div>div:nth-of-type(2)>div:nth-of-type(1)>label"},{"label":"同意","kind":"label","css":"div>section:nth-of-type(2)>div>label:nth-of-type(1)"},{"label":"不同意","kind":"label","css":"div>section:nth-of-type(2)>div>label:nth-of-type(2)"},{"label":"發生地點","kind":"field","css":"#location","placeholder":"請輸入完整地址"},{"label":"請輸入主旨","kind":"field","css":"#title","placeholder":"請輸入主旨"},{"label":"描述*","kind":"field","css":"#description","placeholder":"人、事、時、地、物 4000字以內"},{"label":"最多上傳10個檔案","kind":"field","css":"#upload-file-1","placeholder":""}]},"/counter-calling/c-2":{"title":"臨櫃叫號","elements":[{"label":"加入常用","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>a","leads_to":"javascript:void(0)"},{"label":"臺北市萬華區和平西路三段120號4樓","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(1)","leads_to":"javascript:void(0)"},{"label":"02-2306-2706","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(2)","leads_to":"javascript:void(0)"},{"label":"02-2308-2868","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(3)","leads_to":"/counter-calling/c-2"},{"label":"萬華區戶政事務所","kind":"option","css":"#c-2","value":"c-2-1"},{"label":"中正區戶政事務所","kind":"option","css":"#c-2","value":"c-2-2"}]},"/water-service":{"title":"用水服務","elements":[{"label":"報水表度數","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(1)","effect":"same_page"},{"label":"用水紀錄","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(2)","effect":"same_page"},{"label":"送出","kind":"button","css":"section:nth-of-type(3)>div:nth-of-type(1)>form>button","effect":"same_page"},{"label":"水號","kind":"label","css":"div:nth-of-type(1)>form>div:nth-of-type(1)>label"},{"label":"本期度數","kind":"label","css":"div:nth-of-type(1)>form>div:nth-of-type(2)>label"},{"label":"水號","kind":"field","css":"#water_number","placeholder":"請輸入水號"},{"label":"本期度數","kind":"field","css":"#meter_value","placeholder":"輸入水表目前度數"}]},"/vaccine":{"title":"疫苗預約","elements":[{"label":"預約","kind":"button","css":"#app>div>form>button","effect":"same_page"},{"label":"流感疫苗","kind":"option","css":"#vaccine_type","value":"flu"},{"label":"新冠疫苗","kind":"option","css":"#vaccine_type","value":"covid"},{"label":"肺炎鏈球菌疫苗","kind":"option","css":"#vaccine_type","value":"pcv"},{"label":"中正區 中正區健康服務中心","kind":"option","css":"#site","value":"S01"},{"label":"大安區 大安區健康服務中心","kind":"option","css":"#site","value":"S02"},{"label":"士林區 士林區健康服務中心","kind":"option","css":"#site","value":"S03"},{"label":"疫苗種類","kind":"label","css":"div>form>div:nth-of-type(1)>label"},{"label":"接種地點","kind":"label","css":"div>form>div:nth-of-type(2)>label"},{"label":"日期","kind":"label","css":"div>form>div:nth-of-type(3)>label"},{"label":"時段","kind":"label","css":"div>form>div:nth-of-type(4)>label"},{"label":"上午","kind":"label","css":"form>div:nth-of-type(4)>div>label:nth-of-type(1)"},{"label":"下午","kind":"label","css":"form>div:nth-of-type(4)>div>label:nth-of-type(2)"},{"label":"日期","kind":"field","css":"#date","placeholder":""}]},"/hospital-registration":{"title":"聯醫掛號","elements":[{"label":"確認掛號","kind":"button","css":"#app>div>div>button","effect":"same_page"},{"label":"中興","kind":"option","css":"#branch","value":"中興"},{"label":"仁愛","kind":"option","css":"#branch","value":"仁愛"},{"label":"和平","kind":"option","css":"#branch","value":"和平"},{"label":"忠孝","kind":"option","css":"#branch","value":"忠孝"},{"label":"陽明","kind":"option","css":"#branch","value":"陽明"},{"label":"家醫科","kind":"option","css":"#dept","value":"家醫科"},{"label":"內科","kind":"option","css":"#dept","value":"內科"},{"label":"小兒科","kind":"option","css":"#dept","value":"小兒科"},{"label":"骨科","kind":"option","css":"#dept","value":"骨科"},{"label":"眼科","kind":"option","css":"#dept","value":"眼科"},{"label":"院區","kind":"label","css":"div>form>div:nth-of-type(1)>label"},{"label":"科別","kind":"label","css":"div>form>div:nth-of-type(2)>label"}]},"/family-center":{"title":"親子館","elements":[{"label":"中正區中正親子館臺北市中正區汀州路二段156號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(1)","leads_to":"/family-center/FC01"},{"label":"大同區大同親子館臺北市大同區重慶北路三段320號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(2)","leads_to":"/family-center/FC02"},{"label":"中山區中山親子館臺北市中山區大直街1號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(3)","leads_to":"/family-center/FC03"},{"label":"松山區松山親子館臺北市松山區八德路四段692號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(4)","leads_to":"/family-center/FC04"},{"label":"大安區大安親子館臺北市大安區延吉街246巷10號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(5)","leads_to":"/family-center/FC05"},{"label":"萬華區萬華親子館臺北市萬華區東園街19號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(6)","leads_to":"/family-center/FC06"},{"label":"信義區信義親子館臺北市信義區松德路25號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(7)","leads_to":"/family-center/FC07"},{"label":"士林區士林親子館臺北市士林區基河路130號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(8)","leads_to":"/family-center/FC08"},{"label":"北投區北投親子館臺北市北投區中央北路一段12號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(9)","leads_to":"/family-center/FC09"},{"label":"內湖區內湖親子館臺北市內湖區民權東路六段99號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(10)","leads_to":"/family-center/FC10"},{"label":"南港區南港親子館臺北市南港區南港路一段360號活動 2 場","kind":"link","css":"div>div>div>a:nth-of-type(11)","leads_to":"/family-center/FC11"},{"label":"文山區文山親子館臺北市文山區景福街241號活動 3 場","kind":"link","css":"div>div>div>a:nth-of-type(12)","leads_to":"/family-center/FC12"}]},"/ivoting":{"title":"網路投票","elements":[{"label":"投票中2026 臺北燈節主燈設計票選截止 2025-11-30・12480 人參","kind":"link","css":"div>div>div>a:nth-of-type(1)","leads_to":"/ivoting/V01"},{"label":"投票中公園遊戲場改善優先順序截止 2025-12-15・6213 人參與","kind":"link","css":"div>div>div>a:nth-of-type(2)","leads_to":"/ivoting/V02"},{"label":"投票中河濱自行車道夜間照明時段截止 2025-12-01・3890 人參與","kind":"link","css":"div>div>div>a:nth-of-type(3)","leads_to":"/ivoting/V03"},{"label":"投票中捷運站公共藝術主題票選截止 2025-12-05・5120 人參與","kind":"link","css":"div>div>div>a:nth-of-type(4)","leads_to":"/ivoting/V04"},{"label":"投票中市立圖書館延長開放時間截止 2025-12-20・8764 人參與","kind":"link","css":"div>div>div>a:nth-of-type(5)","leads_to":"/ivoting/V05"},{"label":"投票中社區公園命名票選（信義區松德段）截止 2025-11-25・2318 人參","kind":"link","css":"div>div>div>a:nth-of-type(6)","leads_to":"/ivoting/V06"},{"label":"已結束市民運動中心新增課程票選截止 2025-10-31・9031 人參與","kind":"link","css":"div>div>div>a:nth-of-type(7)","leads_to":"/ivoting/V07"},{"label":"已結束公車站牌資訊看板改版設計截止 2025-10-15・7455 人參與","kind":"link","css":"div>div>div>a:nth-of-type(8)","leads_to":"/ivoting/V08"}]},"/survey":{"title":"意見調查","elements":[{"label":"4 題・約 2 分鐘城市通 App 使用滿意度調查截止 2025-11-30","kind":"link","css":"div>div>div>a:nth-of-type(1)","leads_to":"/survey/Q01"},{"label":"5 題・約 3 分鐘公共運輸服務意見調查截止 2025-12-10","kind":"link","css":"div>div>div>a:nth-of-type(2)","leads_to":"/survey/Q02"},{"label":"3 題・約 1 分鐘里鄰環境清潔滿意度截止 2025-12-20","kind":"link","css":"div>div>div>a:nth-of-type(3)","leads_to":"/survey/Q03"},{"label":"4 題・約 3 分鐘長者照顧服務需求調查截止 2025-12-31","kind":"link","css":"div>div>div>a:nth-of-type(4)","leads_to":"/survey/Q04"},{"label":"4 題・約 2 分鐘校園午餐滿意度調查截止 2025-12-05","kind":"link","css":"div>div>div>a:nth-of-type(5)","leads_to":"/survey/Q05"},{"label":"5 題・約 2 分鐘夜市環境衛生意見調查截止 2025-12-15","kind":"link","css":"div>div>div>a:nth-of-type(6)","leads_to":"/survey/Q06"},{"label":"4 題・約 2 分鐘河濱公園設施需求調查截止 2026-01-10","kind":"link","css":"div>div>div>a:nth-of-type(7)","leads_to":"/survey/Q07"},{"label":"3 題・約 1 分鐘垃圾分類宣導成效調查截止 2025-12-25","kind":"link","css":"div>div>div>a:nth-of-type(8)","leads_to":"/survey/Q08"}]},"/neighborhood":{"title":"里辦服務","elements":[{"label":"中正區","kind":"option","css":"#district","value":"中正區"},{"label":"大同區","kind":"option","css":"#district","value":"大同區"},{"label":"中山區","kind":"option","css":"#district","value":"中山區"},{"label":"松山區","kind":"option","css":"#district","value":"松山區"},{"label":"大安區","kind":"option","css":"#district","value":"大安區"},{"label":"萬華區","kind":"option","css":"#district","value":"萬華區"},{"label":"信義區","kind":"option","css":"#district","value":"信義區"},{"label":"士林區","kind":"option","css":"#district","value":"士林區"},{"label":"北投區","kind":"option","css":"#district","value":"北投區"},{"label":"內湖區","kind":"option","css":"#district","value":"內湖區"},{"label":"南港區","kind":"option","css":"#district","value":"南港區"},{"label":"文山區","kind":"option","css":"#district","value":"文山區"},{"label":"選擇行政區","kind":"label","css":"#app>div>div:nth-of-type(1)>label"}]},"/city-radio":{"title":"台北電台","elements":[{"label":"播放","kind":"button","css":"div>section:nth-of-type(2)>div>button","effect":"same_page","reveals":1},{"label":"暫停","kind":"button","css":"div>section:nth-of-type(2)>div>button","requires_click":"div>section:nth-of-type(2)>div>button","requires_label":"播放"}]},"/green-map":{"title":"簡單森呼吸","elements":[{"label":"Leaflet","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)","leads_to":"https://leafletjs.com"},{"label":"OpenStreetMap","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)","leads_to":"https://www.openstreetmap.org/copyright"},{"label":"公園","kind":"option","css":"#findPlace","value":"park"},{"label":"綠地","kind":"option","css":"#findPlace","value":"green"},{"label":"步道","kind":"option","css":"#findPlace","value":"trail"},{"label":"河濱","kind":"option","css":"#findPlace","value":"river"},{"label":"地點類型","kind":"label","css":"div>div>div:nth-of-type(1)>label"}]},"/pet-map":{"title":"寵物安心遛","elements":[{"label":"Leaflet","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)","leads_to":"https://leafletjs.com"},{"label":"OpenStreetMap","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)","leads_to":"https://www.openstreetmap.org/copyright"},{"label":"寵物公園","kind":"option","css":"#findPlace","value":"park"},{"label":"寵物友善餐廳","kind":"option","css":"#findPlace","value":"restaurant"},{"label":"動物醫院","kind":"option","css":"#findPlace","value":"hospital"},{"label":"寵物登記站","kind":"option","css":"#findPlace","value":"registration"},{"label":"地點類型","kind":"label","css":"div>div>div:nth-of-type(1)>label"}]},"/essential-goods":{"title":"民生物資","elements":[{"label":"蔬菜","kind":"option","css":"#category","value":"vegetable"},{"label":"水果","kind":"option","css":"#category","value":"fruit"},{"label":"肉類","kind":"option","css":"#category","value":"meat"},{"label":"米糧","kind":"option","css":"#category","value":"rice"},{"label":"蛋","kind":"option","css":"#category","value":"egg"},{"label":"分類","kind":"label","css":"#app>div>div>label"}]},"/zoo":{"title":"愛遊動物園","elements":[{"label":"Leaflet","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)","leads_to":"https://leafletjs.com"},{"label":"OpenStreetMap","kind":"link","css":"div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)","leads_to":"https://www.openstreetmap.org/copyright"},{"label":"大貓熊大貓熊館・中國四川","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(1)","leads_to":"/zoo/animal/AN01"},{"label":"無尾熊無尾熊館・澳洲","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(2)","leads_to":"/zoo/animal/AN02"},{"label":"國王企鵝企鵝館・南極周邊島嶼","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(3)","leads_to":"/zoo/animal/AN03"},{"label":"台灣黑熊台灣動物區・台灣","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(4)","leads_to":"/zoo/animal/AN04"},{"label":"長頸鹿非洲動物區・非洲","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(5)","leads_to":"/zoo/animal/AN05"},{"label":"非洲象非洲動物區・非洲","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(6)","leads_to":"/zoo/animal/AN06"},{"label":"紅毛猩猩亞洲熱帶雨林區・婆羅洲、蘇門答臘","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(7)","leads_to":"/zoo/animal/AN07"},{"label":"穿山甲台灣動物區・台灣","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(8)","leads_to":"/zoo/animal/AN08"},{"label":"馬來貘亞洲熱帶雨林區・馬來半島、蘇門答臘","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(9)","leads_to":"/zoo/animal/AN09"},{"label":"梅花鹿台灣動物區・台灣","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(10)","leads_to":"/zoo/animal/AN10"},{"label":"河馬非洲動物區・非洲","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(11)","leads_to":"/zoo/animal/AN11"},{"label":"單峰駱駝沙漠動物區・北非、中東","kind":"link","css":"div:nth-of-type(2)>div>div>a:nth-of-type(12)","leads_to":"/zoo/animal/AN12"},{"label":"園區地圖","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(1)","effect":"same_page"},{"label":"動物介紹","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(2)","effect":"same_page"},{"label":"今日活動","kind":"button","css":"#app>section:nth-of-type(2)>button:nth-of-type(3)","effect":"same_page"}]},"/hotline-1999":{"title":"1999","elements":[{"label":"線上陳情","kind":"link","css":"#app>div>section:nth-of-type(5)>a","leads_to":"/citizen-report"},{"label":"撥打 1999","kind":"button","css":"#app>div>section:nth-of-type(2)>button","effect":"same_page"},{"label":"1999 服務時間？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(1)>button","effect":"same_page"},{"label":"撥打 1999 要收費嗎？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(2)>button","effect":"same_page"},{"label":"陳情案件多久會回覆？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(3)>button","effect":"same_page"},{"label":"如何查詢案件進度？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(4)>button","effect":"same_page"},{"label":"外縣市可以撥打嗎？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(5)>button","effect":"same_page"},{"label":"路燈不亮要找誰？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(6)>button","effect":"same_page"},{"label":"可以匿名陳情嗎？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(7)>button","effect":"same_page"},{"label":"大型家具要怎麼丟？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(8)>button","effect":"same_page"},{"label":"夜間噪音可以通報嗎？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(9)>button","effect":"same_page"},{"label":"1999 可以幫忙申辦文件嗎？","kind":"button","css":"section:nth-of-type(4)>ul>li:nth-of-type(10)>button","effect":"same_page"}]}}}
+{
+ "version": 1,
+ "crawled_at": "2026-11-07T08:10:48.187Z",
+ "pages": {
+  "/fee-payment/detail/fee-6": {
+   "title": "繳費項目",
+   "elements": [
+    {
+     "label": "輸入資料",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "掃描",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(2)",
+     "leads_to": "/fee-payment/scan"
+    },
+    {
+     "label": "查詢",
+     "kind": "button",
+     "css": "section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "水號",
+     "kind": "label",
+     "css": "div:nth-of-type(1)>div:nth-of-type(1)>div>label"
+    },
+    {
+     "label": "水號",
+     "kind": "field",
+     "css": "#water_number",
+     "placeholder": "請輸入水號"
+    }
+   ]
+  },
+  "/counter-calling": {
+   "title": "臨櫃叫號",
+   "elements": [
+    {
+     "label": "地政事務所",
+     "kind": "link",
+     "css": "#app>div>div>a:nth-of-type(1)",
+     "leads_to": "/counter-calling/c-1"
+    },
+    {
+     "label": "戶政事務所",
+     "kind": "link",
+     "css": "#app>div>div>a:nth-of-type(2)",
+     "leads_to": "/counter-calling/c-2"
+    },
+    {
+     "label": "區公所",
+     "kind": "link",
+     "css": "#app>div>div>a:nth-of-type(3)",
+     "leads_to": "/counter-calling/c-3"
+    },
+    {
+     "label": "稅捐處",
+     "kind": "link",
+     "css": "#app>div>div>a:nth-of-type(4)",
+     "leads_to": "/counter-calling/c-4"
+    },
+    {
+     "label": "就業服務站",
+     "kind": "link",
+     "css": "#app>div>div>a:nth-of-type(5)",
+     "leads_to": "/counter-calling/c-5"
+    }
+   ]
+  },
+  "/citizen-report": {
+   "title": "有話要說",
+   "elements": [
+    {
+     "label": "教育事務",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(1)>a",
+     "leads_to": "/citizen-report/form/R-1"
+    },
+    {
+     "label": "公車、計程車、復康巴士問題",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(2)>a",
+     "leads_to": "/citizen-report/form/R-2"
+    },
+    {
+     "label": "停車管理及收費問題",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(3)>a",
+     "leads_to": "/citizen-report/form/R-3"
+    },
+    {
+     "label": "建築物使用管理、違建查報及拆除",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(4)>a",
+     "leads_to": "/citizen-report/form/R-4"
+    },
+    {
+     "label": "教育事務",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(5)>a",
+     "leads_to": "/citizen-report/form/R-11"
+    },
+    {
+     "label": "公車、計程車、復康巴士問題",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(6)>a",
+     "leads_to": "/citizen-report/form/R-12"
+    },
+    {
+     "label": "停車管理及收費問題",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(7)>a",
+     "leads_to": "/citizen-report/form/R-13"
+    },
+    {
+     "label": "建築物使用管理、違建查報及拆除",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(8)>a",
+     "leads_to": "/citizen-report/form/R-14"
+    },
+    {
+     "label": "教育事務",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(9)>a",
+     "leads_to": "/citizen-report/form/R-15"
+    },
+    {
+     "label": "公車、計程車、復康巴士問題",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(10)>a",
+     "leads_to": "/citizen-report/form/R-16"
+    },
+    {
+     "label": "更多項目",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>div>a",
+     "leads_to": "/citizen-report/list"
+    },
+    {
+     "label": "testA10-1130930-00160通報日期：2024",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(1)>a",
+     "leads_to": "/citizen-report/search-detail/A10-1130930-00160"
+    },
+    {
+     "label": "test2A10-1130930-00161通報日期：202",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(2)>a",
+     "leads_to": "/citizen-report/search-detail/A10-1130930-00161"
+    },
+    {
+     "label": "test3A10-1130930-00162通報日期：202",
+     "kind": "link",
+     "css": "div>ul>li:nth-of-type(3)>a",
+     "leads_to": "/citizen-report/search-detail/A10-1130930-00162"
+    },
+    {
+     "label": "通報",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "查詢",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "撥打1999專線",
+     "kind": "button",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>div>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "有話要說",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "災情通報",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "您遇到哪些問題?",
+     "kind": "field",
+     "css": "div>div>a>input",
+     "placeholder": "您遇到哪些問題?"
+    },
+    {
+     "label": "搜尋案號關鍵字",
+     "kind": "field",
+     "css": "div>div:nth-of-type(1)>div:nth-of-type(1)>input",
+     "placeholder": "搜尋案號關鍵字"
+    }
+   ]
+  },
+  "/fee-payment/others": {
+   "title": "其他",
+   "elements": [
+    {
+     "label": "規費",
+     "kind": "button",
+     "css": "#app>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "稅費",
+     "kind": "button",
+     "css": "#app>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "罰鍰",
+     "kind": "button",
+     "css": "#app>ul>li:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "金門縣政府",
+     "kind": "button",
+     "css": "#app>ul>li:nth-of-type(4)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "搜尋項目名稱",
+     "kind": "field",
+     "css": "#app>div>a>input",
+     "placeholder": "搜尋項目名稱"
+    }
+   ]
+  },
+  "/": {
+   "title": "申辦服務",
+   "elements": [
+    {
+     "label": "申辦",
+     "kind": "button",
+     "css": "#app>main>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "查詢",
+     "kind": "button",
+     "css": "#app>main>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "申訴類",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "補助類",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "申辦中(2)",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "已結案(1)",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "您遇到哪些問題?",
+     "kind": "field",
+     "css": "div:nth-of-type(1)>div>section>input",
+     "placeholder": "您遇到哪些問題?"
+    }
+   ]
+  },
+  "/disaster-report": {
+   "title": "災情通報",
+   "elements": [
+    {
+     "label": "電線(桿)或纜線受損",
+     "kind": "link",
+     "css": "li:nth-of-type(1)>div>div>a:nth-of-type(1)",
+     "leads_to": "/disaster-report/form/D-1-1"
+    },
+    {
+     "label": "變電所、電廠受災",
+     "kind": "link",
+     "css": "li:nth-of-type(1)>div>div>a:nth-of-type(2)",
+     "leads_to": "/disaster-report/form/D-1-2"
+    },
+    {
+     "label": "路燈故障",
+     "kind": "link",
+     "css": "li:nth-of-type(1)>div>div>a:nth-of-type(3)",
+     "leads_to": "/disaster-report/form/D-1-3"
+    },
+    {
+     "label": "電力停電",
+     "kind": "link",
+     "css": "li:nth-of-type(1)>div>div>a:nth-of-type(4)",
+     "leads_to": "/disaster-report/form/D-1-4"
+    },
+    {
+     "label": "橋樑基礎沖刷",
+     "kind": "link",
+     "css": "li:nth-of-type(2)>div>div>a:nth-of-type(1)",
+     "leads_to": "/disaster-report/form/D-2-1"
+    },
+    {
+     "label": "橋樑斷裂",
+     "kind": "link",
+     "css": "li:nth-of-type(2)>div>div>a:nth-of-type(2)",
+     "leads_to": "/disaster-report/form/D-2-2"
+    },
+    {
+     "label": "前述以外之橋梁災情",
+     "kind": "link",
+     "css": "li:nth-of-type(2)>div>div>a:nth-of-type(3)",
+     "leads_to": "/disaster-report/form/D-2-3"
+    },
+    {
+     "label": "土石流",
+     "kind": "link",
+     "css": "li:nth-of-type(3)>div>div>a:nth-of-type(1)",
+     "leads_to": "/disaster-report/form/D-3-1"
+    },
+    {
+     "label": "土石崩落",
+     "kind": "link",
+     "css": "li:nth-of-type(3)>div>div>a:nth-of-type(2)",
+     "leads_to": "/disaster-report/form/D-3-2"
+    },
+    {
+     "label": "堰塞湖",
+     "kind": "link",
+     "css": "li:nth-of-type(3)>div>div>a:nth-of-type(3)",
+     "leads_to": "/disaster-report/form/D-3-3"
+    },
+    {
+     "label": "建築物火災",
+     "kind": "link",
+     "css": "li:nth-of-type(4)>div>div>a:nth-of-type(1)",
+     "leads_to": "/disaster-report/form/D-4-1"
+    },
+    {
+     "label": "危險物品火災",
+     "kind": "link",
+     "css": "li:nth-of-type(4)>div>div>a:nth-of-type(2)",
+     "leads_to": "/disaster-report/form/D-4-2"
+    },
+    {
+     "label": "工廠火災",
+     "kind": "link",
+     "css": "li:nth-of-type(4)>div>div>a:nth-of-type(3)",
+     "leads_to": "/disaster-report/form/D-4-3"
+    },
+    {
+     "label": "其他(前述以外火災)",
+     "kind": "link",
+     "css": "li:nth-of-type(4)>div>div>a:nth-of-type(4)",
+     "leads_to": "/disaster-report/form/D-4-4"
+    },
+    {
+     "label": "民生、基礎設施災情",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "橋梁災情",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "土石災情",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>ul>li:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "火災",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>ul>li:nth-of-type(4)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "您遇到哪些問題?",
+     "kind": "field",
+     "css": "#app>div>div:nth-of-type(1)>input",
+     "placeholder": "您遇到哪些問題?"
+    }
+   ]
+  },
+  "/library-service": {
+   "title": "圖書借閱",
+   "elements": [
+    {
+     "label": "關鍵字搜尋",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>a",
+     "leads_to": "/library-service/keyword-search"
+    },
+    {
+     "label": "神奇柑仔店. 15, 冒牌的長髮公主餅乾著者：廣嶋玲子文 ;",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(1)>a",
+     "leads_to": "/library-service/book-detail/lib-book-6"
+    },
+    {
+     "label": "歡迎光臨錢天堂 : 神奇柑仔店大圖鑑著者：廣嶋玲子文 ; j",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(2)>a",
+     "leads_to": "/library-service/book-detail/lib-book-5"
+    },
+    {
+     "label": "底層邏輯 : 看清這個世界的底牌 = The underly",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(3)>a",
+     "leads_to": "/library-service/book-detail/lib-book-3"
+    },
+    {
+     "label": "The winners : a novel著者：Fredri",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(4)>a",
+     "leads_to": "/library-service/book-detail/lib-book-4"
+    },
+    {
+     "label": "我的第一本滑塊書 : 顏色配對著者：Anton Poitie",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(5)>a",
+     "leads_to": "/library-service/book-detail/lib-book-1"
+    },
+    {
+     "label": "說給兒童的臺灣歷史著者：[天衛文化圖書製作] ; 林秋滿撰文",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div:nth-of-type(6)>a",
+     "leads_to": "/library-service/book-detail/lib-book-2"
+    },
+    {
+     "label": "更多",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>div:nth-of-type(3)>div:nth-of-type(1)>a",
+     "leads_to": "/library-service/ranking-list"
+    },
+    {
+     "label": "1說給兒童的臺灣歷史點閱次數：14829585",
+     "kind": "link",
+     "css": "div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(1)>a",
+     "leads_to": "/library-service/book-detail/lib-book-2"
+    },
+    {
+     "label": "2底層邏輯 : 看清這個世界的底牌 = The underl",
+     "kind": "link",
+     "css": "div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>a",
+     "leads_to": "/library-service/book-detail/lib-book-3"
+    },
+    {
+     "label": "3歡迎光臨錢天堂 : 神奇柑仔店大圖鑑點閱次數：20400",
+     "kind": "link",
+     "css": "div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(3)>a",
+     "leads_to": "/library-service/book-detail/lib-book-5"
+    },
+    {
+     "label": "4我的第一本滑塊書 : 顏色配對點閱次數：3450",
+     "kind": "link",
+     "css": "div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(4)>a",
+     "leads_to": "/library-service/book-detail/lib-book-1"
+    },
+    {
+     "label": "5The winners : a novel點閱次數：500",
+     "kind": "link",
+     "css": "div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(5)>a",
+     "leads_to": "/library-service/book-detail/lib-book-4"
+    },
+    {
+     "label": "更多",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>div:nth-of-type(4)>div:nth-of-type(1)>a",
+     "leads_to": "/library-service/notice-list"
+    },
+    {
+     "label": "太陽圖書館暫停對外服務2024/11/01",
+     "kind": "link",
+     "css": "div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(1)>a",
+     "leads_to": "https://tpml.gov.taipei/News_Content.aspx?n=E492D531630BC406&s=A2A01F99895FDED7&sms=78D644F2755ACCAA"
+    },
+    {
+     "label": "113年「禮貌服務人員選拔」抽獎活動獲獎名單2024/11/",
+     "kind": "link",
+     "css": "div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(2)>a",
+     "leads_to": "/library-service/notice-detail/lib-notice-2"
+    },
+    {
+     "label": "本館將於11月7日（星期四）休館日上午8時至下午8時進行資訊",
+     "kind": "link",
+     "css": "div:nth-of-type(4)>div:nth-of-type(2)>div:nth-of-type(3)>a",
+     "leads_to": "/library-service/notice-detail/lib-notice-3"
+    },
+    {
+     "label": "Leaflet",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)",
+     "leads_to": "https://leafletjs.com"
+    },
+    {
+     "label": "OpenStreetMap",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)",
+     "leads_to": "https://www.openstreetmap.org/copyright"
+    },
+    {
+     "label": "館藏查詢",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "我的紀錄",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "分館地圖",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(1)>button:nth-of-type(3)",
+     "effect": "same_page"
+    },
+    {
+     "label": "可取書(1)",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "處理中(1)",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "排序中(0)",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "確認",
+     "kind": "button",
+     "css": "div>div>div:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "預約清單",
+     "kind": "option",
+     "css": "#reservation-list",
+     "value": "reservation-list"
+    },
+    {
+     "label": "預約未取紀錄",
+     "kind": "option",
+     "css": "#reservation-list",
+     "value": "reservation-not-take-records"
+    },
+    {
+     "label": "借閱中(2)",
+     "kind": "option",
+     "css": "#reservation-list",
+     "value": "borrowing-list"
+    },
+    {
+     "label": "借閱歷史紀錄(2)",
+     "kind": "option",
+     "css": "#reservation-list",
+     "value": "borrow-history-list"
+    }
+   ]
+  },
+  "/surrounding-service": {
+   "title": "周邊服務",
+   "elements": [
+    {
+     "label": "Leaflet",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)",
+     "leads_to": "https://leafletjs.com"
+    },
+    {
+     "label": "OpenStreetMap",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)",
+     "leads_to": "https://www.openstreetmap.org/copyright"
+    },
+    {
+     "label": "確認",
+     "kind": "button",
+     "css": "div>div>div:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "微笑單車 2.0",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "pa-1"
+    },
+    {
+     "label": "停車場",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "pa-3"
+    },
+    {
+     "label": "公廁",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "pb-3"
+    }
+   ]
+  },
+  "/coupon": {
+   "title": "優惠",
+   "elements": [
+    {
+     "label": "人氣特展廣受好評的票券",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>section:nth-of-type(2)>a:nth-of-type(1)",
+     "leads_to": "/coupon/list?tab=1&isList=Y"
+    },
+    {
+     "label": "熱門場館熱門景點",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>section:nth-of-type(2)>a:nth-of-type(2)",
+     "leads_to": "/coupon/list?tab=1&hotSpot=Y"
+    },
+    {
+     "label": "更多",
+     "kind": "link",
+     "css": "section:nth-of-type(3)>div>div>a",
+     "leads_to": "/coupon/list?tab=1&isList=Y"
+    },
+    {
+     "label": "| 臺北市立美術館 | 入場門票會員獨享市民優惠僅限營業時間",
+     "kind": "link",
+     "css": "section:nth-of-type(3)>ul>li:nth-of-type(1)>a",
+     "leads_to": "/coupon/ticket-detail/t-1?tab=1"
+    },
+    {
+     "label": "| 臺北市立動物園 | 入場門票會員獨享僅限營業時間開放線上",
+     "kind": "link",
+     "css": "section:nth-of-type(3)>ul>li:nth-of-type(2)>a",
+     "leads_to": "/coupon/ticket-detail/t-2?tab=1"
+    },
+    {
+     "label": "更多",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div>div>a",
+     "leads_to": "/coupon/list?tab=2&isList=Y"
+    },
+    {
+     "label": "郭董私房菜贈粽子強強聯手 - 郭董私房菜 X 國宴主廚202",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>ul>li:nth-of-type(1)>a",
+     "leads_to": "/coupon/coupon-detail/c-1?tab=2"
+    },
+    {
+     "label": "阿爸手工皂滿千送百滿1000元送100元。2024/06/3",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>ul>li:nth-of-type(2)>a",
+     "leads_to": "/coupon/coupon-detail/c-2?tab=2"
+    },
+    {
+     "label": "沃田旅店餐飲消費滿1500送薑爆小卷(小份)、消費滿5000",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>ul>li:nth-of-type(3)>a",
+     "leads_to": "/coupon/coupon-detail/c-3?tab=2"
+    },
+    {
+     "label": "入場券",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "優惠券",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "搜尋票券或場館名稱",
+     "kind": "field",
+     "css": "div:nth-of-type(1)>section:nth-of-type(1)>a:nth-of-type(1)>input",
+     "placeholder": "搜尋票券或場館名稱"
+    },
+    {
+     "label": "輸入店家名稱",
+     "kind": "field",
+     "css": "div:nth-of-type(2)>section:nth-of-type(1)>a:nth-of-type(1)>input",
+     "placeholder": "輸入店家名稱"
+    }
+   ]
+  },
+  "/ticket-wallet": {
+   "title": "票夾",
+   "elements": [
+    {
+     "label": "臺北市立美術館1張限當日使用",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li:nth-of-type(1)>a",
+     "leads_to": "/ticket-wallet/exchange/t-1"
+    },
+    {
+     "label": "兒童新樂園3張限當日使用",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li:nth-of-type(2)>a",
+     "leads_to": "/ticket-wallet/exchange/t-3"
+    },
+    {
+     "label": "臺北市立美術館限當日使用",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li:nth-of-type(1)>a",
+     "leads_to": "/coupon/coupon-detail/t-1?needUse=Y&walletTab=2"
+    },
+    {
+     "label": "兒童新樂園限當日使用",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li:nth-of-type(2)>a",
+     "leads_to": "/coupon/coupon-detail/t-3?needUse=Y&walletTab=2"
+    },
+    {
+     "label": "入場券",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "優惠券",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page",
+     "reveals": 2
+    },
+    {
+     "label": "我的訂單",
+     "kind": "button",
+     "css": "div:nth-of-type(1)>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "已結束",
+     "kind": "button",
+     "css": "div:nth-of-type(1)>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "未兌換",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "已兌換",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "effect": "same_page",
+     "reveals": 2
+    },
+    {
+     "label": "已過期",
+     "kind": "button",
+     "css": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)",
+     "effect": "same_page",
+     "reveals": 2
+    },
+    {
+     "label": "郭董私房菜2024/06/30 截止",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li>a",
+     "leads_to": "/ticket-wallet/exchange/c-1",
+     "requires_click": "#app>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "requires_label": "優惠券"
+    },
+    {
+     "label": "郭董私房菜2024/06/30 截止",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li>a",
+     "leads_to": "/coupon/coupon-detail/c-1?needUse=Y&walletTab=2",
+     "requires_click": "#app>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "requires_label": "優惠券"
+    },
+    {
+     "label": "阿爸手工皂2024/09/01 14:00 兌換",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li>a",
+     "leads_to": "/ticket-wallet/exchange/c-2",
+     "requires_click": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "requires_label": "已兌換"
+    },
+    {
+     "label": "阿爸手工皂2024/09/01 14:00 兌換",
+     "kind": "link",
+     "css": "div:nth-of-type(1)>ul>li>a",
+     "leads_to": "/coupon/coupon-detail/c-2?needUse=Y&walletTab=2",
+     "requires_click": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(2)",
+     "requires_label": "已兌換"
+    },
+    {
+     "label": "查看優惠",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(1)>div>a",
+     "leads_to": "/coupon?tab=2",
+     "requires_click": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)",
+     "requires_label": "已過期"
+    },
+    {
+     "label": "查看優惠",
+     "kind": "link",
+     "css": "section:nth-of-type(2)>div:nth-of-type(2)>div>a",
+     "leads_to": "/coupon?tab=2",
+     "requires_click": "div:nth-of-type(2)>div>section:nth-of-type(1)>button:nth-of-type(3)",
+     "requires_label": "已過期"
+    }
+   ]
+  },
+  "/qna": {
+   "title": "功能教學 • 城市通",
+   "elements": [
+    {
+     "label": "已透過悠遊付註冊台北通會員，請問如何登入？I have si",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "已透過市民服務大平台或身分驗證申請註冊加入會員，超過時間沒有",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "手機門號驗證出現身分證字號正確，生日錯誤的錯誤訊息。這是什麼",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "如何使用優惠券？How can I access the c",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(4)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "如何獲得優惠券？ How can I obtain the ",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(5)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "台北通帳號授權使用市府其他數位平台，可以取消使用授權嗎？'v",
+     "kind": "button",
+     "css": "div>ul>li:nth-of-type(6)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "查看其他常見問題",
+     "kind": "button",
+     "css": "#app>div>div>button",
+     "leads_to": "/qna/categories"
+    }
+   ]
+  },
+  "/fee-payment/history": {
+   "title": "帳務紀錄",
+   "elements": [
+    {
+     "label": "近1年",
+     "kind": "option",
+     "css": "#\\31 ",
+     "value": "1"
+    },
+    {
+     "label": "近2年",
+     "kind": "option",
+     "css": "#\\31 ",
+     "value": "2"
+    },
+    {
+     "label": "近3年",
+     "kind": "option",
+     "css": "#\\31 ",
+     "value": "3"
+    },
+    {
+     "label": "所有項目",
+     "kind": "option",
+     "css": "#all",
+     "value": "all"
+    },
+    {
+     "label": "停車費",
+     "kind": "option",
+     "css": "#all",
+     "value": "fee-5"
+    },
+    {
+     "label": "公訓處自費課程",
+     "kind": "option",
+     "css": "#all",
+     "value": "fee-11"
+    },
+    {
+     "label": "所有狀態",
+     "kind": "option",
+     "css": "#all",
+     "value": "all"
+    },
+    {
+     "label": "成功",
+     "kind": "option",
+     "css": "#all",
+     "value": "paid"
+    },
+    {
+     "label": "處理中",
+     "kind": "option",
+     "css": "#all",
+     "value": "processing"
+    },
+    {
+     "label": "失敗",
+     "kind": "option",
+     "css": "#all",
+     "value": "failed"
+    }
+   ]
+  },
+  "/subscription": {
+   "title": "訂閱",
+   "elements": []
+  },
+  "/police-report": {
+   "title": "警政報案",
+   "elements": [
+    {
+     "label": "同意",
+     "kind": "button",
+     "css": "#app>div>div:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "本人已詳閱須知並同意繼續",
+     "kind": "label",
+     "css": "#app>div>div:nth-of-type(2)>label"
+    }
+   ]
+  },
+  "/citizen-report/list": {
+   "title": "有話要說",
+   "elements": [
+    {
+     "label": "您遇到哪些問題?",
+     "kind": "field",
+     "css": "section>div:nth-of-type(2)>a>input",
+     "placeholder": "您遇到哪些問題?"
+    }
+   ]
+  },
+  "/fee-payment/search": {
+   "title": "搜尋繳費項目",
+   "elements": [
+    {
+     "label": "清除",
+     "kind": "link",
+     "css": "#app>div>div:nth-of-type(2)>a",
+     "leads_to": ""
+    },
+    {
+     "label": "搜尋繳費關鍵字",
+     "kind": "field",
+     "css": "#app>div>div:nth-of-type(1)>input",
+     "placeholder": "搜尋繳費關鍵字"
+    }
+   ]
+  },
+  "/fee-payment/detail/fee-5": {
+   "title": "繳費項目",
+   "elements": [
+    {
+     "label": "輸入資料",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "繳費編號",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "查詢",
+     "kind": "button",
+     "css": "section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button",
+     "effect": "same_page",
+     "reveals": 1
+    },
+    {
+     "label": "查詢",
+     "kind": "button",
+     "css": "section:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "汽車",
+     "kind": "label",
+     "css": "div:nth-of-type(1)>div:nth-of-type(1)>div>label:nth-of-type(1)"
+    },
+    {
+     "label": "機車",
+     "kind": "label",
+     "css": "div:nth-of-type(1)>div:nth-of-type(1)>div>label:nth-of-type(2)"
+    },
+    {
+     "label": "繳費編號",
+     "kind": "label",
+     "css": "div:nth-of-type(1)>div:nth-of-type(1)>div>label"
+    },
+    {
+     "label": "繳費編號",
+     "kind": "field",
+     "css": "#payment_number",
+     "placeholder": "請輸入繳費編號"
+    },
+    {
+     "label": "確認",
+     "kind": "button",
+     "css": "#headlessui-dialog-panel-4>div:nth-of-type(3)>button",
+     "requires_click": "section:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(2)>button",
+     "requires_label": "查詢"
+    }
+   ]
+  },
+  "/citizen-report/form/R-3": {
+   "title": "有話要說",
+   "elements": [
+    {
+     "label": "送出",
+     "kind": "button",
+     "css": "#app>div>div:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "發生地點",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(1)>label"
+    },
+    {
+     "label": "案件主旨*",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(2)>label"
+    },
+    {
+     "label": "描述*",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(3)>label"
+    },
+    {
+     "label": "最多上傳10個檔案",
+     "kind": "label",
+     "css": "div>div:nth-of-type(2)>div:nth-of-type(1)>label"
+    },
+    {
+     "label": "同意",
+     "kind": "label",
+     "css": "div>section:nth-of-type(2)>div>label:nth-of-type(1)"
+    },
+    {
+     "label": "不同意",
+     "kind": "label",
+     "css": "div>section:nth-of-type(2)>div>label:nth-of-type(2)"
+    },
+    {
+     "label": "發生地點",
+     "kind": "field",
+     "css": "#location",
+     "placeholder": "請輸入完整地址"
+    },
+    {
+     "label": "請輸入主旨",
+     "kind": "field",
+     "css": "#title",
+     "placeholder": "請輸入主旨"
+    },
+    {
+     "label": "描述*",
+     "kind": "field",
+     "css": "#description",
+     "placeholder": "人、事、時、地、物 4000字以內"
+    },
+    {
+     "label": "最多上傳10個檔案",
+     "kind": "field",
+     "css": "#upload-file-1",
+     "placeholder": ""
+    }
+   ]
+  },
+  "/counter-calling/c-2": {
+   "title": "臨櫃叫號",
+   "elements": [
+    {
+     "label": "加入常用",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>a",
+     "leads_to": "javascript:void(0)"
+    },
+    {
+     "label": "臺北市萬華區和平西路三段120號4樓",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(1)",
+     "leads_to": "javascript:void(0)"
+    },
+    {
+     "label": "02-2306-2706",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(2)",
+     "leads_to": "javascript:void(0)"
+    },
+    {
+     "label": "02-2308-2868",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(2)>div>a:nth-of-type(3)",
+     "leads_to": "/counter-calling/c-2"
+    },
+    {
+     "label": "萬華區戶政事務所",
+     "kind": "option",
+     "css": "#c-2",
+     "value": "c-2-1"
+    },
+    {
+     "label": "中正區戶政事務所",
+     "kind": "option",
+     "css": "#c-2",
+     "value": "c-2-2"
+    }
+   ]
+  },
+  "/vaccine": {
+   "title": "疫苗預約",
+   "elements": [
+    {
+     "label": "預約",
+     "kind": "button",
+     "css": "#app>div>form>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "流感疫苗",
+     "kind": "option",
+     "css": "#vaccine_type",
+     "value": "flu"
+    },
+    {
+     "label": "新冠疫苗",
+     "kind": "option",
+     "css": "#vaccine_type",
+     "value": "covid"
+    },
+    {
+     "label": "肺炎鏈球菌疫苗",
+     "kind": "option",
+     "css": "#vaccine_type",
+     "value": "pcv"
+    },
+    {
+     "label": "中正區 中正區健康服務中心",
+     "kind": "option",
+     "css": "#site",
+     "value": "S01"
+    },
+    {
+     "label": "大安區 大安區健康服務中心",
+     "kind": "option",
+     "css": "#site",
+     "value": "S02"
+    },
+    {
+     "label": "士林區 士林區健康服務中心",
+     "kind": "option",
+     "css": "#site",
+     "value": "S03"
+    },
+    {
+     "label": "疫苗種類",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(1)>label"
+    },
+    {
+     "label": "接種地點",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(2)>label"
+    },
+    {
+     "label": "日期",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(3)>label"
+    },
+    {
+     "label": "時段",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(4)>label"
+    },
+    {
+     "label": "上午",
+     "kind": "label",
+     "css": "form>div:nth-of-type(4)>div>label:nth-of-type(1)"
+    },
+    {
+     "label": "下午",
+     "kind": "label",
+     "css": "form>div:nth-of-type(4)>div>label:nth-of-type(2)"
+    },
+    {
+     "label": "日期",
+     "kind": "field",
+     "css": "#date",
+     "placeholder": ""
+    }
+   ]
+  },
+  "/hospital-registration": {
+   "title": "聯醫掛號",
+   "elements": [
+    {
+     "label": "確認掛號",
+     "kind": "button",
+     "css": "#app>div>div>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "中興",
+     "kind": "option",
+     "css": "#branch",
+     "value": "中興"
+    },
+    {
+     "label": "仁愛",
+     "kind": "option",
+     "css": "#branch",
+     "value": "仁愛"
+    },
+    {
+     "label": "和平",
+     "kind": "option",
+     "css": "#branch",
+     "value": "和平"
+    },
+    {
+     "label": "忠孝",
+     "kind": "option",
+     "css": "#branch",
+     "value": "忠孝"
+    },
+    {
+     "label": "陽明",
+     "kind": "option",
+     "css": "#branch",
+     "value": "陽明"
+    },
+    {
+     "label": "家醫科",
+     "kind": "option",
+     "css": "#dept",
+     "value": "家醫科"
+    },
+    {
+     "label": "內科",
+     "kind": "option",
+     "css": "#dept",
+     "value": "內科"
+    },
+    {
+     "label": "小兒科",
+     "kind": "option",
+     "css": "#dept",
+     "value": "小兒科"
+    },
+    {
+     "label": "骨科",
+     "kind": "option",
+     "css": "#dept",
+     "value": "骨科"
+    },
+    {
+     "label": "眼科",
+     "kind": "option",
+     "css": "#dept",
+     "value": "眼科"
+    },
+    {
+     "label": "院區",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(1)>label"
+    },
+    {
+     "label": "科別",
+     "kind": "label",
+     "css": "div>form>div:nth-of-type(2)>label"
+    }
+   ]
+  },
+  "/family-center": {
+   "title": "親子館",
+   "elements": [
+    {
+     "label": "中正區中正親子館臺北市中正區汀州路二段156號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(1)",
+     "leads_to": "/family-center/FC01"
+    },
+    {
+     "label": "大同區大同親子館臺北市大同區重慶北路三段320號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(2)",
+     "leads_to": "/family-center/FC02"
+    },
+    {
+     "label": "中山區中山親子館臺北市中山區大直街1號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(3)",
+     "leads_to": "/family-center/FC03"
+    },
+    {
+     "label": "松山區松山親子館臺北市松山區八德路四段692號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(4)",
+     "leads_to": "/family-center/FC04"
+    },
+    {
+     "label": "大安區大安親子館臺北市大安區延吉街246巷10號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(5)",
+     "leads_to": "/family-center/FC05"
+    },
+    {
+     "label": "萬華區萬華親子館臺北市萬華區東園街19號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(6)",
+     "leads_to": "/family-center/FC06"
+    },
+    {
+     "label": "信義區信義親子館臺北市信義區松德路25號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(7)",
+     "leads_to": "/family-center/FC07"
+    },
+    {
+     "label": "士林區士林親子館臺北市士林區基河路130號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(8)",
+     "leads_to": "/family-center/FC08"
+    },
+    {
+     "label": "北投區北投親子館臺北市北投區中央北路一段12號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(9)",
+     "leads_to": "/family-center/FC09"
+    },
+    {
+     "label": "內湖區內湖親子館臺北市內湖區民權東路六段99號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(10)",
+     "leads_to": "/family-center/FC10"
+    },
+    {
+     "label": "南港區南港親子館臺北市南港區南港路一段360號活動 2 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(11)",
+     "leads_to": "/family-center/FC11"
+    },
+    {
+     "label": "文山區文山親子館臺北市文山區景福街241號活動 3 場",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(12)",
+     "leads_to": "/family-center/FC12"
+    }
+   ]
+  },
+  "/ivoting": {
+   "title": "網路投票",
+   "elements": [
+    {
+     "label": "投票中2026 臺北燈節主燈設計票選截止 2025-11-30・12480 人參",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(1)",
+     "leads_to": "/ivoting/V01"
+    },
+    {
+     "label": "投票中公園遊戲場改善優先順序截止 2025-12-15・6213 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(2)",
+     "leads_to": "/ivoting/V02"
+    },
+    {
+     "label": "投票中河濱自行車道夜間照明時段截止 2025-12-01・3890 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(3)",
+     "leads_to": "/ivoting/V03"
+    },
+    {
+     "label": "投票中捷運站公共藝術主題票選截止 2025-12-05・5120 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(4)",
+     "leads_to": "/ivoting/V04"
+    },
+    {
+     "label": "投票中市立圖書館延長開放時間截止 2025-12-20・8764 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(5)",
+     "leads_to": "/ivoting/V05"
+    },
+    {
+     "label": "投票中社區公園命名票選（信義區松德段）截止 2025-11-25・2318 人參",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(6)",
+     "leads_to": "/ivoting/V06"
+    },
+    {
+     "label": "已結束市民運動中心新增課程票選截止 2025-10-31・9031 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(7)",
+     "leads_to": "/ivoting/V07"
+    },
+    {
+     "label": "已結束公車站牌資訊看板改版設計截止 2025-10-15・7455 人參與",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(8)",
+     "leads_to": "/ivoting/V08"
+    }
+   ]
+  },
+  "/survey": {
+   "title": "意見調查",
+   "elements": [
+    {
+     "label": "4 題・約 2 分鐘城市通 App 使用滿意度調查截止 2025-11-30",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(1)",
+     "leads_to": "/survey/Q01"
+    },
+    {
+     "label": "5 題・約 3 分鐘公共運輸服務意見調查截止 2025-12-10",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(2)",
+     "leads_to": "/survey/Q02"
+    },
+    {
+     "label": "3 題・約 1 分鐘里鄰環境清潔滿意度截止 2025-12-20",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(3)",
+     "leads_to": "/survey/Q03"
+    },
+    {
+     "label": "4 題・約 3 分鐘長者照顧服務需求調查截止 2025-12-31",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(4)",
+     "leads_to": "/survey/Q04"
+    },
+    {
+     "label": "4 題・約 2 分鐘校園午餐滿意度調查截止 2025-12-05",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(5)",
+     "leads_to": "/survey/Q05"
+    },
+    {
+     "label": "5 題・約 2 分鐘夜市環境衛生意見調查截止 2025-12-15",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(6)",
+     "leads_to": "/survey/Q06"
+    },
+    {
+     "label": "4 題・約 2 分鐘河濱公園設施需求調查截止 2026-01-10",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(7)",
+     "leads_to": "/survey/Q07"
+    },
+    {
+     "label": "3 題・約 1 分鐘垃圾分類宣導成效調查截止 2025-12-25",
+     "kind": "link",
+     "css": "div>div>div>a:nth-of-type(8)",
+     "leads_to": "/survey/Q08"
+    }
+   ]
+  },
+  "/neighborhood": {
+   "title": "里辦服務",
+   "elements": [
+    {
+     "label": "中正區",
+     "kind": "option",
+     "css": "#district",
+     "value": "中正區"
+    },
+    {
+     "label": "大同區",
+     "kind": "option",
+     "css": "#district",
+     "value": "大同區"
+    },
+    {
+     "label": "中山區",
+     "kind": "option",
+     "css": "#district",
+     "value": "中山區"
+    },
+    {
+     "label": "松山區",
+     "kind": "option",
+     "css": "#district",
+     "value": "松山區"
+    },
+    {
+     "label": "大安區",
+     "kind": "option",
+     "css": "#district",
+     "value": "大安區"
+    },
+    {
+     "label": "萬華區",
+     "kind": "option",
+     "css": "#district",
+     "value": "萬華區"
+    },
+    {
+     "label": "信義區",
+     "kind": "option",
+     "css": "#district",
+     "value": "信義區"
+    },
+    {
+     "label": "士林區",
+     "kind": "option",
+     "css": "#district",
+     "value": "士林區"
+    },
+    {
+     "label": "北投區",
+     "kind": "option",
+     "css": "#district",
+     "value": "北投區"
+    },
+    {
+     "label": "內湖區",
+     "kind": "option",
+     "css": "#district",
+     "value": "內湖區"
+    },
+    {
+     "label": "南港區",
+     "kind": "option",
+     "css": "#district",
+     "value": "南港區"
+    },
+    {
+     "label": "文山區",
+     "kind": "option",
+     "css": "#district",
+     "value": "文山區"
+    },
+    {
+     "label": "選擇行政區",
+     "kind": "label",
+     "css": "#app>div>div:nth-of-type(1)>label"
+    }
+   ]
+  },
+  "/city-radio": {
+   "title": "台北電台",
+   "elements": [
+    {
+     "label": "播放",
+     "kind": "button",
+     "css": "div>section:nth-of-type(2)>div>button",
+     "effect": "same_page",
+     "reveals": 1
+    },
+    {
+     "label": "暫停",
+     "kind": "button",
+     "css": "div>section:nth-of-type(2)>div>button",
+     "requires_click": "div>section:nth-of-type(2)>div>button",
+     "requires_label": "播放"
+    }
+   ]
+  },
+  "/green-map": {
+   "title": "簡單森呼吸",
+   "elements": [
+    {
+     "label": "Leaflet",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)",
+     "leads_to": "https://leafletjs.com"
+    },
+    {
+     "label": "OpenStreetMap",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)",
+     "leads_to": "https://www.openstreetmap.org/copyright"
+    },
+    {
+     "label": "公園",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "park"
+    },
+    {
+     "label": "綠地",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "green"
+    },
+    {
+     "label": "步道",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "trail"
+    },
+    {
+     "label": "河濱",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "river"
+    },
+    {
+     "label": "地點類型",
+     "kind": "label",
+     "css": "div>div>div:nth-of-type(1)>label"
+    }
+   ]
+  },
+  "/pet-map": {
+   "title": "寵物安心遛",
+   "elements": [
+    {
+     "label": "Leaflet",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)",
+     "leads_to": "https://leafletjs.com"
+    },
+    {
+     "label": "OpenStreetMap",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)",
+     "leads_to": "https://www.openstreetmap.org/copyright"
+    },
+    {
+     "label": "寵物公園",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "park"
+    },
+    {
+     "label": "寵物友善餐廳",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "restaurant"
+    },
+    {
+     "label": "動物醫院",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "hospital"
+    },
+    {
+     "label": "寵物登記站",
+     "kind": "option",
+     "css": "#findPlace",
+     "value": "registration"
+    },
+    {
+     "label": "地點類型",
+     "kind": "label",
+     "css": "div>div>div:nth-of-type(1)>label"
+    }
+   ]
+  },
+  "/essential-goods": {
+   "title": "民生物資",
+   "elements": [
+    {
+     "label": "蔬菜",
+     "kind": "option",
+     "css": "#category",
+     "value": "vegetable"
+    },
+    {
+     "label": "水果",
+     "kind": "option",
+     "css": "#category",
+     "value": "fruit"
+    },
+    {
+     "label": "肉類",
+     "kind": "option",
+     "css": "#category",
+     "value": "meat"
+    },
+    {
+     "label": "米糧",
+     "kind": "option",
+     "css": "#category",
+     "value": "rice"
+    },
+    {
+     "label": "蛋",
+     "kind": "option",
+     "css": "#category",
+     "value": "egg"
+    },
+    {
+     "label": "分類",
+     "kind": "label",
+     "css": "#app>div>div>label"
+    }
+   ]
+  },
+  "/zoo": {
+   "title": "愛遊動物園",
+   "elements": [
+    {
+     "label": "Leaflet",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(1)",
+     "leads_to": "https://leafletjs.com"
+    },
+    {
+     "label": "OpenStreetMap",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div:nth-of-type(4)>div>a:nth-of-type(2)",
+     "leads_to": "https://www.openstreetmap.org/copyright"
+    },
+    {
+     "label": "大貓熊大貓熊館・中國四川",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(1)",
+     "leads_to": "/zoo/animal/AN01"
+    },
+    {
+     "label": "無尾熊無尾熊館・澳洲",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(2)",
+     "leads_to": "/zoo/animal/AN02"
+    },
+    {
+     "label": "國王企鵝企鵝館・南極周邊島嶼",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(3)",
+     "leads_to": "/zoo/animal/AN03"
+    },
+    {
+     "label": "台灣黑熊台灣動物區・台灣",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(4)",
+     "leads_to": "/zoo/animal/AN04"
+    },
+    {
+     "label": "長頸鹿非洲動物區・非洲",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(5)",
+     "leads_to": "/zoo/animal/AN05"
+    },
+    {
+     "label": "非洲象非洲動物區・非洲",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(6)",
+     "leads_to": "/zoo/animal/AN06"
+    },
+    {
+     "label": "紅毛猩猩亞洲熱帶雨林區・婆羅洲、蘇門答臘",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(7)",
+     "leads_to": "/zoo/animal/AN07"
+    },
+    {
+     "label": "穿山甲台灣動物區・台灣",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(8)",
+     "leads_to": "/zoo/animal/AN08"
+    },
+    {
+     "label": "馬來貘亞洲熱帶雨林區・馬來半島、蘇門答臘",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(9)",
+     "leads_to": "/zoo/animal/AN09"
+    },
+    {
+     "label": "梅花鹿台灣動物區・台灣",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(10)",
+     "leads_to": "/zoo/animal/AN10"
+    },
+    {
+     "label": "河馬非洲動物區・非洲",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(11)",
+     "leads_to": "/zoo/animal/AN11"
+    },
+    {
+     "label": "單峰駱駝沙漠動物區・北非、中東",
+     "kind": "link",
+     "css": "div:nth-of-type(2)>div>div>a:nth-of-type(12)",
+     "leads_to": "/zoo/animal/AN12"
+    },
+    {
+     "label": "園區地圖",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(1)",
+     "effect": "same_page"
+    },
+    {
+     "label": "動物介紹",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(2)",
+     "effect": "same_page"
+    },
+    {
+     "label": "今日活動",
+     "kind": "button",
+     "css": "#app>section:nth-of-type(2)>button:nth-of-type(3)",
+     "effect": "same_page"
+    }
+   ]
+  },
+  "/hotline-1999": {
+   "title": "1999",
+   "elements": [
+    {
+     "label": "線上陳情",
+     "kind": "link",
+     "css": "#app>div>section:nth-of-type(5)>a",
+     "leads_to": "/citizen-report"
+    },
+    {
+     "label": "撥打 1999",
+     "kind": "button",
+     "css": "#app>div>section:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "1999 服務時間？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(1)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "撥打 1999 要收費嗎？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(2)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "陳情案件多久會回覆？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(3)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "如何查詢案件進度？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(4)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "外縣市可以撥打嗎？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(5)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "路燈不亮要找誰？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(6)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "可以匿名陳情嗎？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(7)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "大型家具要怎麼丟？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(8)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "夜間噪音可以通報嗎？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(9)>button",
+     "effect": "same_page"
+    },
+    {
+     "label": "1999 可以幫忙申辦文件嗎？",
+     "kind": "button",
+     "css": "section:nth-of-type(4)>ul>li:nth-of-type(10)>button",
+     "effect": "same_page"
+    }
+   ]
+  }
+ }
+}
