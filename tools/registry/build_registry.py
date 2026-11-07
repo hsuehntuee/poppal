@@ -41,6 +41,19 @@ if os.path.isfile(_cr):
                 if _it.get('name'):
                     _report_group[_it['name']] = _c.get('name', '')
                     entities.setdefault('J', []).append(_it['name'])
+# 訂閱：頁面上的項目名稱（subscription_list.json）才是導覽點得到的
+_sub = os.path.join(ROOT, 'TownPass-Services', 'public', 'mock', 'subscription_list.json')
+if os.path.isfile(_sub):
+    def _names(o):  # mock 有一層包裝（{"...": {"data": [...]}}）：找第一個「有 name 的 dict 清單」
+        if isinstance(o, list) and o and isinstance(o[0], dict) and o[0].get('name'):
+            return [x['name'] for x in o if x.get('name')]
+        if isinstance(o, dict):
+            for v in o.values():
+                r = _names(v)
+                if r:
+                    return r
+        return []
+    entities['S'] = _names(json.load(open(_sub, encoding='utf-8')))
 guides = {}
 for p in glob.glob(os.path.join(PUB, 'guides', 'guide_*.json')):
     g = json.load(open(p, encoding='utf-8'))
@@ -78,7 +91,10 @@ ALIASES = {
         'riverside park': '河濱公園', 'counseling': '心理諮商、治療所', 'accessible toilet': '無障礙廁所', 'halal': '穆斯林友善店家', 'vegetarian': '素食友善店家'
     },
     'subscription': {
-        '空氣': '空氣品質', '空汙': '空氣品質', '淹水': '淹水資訊', '停車位通知': '停車資訊', '油價': '油價', '水費通知': '水費通知'
+        '空氣': '空品資訊', '空汙': '空品資訊', '空氣品質': '空品資訊', '停車位通知': '停車費通知', '停車資訊': '停車費通知', '停車': '停車費通知',
+        '交通資訊': '交通措施', '交通': '交通措施', '健康資訊': '健康報報', '健康': '健康報報', '長者資訊': '銀髮資訊', '老人': '銀髮資訊', '長輩': '銀髮資訊',
+        '圖書館通知': '圖書到期通知', '借書到期': '圖書到期通知', '還書': '圖書到期通知', '新住民支援': '新住民心服務', '新住民': '新住民心服務',
+        '台北旅遊快訊': '臺北旅遊網最新消息', '旅遊': '臺北旅遊網最新消息', '運動公園': '體育樂園', '體育': '體育樂園', '運動': '體育樂園'
     },
     'apply_service': {
         '老人健保': '老人全民健康保險保險費自付額補助', '健保補助': '老人全民健康保險保險費自付額補助', '家暴': '臺北市家庭暴力被害人補助', '性侵': '臺北市性侵害被害人補助',

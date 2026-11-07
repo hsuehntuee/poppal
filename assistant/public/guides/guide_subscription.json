@@ -9,50 +9,54 @@
   },
   "steps": [
     {
-      "id": "pick",
+      "id": "open",
       "url": "^/subscription",
       "find": [
         {
-          "text": "{{entity}}"
-        },
-        {
-          "css": "input[type=checkbox]"
+          "text": "{{entity}}",
+          "exact": true
         }
       ],
       "say": {
-        "zh": "勾選「{{entity}}」"
+        "zh": "點「{{entity}}」"
       },
-      "done_when": "click",
       "say_default": {
-        "zh": "勾選你想收到的通知"
+        "zh": "點你要訂閱的項目"
       },
       "more": {
-        "zh": "可以勾好幾個"
-      }
+        "zh": "點了會展開說明和「訂閱」鈕"
+      },
+      "done_when": "click",
+      "skip_if_missing": true,
+      "skip_if_visible": [
+        {
+          "text": "訂閱",
+          "role": "button",
+          "within": "{{entity}}"
+        }
+      ]
     },
     {
-      "id": "submit",
+      "id": "subscribe",
       "url": "^/subscription",
       "find": [
         {
+          "text": "訂閱",
           "role": "button",
-          "text": "訂閱"
+          "within": "{{entity}}"
         },
         {
-          "role": "button",
-          "text": "送出"
-        },
-        {
-          "role": "button",
-          "text": "確認"
+          "text": "訂閱",
+          "role": "button"
         }
       ],
       "say": {
         "zh": "按「訂閱」"
       },
       "done_when": "click",
-      "confirm": true,
       "final": true
     }
-  ]
+  ],
+  "collapse": false,
+  "finish": "quiet"
 }

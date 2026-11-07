@@ -42,6 +42,14 @@ cd TownPass; .\.fvm\flutter_sdk\bin\flutter.bat build apk --release --dart-defin
 adb install -r TownPass\build\app\outputs\flutter-apk\app-release.apk
 ```
 
+Iterating on the web apps without rebuilding the APK (the app prefers an override folder on the phone; clear it before a real demo):
+
+```powershell
+node scripts/bundle-web.mjs; sh scripts/phone-push-web.sh        # push web + overlay, restart app
+sh scripts/phone-push-web.sh --clear                              # back to the bundled build
+sh scripts/phone-probe.sh [tap]                                   # companion state on the phone (needs the debug build)
+```
+
 Laptop dev server (static files + overlay injection + `/llm` proxy):
 
 ```powershell

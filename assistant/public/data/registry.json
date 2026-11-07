@@ -449,7 +449,7 @@
      "len": null,
      "min_len": null,
      "max_len": null,
-     "label": "案件主旨",
+     "label": "subject",
      "step": "subject"
     },
     {
@@ -956,27 +956,16 @@
     "subscribe"
    ],
    "covers": [
-    "交通資訊",
-    "停車資訊",
-    "健康資訊",
-    "公聽會",
-    "台北旅遊快訊",
-    "台北畫刊",
-    "圖書館通知",
-    "學校資訊",
-    "幼兒園資訊",
-    "托育資訊",
-    "新住民支援",
-    "水表",
-    "水費通知",
-    "油價",
-    "淹水資訊",
-    "社區公告",
-    "社會住宅",
-    "空氣品質",
-    "藝文活動",
-    "運動公園",
-    "長者資訊"
+    "交通措施",
+    "停車費通知",
+    "健康報報",
+    "圖書到期通知",
+    "新住民心服務",
+    "空品資訊",
+    "臺北旅遊網最新消息",
+    "銀髮資訊",
+    "防汛資訊",
+    "體育樂園"
    ],
    "examples": [
     "我要訂閱空氣品質通知",
@@ -2412,6 +2401,13 @@
    "ambiguous": false
   },
   {
+   "term": "臺北旅遊網最新消息",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
    "term": "里鄰環境清潔滿意度",
    "tools": [
     "survey"
@@ -3078,6 +3074,14 @@
    "tools": [
     "subscription"
    ],
+   "ambiguous": false,
+   "entity": "臺北旅遊網最新消息"
+  },
+  {
+   "term": "圖書到期通知",
+   "tools": [
+    "subscription"
+   ],
    "ambiguous": false
   },
   {
@@ -3156,6 +3160,13 @@
    "term": "打 1999",
    "tools": [
     "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新住民心服務",
+   "tools": [
+    "subscription"
    ],
    "ambiguous": false
   },
@@ -3334,7 +3345,14 @@
     "subscription"
    ],
    "ambiguous": false,
-   "entity": "停車資訊"
+   "entity": "停車費通知"
+  },
+  {
+   "term": "停車費通知",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
   },
   {
    "term": "兒童動物區",
@@ -3404,7 +3422,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "圖書到期通知"
   },
   {
    "term": "地區直飲台",
@@ -3493,13 +3512,6 @@
    "ambiguous": false
   },
   {
-   "term": "幼兒園資訊",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "建築物火災",
    "tools": [
     "disaster_report"
@@ -3546,7 +3558,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "新住民心服務"
   },
   {
    "term": "有哪些服務",
@@ -3791,6 +3804,13 @@
    "group": "垃圾、噪音、汙染及資源回收"
   },
   {
+   "term": "交通措施",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
    "term": "交通申訴",
    "tools": [
     "apply_service"
@@ -3803,7 +3823,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "交通措施"
   },
   {
    "term": "交通運輸",
@@ -3811,6 +3832,14 @@
     "find_place"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "借書到期",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "圖書到期通知"
   },
   {
    "term": "停車收費",
@@ -3825,7 +3854,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "停車費通知"
   },
   {
    "term": "健保補助",
@@ -3836,11 +3866,19 @@
    "entity": "老人全民健康保險保險費自付額補助"
   },
   {
-   "term": "健康資訊",
+   "term": "健康報報",
    "tools": [
     "subscription"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "健康資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "健康報報"
   },
   {
    "term": "優惠票券",
@@ -3914,13 +3952,6 @@
    ],
    "ambiguous": false,
    "group": "友善店家"
-  },
-  {
-   "term": "台北畫刊",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
   },
   {
    "term": "台北電台",
@@ -4045,13 +4076,6 @@
    "ambiguous": false
   },
   {
-   "term": "學校資訊",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "寵物公園",
    "tools": [
     "pet_map"
@@ -4146,13 +4170,6 @@
    "ambiguous": false,
    "entity": "行動裝置充電",
    "group": "友善店家"
-  },
-  {
-   "term": "托育資訊",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
   },
   {
    "term": "技能檢定",
@@ -4309,14 +4326,6 @@
    "ambiguous": false
   },
   {
-   "term": "水費通知",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false,
-   "entity": "水費通知"
-  },
-  {
    "term": "汙染舉發",
    "tools": [
     "citizen_report"
@@ -4358,13 +4367,6 @@
    "term": "流感疫苗",
    "tools": [
     "vaccine"
-   ],
-   "ambiguous": false
-  },
-  {
-   "term": "淹水資訊",
-   "tools": [
-    "subscription"
    ],
    "ambiguous": false
   },
@@ -4427,14 +4429,7 @@
    "ambiguous": false
   },
   {
-   "term": "社區公告",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
-  },
-  {
-   "term": "社會住宅",
+   "term": "空品資訊",
    "tools": [
     "subscription"
    ],
@@ -4445,7 +4440,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "空品資訊"
   },
   {
    "term": "紅毛猩猩",
@@ -4562,13 +4558,6 @@
    "ambiguous": false
   },
   {
-   "term": "藝文活動",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false
-  },
-  {
    "term": "處理了沒",
    "tools": [
     "citizen_report_search"
@@ -4637,7 +4626,8 @@
    "tools": [
     "subscription"
    ],
-   "ambiguous": false
+   "ambiguous": false,
+   "entity": "體育樂園"
   },
   {
    "term": "違章建築",
@@ -4691,16 +4681,31 @@
    "ambiguous": false
   },
   {
-   "term": "長者資訊",
+   "term": "銀髮資訊",
    "tools": [
     "subscription"
    ],
    "ambiguous": false
   },
   {
+   "term": "長者資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "銀髮資訊"
+  },
+  {
    "term": "長輩模式",
    "tools": [
     "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "防汛資訊",
+   "tools": [
+    "subscription"
    ],
    "ambiguous": false
   },
@@ -4750,6 +4755,13 @@
    "term": "預約看診",
    "tools": [
     "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "體育樂園",
+   "tools": [
+    "subscription"
    ],
    "ambiguous": false
   },
@@ -4914,13 +4926,6 @@
    "term": "內湖區",
    "tools": [
     "neighborhood"
-   ],
-   "ambiguous": false
-  },
-  {
-   "term": "公聽會",
-   "tools": [
-    "subscription"
    ],
    "ambiguous": false
   },
@@ -5371,6 +5376,14 @@
     "neighborhood"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "新住民",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "新住民心服務"
   },
   {
    "term": "新東里",
@@ -5977,6 +5990,14 @@
    "ambiguous": false
   },
   {
+   "term": "交通",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "交通措施"
+  },
+  {
    "term": "仁愛",
    "tools": [
     "hospital_registration"
@@ -6012,12 +6033,28 @@
    "ambiguous": false
   },
   {
+   "term": "停車",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "停車費通知"
+  },
+  {
    "term": "停電",
    "tools": [
     "disaster_report"
    ],
    "ambiguous": false,
    "entity": "電力停電"
+  },
+  {
+   "term": "健康",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "健康報報"
   },
   {
    "term": "充電",
@@ -6580,6 +6617,14 @@
    "group": "交通運輸、停車場、充電站"
   },
   {
+   "term": "旅遊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "臺北旅遊網最新消息"
+  },
+  {
    "term": "朗讀",
    "tools": [
     "read_aloud"
@@ -6725,14 +6770,6 @@
     "zoo"
    ],
    "ambiguous": false
-  },
-  {
-   "term": "油價",
-   "tools": [
-    "subscription"
-   ],
-   "ambiguous": false,
-   "entity": "油價"
   },
   {
    "term": "油漬",
@@ -6921,7 +6958,7 @@
     "subscription"
    ],
    "ambiguous": false,
-   "entity": "空氣品質"
+   "entity": "空品資訊"
   },
   {
    "term": "空汙",
@@ -6929,7 +6966,7 @@
     "subscription"
    ],
    "ambiguous": false,
-   "entity": "空氣品質"
+   "entity": "空品資訊"
   },
   {
    "term": "米價",
@@ -7009,6 +7046,14 @@
     "fee_pay_other"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "老人",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "銀髮資訊"
   },
   {
    "term": "肉類",
@@ -7222,6 +7267,14 @@
    "ambiguous": false
   },
   {
+   "term": "運動",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "體育樂園"
+  },
+  {
    "term": "違停",
    "tools": [
     "citizen_report"
@@ -7318,6 +7371,14 @@
     "citizen_report"
    ],
    "ambiguous": false
+  },
+  {
+   "term": "長輩",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "銀髮資訊"
   },
   {
    "term": "門票",

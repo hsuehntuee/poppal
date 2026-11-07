@@ -51,6 +51,8 @@ interface Locator {
   css?: string;
   /** 下拉選單裡的選項文字：目標是 <select>，「幫我按」會直接選好 */
   option?: string;
+  /** 只在「含有這段文字的那張卡片」裡面找（例如某個訂閱項目裡的「訂閱」鈕） */
+  within?: string;
 }
 interface Step {
   id: string;
@@ -1185,9 +1187,27 @@ export function locate(finders: Locator[]): HTMLElement | null {
   // 有彈出視窗時先在裡面找
   const dialog = document.querySelector<HTMLElement>('[role=dialog], dialog[open]');
   const scopes: ParentNode[] = dialog ? [dialog, document] : [document];
-  for (const scope of scopes) {
+  for (const scope0 of scopes) {
     for (const f of finders) {
       let el: HTMLElement | null = null;
+      let scope: ParentNode = scope0;
+      if (f.within) {
+        // 先找到含那段文字的元素，往上找第一個「裡面有符合目標」的祖先，當作搜尋範圍
+        const anchor = byText(f.within, false, undefined, scope0);
+        if (!anchor) continue;
+        let c: HTMLElement | null = anchor;
+        let found: HTMLElement | null = null;
+        while (c && c !== document.body) {
+          const probe = f.css ? c.querySelector<HTMLElement>(f.css) : f.text ? byTextOnce(f.text, true, f.role, c) ?? byTextOnce(f.text, false, f.role, c) : null;
+          if (probe && probe !== anchor && !anchor.contains(probe)) {
+            found = c;
+            break;
+          }
+          c = c.parentElement;
+        }
+        if (!found) continue;
+        scope = found;
+      }
       if (f.css) el = scope.querySelector<HTMLElement>(f.css);
       else if (f.option) el = byOption(f.option, scope);
       else if (f.label) el = byLabel(f.label, scope);
