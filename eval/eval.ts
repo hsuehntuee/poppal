@@ -4,7 +4,7 @@
  *   pnpm eval --engine llm --url http://127.0.0.1:8080 --name Qwen3-0.6B --where laptop-cpu
  *   pnpm eval --engine embed
  *   pnpm eval --engine tiny
- *   選項：--foreign（含外語 20 句）--fuse（加上 registry 查表融合）--alpha 4 --go 0.75 --ask2 0.75 --ask3 0.75 --api openai --out results/x.json
+ *   選項：--testset <path>（預設 testset.json；千句版用 assistant/public/data/testset_1k.json）--llm-lowercase（LLM 引擎也接受小寫代號 a-m；出貨版 tokenToCode 只收 A-Z）--foreign（含外語 20 句）--fuse（加上 registry 查表融合）--alpha 4 --go 0.75 --ask2 0.75 --ask3 0.75 --api openai --out results/x.json
  *
  * 結果放在 eval/results/<name>.json，之後 pnpm matrix 會彙整成測試矩陣。
  */
@@ -17,6 +17,7 @@ import { LlmDecider } from '../assistant/src/engines/llm';
 import { EmbedDecider } from '../assistant/src/engines/embed';
 import { TinyDecider, type TinyModel } from '../assistant/src/engines/tiny';
 import { ClsDecider } from '../assistant/src/engines/cls';
+import { LlmDeciderCS } from './llm_cs';
 import { runEval, markdownRow, MARKDOWN_HEADER, type TestItem } from '../assistant/src/eval/runner';
 import type { Registry } from '../assistant/src/core/registry';
 
@@ -32,7 +33,8 @@ const th = { go: num(args.go, 0.75), ask2: num(args.ask2, 0.75), ask3: num(args.
 
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'assistant/public/data/catalog.json'), 'utf8')) as Catalog;
 setCatalog(catalog);
-let items = (JSON.parse(fs.readFileSync(path.join(root, 'assistant/public/data/testset.json'), 'utf8')).items as TestItem[]);
+const testsetFile = args.testset ? path.resolve(String(args.testset)) : path.join(root, 'assistant/public/data/testset.json');
+let items = (JSON.parse(fs.readFileSync(testsetFile, 'utf8')).items as TestItem[]);
 if (!args.foreign) items = items.filter((i) => i.tag !== 'foreign');
 if (args.limit) items = items.slice(0, Number(args.limit));
 
@@ -63,7 +65,7 @@ console.error('wrote', outFile);
 async function makeDecider(kind: string): Promise<Decider> {
   switch (kind) {
     case 'llm':
-      return new LlmDecider(url, { api: args.api === 'openai' ? 'openai' : 'native', topN: num(args.topn, 40) });
+      return new (args['llm-lowercase'] ? LlmDeciderCS : LlmDecider)(url, { api: args.api === 'openai' ? 'openai' : 'native', topN: num(args.topn, 40) });
     case 'embed':
       return new EmbedDecider({
         localModelPath: path.join(root, 'assistant/public/models'),

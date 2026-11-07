@@ -1,0 +1,94 @@
+[Z]
+c|今天好熱喔
+c|欸你在幹嘛
+c|哈囉你好嗎
+c|你叫什麼名字
+c|晚上要吃火鍋還是燒烤
+c|我好無聊喔
+c|謝謝你喔
+c|早安
+c|掰掰
+c|好累啊今天上班
+c|講個笑話來聽聽
+c|你會唱歌嗎
+c|我最近睡不著怎麼辦
+c|週末要去哪裡玩比較好
+c|我跟女朋友吵架了
+c|你覺得珍珠奶茶好喝嗎
+c|今天大盤漲還是跌
+c|棒球昨天誰贏了
+c|幫我訂明天晚上的餐廳
+c|我想買新手機要選哪一支
+c|這部電影好看嗎
+c|我的貓不吃飯怎麼辦
+c|請幫我翻譯這句英文
+c|五加三等於多少
+c|你是機器人嗎
+c|我肚子餓了
+c|明天要穿什麼衣服
+c|我要去日本旅行
+c|幫我叫一台計程車到機場
+c|我想學吉他
+k|天氣
+k|新聞
+k|股票
+k|笑話
+k|音樂
+k|測試
+k|嗨
+k|你好
+l|我昨天晚上跟朋友去看了一場很好看的電影，結局很感人，你有沒有推薦類似的片子
+l|最近工作壓力很大，老闆一直找我麻煩，我不知道要不要換工作，你可以給我一些建議嗎
+l|我想煮一鍋好吃的紅燒牛肉麵，請問牛腱要滷多久才會軟
+l|我們家小孩這次段考考得不好，我不知道怎麼跟他溝通才不會吵起來
+l|下個月我要飛去東京三天兩夜，想知道要帶哪些東西還有哪裡的拉麵最好吃
+s|今天天汽怎麼樣
+s|我想吃雞排和珍珠奶茶
+s|你知道偉大的歌手周杰倫嗎
+s|幫我打開手電筒
+s|現在幾點了
+s|明天會不會下雨
+s|我要打給我媽媽
+s|放一首輕鬆的歌
+m|今天 weather 好不好
+m|幫我 order 外送
+m|我想 watch Netflix
+m|晚上一起 dinner 好嗎
+m|幫我 google 一下
+m|play 一首 jazz
+m|my 老闆今天心情很差
+e|what is the weather like today
+e|tell me a joke
+e|who won the baseball game
+e|what is the capital of Japan
+e|how do I cook fried rice
+e|can you recommend a good movie
+e|translate this sentence into French
+e|I am so bored right now
+e|play some music for me
+e|what time is it in New York
+e|do you like cats
+e|how are you doing today
+e|set an alarm for six tomorrow morning
+e|book me a flight to Tokyo
+n|我要繳電費
+n|幫我查台電的停電時間
+n|我要繳電話費
+n|我要買捷運悠遊卡加值
+n|我要預約理髮
+n|我要訂高鐵票
+n|幫我查包裹到哪裡了
+n|我的健保卡要怎麼換新
+n|幫我報名駕訓班
+n|我要繳信用卡費
+n|我想買房子要找哪家仲介
+n|如何申請美國簽證
+v|Hôm nay trời mưa không
+v|Bạn có thể kể cho tôi một câu chuyện không
+v|Tôi đói quá, muốn ăn phở
+i|Cuaca hari ini bagaimana
+i|Saya mau nonton film malam ini
+i|Tolong putarkan lagu dangdut
+t|วันนี้อากาศเป็นยังไงบ้าง
+t|ฉันหิวข้าวมาก
+t|เล่าเรื่องตลกให้ฟังหน่อย

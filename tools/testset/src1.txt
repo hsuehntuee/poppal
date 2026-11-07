@@ -1,0 +1,307 @@
+# format: CODE section then lines "style|text|k=v;k=v"  (style: c colloquial,k keyword,l long,s asr,m mixed,e english,n near-miss,p param,v vi,i id,t th,a ambiguous)
+[A]
+c|欸我水費單來了啦，要怎麼用手機付啊
+c|自來水那張單子我還沒繳，可以線上弄嗎
+c|阿嬤叫我幫她繳水錢
+k|水費繳費
+k|自來水費
+k|繳水費啦
+l|我家這個月的自來水帳單放在桌上好幾天了都忘記去超商繳，想說能不能直接在手機上處理掉
+l|之前都是媽媽在繳水費，現在我自己住了，不知道水費要去哪裡繳比較方便
+s|我要缴睡費
+s|水費單上的睡號要填在哪裡
+s|幫我交水費謝謝
+m|幫我 pay 水費
+m|water 的帳單要繳
+e|how do I pay my water bill online
+e|water bill payment please
+e|I forgot to pay the tap water fee
+n|不是電費，是水費的繳款
+p|我要繳水費，水號是1234567890|fill_water_number=1234567890
+p|水號 0987654321 幫我繳|fill_water_number=0987654321
+p|水費單上寫水號5566778899要怎麼付|fill_water_number=5566778899
+p|我的水號是三三二二一一零零九九幫我繳水費
+v|Tôi quên đóng hóa đơn nước tháng này
+i|Tolong bantu saya bayar air PDAM bulan ini
+t|ช่วยจ่ายบิลค่าน้ำประปาให้หน่อย
+[B]
+c|抄表的人沒來，我自己拍照報度數可以嗎
+c|我想看家裡這個月用了幾度水
+c|水表上的數字我要怎麼回報啦
+k|報水表
+k|水表度數
+k|用水量查詢
+l|我家水表在地下室很難看到，但是這期自己抄的度數想上傳，要從哪邊進去
+l|房東說這個月水費金額怪怪的，叫我自己去查一下用水度數有沒有報對
+s|我要報水表度書
+s|抄表的度數要怎麼輸入
+s|查詢用水渡數
+m|我要 report 水表
+m|water meter 度數怎麼報
+e|I want to submit my water meter reading
+e|how much water did I use this month
+e|self meter reading for water
+n|不是繳錢，是回報水表上面的數字
+p|水號1122334455，這期度數是 123|number=1122334455
+p|我家水號是 5544332211 幫我查用水度數|number=5544332211
+v|Tôi muốn báo chỉ số đồng hồ nước
+i|Saya mau lapor angka meteran air sendiri
+t|อยากแจ้งเลขมิเตอร์น้ำเอง
+[C]
+c|我剛剛在路邊停了一下，是不是會收到停車單啊
+c|機車停路邊的錢要怎麼繳
+c|車子停格子裡的費用我忘記付了
+k|路邊停車費
+k|停車繳費
+k|車牌查停車費
+l|上禮拜六去逛街把車停在路邊格子，現在想說用車牌看看有沒有沒繳的停車費
+l|我先生開我的車出去停在路邊，不知道有沒有被開單，想用車牌號碼查一下
+s|我要繳停車廢
+s|停車費單怎麼交
+s|查詢我的車牌有沒有欠費
+m|幫我 check 停車費
+m|parking 的費用要繳
+e|pay my street parking fee
+e|I got a parking ticket how do I pay
+e|check parking fees for my license plate
+n|路邊停車格的費用，不是停車場月租
+p|車牌 ABC-1234 有沒有停車費|fill=ABC-1234
+p|我的車牌是 5678-XY 幫我查停車費|fill=5678-XY
+p|查詢車牌 RAB-8888 的停車費|fill=RAB-8888
+v|Tôi muốn trả phí đỗ xe bên đường
+i|Bagaimana cara bayar parkir pinggir jalan
+t|อยากจ่ายค่าจอดรถริมถนน
+[D]
+c|房子的稅單寄來了，可以拿手機掃嗎
+c|每年這個時候都要繳的車子稅
+c|土地的稅快到期了，我要去哪邊付
+k|房屋稅
+k|牌照稅繳款
+k|地價稅單
+l|我爸過世之後房子過戶給我，今年第一次收到房屋稅的繳款書，想用手機掃條碼來繳
+l|機車的牌照稅單被我弄丟了，但我記得有收到通知，想問能不能線上繳
+s|我要繳房屋睡
+s|牌照稅要在哪裡交
+s|地價稅的繳款書要怎麼掃
+m|我要 pay 房屋稅
+m|property tax 怎麼繳
+e|pay the house tax
+e|vehicle license tax payment
+e|how to pay land value tax with my phone
+n|稅單不是罰單，是每年固定寄來的房屋稅
+v|Tôi muốn nộp thuế đất
+i|Saya ingin membayar pajak kendaraan
+t|อยากจ่ายภาษีป้ายทะเบียนรถ
+a|地方稅的帳單|alt=G
+[E]
+c|小朋友開學了，註冊費單子在書包裡要怎麼繳
+c|學校說這學期的錢要線上繳
+c|我女兒大學的學費可以用手機付嗎
+k|學費繳款
+k|學雜費
+k|註冊費
+l|兒子上高中了，學校發了一張學雜費繳費通知單，上面有一組繳費編號，我想在手機上付掉
+l|我是大學生，這學期的學雜費我想自己線上繳不用麻煩爸媽
+s|我要繳學雜廢
+s|學費的繳費單號碼要怎麼填
+s|幫我繳孩子的註冊費
+m|school 的 tuition 要繳
+m|幫我 pay 學費
+e|pay school tuition online
+e|how do I pay my child's school fees
+e|tuition payment slip
+n|是學校的費用，不是補習班
+p|學費繳費編號 1234567890123 幫我繳|fill=1234567890123
+p|繳費編號是 9988776655443 這是學雜費|fill=9988776655443
+v|Tôi muốn đóng học phí cho con
+i|Mau bayar uang kuliah lewat HP
+t|ต้องจ่ายค่าเทอมลูกที่โรงเรียน
+[F]
+c|上次去聯合醫院掛號看病的錢忘記付了
+c|我媽住院出院的費用要付
+c|醫院寄來的帳單我想直接手機繳
+k|醫療費繳費
+k|聯醫看病費用
+k|醫院欠費
+l|我上個月在中興院區看門診，現在想把還沒繳清的醫藥費用手機付一付
+l|爸爸開刀住院好幾天，出院時說費用之後再補繳，我想現在線上處理
+s|我要繳醫療廢
+s|聯合醫院的錢要怎麼付
+s|看病的費用我還欠著
+m|hospital 的費用要繳
+m|幫我 pay 聯醫的帳單
+e|pay my hospital bill online
+e|I owe money to the city hospital
+e|medical fee payment for Taipei United Hospital
+n|是醫院的欠費，不是要掛號
+p|身分證 A123456789 查聯醫要繳的費用|fill=A123456789
+v|Tôi muốn trả viện phí bệnh viện thành phố
+i|Saya perlu bayar tagihan rumah sakit
+t|ต้องจ่ายค่ารักษาพยาบาลโรงพยาบาลเมือง
+[G]
+c|我被開了一張罰單，要去哪裡繳
+c|社會住宅的房租這個月還沒付
+c|公司登記要繳的規費怎麼付
+c|我有一筆錢要繳，但不知道是哪個類別
+k|罰鍰繳納
+k|規費繳費
+k|租金繳納
+k|其他費用
+l|我們家租了市府的國宅，每個月要繳租金跟維管費，想知道可以怎麼線上繳
+l|我收到一張繳款單但是看不出來是什麼費用，想說有沒有一個地方可以通通處理
+s|我要繳罰緩
+s|地政登記的規費要交在哪
+s|平價住宅維護費怎麼付
+m|fine 要在哪裡 pay
+m|我要繳 rent 給社宅
+e|where can I pay a government fine
+e|pay public housing rent
+e|business registration fee payment
+n|不是水電稅費，是比較特別的規費
+v|Tôi cần nộp tiền phạt hành chính
+i|Saya mau bayar denda dan biaya administrasi
+t|อยากจ่ายค่าปรับและค่าธรรมเนียม
+a|商業登記費要怎麼繳|alt=P
+[H]
+c|我想確認上個月的電話費有沒有繳成功
+c|之前繳過的費用我想再看一次收據
+c|我有沒有繳過水費啊，查一下
+k|繳費紀錄
+k|歷史繳費
+k|繳費收據
+l|報稅需要證明，我想把去年一整年用手機繳過的各種費用紀錄都叫出來看
+l|剛剛手機繳完停車費但是沒看到成功畫面，想說到哪裡可以確認有沒有繳到
+s|查詢繳費記錄
+s|我要看我以前繳過什麼費用
+s|有沒有交成功的紀錄
+m|payment 的 history 在哪
+m|幫我看 receipt
+e|show my payment history
+e|did my bill payment succeed
+e|where can I find my payment receipts
+n|不是要繳新的費用，是查舊的紀錄
+v|Tôi muốn xem lịch sử thanh toán của mình
+i|Saya mau cek riwayat pembayaran saya
+t|อยากดูประวัติการชำระเงินที่ผ่านมา
+a|上週繳的稅有沒有成功|alt=D
+[I]
+c|戶政事務所現在人多不多，要等多久啊
+c|我想先拿號碼牌再出門
+c|地政事務所叫號叫到幾號了
+k|戶政叫號
+k|臨櫃叫號查詢
+k|現在排隊人數
+l|我要去中山區戶政事務所換身分證，想在家先看目前叫到幾號，再決定什麼時候出門
+l|下午要去地政事務所辦謄本，但是怕人太多，想說能不能先看現場還要等幾個人
+s|現在叫號叫到哪一號
+s|戶正事務所要等多久
+s|我要看櫃檯排隊情況
+m|戶政 office 現在幾號
+m|幫我看 queue 到幾號
+e|how long is the wait at the district household registration office
+e|check the current queue number at the land office
+e|what number are they calling now at the counter
+n|不是掛號看醫生，是政府機關櫃檯的叫號
+v|Hôm nay phòng hộ tịch đang gọi đến số mấy
+i|Antrean di kantor catatan sipil sampai nomor berapa
+t|ตอนนี้สำนักงานทะเบียนเรียกถึงคิวที่เท่าไหร่
+[J]
+c|樓上半夜都在跳來跳去超吵的，我要投訴
+c|我家門口路燈壞了一個禮拜都沒人修
+c|有人把車停在我家車庫前面，我要檢舉
+c|巷口的垃圾堆好多天沒人收
+k|陳情
+k|我要投訴
+k|檢舉違停
+k|噪音檢舉
+l|隔壁那間店每天晚上開音響到十二點多，我跟老闆講過但沒有用，想問市府能不能管
+l|我們社區前面的馬路有個很大的坑洞，騎機車很危險，已經有人跌倒了想反映一下
+s|我要陳青
+s|有人違挺在紅線上
+s|馬路上有個洞要通報給市政府
+m|我要 complain 噪音
+m|幫我 report 路燈壞掉
+e|I want to file a complaint about noise
+e|report an illegally parked car
+e|there is a pothole on my street
+n|不是報警，是向市政府反映一般的問題
+p|我要檢舉違停|entity=停車管理及收費問題
+p|鄰居太吵了我要檢舉噪音|entity=噪音
+p|公車司機態度很差我要陳情|entity=公車
+p|有人亂丟垃圾要檢舉|entity=垃圾
+p|違建要拆除我要反映|entity=違建查報及拆除
+v|Tôi muốn khiếu nại tiếng ồn từ hàng xóm
+i|Saya mau melaporkan kebisingan tetangga
+t|อยากร้องเรียนเรื่องเสียงดังจากเพื่อนบ้าน
+a|附近的流浪狗太多了|alt=T,k
+[K]
+c|我之前投訴的那個路燈不知道修了沒
+c|上禮拜送出去的陳情到現在都沒消息
+c|查一下我的案件處理得怎麼樣了
+k|陳情進度
+k|案件進度查詢
+k|查詢陳情案件
+l|一個月前我有檢舉樓上的噪音，都沒有人回覆我，想看現在案子辦到哪個階段
+l|我記得陳情完會有一組案件編號，我想用那個編號查現在市府的處理情形
+s|我的案件處理了沒有
+s|查陳情的進度
+s|之前反應的事情有回應嗎
+m|case 的 status 怎麼查
+m|我要查 complaint 的進度
+e|check the status of my complaint
+e|what happened to the case I submitted last week
+e|has my report been handled yet
+n|不是要新投訴，是查之前送出的案子
+p|案件編號 1130012345 的進度|search=1130012345
+v|Tôi muốn tra cứu tiến độ phản ánh đã gửi
+i|Saya mau cek status pengaduan yang sudah dikirim
+t|อยากตรวจสอบสถานะเรื่องร้องเรียนที่ส่งไป
+[L]
+c|我家樓下淹水了，水一直漲
+c|路邊的大樹被風吹倒壓到馬路了
+c|電線桿斷掉電線垂在地上很危險
+c|後面山坡好像有土石滑下來
+k|災情通報
+k|淹水通報
+k|路樹倒塌
+k|招牌掉落
+l|昨天颱風之後我們巷子的路樹整棵倒下來擋住車道，旁邊還有電線，想通報趕快處理
+l|大雨一直下，地下停車場的水已經淹到腳踝了，我要通報災情
+s|我家淹水了要怎麼通報
+s|有人家裡失火了
+s|路上的招牌快要掉下來了
+m|我要 report 淹水
+m|有 typhoon 災情要通報
+e|report a flooded street
+e|a tree fell down and blocks the road
+e|there is a landslide near my house
+n|不是一般投訴，是緊急的災害狀況
+p|仁愛路二段淹水了要通報|detail=仁愛路二段
+v|Nhà tôi bị ngập nước, tôi muốn báo thiên tai
+i|Banjir di depan rumah saya, mau lapor bencana
+t|น้ำท่วมหน้าบ้านต้องการแจ้งภัยพิบัติ
+a|大樓外牆磁磚掉下來了|alt=J
+[M]
+c|我的錢包在捷運上被扒走了
+c|有人打電話說我中獎要我匯款，我覺得是詐騙
+c|我昨天騎車被撞了，對方跑掉了
+c|我的手機掉了找不到，要報案
+k|線上報案
+k|詐騙報案
+k|遺失報案
+k|查報案紀錄
+l|我在網路上買東西結果對方收了錢就消失了，想問怎麼向警察局報案，還有要準備什麼
+l|昨天停在家門口的機車不見了，我想應該是被偷了，可以直接線上報案嗎
+s|我要報岸
+s|我被詐騙集團騙了
+a|我的身分證不見了要怎麼辦|alt=P
+m|我要 report 給 police
+m|被 scam 了怎麼辦
+e|I want to file a police report
+e|my bike was stolen
+e|I think I got scammed online
+n|是向警察報案，不是向市政府陳情
+v|Tôi bị mất cắp ví, muốn báo cảnh sát
+i|Dompet saya dicuri, saya mau lapor polisi
+t|กระเป๋าสตางค์ถูกขโมย อยากแจ้งความ
+a|有人一直騷擾我|alt=J

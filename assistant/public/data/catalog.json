@@ -929,7 +929,7 @@
         "zh": "看全部服務",
         "en": "All services"
       },
-      "desc": "回到城市通首頁，看所有服務的清單",
+      "desc": "看所有服務的清單（含新加入的 13 個服務）",
       "keywords": [
         "全部",
         "首頁",
@@ -946,7 +946,7 @@
       ],
       "route": {
         "type": "internal",
-        "target": "/"
+        "target": "/all-services/"
       }
     },
     {

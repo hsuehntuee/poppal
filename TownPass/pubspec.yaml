@@ -101,6 +101,7 @@ flutter:
     - assets/svg/
     - assets/js/
     - assets/web/
+    - assets/web/all-services/
     - assets/web/apps/
     - assets/web/assets/
     - assets/web/assistant/

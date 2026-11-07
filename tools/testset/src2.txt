@@ -1,0 +1,556 @@
+[N]
+c|我想借一本書，圖書館有沒有
+c|借的書快到期了，可以延嗎
+c|圖書館借了什麼書我都忘了
+k|借書
+k|續借
+k|圖書館借閱紀錄
+l|我想找一本關於台灣歷史的書，想先看看附近的市立圖書館有沒有，順便看能不能線上預約
+l|小孩的繪本借太多本了，到底哪些要還哪些可以續借，我想看一下清單
+s|我要借數
+s|書什麼時候要還查一下
+s|還書期限是哪一天
+m|library 的書要續借
+m|我想找 book 來看
+e|renew my library books
+e|check if the library has a certain book
+e|when are my borrowed books due
+n|是借書，不是買票或查活動
+p|查詢哈利波特有沒有在圖書館|search=哈利波特
+v|Tôi muốn mượn sách ở thư viện thành phố
+i|Saya ingin memperpanjang peminjaman buku
+t|อยากยืมหนังสือจากห้องสมุด
+[O]
+c|附近哪裡有廁所啦快憋不住了
+c|最近的YouBike站在哪
+c|我要找可以停車的地方
+c|這附近有沒有飲水機可以裝水
+c|垃圾車幾點會來，在哪裡等
+k|附近公廁
+k|找停車場
+k|充電站
+k|捐血站在哪
+l|我騎車載小孩到天母，想先找附近的親子友善廁所，還要順便看有沒有哺集乳室
+l|我們家狗狗的便便袋用完了，想知道公園附近有沒有提供狗便清潔袋的地方
+s|附近有沒有公側
+s|最近的捐雪站
+s|油霸站在哪
+m|附近有 AED 嗎
+m|找 YouBike 的站
+m|nearby 的停車場
+e|where is the nearest public toilet
+e|find a charging station near me
+e|any drinking fountain around here
+e|where can I find a blood donation center
+n|是找地圖上的設施，不是找公園或步道
+p|找公廁|entity=公廁
+p|我要找停車場|entity=停車場
+p|附近的捐血站|entity=捐血站
+p|哪裡有飲水機|entity=飲水機
+p|附近有沒有郵筒|entity=郵箱
+p|找舊衣回收箱|entity=舊衣回收箱
+p|附近的無障礙廁所|entity=無障礙廁所
+p|哪裡有計程車招呼站|entity=計程車招呼站
+p|最近的區公所在哪裡|entity=區公所
+p|找指定吸菸區|entity=指定吸菸區
+p|附近的哺乳室在哪|entity=哺集乳室
+p|附近哪裡可以充電|entity=充電站
+v|Nhà vệ sinh công cộng gần nhất ở đâu
+i|Di mana toilet umum terdekat dari sini
+t|ที่จอดรถใกล้ ๆ อยู่ตรงไหน
+[P]
+c|我阿公想申請老人健保的補助，要怎麼辦
+c|我要辦一個證明文件，不用跑市政府可以嗎
+c|我被罰錯了想申訴
+c|低收入戶的補助怎麼申請
+k|申請補助
+k|申辦服務
+k|證明申請
+k|線上申辦
+l|我們家是單親，聽說市府有扶助家庭的補助，想問要準備什麼資料，在哪裡可以線上申請
+l|前陣子車被拖吊覺得不合理，想知道向停管處提出申訴的流程可以在手機上辦嗎
+s|我要申清補助
+s|急難救助金怎麼領
+s|獎勵金的申請方式
+m|我想 apply 補助
+m|證明 certificate 怎麼申請
+e|apply for a city government subsidy
+e|how do I apply for a certificate online
+e|I want to file an appeal against a traffic violation
+n|是申請辦理業務，不是繳錢
+v|Tôi muốn đăng ký xin trợ cấp của thành phố
+i|Saya mau mengajukan bantuan sosial dari kota
+t|อยากยื่นขอเงินช่วยเหลือจากเมือง
+a|原住民急難慰問金|alt=G
+[Q]
+c|最近有什麼優惠活動嗎
+c|我想買動物園的門票
+c|有沒有折價券可以領
+k|優惠券
+k|買門票
+k|活動票券
+k|折扣
+l|週末想帶全家去兒童新樂園玩，想先看看有沒有優惠的套票可以買
+l|聽說市政府最近有發很多折價券，我想看看有哪些可以用在美術館還是園區
+s|有什麼有惠
+s|我想買票看展覽
+s|折價卷在哪裡領
+m|我要買 ticket
+m|有沒有 coupon 可以用
+e|show me the available coupons
+e|I want to buy tickets for an event
+e|any discounts for the zoo
+n|是要買新的票或領優惠，不是看已經買的
+p|臺北市立美術館的票怎麼買|entity=臺北市立美術館
+v|Có phiếu giảm giá nào không
+i|Ada kupon diskon tidak
+t|มีคูปองส่วนลดไหม
+[R]
+c|我之前買的票放在哪裡啊
+c|我買的票要怎麼兌換
+c|打開我的票夾
+k|票夾
+k|我的票券
+k|兌換票券
+l|上個禮拜在手機上買了動物園的票，現在人在門口想找出那張票給工作人員掃
+l|朋友把票轉給我，我想去看看自己的票夾裡面有沒有收到
+s|我買的票在哪
+s|開啟票夾
+s|票要在哪裡兌幻
+m|open 票夾
+m|我的 ticket wallet
+e|open my ticket wallet
+e|where are the tickets I bought
+e|how do I redeem my ticket
+n|是看已經買好的票，不是再買
+v|Vé tôi đã mua nằm ở đâu
+i|Di mana tiket yang sudah saya beli
+t|ตั๋วที่ซื้อไว้อยู่ตรงไหน
+[S]
+c|有空氣不好的時候可以通知我嗎
+c|我想收到停車的提醒
+c|不要再一直傳通知給我，我要取消
+k|訂閱通知
+k|取消訂閱
+k|推播設定
+l|我有氣喘，想訂閱空氣品質通知，這樣空氣差的時候手機會提醒我不要出門
+l|社區有公聽會跟活動的時候，我希望可以收到推播，要去哪邊設定訂閱
+s|我要訂閱空氣品智
+s|通知要怎麼開
+s|退訂交通資訊
+m|我要 subscribe 空氣品質
+m|通知 notification 怎麼關
+e|subscribe to air quality alerts
+e|I want to unsubscribe from notifications
+e|turn on push notifications for parking
+n|是設定被動收通知，不是自己打開查
+v|Tôi muốn đăng ký nhận thông báo chất lượng không khí
+i|Saya ingin berlangganan notifikasi parkir
+t|อยากสมัครรับการแจ้งเตือนคุณภาพอากาศ
+[T]
+c|我想直接跟真人講電話
+c|你們1999的電話是多少
+c|機器人聽不懂，幫我轉客服
+k|打1999
+k|市民熱線
+k|客服電話
+l|我有一個很複雜的問題，用手機點來點去都搞不懂，我想直接打電話問市政府的人
+l|不好意思我年紀大了不太會用，可以幫我撥打市民專線嗎
+s|幫我打一九九九
+s|我要打給市政府客服
+s|轉接真人服務
+m|幫我 call 1999
+m|我要找 customer service
+e|call the city hotline
+e|I want to talk to a real person
+e|what is the 1999 phone number
+n|是要打電話找人，不是要線上陳情
+p|幫我撥1999|
+v|Tôi muốn nói chuyện với nhân viên qua đường dây nóng
+i|Saya mau telepon hotline kota 1999
+t|ขอโทรหาเจ้าหน้าที่สายด่วน 1999
+[U]
+c|我想打流感疫苗，哪裡可以預約
+c|新冠疫苗還有位子嗎
+c|小朋友要打針了，幫我約時間
+k|疫苗預約
+k|打疫苗
+k|肺炎鏈球菌疫苗
+l|秋天快到了，我爸媽年紀大想帶他們去打流感疫苗，想在手機上選一個健康服務中心跟日期
+l|聽說六十五歲以上可以免費打肺炎鏈球菌疫苗，我想預約最近的時間
+s|我要預約打流感意苗
+s|疫苗要去哪裡打
+s|打針的時間可以約嗎
+m|我要約 vaccine
+m|flu shot 預約
+e|book a flu shot appointment
+e|where can I get a covid vaccine
+e|schedule a vaccination for my child
+n|是預約打疫苗，不是掛一般門診
+p|我要預約大安區健康服務中心的疫苗|entity=大安區健康服務中心
+v|Tôi muốn đặt lịch tiêm vắc-xin cúm
+i|Saya mau buat janji vaksin influenza
+t|อยากนัดฉีดวัคซีนไข้หวัดใหญ่
+[V]
+c|我肚子痛想去聯合醫院看醫生，怎麼掛號
+c|幫我掛小兒科的號
+c|門診預約要怎麼弄
+k|掛號
+k|預約看診
+k|聯醫門診
+l|我想掛仁愛院區的家醫科，希望下禮拜二早上，可以在手機上選時段嗎
+l|奶奶膝蓋痛很久了，要看骨科，想先掛號省得到現場排很久
+s|我要掛號看內顆
+s|預約門診的時間
+s|看醫生要先怎麼約
+m|我要 register 看醫生
+m|幫我掛 號 內科
+e|register for an outpatient appointment
+e|I need to see a doctor at the city hospital
+e|book a pediatrics appointment
+n|是掛號看病，不是繳醫院欠費
+p|我要掛和平院區的內科|entity=內科
+v|Tôi muốn đăng ký khám bệnh tại bệnh viện thành phố
+i|Saya mau daftar berobat di rumah sakit kota
+t|อยากลงทะเบียนพบแพทย์ที่โรงพยาบาลเมือง
+[W]
+c|我想看台北現在空氣好不好
+c|城市的即時數據在哪裡看
+c|現在交通狀況怎麼樣
+k|市政儀表板
+k|即時數據
+k|統計資料
+l|我是學生在做報告，想找台北市的人口統計還有交通即時資訊，有沒有整合在一起的畫面
+l|每天出門前想看一下今天空氣品質跟捷運人潮，有沒有一個頁面可以一次看完
+s|打開市正儀表板
+s|台北市的數據看一下
+s|空氣品質怎麼樣
+m|city dashboard 在哪
+m|我要看 real-time data
+e|open the city dashboard
+e|show me real-time data about Taipei
+e|where can I see air quality statistics
+n|是看數據圖表，不是訂閱通知
+v|Tôi muốn xem bảng thông tin thành phố
+i|Saya mau lihat dasbor data kota
+t|อยากดูแดชบอร์ดข้อมูลเมือง
+[X]
+c|這個 app 到底要怎麼用啦
+c|我看不懂這個功能是做什麼的
+c|登入不了，有沒有教學
+k|功能教學
+k|常見問題
+k|使用說明
+l|我是第一次用城市通，想知道卡證要怎麼綁定還有帳單要怎麼設定，有沒有教學可以看
+l|朋友說這個 app 很好用，可是我不知道從哪裡開始，有沒有簡單的說明
+s|這個手機程式怎麼使用
+s|有沒有常見問題集
+s|我要看使用教學
+m|app 的 FAQ 在哪
+m|這個 feature 怎麼用
+e|how do I use this app
+e|show me the help and FAQ
+e|I do not understand this feature
+n|是問 App 怎麼用，不是要辦事
+v|Ứng dụng này dùng như thế nào
+i|Bagaimana cara menggunakan aplikasi ini
+t|แอปนี้ใช้งานอย่างไร
+[Y]
+c|我想帶小孩去親子館玩，要先預約嗎
+c|親子館的課程怎麼報名
+c|信義親子館這週有什麼活動
+k|親子館預約
+k|親子課程報名
+k|親子館活動
+l|我家寶寶一歲半，想參加親子館的律動課，想先在手機報名並留下我的聯絡電話
+l|假日想帶兩個孩子去內湖親子館玩，擔心名額滿了，想先預約
+s|我要預約親子官
+s|報名親子活動
+s|帶小朋友去玩的地方要預約
+m|我要 book 親子館
+m|family center 的活動
+e|book a session at the family center
+e|how do I register for a parent-child class
+e|what activities does the Zhongshan family center have
+n|是預約親子館場次，不是找公園
+p|我想預約中山親子館|entity=中山親子館
+v|Tôi muốn đặt lịch cho con ở trung tâm gia đình
+i|Saya mau daftar kegiatan di pusat keluarga
+t|อยากจองกิจกรรมที่ศูนย์ครอบครัว
+[a]
+c|字太小了我看不到
+c|我老花眼，可以放大嗎
+c|幫我切成長輩用的畫面
+k|字放大
+k|長輩模式
+k|大字體
+l|我爺爺眼睛不好，這個畫面的字都好小，可不可以幫他調大一點還要會念出來
+l|螢幕上的字我看得很吃力，想換成比較大的字體跟簡單一點的畫面
+s|把字體變大一點
+s|我看不清楚畫面
+s|開啟長輩模是
+m|字太小 can you make it bigger
+m|我要 large text
+e|make the text bigger
+e|switch to elder mode
+e|I cannot read the small text
+n|是把字變大，不是念給我聽
+v|Chữ nhỏ quá, tôi muốn phóng to
+i|Tulisannya terlalu kecil, tolong perbesar
+t|ตัวหนังสือเล็กเกินไป ขอขยายให้ใหญ่ขึ้น
+[b]
+c|字太大了啦，換回來
+c|不要一直念出來，很吵
+c|回到一般的樣子
+k|一般模式
+k|字縮小
+k|關閉長輩模式
+l|剛剛孫子幫我把字調得很大，現在已經換成我用，想把畫面改回原本的大小
+l|每次打開都自己念出聲音很尷尬，我想變回普通的模式不要朗讀
+s|變回一半模式
+s|字不用那麼大
+s|關掉自動朗讀
+m|切換回 normal mode
+m|字 smaller 一點
+e|switch back to normal mode
+e|make the text smaller
+e|stop reading things out loud
+n|是縮小字體，不是放大
+v|Chữ lớn quá, hãy quay lại chế độ bình thường
+i|Kembalikan ke mode normal, hurufnya terlalu besar
+t|ตัวหนังสือใหญ่เกินไป ขอกลับโหมดปกติ
+[c]
+c|可以念這個畫面給我聽嗎
+c|我眼睛不方便，用聽的就好
+c|把這一頁讀出來
+k|朗讀
+k|念給我聽
+k|唸出來
+l|我現在在騎車不方便看手機，可以把畫面上寫的內容大聲念一遍給我聽嗎
+l|我不識字，這頁寫什麼我看不懂，請你一句一句讀給我聽
+s|大聲年出來
+s|幫我讀一下這個畫面
+s|用語音讀出內容
+m|請 read 給我聽
+m|read aloud 這一頁
+e|read this page out loud to me
+e|can you read the screen for me
+e|I prefer listening instead of reading
+n|是把內容念出來，不是把字放大
+v|Hãy đọc to nội dung màn hình cho tôi nghe
+i|Tolong bacakan layar ini untuk saya
+t|ช่วยอ่านหน้าจอให้ฟังหน่อย
+[d]
+c|帳單上有QR code，我想用掃的
+c|開相機掃一下我的繳費單
+c|掃條碼就能繳了吧
+k|掃描帳單
+k|掃條碼
+k|掃QR code
+l|我手上有一張超商可以繳的單子，上面有三個條碼，想用手機鏡頭一次掃過去繳掉
+l|地方稅的繳款書背面有一排條碼，我不想自己打數字，想用相機掃
+s|我要掃帳單上的碼
+s|開啟掃描功能
+s|用相機照條馬
+m|我要 scan 帳單
+m|掃 barcode 繳費
+e|scan my bill with the camera
+e|I want to scan the QR code on my bill
+e|pay by scanning a barcode
+n|是用相機掃，不是手動輸入編號
+v|Tôi muốn quét mã QR trên hóa đơn
+i|Saya mau scan kode QR di tagihan
+t|อยากสแกนคิวอาร์โค้ดบนบิล
+[e]
+c|回首頁
+c|有哪些服務可以選
+c|我想自己慢慢挑
+k|全部服務
+k|服務列表
+k|回到首頁
+l|我不太確定我要找什麼，可以讓我看看所有的服務有哪些然後自己決定嗎
+l|剛剛點錯了，想回到最一開始有所有功能的那一頁
+s|看全部功能
+s|帶我回主畫面
+s|所有服務都列出來
+m|go 回首頁
+m|show 全部 services
+e|take me back to the home page
+e|show all services
+e|what services are there
+n|是回首頁看所有服務，不是功能教學
+v|Cho tôi xem tất cả các dịch vụ
+i|Tampilkan semua layanan
+t|ขอดูบริการทั้งหมด
+[f]
+c|市政府現在有什麼投票可以參加
+c|我想對公園改善的議題表示意見投票
+c|燈節主燈票選在哪裡投
+k|網路投票
+k|市民投票
+k|i-Voting
+l|聽說市政府讓市民投票決定捷運站公共藝術的主題，我想去投我喜歡的那一個
+l|有一個關於圖書館延長開放時間的線上投票，我想看看現在進度並投下我的一票
+s|我要投票決定議提
+s|現在有哪些票選活動
+s|參與市政投票
+m|我要 vote
+m|i-Voting 的議題
+e|I want to vote on a city proposal
+e|are there any online votes right now
+e|where can I cast my vote for the lantern festival design
+n|是對市政議題投票，不是看優惠票券
+v|Tôi muốn tham gia bỏ phiếu trực tuyến
+i|Saya mau ikut pemungutan suara online
+t|อยากร่วมโหวตออนไลน์ของเมือง
+[g]
+c|我有意見想要給市政府，有沒有問卷可以填
+c|現在有什麼滿意度調查在進行
+c|填問卷可以幫助市府改善嗎
+k|意見調查
+k|填問卷
+k|滿意度問卷
+l|市府說在做校園午餐的調查，我小孩在吃所以想來填寫，看看從哪裡進去
+l|對城市通這個 app 用起來有些想法，想用問卷回饋給負責的單位
+s|我要填意見調差
+s|市政滿意度調查在哪
+s|給市政府的問卷
+m|我要填 survey
+m|調查 questionnaire 在哪
+e|I want to fill out a survey
+e|is there any satisfaction survey I can answer
+e|give feedback through a questionnaire
+n|是填問卷，不是投票表決
+v|Tôi muốn điền khảo sát ý kiến
+i|Saya mau mengisi survei kepuasan
+t|อยากตอบแบบสำรวจความคิดเห็น
+[h]
+c|我們里長是誰，電話幾號
+c|里辦公處在哪裡我想去問事情
+c|最近我們里有什麼活動嗎
+k|里長電話
+k|里辦公處
+k|里民活動
+l|我剛搬到中正區，想知道我所在的里的里長是誰，還有里辦公處的辦公時間跟地址
+l|我們里這個月有健康講座，想看看里辦有沒有貼公告
+s|我要找李長
+s|鄰里辦公室的聯絡方式
+s|里上有公告嗎
+m|我們里的 chief 是誰
+m|里辦 office 的電話
+e|how do I contact my neighborhood chief
+e|where is the neighborhood office
+e|any announcements in my village
+n|是找里辦和里長，不是找區公所叫號
+v|Tôi muốn liên lạc với trưởng khu phố
+i|Saya mau hubungi ketua RT atau kantor kelurahan
+t|อยากติดต่อหัวหน้าชุมชนของฉัน
+[i]
+c|我想聽廣播
+c|台北電台現在在播什麼
+c|有沒有爵士樂的節目
+k|台北電台
+k|廣播節目表
+k|收聽廣播
+l|通勤的時候我想用手機聽臺北廣播電台，還想看看今天下午的節目安排是什麼
+l|聽說有一個城市夜話的節目很好聽，我想知道幾點播而且要怎麼線上聽
+s|打開電太
+s|我要聽收音機
+s|電台的節目單
+m|play 台北 radio
+m|我要聽 FM
+e|play Taipei radio
+e|what is on the radio right now
+e|show me the radio program schedule
+n|是聽廣播節目，不是看影片或音樂票券
+v|Tôi muốn nghe đài phát thanh Đài Bắc
+i|Saya mau dengar radio Taipei
+t|อยากฟังวิทยุไทเป
+[j]
+c|附近有沒有公園可以散步
+c|我想去河濱走走，哪裡比較好
+c|有什麼親山步道推薦嗎
+k|附近公園
+k|散步步道
+k|綠地
+l|週末想帶爸媽去走比較輕鬆的步道，最好有樹蔭又不要太遠，有沒有推薦
+l|傍晚想去河濱公園慢跑，想看看離我最近的幾個公園跟綠地在哪裡
+s|附近有沒有公圓
+s|劍潭山步到
+s|我想去森林走走
+m|附近的 park 在哪
+m|找 trail 步道
+e|parks near me
+e|where can I go for a walk in nature
+e|find a hiking trail nearby
+n|是公園和步道，不是公廁或停車場
+p|士林官邸公園在哪|entity=士林官邸公園
+v|Công viên gần đây ở đâu
+i|Di mana taman terdekat untuk jalan-jalan
+t|สวนสาธารณะใกล้ ๆ อยู่ที่ไหน
+[k]
+c|哪裡可以帶狗狗去放電
+c|附近有沒有動物醫院
+c|我家貓咪要去登記
+k|寵物友善
+k|遛狗公園
+k|寵物登記站
+l|我家狗狗最近食慾不好，想找附近評價比較好的動物醫院，還有寵物可以進去的餐廳
+l|剛領養了一隻小狗，聽說要去登記晶片，想看哪裡有寵物登記站
+s|哪裡可以遛狗狗
+s|附近的寵物公園
+s|寵物友善的餐廳在哪
+m|附近有 pet friendly 的地方嗎
+m|動物 hospital 在哪
+e|pet friendly places near me
+e|where can I walk my dog
+e|nearest animal hospital
+n|是寵物相關地點，不是一般公園
+p|北投寵物登記站在哪|entity=北投寵物登記站
+v|Ở đâu có chỗ cho chó đi dạo
+i|Di mana rumah sakit hewan terdekat
+t|พาสุนัขเดินเล่นได้ที่ไหน
+[l]
+c|今天的菜價是不是又漲了
+c|雞蛋最近好貴喔，現在多少錢
+c|豬肉一斤現在賣多少
+k|菜價
+k|物價查詢
+k|米價
+l|最近颱風過後菜好像都變很貴，我想看看小白菜跟高麗菜今天市場上的價格怎麼樣
+l|媽媽叫我去市場買東西，我想先看一下蛋跟水果的行情會不會太貴
+s|今天青菜多少錢
+s|雞蛋有沒有漲價
+s|水果的價錢
+m|今天 vegetable 價格
+m|egg 一顆多少錢
+e|vegetable prices today
+e|how much are eggs now
+e|check pork and rice market prices
+n|是查食物價格，不是優惠券或打折
+p|小黃瓜今天多少錢|entity=小黃瓜
+v|Giá rau hôm nay là bao nhiêu
+i|Berapa harga telur hari ini
+t|ราคาผักวันนี้เท่าไหร่
+[m]
+c|動物園今天有什麼活動
+c|貓熊在哪個館
+c|我想看企鵝餵食秀幾點
+k|動物園地圖
+k|貓熊
+k|動物導覽
+l|週六想帶小孩去動物園，想先看園區地圖還有今天有哪些表演跟餵食活動
+l|想去看台灣黑熊，不知道在哪一區，想用動物園的導覽找路
+s|動物園的地圖看一下
+s|企鵝館怎麼走
+s|貓雄在哪裡
+m|zoo 的 map
+m|我要看 panda
+e|show me the Taipei zoo map
+e|where can I see the penguins
+e|what is on at the zoo today
+n|是動物園的導覽，不是買動物園的門票
+p|亞洲熱帶雨林區怎麼走|entity=亞洲熱帶雨林區
+v|Bản đồ sở thú ở đâu
+i|Di mana peta kebun binatang
+t|แผนที่สวนสัตว์อยู่ที่ไหน

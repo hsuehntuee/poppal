@@ -1,0 +1,275 @@
+[A]
+c|水費到期日快到了，我現在在捷運上想順便付掉
+l|我是一個住在北投的老人家，兒子在國外，叫我自己用手機把水費繳一繳，我不太會，要從哪裡開始
+s|自來水公司的帳單怎麼線上交
+n|我要繳的是水的錢，不是看水表的度數
+e|pay water bill with my phone, the number is on the paper
+[B]
+c|房東叫我拍水表給他，要在哪裡傳啊
+l|我們公寓水表是一戶一表，每個月自己要看數字再輸入，想知道輸入的地方在哪
+s|這個月的用水度數在哪裡看
+n|我想知道用了幾度，不是要繳費
+e|submit my monthly water usage number
+[C]
+c|路邊停車的錢可以手機付嗎，我沒有零錢
+l|我昨天晚上停在公司旁邊的紅線外面，不知道有沒有人開單，想查查看
+s|停車費要怎麼用車牌繳
+n|路邊停車格欠的錢，不是停車場
+e|is there an unpaid parking fee on my car
+[D]
+c|我媽叫我繳牌照稅，我完全不會
+l|我名下有一台汽車一台機車，每年都要繳牌照稅，今年想用手機繳掉，要點哪裡
+s|房子的稅怎麼繳
+n|那張稅單不是罰單是地價稅
+e|where do I pay the annual vehicle tax
+[E]
+c|學校通知要繳這學期的雜費
+l|我是外籍配偶，孩子在國小讀書，學校給了繳費單但是看不太懂，想知道用手機要怎麼繳
+s|孩子學校的費用怎麼付
+n|是學校註冊的費用，不是醫院也不是稅
+e|my son school gave me a payment slip, how do I pay
+[F]
+c|出院了還有一筆錢沒付，醫院說可以線上繳
+l|我爸爸常常去聯合醫院看門診，累積了幾筆醫療費還沒有繳，想用他的證號一次付清
+s|醫院的看病錢怎麼線上付
+n|是付醫院的錢，不是掛號
+e|how can I settle the unpaid bill at the municipal hospital
+[G]
+c|我想繳的錢不屬於那幾種，通通在這裡可以繳嗎
+l|我騎車沒戴安全帽被開了罰單，上面寫要在期限內繳罰鍰，想用手機直接解決
+s|規費怎麼繳
+n|是政府規費或罰款，不是水電和稅
+e|I have a fee that is not water, tax or tuition, where do I pay
+[H]
+c|我繳完錢想要收據證明
+l|昨天用手機繳了房屋稅，但是想要保留一份證明文件去報稅，要去哪邊找到繳費證明
+s|看歷史繳費
+n|是查已繳的紀錄，不是要現在繳費
+e|let me see what I have paid before
+[I]
+c|區公所現在是不是很多人在等
+l|我下午二點約了地政事務所要辦過戶，想提早確認現場叫號進度，不然要請假太久
+s|現場叫到幾號了
+n|是看櫃檯叫號，不是掛號看醫生
+e|is the household registration office crowded now
+[J]
+c|我們社區的公車站牌壞了，想反映一下
+l|附近的夜市每天把油倒進排水溝，味道很臭，我已經跟里長講過沒有用，想直接向市政府陳情
+s|我想要陳情有人亂倒垃圾
+n|是向市政府反映問題，不是報警
+e|I want to complain about the bus driver
+[K]
+c|我投訴的案子現在怎麼樣了
+l|兩個禮拜前我在這裡送出了違停的檢舉，到現在都沒人通知，想查一下目前狀態
+s|陳情案處理到哪
+n|不是新的陳情，是查已經送出的
+e|how is my complaint going
+[L]
+c|巷子口的招牌被風吹得搖搖欲墜
+l|剛才地震之後我們社區的圍牆有裂開，還有磚塊掉到馬路上，想通報災情
+s|路樹倒下來了
+n|是災害通報，不是一般的噪音或垃圾
+e|there is a fire in the building next door
+[M]
+c|我機車被偷了要報案
+l|我收到簡訊說我的包裹有問題要我點連結輸入信用卡，感覺是詐騙，想報案並詢問怎麼處理
+s|被騙錢了要報案
+n|是向警察報案，不是陳情
+e|someone stole my phone on the MRT
+[N]
+c|圖書館的書我可以線上預約嗎
+l|我借了三本書下週到期，但是還有一本沒看完，想用手機續借一次
+s|查我借了哪些書
+n|是圖書館借還書，不是書展門票
+e|I want to find a book in the library
+[O]
+c|附近有沒有投幣式的充電站
+l|我開車進天母，想找離我最近的停車場，最好是能刷悠遊卡的
+s|垃圾車什麼時候來
+n|是找設施位置，不是看市價
+e|where is the closest YouBike station
+c|這附近有沒有可以倒廚餘的地方
+c|最近的AED在哪，有人昏倒了
+[P]
+c|我想辦補助，但不知道有沒有資格
+l|我媽今年七十歲了，聽說可以申請老人健保自付額補助，想問要怎麼在網路上辦
+s|怎麼線上辦證明
+n|是辦理申請，不是繳錢也不是投訴
+e|I want to apply for an elderly allowance
+[Q]
+c|有沒有哪裡可以買到便宜的展覽票
+l|我想帶孩子去台北自來水園區玩，聽說用城市通買票有折扣，想看看怎麼買
+s|買門票有折價嗎
+n|是買票和優惠，不是看已購買的票
+e|any discount tickets for the art museum
+[R]
+c|我買的票怎麼進場啊
+l|我在城市通買的展覽票到了現場不知道要在哪裡出示，想先把我的票找出來
+s|我的票在哪裡看
+n|是看已買好的票，不是買新票
+e|show the tickets I already have
+[S]
+c|我想知道哪裡可以設定提醒
+l|我希望每次有水費或停車的通知時手機都能跳出來提醒我，不然我都會忘記
+s|訂閱社區公告通知
+n|是訂閱或取消通知，不是查空氣數據
+e|stop sending me notifications
+[T]
+c|有沒有電話可以打去問
+l|我跟機器人講了好多次都沒有用，我想請你幫我撥市府的服務電話找真人
+s|客服真人專線
+n|是打電話，不是文字投訴
+e|connect me to a human agent
+[U]
+c|嬰兒要打疫苗要約哪裡
+l|我是長輩，今年想去打新冠跟流感兩種疫苗，想一次預約，不知道要選哪個健康服務中心
+s|疫苗的預約日期
+n|是預約打疫苗，不是掛看診
+e|reserve a vaccine slot for next week
+[V]
+c|聯合醫院的看診可以預約嗎
+l|我要幫爸爸掛中興院區的心臟科，他行動不方便所以想先在線上預約好看診時間
+s|門診掛號時間
+n|是預約看醫生，不是繳錢
+e|make an appointment with a doctor at Heping hospital
+[W]
+c|台北市現在空氣品質如何
+l|我想看台北市目前的人口數、交通流量，這種城市整體的即時資料，要去哪看
+s|城市資料看一看
+n|是看整體數據畫面，不是設定提醒
+e|I want to see the city statistics
+[X]
+c|我是新手不知道怎麼操作
+l|我阿嬤剛拿到智慧型手機，我想教她用城市通，有沒有簡單的圖文說明或常見問題
+s|怎麼使用這個軟體
+n|是問怎麼用，不是辦某件事
+e|where is the user guide
+[Y]
+c|親子館裡面有什麼活動可以報名
+l|聽說北投親子館有寶寶按摩課，我想幫我孩子預約，還要留爸爸的電話
+s|預約小孩去玩的地方
+n|是預約親子館，不是找公園
+e|sign my baby up for an activity at the family center
+[a]
+c|畫面上的字好小看不清楚
+l|我外婆不會用手機而且眼睛不好，可以幫她把畫面換成大字而且自己念出來嗎
+s|字體太小
+n|是放大字，不是用念的
+e|please increase the font size
+[b]
+c|字有點太大了
+l|我的視力恢復了，不需要大字也不需要一直念，請換回平常用的模式
+s|取消長輩模式
+n|是縮小字，不是放大
+e|go back to the normal size
+[c]
+c|可以用聽的嗎
+l|我現在雙手都在忙，沒辦法看螢幕，可以請你把這頁的內容讀給我聽嗎
+s|把畫面唸給我
+n|是要聽內容，不是改字體
+e|please read it to me
+[d]
+c|可以掃帳單嗎
+l|超商繳費單上面有條碼，我想直接用手機相機掃進去，不想一個一個輸入
+s|掃描繳款單
+n|是相機掃碼，不是輸入水號
+e|use the camera to scan the barcode
+[e]
+c|我想看所有功能
+l|我現在在一個很深的頁面裡面迷路了，想直接回到最前面看看所有服務
+s|回到主頁
+n|是回首頁，不是看說明
+e|go to the home screen
+[f]
+c|市民投票要去哪投
+l|我看到新聞說市府有一個公園遊戲場改善優先順序的投票，想找到入口參加
+s|公民投票怎麼參加
+n|是投票表決，不是填問卷
+e|I would like to take part in the city vote
+[g]
+c|有問卷要填嗎
+l|聽說市政府在收集市民對公共運輸服務的意見，我想填寫我的看法
+s|填寫市政調查
+n|是填問卷，不是投票
+e|any survey from the city government
+[h]
+c|里長辦公室在哪
+l|我剛搬到內湖，想知道我的里長是誰以及里辦公處的位置跟電話，方便有事去問
+s|里民公告
+n|是里長和里辦，不是區公所
+e|find my neighborhood chief contact
+[i]
+c|現在電台在播什麼節目
+l|我在家做菜想聽點廣播，想知道今天午間音樂還有市政焦點幾點播
+s|開廣播來聽
+n|是聽廣播，不是看影片
+e|turn on the radio
+[j]
+c|哪裡有公園可以帶小孩去玩
+l|想找個河濱的綠地跑步或是散步，最好離捷運近一點，有沒有推薦的地方
+s|附近的步道
+n|是公園和綠地，不是公廁
+e|show me green parks around me
+[k]
+c|狗狗能進去的餐廳有哪些
+l|我想帶狗狗出去走走，想找有狗活動區的河濱公園，還有附近的動物醫院，以防萬一
+s|寵物登記要去哪
+n|是寵物友善地點，不是一般公園
+e|dog friendly parks and vets nearby
+[l]
+c|現在豬肉貴不貴
+l|每天買菜都要看價錢，想知道今天蔬菜水果還有蛋的行情是漲還是跌
+s|蔬果價格
+n|是查價格，不是優惠
+e|are egg prices going up
+[m]
+c|動物園怎麼逛比較好
+l|明天要和同學去動物園校外教學，想先看看園區的地圖還有熊貓館在哪
+s|動物園的導覽
+n|是動物園的導覽，不是買票
+e|where are the pandas at the zoo
+[Z]
+c|我想買一杯咖啡
+c|你可以幫我寫作業嗎
+c|今天運動了嗎
+c|你覺得我該不該去創業
+c|小孩一直哭怎麼辦
+c|宵夜要吃什麼
+c|我要找工作
+c|請幫我查一下明天的高鐵時刻
+c|晚上有什麼好看的電視節目
+c|你的生日是什麼時候
+c|恭喜發財
+c|我今天被老闆罵了
+c|有人說颱風假要放，是真的嗎
+c|我要換汽車保險
+c|陪我聊聊天好不好
+c|我想去墾丁看海
+s|我想要點一份滷肉飯
+s|給我一首周董的歌
+s|打開手電筒
+s|我要訂機票去大阪
+s|你喜歡什麼顏色
+l|我最近在學做麵包，但是烤出來的老是太硬，你有沒有什麼訣竅可以教我
+l|下個禮拜是我結婚十週年紀念日，我想給老婆一個驚喜，你有沒有什麼點子
+l|我的筆電最近開機很慢，風扇聲音也很大，我是不是該重灌系統
+m|幫我 book 一間 hotel
+m|我想學 English 怎麼學比較快
+m|今天的 lunch 吃什麼
+e|what should I have for dinner tonight
+e|can you help me write an email to my boss
+e|how far is the moon from the earth
+e|sing me a song
+e|I need a recipe for chocolate cake
+e|how do I learn to swim
+n|我要加值悠遊卡
+n|幫我查機票價格
+n|我想申請信用卡
+n|我想問我的所得稅要怎麼報
+n|請幫我叫外送
+v|Bạn khỏe không
+v|Xin chào bạn tên gì
+i|Selamat pagi apa kabar
+i|Saya mau beli tiket pesawat ke Bali
+t|สวัสดีครับ สบายดีไหม
+t|ช่วยเปิดเพลงให้หน่อย

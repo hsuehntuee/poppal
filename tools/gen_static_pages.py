@@ -105,4 +105,34 @@ page('privacy', '隱私權政策', '''<div class="card"><h3>資料蒐集</h3><p>
 <div class="card"><h3>小幫手的語音與文字</h3><p>語音辨識、翻譯與意圖判斷全部在你的手機上完成，不會上傳到任何伺服器。</p></div>
 <div class="card"><h3>資料保存</h3><p>導覽進度只存在手機瀏覽器的工作階段中，離開服務即清除。</p></div>
 <div class="card"><h3>聯絡我們</h3><p>CodeFestTaipei@gov.taipei</p></div>''')
+
+# 全部服務總覽：從 catalog.json 產生（新舊服務都在）
+import json as _json
+_cat = _json.load(open(os.path.join(ROOT, 'assistant', 'public', 'data', 'catalog.json'), encoding='utf-8'))
+_groups = [
+    ('💳 繳費與帳務', ['water_fee_pay', 'parking_fee_pay', 'local_tax_pay', 'tuition_pay', 'hospital_fee_pay', 'fee_pay_other', 'fee_history', 'water_meter_report']),
+    ('📣 通報與陳情', ['citizen_report', 'citizen_report_search', 'disaster_report', 'police_report', 'call_1999']),
+    ('🏥 健康醫療', ['vaccine', 'hospital_registration']),
+    ('🏙️ 生活服務', ['find_place', 'library', 'counter_calling', 'apply_service', 'subscription', 'coupon', 'ticket_wallet', 'family_center', 'essential_goods', 'zoo', 'green_map', 'pet_map', 'city_radio']),
+    ('🗳️ 市政參與', ['ivoting', 'survey', 'neighborhood', 'dashboard', 'qna']),
+]
+_by = {sv['id']: sv for sv in _cat['services']}
+_skip = {'ui_elder', 'ui_normal', 'read_aloud', 'scan_bill', 'home_all'}
+_html = ['<div class="muted" style="margin:4px 0 8px">共 %d 個服務</div>' % len([x for x in _cat['services'] if x['id'] not in _skip])]
+_seen = set()
+for title, ids in _groups:
+    rows = []
+    for i in ids:
+        sv = _by.get(i)
+        if not sv or i in _skip: continue
+        _seen.add(i)
+        t = sv['route'].get('target', '/')
+        href = 'tel:1999' if i == 'call_1999' else ('/dashboard/' if i == 'dashboard' else t)
+        rows.append('<a class="row" href="%s" style="padding:10px 0;border-bottom:1px solid #eef1f3"><span><h3 style="margin:0">%s</h3><div class="muted">%s</div></span><span class="chev">›</span></a>' % (href, sv['title']['zh'], sv.get('desc', '')))
+    if rows: _html.append('<div class="card"><h3 style="margin-bottom:6px">%s</h3>%s</div>' % (title, ''.join(rows)))
+_rest = [sv for sv in _cat['services'] if sv['id'] not in _seen and sv['id'] not in _skip]
+if _rest:
+    _html.append('<div class="card"><h3>其他</h3>' + ''.join('<a class="row" href="%s" style="padding:10px 0"><span><h3 style="margin:0">%s</h3><div class="muted">%s</div></span><span class="chev">›</span></a>' % (sv['route'].get('target', '/'), sv['title']['zh'], sv.get('desc', '')) for sv in _rest) + '</div>')
+_html.append('<div class="card"><a class="row" href="/"><span><h3 style="margin:0">申辦服務（表單）</h3><div class="muted">申訴、補助等線上申辦表單</div></span><span class="chev">›</span></a></div>')
+page('all-services', '全部服務', ''.join(_html))
 print('static pages done')
