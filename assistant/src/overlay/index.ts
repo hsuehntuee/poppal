@@ -1,0 +1,1796 @@
+/**
+ * guide-overlay：注入到每一個服務頁的引導層（P2「陪我做」）。
+ *
+ * - 服務頁一行都不改：變暗 + 發亮 + 一句話說明 疊在原本的頁面上
+ * - 定位用畫面上看得到的東西（text / label / role / css），找不到就退回純文字說明
+ * - 三種完成方式：自己點或打字、說出要填的內容（規則抽取）、說出指令（規則 → 決策器）
+ * - 狀態存在 sessionStorage，SPA 換頁或重新整理都接得回來
+ *
+ * 啟動來源（擇一）：
+ *   1. 網址 hash：#tpguide=guide_water_fee&mode=elder&lang=zh（小幫手跳轉時帶的）
+ *   2. sessionStorage tp_guide（同源時小幫手也會寫）
+ *   3. 自動提示：網址符合 guides/index.json 的 match.url → 問「要我陪你做嗎？」
+ */
+import { matchCommandRule, type CommandId } from '../core/rules';
+import { extract, type AcceptKind } from '../core/extract';
+import { decide } from '../core/decide';
+import { fmt, type Copy } from '../core/copy';
+import type { Catalog, Decider, Option } from '../core/types';
+import { commandRequest, commandOptions, setCatalog } from '../core/catalog';
+import { LlmDecider } from '../engines/llm';
+import { TinyDecider } from '../engines/tiny';
+import { stt, tts, phoneCall, onSttPartial } from '../core/bridge';
+import { normalizeText } from '../engines/tiny';
+import { loadSitemap, findPath, elementsOf, type Sitemap, type SiteElement } from '../core/sitemap';
+import { tplog, hookConsole, onTripleTap } from '../core/log';
+
+/* ---------- 設定 ---------- */
+
+const W = window as any;
+const BASE: string = (W.__TP_ASSISTANT_BASE__ as string) || location.origin + '/assistant/';
+const LLM_URL: string = W.__TP_LLM_URL__ || lsGet('tp_assistant_llm_url') || '/llm';
+const STUCK_MS = 45000;
+/** 迷路偵測門檻（放在最前面：boot() 在模組載入時就會呼叫 startLostWatcher，const 不能放後面，否則 TDZ） */
+interface LostCfg {
+  routes: number; routesWindowMs: number;
+  taps: number; tapsWindowMs: number;
+  flips: number; flipsWindowMs: number;
+  cooldownMs: number;
+}
+const LOST: LostCfg = Object.assign(
+  { routes: 99, routesWindowMs: 60000, taps: 5, tapsWindowMs: 6000, flips: 99, flipsWindowMs: 12000, cooldownMs: 120000 },
+  (window as any).__TP_LOST_THRESHOLDS__ || {}
+);
+
+type Lang = string;
+interface Locator {
+  text?: string;
+  exact?: boolean;
+  label?: string;
+  role?: 'button' | 'input' | 'link';
+  css?: string;
+  /** 下拉選單裡的選項文字：目標是 <select>，「幫我按」會直接選好 */
+  option?: string;
+}
+interface Step {
+  id: string;
+  url?: string;
+  find: Locator[];
+  say: Record<Lang, string>;
+  /** {{entity}} 沒有值時改用這句 */
+  say_default?: Record<Lang, string>;
+  more?: Record<Lang, string>;
+  done_when: 'click' | 'input' | 'route' | 'manual' | 'change';
+  accept?: AcceptKind;
+  min_len?: number;
+  max_len?: number;
+  confirm?: boolean;
+  final?: boolean;
+  skip_if_visible?: Locator[];
+  skip_if_missing?: boolean;
+  /** 預填用哪個參數（預設用 step.id） */
+  prefill?: string;
+}
+interface Guide {
+  id: string;
+  title: Record<Lang, string>;
+  entry?: string;
+  match?: { url: string };
+  steps: Step[];
+}
+type Mode = 'kid' | 'normal' | 'elder';
+/** 目前模式（文案覆蓋用）：Ui 建立時設定 */
+let curMode: Mode = 'normal';
+const SCALE: Record<Mode, number> = { kid: 1.1, normal: 1, elder: 1.25 };
+
+interface State {
+  id: string;
+  step: number;
+  mode: Mode;
+  lang: Lang;
+  /** 小幫手從使用者的話抽出的參數（例如 fill_water_number → 1234567890），到對應步驟時預填並請使用者確認 */
+  params?: Record<string, string>;
+}
+
+/* ---------- 入口 ---------- */
+
+if (!W.__tpGuideLoaded) {
+  W.__tpGuideLoaded = true;
+  hookConsole('overlay');
+  patchHistory();
+  patchViewport();
+  boot().catch((e) => console.warn('[tp-guide]', e));
+}
+
+async function boot() {
+  if (location.pathname.startsWith('/assistant')) return; // 小幫手主頁自己有 UI
+  startLostWatcher(); // 每一頁都看：亂點亂滑、一直換頁 → 小幫手登場
+  const fromHash = readHash();
+  let state: State | null = fromHash ?? readState();
+  if (fromHash) saveState(fromHash);
+  // 沒有進行中的陪伴就安靜：小幫手是獨立的微服務，不主動跳出來問；使用者亂點 5 下才登場
+  if (!state) return;
+  await start(state);
+}
+
+async function start(state: State) {
+  const guide = await fetchJson<Guide>(`${BASE}guides/${state.id}.json`);
+  // 使用者按返回離開了這個流程（網址既不是導覽範圍、也不是任何一步的頁面）→ 清掉狀態、不顯示
+  const inScope = (guide.match && new RegExp(guide.match.url).test(location.pathname)) || guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
+  if (!inScope) {
+    clearState();
+    return;
+  }
+  const copy = await loadCopy(state.lang);
+  const runner = new Runner(guide, state, copy);
+  W.__tpGuide = runner;
+  await runner.run();
+}
+
+/* ---------- 執行器 ---------- */
+
+class Runner {
+  ui: Ui;
+  target: HTMLElement | null = null;
+  cleanup: Array<() => void> = [];
+  stuckTimer = 0;
+  decider: Decider | null = null;
+  catalog: Catalog | null = null;
+  lastPath = location.pathname;
+  busy = false;
+
+  constructor(
+    public guide: Guide,
+    public state: State,
+    public copy: Copy
+  ) {
+    this.ui = new Ui(state.mode);
+    window.addEventListener('tp:locationchange', () => this.onRoute());
+    const vv = window.visualViewport;
+    if (vv) {
+      const onVv = () => this.onViewport();
+      vv.addEventListener('resize', onVv);
+      vv.addEventListener('scroll', onVv);
+      this.cleanupAll.push(() => {
+        vv.removeEventListener('resize', onVv);
+        vv.removeEventListener('scroll', onVv);
+      });
+    }
+    const mo = new MutationObserver(throttle(() => this.onMutate(), 200));
+    mo.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+    this.cleanup.push(() => mo.disconnect());
+
+  }
+
+  cleanupAll: Array<() => void> = [];
+  keyboardOpen = false;
+
+  vvTimer = 0;
+  /** 鍵盤彈出 / 收起：遲滯判定（<70% 開、>85% 關）+ 去抖，避免動畫期間來回切換 */
+  onViewport() {
+    clearTimeout(this.vvTimer);
+    this.vvTimer = window.setTimeout(() => {
+      const vv = window.visualViewport;
+      if (!vv) return;
+      const ratio = vv.height / window.innerHeight;
+      const open = this.keyboardOpen ? ratio < 0.85 : ratio < 0.7;
+      if (open !== this.keyboardOpen) {
+        this.keyboardOpen = open;
+        this.ui.setKeyboard(open);
+      }
+    }, 120);
+  }
+
+  get step(): Step | undefined {
+    return this.guide.steps[this.state.step];
+  }
+  tx(obj: Record<Lang, string> | undefined): string {
+    if (!obj) return '';
+    return this.tpl(obj[this.state.lang] ?? obj.zh ?? Object.values(obj)[0] ?? '');
+  }
+  /** {{entity}}、{{param}} → state.params；沒有值的保留空字串 */
+  tpl(text: string): string {
+    return text.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, k) => this.state.params?.[k] ?? '').replace(/\{\s*\w+\s*\}/g, '');
+  }
+  /** 定位器裡的模板；沒有值的定位器整個略過 */
+  finders(step: Step): Locator[] {
+    return step.find
+      .map((f) => {
+        const out: Locator = { ...f };
+        for (const k of ['text', 'label', 'css', 'option'] as const) {
+          const v = f[k];
+          if (!v) continue;
+          if (/\{\{\w+\}\}/.test(v)) {
+            const filled = this.tpl(v);
+            if (!filled || /^\s*$/.test(filled)) return null;
+            out[k] = filled;
+          }
+        }
+        return out;
+      })
+      .filter((f): f is Locator => !!f);
+  }
+  t(key: string, params?: Record<string, string | number>) {
+    return t(this.copy, key, params);
+  }
+  /** 長輩與小朋友：每一步唸出來、顯示補充說明、付款前多確認 */
+  get loud() {
+    return this.state.mode !== 'normal';
+  }
+
+  async run() {
+    this.clearStep();
+    this.ui.setDim(true); // 一進來就先變暗，找到目標再亮框
+    this.ui.place(null); // 先把上一步的亮框收掉，找到新目標再亮
+    let step = this.step;
+    if (!step) return this.finish();
+
+    // 目前這一步不在這個頁面，但後面有某一步的網址符合 → 直接跳過去（使用者自己走到了，或目錄直接送到內頁）
+    if (step.url && !new RegExp(step.url).test(location.pathname)) {
+      const later = this.guide.steps.findIndex((s, i) => i > this.state.step && s.url && new RegExp(s.url).test(location.pathname));
+      if (later > 0) {
+        this.state.step = later;
+        step = this.step!;
+      }
+    }
+    // 已經做完的步驟（欄位有值、要點的東西已經展開…）直接跳過：使用者領先就追上去
+    while (step && !step.final && this.state.step + 1 < this.guide.steps.length && this.isStepDone(step)) {
+      this.state.step++;
+      step = this.step!;
+    }
+    saveState(this.state);
+    // 連續兩步都自己完成 → 使用者會了，收成小圓鈕躲起來（卡住或點圓鈕再出來）
+    if (!this.collapsed && this.selfStreak >= 2) this.collapse();
+    const quiet = this.collapsed;
+
+    const onRightPage = !step.url || new RegExp(step.url).test(location.pathname);
+    let say = this.tx(step.say);
+    if (/「」/.test(say) && step.say_default) say = this.tx(step.say_default);
+    const more = this.tx(step.more);
+    if (!quiet) this.renderPanel(say, more);
+
+    if (!onRightPage) {
+      // 不在這一步的頁面：用 sitemap 規劃從現在這一頁要點什麼才會到那裡
+      const planned = quiet ? false : await this.planTo(new RegExp(step.url!));
+      if (planned) return;
+      this.ui.place(null);
+      return;
+    }
+
+    if (step.skip_if_visible && step.skip_if_visible.some((l) => isVisible(locate([l])))) return this.advance();
+
+    let el = await waitFor(() => locate(this.finders(step)), 6000);
+    let picked: { label: string; score: number } | null = null;
+    if (!el) {
+      if (step.skip_if_missing) return this.advance();
+      // 版面感知後備：抓這一頁所有可互動元素，用這一步的意圖挑最像的
+      const goal = this.state.params?.entity || this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || say.replace(/[「」]/g, '');
+      const best = await this.autoPick(goal, step);
+      if (best) {
+        el = best.el;
+        picked = { label: best.label, score: best.score };
+      }
+    }
+    if (!el) {
+      tplog('overlay', `step ${this.state.step + 1} ${step.id}: target not found`, { url: location.pathname, find: step.find }, 'warn');
+      this.ui.setDim(false); // 找不到就不要把整頁變黑
+      this.ui.place(null);
+      if (quiet) return;
+      const hint = this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '');
+      this.renderPanel(hint ? this.t('guide_not_found', { text: hint }) : say, more, true);
+      return;
+    }
+    if (picked) {
+      say = this.t('guide_maybe', { text: picked.label });
+    }
+    // 目標被提示視窗（modal）蓋住 → 先把視窗的「確認 / 關閉」當臨時目標，關掉後再回到這一步
+    const cover = coveringButton(el);
+    if (cover && this.coverAttempts >= 2) {
+      // 按了兩次還關不掉（例如定位被拒、提示一直跳）：不再代按，請使用者處理或離開
+      this.ui.setDim(false);
+      this.ui.place(null);
+      this.ui.show({ say: this.t('guide_popup_stuck'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [{ label: this.t('guide_next') + ' ➜', onClick: () => { this.coverAttempts = 0; this.run(); } }], icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }] });
+      return;
+    }
+    if (cover) {
+      if (quiet) {
+        // 躲起來的時候不管提示視窗，使用者自己關
+        this.target = el;
+        this.watchDone(step, el);
+        this.armStuck();
+        return;
+      }
+      this.coverAttempts++;
+      this.target = cover;
+      this.startTracking();
+      this.selectValue = null;
+      this.ui.show({
+        say: this.t('guide_close_popup', { text: cover.textContent?.trim().slice(0, 10) || '' }),
+        stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
+        buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: cover.textContent?.trim().slice(0, 10) || '' })}`, onClick: () => { cover.click(); setTimeout(() => this.run(), 500); } }],
+        icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }]
+      });
+      this.ui.hideInput();
+      const h = () => setTimeout(() => this.run(), 500);
+      cover.addEventListener('click', h, { once: true });
+      this.cleanup.push(() => cover.removeEventListener('click', h));
+      return;
+    }
+    this.selectValue = pendingOption && pendingOption.select === el ? pendingOption : null;
+    if (!coveringButton(el)) this.coverAttempts = 0;
+
+    if (step.confirm && this.loud && !quiet) {
+      const label = this.tpl(step.find[0]?.text || '');
+      const ok = await this.ui.ask(this.t('guide_confirm_q', { text: label }), this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
+      if (!ok) return; // 留在這一步，使用者自己決定
+      this.renderPanel(say, more);
+    }
+
+    this.target = el;
+    tplog('overlay', `step ${this.state.step + 1} ${step.id} → ${el.tagName}|${(el.textContent || (el as HTMLInputElement).placeholder || '').trim().slice(0, 20)}${picked ? ' (autoPick ' + picked.score.toFixed(2) + ')' : ''}${quiet ? ' (quiet)' : ''}`, { url: location.pathname });
+    this.watchDone(step, el);
+    this.armStuck();
+    if (quiet) return; // 躲起來：只默默看進度
+    // 陪伴：框住頁面上真正的欄位 / 按鈕，使用者自己操作 App；面板只說明該做什麼
+    this.startTracking();
+    this.renderPanel(say, more);
+    this.ui.hideInput();
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    setTimeout(() => this.ui.place(this.target), 350);
+    this.ui.place(el);
+    if (this.loud) this.speak(say + (more ? '。' + more : ''));
+
+    // 工具層帶進來的參數：預填 + 請使用者確認（只填使用者自己說過的內容）
+    const preKey = step.prefill ?? step.id;
+    const pre = this.state.params?.[preKey];
+    if (pre && step.accept && (el as HTMLInputElement).value === '') {
+      delete this.state.params![preKey];
+      saveState(this.state);
+      this.fill(pre);
+    }
+
+    // 下拉選單：使用者已經說了要哪一個（例如「找廁所」→ 公廁）→ 直接幫他選好並確認，
+    // 不用在系統選單裡找（手機的原生選單打開時網頁什麼都框不到）
+    if (el.tagName === 'SELECT' && this.selectValue && (el as HTMLSelectElement).value !== this.selectValue.value && !this.askedSelect.has(step.id)) {
+      this.askedSelect.add(step.id);
+      const v = this.selectValue;
+      const token = this.stepToken;
+      const ok = await this.ui.ask(this.t('guide_select_confirm', { text: v.text }), this.t('guide_confirm_yes'), this.t('guide_self_pick'));
+      if (token !== this.stepToken) return;
+      if (ok) {
+        const sel = el as HTMLSelectElement;
+        sel.value = v.value;
+        sel.dispatchEvent(new Event('input', { bubbles: true }));
+        sel.dispatchEvent(new Event('change', { bubbles: true })); // change 監聽器會前進
+        this.selfStreak = 0;
+      } else {
+        this.renderPanel(say, more);
+        if (this.loud) this.speak(say);
+      }
+    }
+  }
+
+  renderPanel(say: string, more: string, manualNext = false) {
+    const step = this.step!;
+    const showMore = this.loud || manualNext;
+    const isSelect = !!this.target && this.target.tagName === 'SELECT';
+    const clickable = !!this.target && (/^(BUTTON|A|LABEL)$/.test(this.target.tagName) || isSelect);
+    const selOpt = isSelect ? (this.selectValue ?? (pendingOption && pendingOption.select === this.target ? pendingOption : null)) : null;
+    const label = isSelect ? (selOpt ? selOpt.text : '') : (this.tpl(step.find[0]?.text || step.find[0]?.label || step.find[0]?.option || '') || this.target?.textContent?.trim().slice(0, 12) || '');
+    // 主要動作鍵：有按鈕目標 → 幫我按「查詢」；其他 → 下一步（輸入欄位會先檢查）
+    const mains: PanelButton[] = [];
+    if (clickable) {
+      // 使用者自己點畫面上框起來的東西；長輩 / 小朋友多一顆「幫我按」當備援
+      if (this.loud) mains.push({ label: `✓ ${isSelect && !label ? this.t('guide_pick_one') : this.t(isSelect ? 'guide_select_for_me' : 'guide_press_for_me', { text: label })}`, secondary: true, onClick: () => this.doAction() });
+    } else if (step.done_when === 'manual' || manualNext || step.accept) {
+      mains.push({ label: (step.accept ? this.t('guide_filled_next') : this.t('guide_next')) + ' ➜', onClick: () => this.doAction() });
+    }
+    this.ui.show({
+      say,
+      more: showMore ? more : '',
+      stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
+      buttons: [
+        ...(step.accept ? [{ label: '🎤', icon: true, title: this.t('guide_voice'), onClick: () => this.onVoice() }] : []),
+        ...(step.accept ? [{ label: '⌨️', icon: true, secondary: true, title: this.t('guide_keyboard'), onClick: () => this.keyboard() }] : []),
+        ...mains
+      ],
+      icons: [
+        { label: '❓', title: this.t('guide_help'), onClick: () => this.help() },
+        { label: '🔊', title: this.t('guide_repeat'), onClick: () => this.speak(say + (more ? '。' + more : '')) },
+        { label: '‹', title: this.t('guide_back'), onClick: () => this.goBack() },
+        { label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }
+      ]
+    });
+  }
+
+  selectValue: { select: HTMLSelectElement; value: string; text: string } | null = null;
+  coverAttempts = 0;
+  /** 這一步已經問過「幫你選 X 好嗎」（不要每次重新定位都再問） */
+  askedSelect = new Set<string>();
+
+  sitemap: Sitemap | null | undefined = undefined;
+
+  /** 用 sitemap 找路：從現在的頁面到符合 target 的頁面，把路徑上的第一個元素當成臨時目標 */
+  async planTo(target: RegExp): Promise<boolean> {
+    if (this.sitemap === undefined) this.sitemap = await loadSitemap(BASE);
+    if (!this.sitemap) return false;
+    const path = findPath(this.sitemap, location.pathname, target);
+    if (!path || !path.length) return false;
+    const first = path[0];
+    let el = document.querySelector<HTMLElement>(first.css);
+    if (!el || !isVisible(el)) el = byText(first.label, false) ?? null;
+    if (!el || !isVisible(el)) {
+      // 要先展開 / 切分頁才看得到
+      if (first.requires_click) {
+        const pre = document.querySelector<HTMLElement>(first.requires_click);
+        if (pre && isVisible(pre)) el = pre;
+      }
+      if (!el || !isVisible(el)) return false;
+    }
+    this.target = el;
+    this.startTracking();
+    const label = (el.textContent || first.label).trim().slice(0, 12);
+    this.ui.show({
+      say: this.t('guide_go_via', { text: label }),
+      more: path.length > 1 ? path.map((e) => '「' + e.label.slice(0, 8) + '」').join(' → ') : '',
+      stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }),
+      buttons: [{ label: `✓ ${this.t('guide_press_for_me', { text: label })}`, onClick: () => el!.click() }],
+      icons: [
+        { label: '🔊', title: this.t('guide_repeat'), onClick: () => this.speak(this.t('guide_go_via', { text: label })) },
+        { label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }
+      ]
+    });
+    this.ui.hideInput();
+    if (this.loud) this.speak(this.t('guide_go_via', { text: label }));
+    return true;
+  }
+
+  /** 版面感知：列出這一頁可互動的元素，依「目標文字」打分挑最像的（先字元相似度 + 別名，再問 LLM） */
+  async autoPick(goal: string, step: Step): Promise<{ el: HTMLElement; label: string; score: number } | null> {
+    const g = goal.trim();
+    if (!g) return null;
+    const cands = collectInteractive();
+    if (this.sitemap === undefined) this.sitemap = await loadSitemap(BASE);
+    if (this.sitemap) {
+      for (const se of elementsOf(this.sitemap, location.pathname)) {
+        const el = document.querySelector<HTMLElement>(se.css);
+        if (el && isVisible(el) && !cands.some((c) => c.el === el)) cands.push({ el, label: se.label, kind: se.kind });
+      }
+    }
+    if (!cands.length) return null;
+    let best = cands.map((c) => ({ ...c, score: textSimilarity(g, c.label) })).sort((a, b) => b.score - a.score)[0];
+    if (best.score >= 0.45) return best;
+    // LLM（筆電 / 4090 的大模型才有用；手機上的 270M 只會挑服務，所以信心不夠就不採用）
+    try {
+      if (!this.catalog) this.catalog = await fetchJson<Catalog>(`${BASE}data/catalog.json`);
+      const llm = new LlmDecider(LLM_URL);
+      await llm.ready();
+      const codes = 'ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxy';
+      const top = cands.slice(0, codes.length);
+      const options = top.map((c, i) => ({ code: codes[i], label: c.label, desc: c.kind }));
+      options.push({ code: 'Z', label: '都不是', desc: '沒有適合的' });
+      const probs = await llm.score({ text: `目標：${g}。這一步：${this.tx(step.say)}`, options, instruction: '你是畫面導覽員。下面是畫面上可以點的東西，選出為了達成目標應該點的那一個，只輸出一個字母。', noneCode: 'Z', setId: 'ui_' + location.pathname });
+      const d = decide(probs, 'Z', { go: 0.6, ask2: 2, ask3: 2 });
+      if (d.kind === 'GO') {
+        const i = codes.indexOf(d.code);
+        if (i >= 0 && top[i]) return { ...top[i], score: probs[d.code] };
+      }
+    } catch {
+      /* 沒有 LLM 就算了 */
+    }
+    return best.score >= 0.3 ? best : null;
+  }
+
+  /** 這一步是不是已經做完了（狀態感知） */
+  isStepDone(step: Step): boolean {
+    if (step.url && !new RegExp(step.url).test(location.pathname)) return false;
+    if (step.skip_if_visible && step.skip_if_visible.some((l) => isVisible(locate([l])))) return true;
+    if (step.done_when === 'change') {
+      const el = locate(this.finders(step)) as HTMLSelectElement | null;
+      if (!el || el.tagName !== 'SELECT') return false;
+      if (pendingOption && pendingOption.select === el) return el.value === pendingOption.value && el.value !== '';
+      return el.value !== ''; // 沒指定選項：有選就算完成
+    }
+    if (step.done_when === 'input') {
+      const el = locate(this.finders(step)) as HTMLInputElement | null;
+      if (!el) return false;
+      const v = el.value ?? '';
+      if (!v.trim()) return false;
+      if (!step.accept || step.accept === 'text') return true;
+      const r = extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len });
+      return r.ok && r.value === v.trim();
+    }
+    return false;
+  }
+
+  /** 幫我做這一步：按鈕就代按（付款/送出類先問一次）、輸入欄位就檢查後前進 */
+  async doAction() {
+    const step = this.step;
+    const el = this.target;
+    if (!step) return;
+    this.selfStreak = 0;
+    if (el && el.tagName === 'SELECT') {
+      const sel = el as HTMLSelectElement;
+      const v = this.selectValue ?? pendingOption;
+      const pickValue = (value: string) => {
+        sel.value = value;
+        sel.dispatchEvent(new Event('input', { bubbles: true }));
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+        const token = this.stepToken;
+        if (step.done_when !== 'change') setTimeout(() => token === this.stepToken && this.advance(), 400); // change 類步驟由監聽器前進
+      };
+      if (v && v.select === sel) pickValue(v.value);
+      else {
+        // 沒有指定選項：把選項列在面板上讓使用者點，點了就幫他選好
+        const opts = [...sel.options].filter((o) => o.value !== '').slice(0, 10);
+        this.ui.choices(this.t('guide_pick_one'), opts.map((o) => ({ label: o.text.trim().slice(0, 16), onClick: () => pickValue(o.value) })));
+      }
+      return;
+    }
+    if (el && /^(BUTTON|A|LABEL)$/.test(el.tagName)) {
+      if (step.confirm) {
+        const ok = await this.ui.ask(this.t('guide_confirm_q', { text: this.tpl(step.find[0]?.text || '') }), this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
+        if (!ok) return;
+      }
+      el.click();
+      const token = this.stepToken;
+      if (step.done_when === 'manual' || step.done_when === 'input') setTimeout(() => token === this.stepToken && this.advance(), 300);
+      return;
+    }
+    if (el && step.accept) {
+      const v = (el as HTMLInputElement).value ?? '';
+      const r = extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len });
+      if (!r.ok || (step.accept !== 'text' && r.value !== v.trim())) {
+        this.ui.flash(this.t(step.accept === 'digits' ? 'guide_no_digits' : 'guide_unknown'));
+        this.keyboard();
+        return;
+      }
+    }
+    this.advance();
+  }
+
+  watchDone(step: Step, el: HTMLElement) {
+    switch (step.done_when) {
+      case 'click': {
+        const token = this.stepToken;
+        const h = (ev: Event) => {
+          const n = ev.target as Node | null;
+          if (n && (el === n || el.contains(n) || (n as Element).contains?.(el))) setTimeout(() => token === this.stepToken && this.advanceBy('self'), 150);
+        };
+        document.addEventListener('click', h, true);
+        this.cleanup.push(() => document.removeEventListener('click', h, true));
+        break;
+      }
+      case 'input': {
+        const token = this.stepToken;
+        const check = () => {
+          if (token !== this.stepToken) return; // 這一步已經結束
+          if (this.confirming) return; // 預填中，等使用者按「對」
+          const v = (el as HTMLInputElement).value ?? '';
+          const r = step.accept ? extract(v, step.accept, { minLen: step.min_len, maxLen: step.max_len }) : { ok: v.trim().length > 0, value: v };
+          if (r.ok && r.value === v.trim()) this.advanceBy('self');
+        };
+        const h = debounce(check, 600);
+        el.addEventListener('input', h);
+        this.cleanup.push(() => el.removeEventListener('input', h));
+        check();
+        break;
+      }
+      case 'change': {
+        const token = this.stepToken;
+        const h = () => {
+          if (token === this.stepToken && this.isStepDone(step)) this.advanceBy('self');
+        };
+        el.addEventListener('change', h);
+        this.cleanup.push(() => el.removeEventListener('change', h));
+        break;
+      }
+      case 'route':
+        // onRoute() 會處理
+        break;
+    }
+  }
+
+  onRoute() {
+    if (location.pathname === this.lastPath) return;
+    this.lastPath = location.pathname;
+    const step = this.step;
+    if (!step) return;
+    const inScope = (this.guide.match && new RegExp(this.guide.match.url).test(location.pathname)) || this.guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
+    if (!inScope) return this.exit();
+    if (step.done_when === 'route' && this.target) return void this.advanceBy('self'); // 使用者自己走到下一頁
+    // 其他情況：頁面變了就重新定位
+    this.run();
+  }
+
+  onMutate() {
+    if (!this.target) {
+      // 還沒找到目標（可能是頁面還在載入），再試一次
+      if (this.step && !this.busy) this.retryLocate();
+      return;
+    }
+    if (!document.contains(this.target)) {
+      this.target = null;
+      this.run();
+      return;
+    }
+    if (this.step && this.step.done_when !== 'manual' && this.isStepDone(this.step)) return void this.advanceBy('self');
+    this.ui.place(this.target);
+  }
+
+  retryLocate = throttle(() => {
+    const step = this.step;
+    if (!step || this.target) return;
+    if (step.url && !new RegExp(step.url).test(location.pathname)) return;
+    if (locate(this.finders(step))) this.run();
+  }, 800);
+
+  /** 使用者自己做完的步驟：連勝 +1（兩步就躲起來） */
+  selfStreak = 0;
+  collapsed = false;
+  advanceBy(who: 'self' | 'panel') {
+    if (who === 'self') this.selfStreak++;
+    else this.selfStreak = 0;
+    this.advance();
+  }
+  collapse() {
+    this.collapsed = true;
+    this.ui.collapse(this.t('guide_mini'), () => this.expand());
+    tplog('overlay', 'collapsed (user is doing fine)');
+  }
+  expand() {
+    if (!this.collapsed) return;
+    this.collapsed = false;
+    this.selfStreak = 0;
+    this.ui.expand();
+    this.run();
+  }
+
+  advance() {
+    if (this.busy) return;
+    this.busy = true;
+    const step = this.step;
+    this.clearStep();
+    if (!step || step.final || this.state.step + 1 >= this.guide.steps.length) {
+      this.busy = false;
+      return this.finish();
+    }
+    this.state.step++;
+    saveState(this.state);
+    this.busy = false;
+    this.run();
+  }
+
+  back() {
+    if (this.state.step === 0) return;
+    this.clearStep();
+    this.state.step--;
+    this.run();
+  }
+
+  /** 叫出鍵盤：數字欄位設成數字鍵盤，然後 focus */
+  keyboard() {
+    if (this.ui.focusInput()) return;
+    const el = this.target as HTMLInputElement | null;
+    if (!el) return;
+    if (this.step?.accept === 'digits' || this.step?.accept === 'phone') el.setAttribute('inputmode', 'numeric');
+    el.focus();
+  }
+
+  /** 真的回上一頁：有瀏覽紀錄就 history.back()，導覽步驟也退一步 */
+  goBack() {
+    this.clearStep();
+    if (this.state.step > 0) this.state.step--;
+    saveState(this.state);
+    if (history.length > 1) history.back();
+    else this.run();
+  }
+
+  help() {
+    this.selfStreak = 0;
+    const more = this.tx(this.step?.more) || this.tx(this.step?.say);
+    this.ui.forceMore(more);
+    this.speak(more);
+  }
+
+  speak(text: string) {
+    tts(text, this.copy.stt_lang || 'zh-TW');
+  }
+
+  /* ---- 語音：填內容 or 指令 ---- */
+  async onVoice() {
+    const step = this.step;
+    if (!step) return;
+    this.selfStreak = 0;
+    this.ui.setListening(true);
+    this.ui.live(this.t('guide_listening'));
+    const off = onSttPartial((t) => this.ui.live('「' + t + '」'));
+    const r = await stt(this.copy.stt_lang || 'zh-TW').catch(() => ({ text: '' }));
+    off();
+    this.ui.live('');
+    this.ui.setListening(false);
+    if (r.text) this.ui.flash(this.t('guide_heard') + r.text);
+    const text = (r.text || '').trim();
+    if (!text) return this.ui.flash(this.t('guide_unknown'));
+    await this.handleUtterance(text);
+  }
+
+  async handleUtterance(text: string) {
+    const step = this.step!;
+    tplog('overlay', 'utterance: ' + text, { step: step.id });
+    // 1. 規則
+    let cmd: CommandId | null = matchCommandRule(text);
+    // 2. 這一步要填東西：只抓要填的內容（數字欄位就只看數字）；抓不到就提示，不會誤判成「想做別的事」
+    if (!cmd && step.accept && this.target) {
+      const r = extract(text, step.accept, { minLen: step.min_len, maxLen: step.max_len });
+      if (r.ok) return this.fill(r.value);
+      if (step.accept === 'digits' || step.accept === 'phone') {
+        this.ui.flash(this.t('guide_no_digits') + (r.value ? `（${r.value}）` : ''));
+        this.keyboard();
+        return;
+      }
+    }
+    // 3. 交給決策器（1 個 token）；不確定就用按鈕追問，不猜
+    if (!cmd) {
+      const res = await this.classifyCommand(text, step);
+      if (res && typeof res !== 'string') {
+        cmd = await this.askCommand(res);
+        if (!cmd) return;
+      } else cmd = res;
+    }
+    switch (cmd) {
+      case 'NEXT': return this.advance();
+      case 'BACK': return this.goBack();
+      case 'HELP': return this.help();
+      case 'REPEAT': return this.speak(this.tx(step.say));
+      case 'EXIT': return this.exit();
+      case 'FILL': {
+        if (step.accept && this.target) {
+          const r = extract(text, step.accept, { minLen: step.min_len, maxLen: step.max_len });
+          if (r.ok) return this.fill(r.value);
+        }
+        return this.ui.flash(this.t('guide_unknown'));
+      }
+      case 'OTHER': {
+        // 太短的話不當作要換服務（常是語音沒聽清楚）
+        if (text.length < 4) return this.ui.flash(this.t('guide_unknown'));
+        const ok = await this.ui.ask(this.t('guide_other_q') + `「${text}」`, this.t('guide_confirm_yes'), this.t('guide_confirm_no'));
+        if (ok) {
+          clearState();
+          location.href = `${BASE}?q=${encodeURIComponent(text)}&lang=${this.state.lang}`;
+        } else this.renderPanel(this.tx(step.say), this.tx(step.more));
+        return;
+      }
+      default:
+        return this.ui.flash(this.t('guide_unknown'));
+    }
+  }
+
+  /** 不確定時讓使用者點：你是要…？ */
+  askCommand(candidates: CommandId[]): Promise<CommandId | null> {
+    const label = (id: CommandId) => this.catalog?.commands.options.find((o) => o.id === id)?.label ?? id;
+    return new Promise((resolve) => {
+      this.ui.choices(this.t('guide_which_cmd'), [
+        ...candidates.map((c) => ({ label: label(c), onClick: () => resolve(c) })),
+        { label: this.t('guide_confirm_no'), secondary: true, onClick: () => resolve(null) }
+      ]);
+    });
+  }
+
+  async classifyCommand(text: string, step: Step): Promise<CommandId | CommandId[] | null> {
+    try {
+      if (!this.catalog) {
+        this.catalog = await fetchJson<Catalog>(`${BASE}data/catalog.json`);
+        setCatalog(this.catalog);
+      }
+      if (!this.decider) this.decider = await pickDecider(commandOptions(this.catalog), this.catalog);
+      const req = commandRequest(this.catalog, text, this.tx(step.say));
+      const probs = await this.decider.score(req);
+      const idOf = (code: string) => this.catalog!.commands.options.find((o) => o.code === code)?.id as CommandId | undefined;
+      const d = decide(probs, this.catalog.commands.none_code, { go: 0.6, ask2: 0.6, ask3: 0.6 });
+      if (d.kind === 'GO') return idOf(d.code) ?? null;
+      if (d.kind === 'ASK') return d.codes.map(idOf).filter((x): x is CommandId => !!x);
+      if (d.kind === 'NONE' && probs[this.catalog.commands.none_code] >= 0.5) return 'OTHER';
+      // 都不確定：拿前兩名來問
+      const top = Object.entries(probs).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([c]) => idOf(c)).filter((x): x is CommandId => !!x);
+      if (top.length) return top;
+    } catch (e) {
+      console.warn('[tp-guide] classify failed', e);
+    }
+    return null;
+  }
+
+  confirming = false;
+
+  async fill(value: string) {
+    const el = this.target as HTMLInputElement | null;
+    if (!el) return;
+    this.confirming = true;
+    setNativeValue(el, value);
+    this.ui.setInputValue(value);
+    const ok = await this.ui.ask(this.t('guide_fill_confirm', { value }), this.t('guide_fill_yes'), this.t('guide_fill_no'));
+    this.confirming = false;
+    if (ok) {
+      if (this.step?.done_when === 'input') this.advance();
+      else this.renderPanel(this.tx(this.step?.say), this.tx(this.step?.more));
+    } else {
+      setNativeValue(el, '');
+      this.renderPanel(this.tx(this.step?.say), this.tx(this.step?.more));
+      this.onVoice();
+    }
+  }
+
+  armStuck() {
+    clearTimeout(this.stuckTimer);
+    this.stuckTimer = window.setTimeout(async () => {
+      if (!this.step) return;
+      if (this.collapsed) return this.expand(); // 躲著但使用者卡住了 → 出來
+      const ok = await this.ui.ask(this.t('guide_stuck'), this.t('guide_help'), '📞 1999');
+      if (ok) this.help();
+      else phoneCall('1999');
+    }, STUCK_MS);
+  }
+
+  raf = 0;
+  lostSince = 0;
+
+  /** 每一幀都重新量目標位置：分頁滑動、動畫、捲動、鍵盤都跟得上；目標不見就先收掉亮框，1.5 秒內找不回來就重新定位 */
+  trackTimer = 0;
+  startTracking() {
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.trackTimer);
+    this.lostSince = 0;
+    // 背景分頁 / WebView 暫停時 rAF 不跑，用 interval 補
+    this.trackTimer = window.setInterval(() => {
+      const el = this.target;
+      if (el && document.contains(el) && isVisible(el)) this.ui.place(el);
+    }, 150);
+    const loop = () => {
+      const el = this.target;
+      if (!el) return;
+      const gone = !document.contains(el) || !isVisible(el);
+      if (gone) {
+        this.ui.place(null);
+        if (!this.lostSince) this.lostSince = Date.now();
+        else if (Date.now() - this.lostSince > 1500) {
+          this.target = null;
+          this.run();
+          return;
+        }
+      } else {
+        this.lostSince = 0;
+        this.ui.place(el);
+      }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  /** 每換一步就 +1；延遲觸發的監聽器（debounce / timer）拿到舊 token 就作廢，避免前進兩次 */
+  stepToken = 0;
+
+  clearStep() {
+    this.stepToken++;
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.trackTimer);
+    clearTimeout(this.stuckTimer);
+    for (const c of this.cleanup.splice(0)) c();
+    this.target = null;
+  }
+
+  finish() {
+    this.clearStep();
+    clearState();
+    this.collapsed = false;
+    this.ui.expand();
+    this.ui.setShield(false);
+    this.ui.setDim(false);
+    this.ui.place(null);
+    this.ui.show({ say: this.t('guide_done'), buttons: [{ label: this.t('guide_close'), onClick: () => this.ui.destroy() }] });
+    if (this.loud) this.speak(this.t('guide_done'));
+  }
+
+  exit() {
+    this.clearStep();
+    for (const c of this.cleanupAll.splice(0)) c();
+    clearState();
+    sessionStorage.setItem('tp_guide_declined_' + this.guide.id, '1');
+    this.ui.destroy();
+  }
+}
+
+async function pickDecider(options: Option[], catalog: Catalog): Promise<Decider> {
+  const sets = [{ options, instruction: catalog.commands.instruction, noneCode: catalog.commands.none_code, setId: 'commands' }];
+  const llm = new LlmDecider(LLM_URL);
+  try {
+    await llm.ready({ sets });
+    return llm;
+  } catch {
+    const tiny = new TinyDecider({ modelBase: `${BASE}models/` });
+    await tiny.ready({ sets });
+    return tiny;
+  }
+}
+
+/* ---------- 定位：依照現有 DOM，多個方式依序嘗試 ---------- */
+
+/** 定位結果附帶「要選的選項值」（下拉選單） */
+export let pendingOption: { select: HTMLSelectElement; value: string; text: string } | null = null;
+
+export function locate(finders: Locator[]): HTMLElement | null {
+  pendingOption = null;
+  // 有彈出視窗時先在裡面找
+  const dialog = document.querySelector<HTMLElement>('[role=dialog], dialog[open]');
+  const scopes: ParentNode[] = dialog ? [dialog, document] : [document];
+  for (const scope of scopes) {
+    for (const f of finders) {
+      let el: HTMLElement | null = null;
+      if (f.css) el = scope.querySelector<HTMLElement>(f.css);
+      else if (f.option) el = byOption(f.option, scope);
+      else if (f.label) el = byLabel(f.label, scope);
+      else if (f.text) el = byText(f.text, f.exact, f.role, scope) ?? byOption(f.text, scope);
+      else if (f.role) el = byRole(f.role, scope);
+      if (el && isVisible(el)) return el;
+    }
+  }
+  return null;
+}
+
+/** 下拉選單：找選項文字 → 回傳 <select>，並記下要選的值 */
+function byOption(text: string, scope: ParentNode = document): HTMLElement | null {
+  const want = text.trim();
+  for (const sel of scope.querySelectorAll<HTMLSelectElement>('select')) {
+    const opt = [...sel.options].find((o) => o.text.trim() === want) ?? [...sel.options].find((o) => o.text.includes(want));
+    if (opt) {
+      pendingOption = { select: sel, value: opt.value, text: opt.text.trim() };
+      return sel;
+    }
+  }
+  return null;
+}
+
+function byText(text: string, exact = false, role?: Locator['role'], scope: ParentNode = document): HTMLElement | null {
+  const want = text.trim();
+  const all = scope.querySelectorAll<HTMLElement>('*');
+  let best: HTMLElement | null = null;
+  for (const el of all) {
+    if (el.closest('#tp-guide-host')) continue;
+    if (/^(SCRIPT|STYLE|OPTION|SELECT|HTML|HEAD|BODY)$/.test(el.tagName)) continue;
+    if (el.children.length > 0 && !/^(BUTTON|A|LABEL)$/.test(el.tagName)) {
+      // 只看「自己的」文字節點，避免抓到整頁的容器
+      const own = Array.from(el.childNodes).filter((n) => n.nodeType === 3).map((n) => n.textContent ?? '').join('').trim();
+      if (!(exact ? own === want : own.includes(want))) continue;
+    } else {
+      const s = (el.textContent ?? '').replace(/\s+/g, ' ').trim();
+      if (!(exact ? s === want : s.includes(want))) continue;
+    }
+    if (!isVisible(el)) continue;
+    const clickable = el.closest<HTMLElement>('button, a, [role=button], label, [onclick], .cursor-pointer') ?? el;
+    if (role === 'button' && !/^(BUTTON|A)$/.test(clickable.tagName) && clickable.getAttribute('role') !== 'button') continue;
+    best = clickable;
+    break;
+  }
+  return best;
+}
+
+function byLabel(label: string, scope: ParentNode = document): HTMLElement | null {
+  for (const l of scope.querySelectorAll<HTMLLabelElement>('label')) {
+    if (!(l.textContent ?? '').trim().startsWith(label)) continue;
+    const forId = l.getAttribute('for');
+    const el = (forId ? document.getElementById(forId) : l.querySelector('input,textarea,select')) as HTMLElement | null;
+    // radio / checkbox 本身常是隱藏的，目標改成 label（點 label 就等於點它）
+    if (el && /^(radio|checkbox)$/.test((el as HTMLInputElement).type || '')) return l;
+    if (el && isDisplayed(el)) return el;
+    // 標籤的下一個欄位
+    const next = l.parentElement?.querySelector<HTMLElement>('input,textarea,select');
+    if (next && isDisplayed(next)) return next;
+  }
+  return null;
+}
+
+function byRole(role: Locator['role'], scope: ParentNode = document): HTMLElement | null {
+  const sel = role === 'input' ? 'input,textarea,select' : role === 'link' ? 'a[href]' : 'button,[role=button]';
+  for (const el of scope.querySelectorAll<HTMLElement>(sel)) if (isDisplayed(el)) return el;
+  return null;
+}
+
+function isDisplayed(el: HTMLElement | null): boolean {
+  if (!el) return false;
+  const r = el.getBoundingClientRect();
+  return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden';
+}
+
+/** 真的看得到：沒被任何 overflow:hidden / clip 的祖先裁掉（例如收合的清單） */
+function isVisible(el: HTMLElement | null): boolean {
+  if (!el || !isDisplayed(el)) return false;
+  const r = el.getBoundingClientRect();
+  let p = el.parentElement;
+  while (p && p !== document.body) {
+    const ov = getComputedStyle(p).overflow + getComputedStyle(p).overflowY;
+    if (/hidden|clip|auto|scroll/.test(ov)) {
+      const pr = p.getBoundingClientRect();
+      const overlap = Math.min(r.bottom, pr.bottom) - Math.max(r.top, pr.top);
+      if (pr.height < 2 || overlap < Math.min(8, r.height / 2)) return false;
+    }
+    p = p.parentElement;
+  }
+  return true;
+}
+
+/* ---------- UI（Shadow DOM，不吃服務頁的 CSS） ---------- */
+
+interface PanelButton {
+  label: string;
+  secondary?: boolean;
+  icon?: boolean;
+  title?: string;
+  onClick: () => void;
+}
+
+class Ui {
+  host: HTMLElement;
+  root: ShadowRoot;
+  spot: HTMLElement;
+  panel: HTMLElement;
+  say: HTMLElement;
+  more: HTMLElement;
+  stepEl: HTMLElement;
+  btns: HTMLElement;
+  askEl: HTMLElement;
+
+  dim: HTMLElement;
+  shield!: HTMLElement;
+  shieldHint = '請用下面的面板操作';
+  /** 頁面可不可點 */
+  setShield(on: boolean) {
+    this.shield.classList.toggle('on', on);
+  }
+  dimWanted = false;
+  prevPadding = '';
+  lastScrollNudge = 0;
+
+  constructor(mode: Mode) {
+    curMode = mode;
+    this.host = document.createElement('div');
+    this.host.id = 'tp-guide-host';
+    this.root = this.host.attachShadow({ mode: 'open' });
+    const scale = SCALE[mode] ?? 1;
+    this.root.innerHTML = `
+      <style>
+        :host { all: initial; }
+        .dim { position: fixed; inset: 0; z-index: 2147482999; background: rgba(0,0,0,.35); pointer-events: none; display: none; }
+        .dim.on { display: block; }
+        /* 獨占模式：導覽中頁面不可點，所有操作都在面板上（簡單易懂、不會點錯） */
+        .shield { position: fixed; inset: 0; z-index: 2147483000; display: none; background: transparent; touch-action: none; }
+        .shield.on { display: block; }
+        .spot { position: fixed; z-index: 2147483000; border-radius: 10px; pointer-events: none; display: none;
+                box-shadow: 0 0 0 4px #2eb6c7, 0 0 0 9999px rgba(0,0,0,.55); transition: top .25s, left .25s, width .25s, height .25s; }
+        .panel { position: fixed; z-index: 2147483001; left: 0; right: 0; bottom: 0; background: #fff; color: #171b1d;
+                 font-family: 'PingFang TC', Roboto, system-ui, sans-serif; font-size: ${16 * scale}px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+                 border-radius: 18px 18px 0 0; box-shadow: 0 -6px 20px rgba(0,0,0,.18); max-height: 42vh; overflow: auto; }
+        .panel.top { top: 0; bottom: auto; border-radius: 0 0 18px 18px; padding-top: calc(10px + env(safe-area-inset-top)); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+        .panel.kb { max-height: 30vh; padding-top: 6px; padding-bottom: 6px; }
+        .panel.kb .more, .panel.kb .icons, .panel.kb .step { display: none; }
+        .panel.kb .say { font-size: 1em; }
+        .panel.kb .btns { margin-top: 6px; }
+        button, .icons button { -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+        .head { display: flex; align-items: center; gap: 8px; }
+        .step { color: #738995; font-size: .7em; flex: 1; }
+        .icons { display: flex; gap: 6px; }
+        .icons button { width: 2.4em; height: 2.4em; min-height: 0; padding: 0; border-radius: 50%; background: #edf8fa; color: #2eb6c7; font-size: 1em; }
+        .say { font-weight: 700; font-size: 1.15em; line-height: 1.3; margin-top: 4px; }
+        .more { color: #475259; margin-top: 4px; line-height: 1.35; font-size: .9em; display: none; }
+        .more.on { display: block; }
+        .btns { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; }
+        button { font: inherit; font-weight: 600; border: 0; border-radius: 12px; padding: .5em .8em; background: #2eb6c7; color: #fff; min-height: 2.6em; }
+        button.secondary { background: #fff; color: #2eb6c7; border: 2px solid #2eb6c7; }
+        button.icon { flex: 0 0 auto; width: 3em; padding: 0; font-size: 1.2em; }
+        button.main { flex: 1; }
+        button.listening { background: #e5464b; animation: p 1s infinite; }
+        @keyframes p { 50% { opacity: .6; } }
+        .ask { display: none; margin-top: 8px; padding: 8px 10px; background: #edf8fa; border-radius: 12px; }
+        .ask.on { display: block; }
+        .flash { color: #e5464b; margin-top: 4px; font-size: .9em; }
+        .mini { position: fixed; right: 12px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 2147483001; display: none; border: 0; border-radius: 999px; padding: .6em 1em;
+                background: #2eb6c7; color: #fff; font: 600 ${15 * scale}px 'PingFang TC', Roboto, system-ui, sans-serif; box-shadow: 0 6px 18px rgba(46,182,199,.45); }
+        .mini.on { display: block; }
+        .panel.kid { border-top: 4px solid #5fd0bf; }
+        .panel.kid .say::before { content: '🙋 '; }
+        .panel.kid button { border-radius: 16px; }
+      </style>
+      <div class="dim"></div>
+      <div class="shield"></div>
+      <div class="spot"></div>
+      <button class="mini"></button>
+      <div class="panel">
+        <div class="head"><div class="step"></div><div class="icons"></div></div>
+        <div class="say"></div>
+        <div class="more"></div>
+        <div class="ask"></div>
+        <div class="btns"></div>
+      </div>`;
+    this.dim = this.root.querySelector('.dim')!;
+    this.shield = this.root.querySelector('.shield')!;
+    this.shield.addEventListener('click', () => this.flash(this.shieldHint));
+    this.spot = this.root.querySelector('.spot')!;
+    this.panel = this.root.querySelector('.panel')!;
+    if (mode === 'kid') this.panel.classList.add('kid');
+    this.say = this.root.querySelector('.say')!;
+    this.more = this.root.querySelector('.more')!;
+    this.stepEl = this.root.querySelector('.step')!;
+    onTripleTap(this.stepEl, () => this.toggleDebug());
+    this.btns = this.root.querySelector('.btns')!;
+    this.askEl = this.root.querySelector('.ask')!;
+    document.body.appendChild(this.host);
+    this.prevPadding = document.body.style.paddingBottom;
+    this.syncPadding();
+  }
+
+  /** 讓頁面可以捲到底（面板下面的內容不會被蓋住）；destroy 時還原 */
+  syncPadding() {
+    if (this.keyboard) return;
+    const h = this.panel.getBoundingClientRect().height;
+    document.body.style.paddingBottom = this.panel.classList.contains('top') ? '' : `${Math.ceil(h) + 8}px`;
+  }
+
+  keyboard = false;
+  /** 鍵盤開著：面板縮成一行說明 + 主要鍵；位置凍結在鍵盤打開那一刻的位置 */
+  setKeyboard(open: boolean) {
+    this.keyboard = open;
+    this.panel.classList.toggle('kb', open);
+    if (!open) this.syncPadding();
+  }
+  /** 正在打字（頁面欄位或面板輸入框有焦點） */
+  isTyping(): boolean {
+    const a = document.activeElement as HTMLElement | null;
+    const inPanel = this.root.activeElement === this.inputEl && !!this.inputEl;
+    return inPanel || (!!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName));
+  }
+
+  /** 使用者會了：面板收成右下角的小圓鈕，亮框與變暗都收掉 */
+  collapse(label: string, onTap: () => void) {
+    const mini = this.root.querySelector<HTMLButtonElement>('.mini')!;
+    mini.textContent = label;
+    mini.onclick = (ev) => {
+      ev.stopPropagation();
+      onTap();
+    };
+    mini.classList.add('on');
+    this.panel.style.display = 'none';
+    this.place(null);
+    this.setDim(false);
+    this.setShield(false);
+    this.syncPadding();
+  }
+  expand() {
+    this.root.querySelector('.mini')!.classList.remove('on');
+    this.panel.style.display = '';
+    this.syncPadding();
+  }
+
+  /** 一開始就先變暗（還沒找到目標也看得出來小幫手在）；亮框出現時就不用整頁暗 */
+  setDim(on: boolean) {
+    this.dimWanted = on;
+    this.dim.classList.toggle('on', on && this.spot.style.display !== 'block');
+  }
+
+  show(o: { say: string; more?: string; stepText?: string; buttons: PanelButton[]; icons?: PanelButton[] }) {
+    this.say.textContent = o.say;
+    this.more.textContent = o.more ?? '';
+    this.more.classList.toggle('on', !!o.more);
+    this.stepEl.textContent = o.stepText ?? '';
+    this.askEl.classList.remove('on');
+    this.btns.innerHTML = '';
+    for (const b of o.buttons) {
+      const el = document.createElement('button');
+      el.textContent = b.label;
+      el.className = (b.secondary ? 'secondary ' : '') + (b.icon ? 'icon' : 'main');
+      if (b.title) el.title = b.title;
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        b.onClick();
+      });
+      this.btns.appendChild(el);
+    }
+    const icons = this.root.querySelector('.icons')!;
+    icons.innerHTML = '';
+    for (const b of o.icons ?? []) {
+      const el = document.createElement('button');
+      el.textContent = b.label;
+      if (b.title) el.title = b.title;
+      el.setAttribute('aria-label', b.title ?? b.label);
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        b.onClick();
+      });
+      icons.appendChild(el);
+    }
+    this.syncPadding();
+  }
+
+  forceMore(text: string) {
+    if (!text) return;
+    this.more.textContent = text;
+    this.more.classList.add('on');
+  }
+
+  /** 在面板裡問一個是/否的問題 */
+  ask(q: string, yes: string, no: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.askEl.innerHTML = '';
+      const p = document.createElement('div');
+      p.textContent = q;
+      p.style.fontWeight = '700';
+      p.style.marginBottom = '8px';
+      const row = document.createElement('div');
+      row.className = 'btns';
+      row.style.marginTop = '0';
+      const mk = (label: string, v: boolean, secondary = false) => {
+        const b = document.createElement('button');
+        b.textContent = label;
+        if (secondary) b.className = 'secondary';
+        b.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          this.askEl.classList.remove('on');
+          resolve(v);
+        });
+        row.appendChild(b);
+      };
+      mk(yes, true);
+      mk(no, false, true);
+      this.askEl.append(p, row);
+      this.askEl.classList.add('on');
+    });
+  }
+
+  inputEl: HTMLInputElement | null = null;
+  inputWrap: HTMLElement | null = null;
+
+  /** 面板裡的輸入框：在這裡打字會同步填進頁面的欄位 */
+  showInput(value: string, numeric: boolean, onInput: (v: string) => void, onEnter: () => void) {
+    if (!this.inputWrap) {
+      this.inputWrap = document.createElement('div');
+      this.inputWrap.style.cssText = 'margin-top:8px';
+      this.inputEl = document.createElement('input');
+      this.inputEl.style.cssText = 'width:100%;box-sizing:border-box;font:inherit;font-size:1.1em;padding:.5em .7em;border:2px solid #2eb6c7;border-radius:12px;outline:none;background:#f7fcfd';
+      this.inputWrap.appendChild(this.inputEl);
+      this.panel.insertBefore(this.inputWrap, this.askEl);
+    }
+    const el = this.inputEl!;
+    el.value = value;
+    el.setAttribute('inputmode', numeric ? 'numeric' : 'text');
+    el.placeholder = numeric ? '0123456789' : '';
+    el.oninput = () => onInput(el.value);
+    el.onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        onEnter();
+      }
+    };
+    this.inputWrap.style.display = '';
+    this.syncPadding();
+  }
+  hideInput() {
+    if (this.inputWrap) this.inputWrap.style.display = 'none';
+    this.syncPadding();
+  }
+  focusInput(): boolean {
+    if (!this.inputWrap || this.inputWrap.style.display === 'none' || !this.inputEl) return false;
+    this.inputEl.focus();
+    return true;
+  }
+  setInputValue(v: string) {
+    if (this.inputEl) this.inputEl.value = v;
+  }
+
+  debugEl: HTMLElement | null = null;
+  /** 「第 n 步」連點三下：顯示目前狀態（目標、步驟、state、最近 log） */
+  toggleDebug() {
+    if (this.debugEl) {
+      this.debugEl.remove();
+      this.debugEl = null;
+      return;
+    }
+    const g = (window as any).__tpGuide;
+    const el = document.createElement('pre');
+    el.style.cssText = 'position:fixed;top:0;left:0;right:0;max-height:45vh;overflow:auto;z-index:2147483002;background:rgba(0,0,0,.85);color:#9fe;font:11px ui-monospace,monospace;padding:8px;margin:0;white-space:pre-wrap';
+    const t = g?.target as HTMLElement | null;
+    const info = {
+      url: location.pathname,
+      step: g?.state?.step,
+      stepId: g?.step?.id,
+      state: g?.state,
+      target: t ? t.tagName + '|' + (t.textContent || (t as HTMLInputElement).placeholder || '').trim().slice(0, 30) : null,
+      rect: t ? t.getBoundingClientRect().toJSON() : null,
+      decider: g?.decider?.name,
+      keyboard: this.keyboard,
+      viewport: `${innerWidth}x${innerHeight} vv=${window.visualViewport?.height}`,
+      build: __OVERLAY_BUILD__
+    };
+    let logs: any[] = [];
+    try {
+      logs = JSON.parse(localStorage.getItem('tp_debug_log') || '[]').slice(-12);
+    } catch {
+      /* ignore */
+    }
+    el.textContent = JSON.stringify(info, null, 1) + '\n--- log ---\n' + logs.map((l) => `${new Date(l.t).toTimeString().slice(0, 8)} ${l.src} ${l.msg}`).join('\n');
+    el.addEventListener('click', () => this.toggleDebug());
+    this.root.appendChild(el);
+    this.debugEl = el;
+  }
+
+  /** 即時字幕（辨識中） */
+  live(text: string) {
+    let el = this.panel.querySelector<HTMLElement>('.live');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'live';
+      el.style.cssText = 'color:#2eb6c7;margin-top:4px;min-height:1.2em;font-size:.95em';
+      this.panel.insertBefore(el, this.askEl);
+    }
+    el.textContent = text;
+  }
+
+  /** 多選一的追問 */
+  choices(q: string, opts: PanelButton[]) {
+    this.askEl.innerHTML = '';
+    const p = document.createElement('div');
+    p.textContent = q;
+    p.style.fontWeight = '700';
+    p.style.marginBottom = '8px';
+    const row = document.createElement('div');
+    row.className = 'btns';
+    row.style.marginTop = '0';
+    row.style.flexWrap = 'wrap';
+    for (const o of opts) {
+      const b = document.createElement('button');
+      b.textContent = o.label;
+      if (o.secondary) b.className = 'secondary';
+      b.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        this.askEl.classList.remove('on');
+        o.onClick();
+      });
+      row.appendChild(b);
+    }
+    this.askEl.append(p, row);
+    this.askEl.classList.add('on');
+  }
+
+  flash(text: string) {
+    const f = document.createElement('div');
+    f.className = 'flash';
+    f.textContent = text;
+    this.panel.appendChild(f);
+    setTimeout(() => f.remove(), 2500);
+  }
+
+  setListening(on: boolean) {
+    const b = this.btns.querySelector('button');
+    if (b) b.classList.toggle('listening', on);
+  }
+
+  /** 把發亮框放到目標上；null 就取消變暗 */
+  place(el: HTMLElement | null) {
+    if (!el || !document.contains(el)) {
+      this.spot.style.display = 'none';
+      this.dim.classList.toggle('on', this.dimWanted);
+      this.panel.classList.remove('top'); // 沒有目標就回到底部，不要遮住內容
+      this.syncPadding();
+      return;
+    }
+    this.dim.classList.remove('on');
+    const r = el.getBoundingClientRect();
+    const pad = 6;
+    const vh = window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : innerHeight;
+    const typing = this.keyboard || this.isTyping();
+    if (r.width < 1 || r.height < 1 || r.bottom < 0 || r.top > vh || r.right < 0 || r.left > innerWidth) {
+      this.spot.style.display = 'none';
+      if (!typing && Date.now() - this.lastScrollNudge > 1500) {
+        this.lastScrollNudge = Date.now();
+        el.scrollIntoView({ block: 'center' });
+      }
+      return;
+    }
+    // 目標在畫面下方、會被面板蓋住 → 面板改放上面（例如固定在底部的「查詢」按鈕）
+    const panelH = this.panel.getBoundingClientRect().height || 160;
+    const isTop = this.panel.classList.contains('top');
+    // 面板永遠不能蓋住目標：目標在下方 → 面板放上面；目標在上方 → 面板放下面。
+    // 打字中（鍵盤開著）一律凍結，不再切換、不改 padding（會和鍵盤動畫互相觸發而閃動）
+    if (!typing) {
+      if (!isTop && r.bottom > vh - panelH - 12) this.panel.classList.add('top');
+      else if (isTop && r.top < panelH + 12) this.panel.classList.remove('top');
+      this.syncPadding();
+    }
+    Object.assign(this.spot.style, {
+      display: 'block',
+      top: r.top - pad + 'px',
+      left: r.left - pad + 'px',
+      width: r.width + pad * 2 + 'px',
+      height: r.height + pad * 2 + 'px'
+    });
+  }
+
+  destroy() {
+    document.body.style.paddingBottom = this.prevPadding;
+    this.host.remove();
+  }
+}
+
+/** 目標中心點被別的東西蓋住（提示視窗）時，回傳那個視窗裡適合用來關掉它的按鈕 */
+function coveringButton(el: HTMLElement): HTMLElement | null {
+  const r = el.getBoundingClientRect();
+  const x = Math.min(innerWidth - 1, Math.max(0, r.left + r.width / 2));
+  const y = Math.min(innerHeight - 1, Math.max(0, r.top + r.height / 2));
+  if (y < 0 || y > innerHeight) return null;
+  const hit = document.elementFromPoint(x, y) as HTMLElement | null;
+  if (!hit || hit === el || el.contains(hit) || hit.contains(el) || hit.closest('#tp-guide-host')) return null;
+  // 往上找到 fixed / 高 z-index 的容器（通常就是 modal）
+  let c: HTMLElement | null = hit;
+  while (c && c !== document.body) {
+    const cs = getComputedStyle(c);
+    if (cs.position === 'fixed' || (cs.position === 'absolute' && parseInt(cs.zIndex || '0', 10) >= 10)) break;
+    c = c.parentElement;
+  }
+  if (!c || c === document.body) return null;
+  const btns = [...c.querySelectorAll<HTMLElement>('button, a[href], [role=button]')].filter((b) => isVisible(b));
+  if (!btns.length) return null;
+  return btns.find((b) => /確認|關閉|知道|好|OK|取消|繼續|稍後|略過/i.test(b.textContent || '')) ?? btns[btns.length - 1];
+}
+
+/* ---------- 迷路偵測：亂點、亂滑、一直換頁 → 帥氣登場 ---------- */
+
+
+function lostRead(): { routes: Array<[number, string]>; taps: number[]; flips: number[]; cooldown: number } {
+  try {
+    return JSON.parse(sessionStorage.getItem('tp_lost') || '') || { routes: [], taps: [], flips: [], cooldown: 0 };
+  } catch {
+    return { routes: [], taps: [], flips: [], cooldown: 0 };
+  }
+}
+function lostWrite(v: ReturnType<typeof lostRead>) {
+  try {
+    sessionStorage.setItem('tp_lost', JSON.stringify(v));
+  } catch {
+    /* ignore */
+  }
+}
+
+function startLostWatcher() {
+  if ((window as any).__tpLostWatcher) return;
+  (window as any).__tpLostWatcher = true;
+  const st = lostRead();
+  const now = Date.now();
+  // 換頁紀錄（跨頁用 sessionStorage）
+  const last = st.routes[st.routes.length - 1];
+  if (!last || last[1] !== location.pathname) st.routes.push([now, location.pathname]);
+  lostWrite(st);
+  if (/tp_hero=1/.test(location.hash)) {
+    setTimeout(() => heroEntrance('force'), 300);
+    return;
+  }
+  let lastY = scrollY;
+  let lastDir = 0;
+  // 用 pointer 事件數「點」而不是 click：地圖（Leaflet）等元件會吃掉 touch 的 click，手機上 click 根本不會到 document
+  let downAt = 0;
+  let downX = 0;
+  let downY = 0;
+  document.addEventListener('pointerdown', (e) => {
+    downAt = Date.now();
+    downX = e.clientX;
+    downY = e.clientY;
+  }, true);
+  document.addEventListener('pointerup', (e) => {
+    if ((e.target as HTMLElement | null)?.closest?.('#tp-guide-host, #tp-hero-host')) return;
+    if (!downAt || Date.now() - downAt > 400 || Math.hypot(e.clientX - downX, e.clientY - downY) > 12) return; // 拖曳/長按不算
+    const v = lostRead();
+    v.taps.push(Date.now());
+    lostWrite(v);
+    check();
+  }, true);
+  window.addEventListener('scroll', () => {
+    const dy = scrollY - lastY;
+    lastY = scrollY;
+    if (Math.abs(dy) < 40) return;
+    const dir = dy > 0 ? 1 : -1;
+    if (lastDir && dir !== lastDir) {
+      const v = lostRead();
+      v.flips.push(Date.now());
+      lostWrite(v);
+      check();
+    }
+    lastDir = dir;
+  }, { passive: true, capture: true });
+  window.addEventListener('tp:locationchange', () => {
+    const v = lostRead();
+    const l = v.routes[v.routes.length - 1];
+    if (!l || l[1] !== location.pathname) v.routes.push([Date.now(), location.pathname]);
+    lostWrite(v);
+    check();
+  });
+  check();
+
+  function check() {
+    const v = lostRead();
+    const t = Date.now();
+    if (v.cooldown && t < v.cooldown) return;
+    if (readState()) return; // 正在導覽就不打擾
+    if (sessionStorage.getItem('tp_from_assistant') || document.getElementById('tp-guide-host')) return; // 已經在小幫手模式
+    v.routes = v.routes.filter(([ts]) => t - ts < LOST.routesWindowMs);
+    v.taps = v.taps.filter((ts) => t - ts < LOST.tapsWindowMs);
+    v.flips = v.flips.filter((ts) => t - ts < LOST.flipsWindowMs);
+    lostWrite(v);
+    const distinct = new Set(v.routes.map(([, p]) => p)).size;
+    let why = '';
+    if (distinct >= LOST.routes) why = 'routes';
+    else if (v.taps.length >= LOST.taps) why = 'taps';
+    else if (v.flips.length >= LOST.flips) why = 'flips';
+    if (!why) return;
+    v.cooldown = t + LOST.cooldownMs;
+    v.routes = [];
+    v.taps = [];
+    v.flips = [];
+    lostWrite(v);
+    heroEntrance(why);
+  }
+}
+
+/** 帥氣登場 */
+async function heroEntrance(why: string) {
+  if (document.getElementById('tp-hero-host')) return;
+  tplog('overlay', 'hero entrance: ' + why, { url: location.pathname });
+  if (!readState()) document.getElementById('tp-guide-host')?.remove(); // 把「要我陪你做嗎」收掉，登場畫面優先
+  const lang = lsGet('tp_assistant_lang') || 'zh';
+  const mode = (lsGet('tp_assistant_mode') as Mode) || 'normal';
+  curMode = mode;
+  const copy = await loadCopy(lang).catch(() => ({} as Copy));
+  const title = t(copy, 'lost_title') === 'lost_title' ? '不要再亂點亂滑了，因為我來了' : t(copy, 'lost_title');
+  const sub = t(copy, 'lost_sub') === 'lost_sub' ? '說一句話，我帶你去' : t(copy, 'lost_sub');
+  const host = document.createElement('div');
+  host.id = 'tp-hero-host';
+  const root = host.attachShadow({ mode: 'open' });
+  const scale = SCALE[mode] ?? 1;
+  root.innerHTML = `
+    <style>
+      :host { all: initial; }
+      .bg { position: fixed; inset: 0; z-index: 2147483100; background: radial-gradient(circle at 50% 30%, rgba(46,182,199,.55), rgba(8,19,21,.92)); animation: fade .35s ease-out; display: flex; align-items: center; justify-content: center; padding: 24px; }
+      .card { font-family: 'PingFang TC', Roboto, system-ui, sans-serif; color: #fff; text-align: center; max-width: 420px; width: 100%; animation: pop .55s cubic-bezier(.2,1.4,.4,1); }
+      .icon { font-size: ${64 * scale}px; line-height: 1; filter: drop-shadow(0 8px 24px rgba(46,182,199,.8)); animation: bob 1.6s ease-in-out infinite; }
+      .ring { width: ${120 * scale}px; height: ${120 * scale}px; border-radius: 50%; margin: 0 auto 16px; background: #2eb6c7; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 0 rgba(46,182,199,.7); animation: pulse 1.6s infinite; }
+      h1 { font-size: ${26 * scale}px; margin: 8px 0 6px; font-weight: 800; letter-spacing: .5px; text-shadow: 0 2px 12px rgba(0,0,0,.4); }
+      p { font-size: ${16 * scale}px; margin: 0 0 20px; opacity: .9; }
+      .btns { display: flex; flex-direction: column; gap: 10px; }
+      button { font: inherit; font-size: ${18 * scale}px; font-weight: 700; border: 0; border-radius: 16px; padding: .8em 1.2em; background: #fff; color: #2eb6c7; min-height: 3em; -webkit-tap-highlight-color: transparent; }
+      button.ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
+      @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes pop { from { transform: translateY(40px) scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+      @keyframes bob { 50% { transform: translateY(-6px); } }
+      @keyframes pulse { 70% { box-shadow: 0 0 0 28px rgba(46,182,199,0); } 100% { box-shadow: 0 0 0 0 rgba(46,182,199,0); } }
+    </style>
+    <div class="bg">
+      <div class="card">
+        <div class="ring"><div class="icon">🎤</div></div>
+        <h1>${title}</h1>
+        <p>${sub}</p>
+        <div class="btns">
+          <button class="go">${copy.lost_help || '幫我'}</button>
+          <button class="ghost no">${copy.lost_no || '我自己來'}</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(host);
+  root.querySelector('.go')!.addEventListener('click', () => {
+    host.remove();
+    location.href = `${BASE}?lang=${lang}&from=lost`;
+  });
+  root.querySelector('.no')!.addEventListener('click', () => host.remove());
+  if (mode !== 'normal') tts(title + '。' + sub, copy.stt_lang || 'zh-TW');
+}
+
+/* ---------- 版面感知 ---------- */
+
+interface Cand {
+  el: HTMLElement;
+  label: string;
+  kind: string;
+}
+
+/** 這一頁所有看得到、可互動的元素與它們的文字 */
+function collectInteractive(): Cand[] {
+  const out: Cand[] = [];
+  const seen = new Set<HTMLElement>();
+  const push = (el: HTMLElement, label: string, kind: string) => {
+    label = label.replace(/\s+/g, ' ').trim();
+    if (!label || seen.has(el) || el.closest('#tp-guide-host') || !isVisible(el)) return;
+    seen.add(el);
+    out.push({ el, label: label.slice(0, 30), kind });
+  };
+  for (const sel of document.querySelectorAll<HTMLSelectElement>('select')) {
+    for (const o of sel.options) {
+      if (o.value === '') continue;
+      const label = o.text.trim();
+      if (!label || !isVisible(sel)) continue;
+      out.push({ el: sel, label, kind: '下拉選項' });
+    }
+  }
+  for (const el of document.querySelectorAll<HTMLElement>('button, a[href], [role=button], [role=tab], .tab-label')) push(el, el.textContent || el.getAttribute('aria-label') || '', '按鈕');
+  for (const l of document.querySelectorAll<HTMLLabelElement>('label')) push(l, l.textContent || '', '選項');
+  for (const el of document.querySelectorAll<HTMLElement>('input:not([type=radio]):not([type=checkbox]):not([type=hidden]), textarea')) {
+    const ph = el.getAttribute('placeholder') || el.getAttribute('aria-label') || '';
+    const lab = el.id ? document.querySelector(`label[for="${el.id}"]`)?.textContent || '' : '';
+    push(el, lab || ph, '欄位');
+  }
+  return out;
+}
+
+/** 字元 bigram 相似度（0～1），加上包含關係加分；對中文的短標籤夠用 */
+function textSimilarity(a: string, b: string): number {
+  const na = normalizeText(a);
+  const nb = normalizeText(b);
+  if (!na || !nb) return 0;
+  if (na === nb) return 1;
+  if (nb.includes(na) || na.includes(nb)) return 0.8;
+  const grams = (t: string) => {
+    const g = new Set<string>();
+    const cs = Array.from(t);
+    for (let i = 0; i + 2 <= cs.length; i++) g.add(cs[i] + cs[i + 1]);
+    if (cs.length === 1) g.add(cs[0]);
+    return g;
+  };
+  const A = grams(na);
+  const B = grams(nb);
+  let inter = 0;
+  for (const x of A) if (B.has(x)) inter++;
+  const jac = inter / (A.size + B.size - inter || 1);
+  const chars = Array.from(na).filter((c) => nb.includes(c)).length / Math.max(Array.from(na).length, 1);
+  return Math.max(jac, chars * 0.6);
+}
+
+/* ---------- 工具 ---------- */
+
+function readHash(): State | null {
+  const m = location.hash.match(/tpguide=([\w-]+)/);
+  if (!m) return null;
+  const q = new URLSearchParams(location.hash.replace(/^#/, ''));
+  const params: Record<string, string> = {};
+  q.forEach((v, k) => {
+    if (k.startsWith('p_')) params[k.slice(2)] = v;
+  });
+  const st: State = { id: m[1], step: 0, mode: (q.get('mode') as State['mode']) || 'normal', lang: q.get('lang') || 'zh', params };
+  try {
+    sessionStorage.setItem('tp_from_assistant', '1'); // 已經在小幫手的流程裡：不要再「因為我來了」
+  } catch {
+    /* ignore */
+  }
+  try {
+    history.replaceState(history.state, '', location.pathname + location.search);
+  } catch {
+    /* ignore */
+  }
+  return st;
+}
+function readState(): State | null {
+  try {
+    const raw = sessionStorage.getItem('tp_guide');
+    return raw ? (JSON.parse(raw) as State) : null;
+  } catch {
+    return null;
+  }
+}
+function saveState(s: State) {
+  try {
+    sessionStorage.setItem('tp_guide', JSON.stringify(s));
+  } catch {
+    /* ignore */
+  }
+}
+function clearState() {
+  try {
+    sessionStorage.removeItem('tp_guide');
+  } catch {
+    /* ignore */
+  }
+}
+function lsGet(k: string): string | null {
+  try {
+    return localStorage.getItem(k);
+  } catch {
+    return null;
+  }
+}
+async function fetchJson<T>(url: string): Promise<T> {
+  const res = await fetch(url, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`fetch ${url}: ${res.status}`);
+  return (await res.json()) as T;
+}
+async function loadCopy(lang: string): Promise<Copy> {
+  const l = ['zh', 'en', 'vi', 'id', 'th'].includes(lang) ? lang : 'zh';
+  const zh = await fetchJson<Copy>(`${BASE}data/copy.zh.json`);
+  if (l === 'zh') return zh;
+  const other = await fetchJson<Copy>(`${BASE}data/copy.${l}.json`).catch(() => ({}));
+  return { ...zh, ...other };
+}
+function t(copy: Copy, key: string, params?: Record<string, string | number>) {
+  return fmt(copy[key + '_' + curMode] ?? copy[key] ?? key, params);
+}
+function waitFor<T>(fn: () => T | null, timeoutMs: number, every = 300): Promise<T | null> {
+  return new Promise((resolve) => {
+    const t0 = Date.now();
+    const tick = () => {
+      const v = fn();
+      if (v) return resolve(v);
+      if (Date.now() - t0 > timeoutMs) return resolve(null);
+      setTimeout(tick, every);
+    };
+    tick();
+  });
+}
+function throttle<F extends (...a: any[]) => void>(fn: F, ms: number): F {
+  let last = 0;
+  let timer = 0;
+  return ((...a: any[]) => {
+    const now = Date.now();
+    const run = () => {
+      last = Date.now();
+      fn(...a);
+    };
+    if (now - last >= ms) run();
+    else {
+      clearTimeout(timer);
+      timer = window.setTimeout(run, ms - (now - last));
+    }
+  }) as F;
+}
+function debounce<F extends (...a: any[]) => void>(fn: F, ms: number): F {
+  let timer = 0;
+  return ((...a: any[]) => {
+    clearTimeout(timer);
+    timer = window.setTimeout(() => fn(...a), ms);
+  }) as F;
+}
+/** 讓 Vue 的 v-model 也看得到我們填的值 */
+function setNativeValue(el: HTMLInputElement, value: string) {
+  const proto = el.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+  const setter = Object.getOwnPropertyDescriptor(proto, 'value')?.set;
+  if (setter) setter.call(el, value);
+  else el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
+}
+/** 手機鍵盤：讓鍵盤彈出時「縮的是頁面」而不是只縮視覺視窗，固定在底部的面板才會跟著上移（Chrome/WebView 108+） */
+function patchViewport() {
+  try {
+    let meta = document.querySelector<HTMLMetaElement>('meta[name=viewport]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1';
+      document.head.appendChild(meta);
+    }
+    if (!/interactive-widget/.test(meta.content)) meta.content += ', interactive-widget=resizes-content';
+  } catch {
+    /* ignore */
+  }
+}
+
+/** SPA 換頁偵測：包住 pushState / replaceState，加上 popstate 與輪詢 */
+function patchHistory() {
+  const fire = () => window.dispatchEvent(new Event('tp:locationchange'));
+  for (const k of ['pushState', 'replaceState'] as const) {
+    const orig = history[k];
+    history[k] = function (this: History, ...a: any[]) {
+      const r = (orig as any).apply(this, a);
+      fire();
+      return r;
+    } as any;
+  }
+  window.addEventListener('popstate', fire);
+  window.addEventListener('hashchange', fire);
+  let last = location.href;
+  setInterval(() => {
+    if (location.href !== last) {
+      last = location.href;
+      fire();
+    }
+  }, 500);
+}

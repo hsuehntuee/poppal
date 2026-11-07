@@ -1,0 +1,483 @@
+# 種子訓練句（人工）。label 是 catalog 代號；Z 是不在範圍內。賽前可用 gen_examples.py 在 GPU 上擴增。
+{"text": "繳水費", "label": "A"}
+{"text": "我想付水費", "label": "A"}
+{"text": "水費帳單", "label": "A"}
+{"text": "自來水費要繳了", "label": "A"}
+{"text": "幫我繳這期的水費", "label": "A"}
+{"text": "水費怎麼用手機繳", "label": "A"}
+{"text": "用水的錢要付", "label": "A"}
+{"text": "水費逾期了想補繳", "label": "A"}
+{"text": "台北自來水的帳單", "label": "A"}
+{"text": "收到水費通知單", "label": "A"}
+{"text": "水錢", "label": "A"}
+{"text": "我要用信用卡繳水費", "label": "A"}
+{"text": "water fee", "label": "A"}
+{"text": "pay water", "label": "A"}
+{"text": "報水表", "label": "B"}
+{"text": "回報水表度數", "label": "B"}
+{"text": "我家水表的數字", "label": "B"}
+{"text": "自報用水度數", "label": "B"}
+{"text": "抄水表", "label": "B"}
+{"text": "水表讀數要怎麼回報", "label": "B"}
+{"text": "這個月用了幾度水", "label": "B"}
+{"text": "查詢用水度數", "label": "B"}
+{"text": "水表的號碼要上傳", "label": "B"}
+{"text": "沒人來抄水表", "label": "B"}
+{"text": "水表度數", "label": "B"}
+{"text": "water meter reading", "label": "B"}
+{"text": "繳停車費", "label": "C"}
+{"text": "停車費要付", "label": "C"}
+{"text": "路邊停車繳費", "label": "C"}
+{"text": "我有停車單要繳", "label": "C"}
+{"text": "用車牌查停車費", "label": "C"}
+{"text": "停車費逾期", "label": "C"}
+{"text": "機車停車費", "label": "C"}
+{"text": "汽車停車繳費單", "label": "C"}
+{"text": "停車的錢", "label": "C"}
+{"text": "繳停車單", "label": "C"}
+{"text": "parking fee", "label": "C"}
+{"text": "pay my parking", "label": "C"}
+{"text": "繳稅", "label": "D"}
+{"text": "繳房屋稅", "label": "D"}
+{"text": "地價稅要繳", "label": "D"}
+{"text": "牌照稅怎麼付", "label": "D"}
+{"text": "稅單掃描繳費", "label": "D"}
+{"text": "我要繳地方稅", "label": "D"}
+{"text": "稅金要繳了", "label": "D"}
+{"text": "房屋稅單", "label": "D"}
+{"text": "用手機繳稅", "label": "D"}
+{"text": "稅捐", "label": "D"}
+{"text": "pay tax", "label": "D"}
+{"text": "local tax bill", "label": "D"}
+{"text": "繳學費", "label": "E"}
+{"text": "學雜費繳費", "label": "E"}
+{"text": "小孩的學費要付", "label": "E"}
+{"text": "註冊費怎麼繳", "label": "E"}
+{"text": "學校的繳費單", "label": "E"}
+{"text": "國小學雜費", "label": "E"}
+{"text": "幼兒園學費", "label": "E"}
+{"text": "繳孩子的註冊費", "label": "E"}
+{"text": "學雜費", "label": "E"}
+{"text": "學費單", "label": "E"}
+{"text": "tuition fee", "label": "E"}
+{"text": "school fees", "label": "E"}
+{"text": "繳醫療費", "label": "F"}
+{"text": "醫院的錢要付", "label": "F"}
+{"text": "聯合醫院費用", "label": "F"}
+{"text": "看病的錢還沒繳", "label": "F"}
+{"text": "住院費", "label": "F"}
+{"text": "繳住院費用", "label": "F"}
+{"text": "聯醫的醫療費帳單", "label": "F"}
+{"text": "門診費用繳費", "label": "F"}
+{"text": "醫藥費", "label": "F"}
+{"text": "市立醫院的帳單", "label": "F"}
+{"text": "hospital fee", "label": "F"}
+{"text": "pay medical bill", "label": "F"}
+{"text": "繳費", "label": "G"}
+{"text": "我要付錢", "label": "G"}
+{"text": "繳罰款", "label": "G"}
+{"text": "罰單要繳", "label": "G"}
+{"text": "有單子要付", "label": "G"}
+{"text": "繳規費", "label": "G"}
+{"text": "租金繳費", "label": "G"}
+{"text": "社宅租金", "label": "G"}
+{"text": "登記費怎麼繳", "label": "G"}
+{"text": "繳款", "label": "G"}
+{"text": "付費", "label": "G"}
+{"text": "繳費的地方", "label": "G"}
+{"text": "地政罰鍰", "label": "G"}
+{"text": "pay a bill", "label": "G"}
+{"text": "pay fees", "label": "G"}
+{"text": "繳費紀錄", "label": "H"}
+{"text": "我繳過什麼費", "label": "H"}
+{"text": "查繳費歷史", "label": "H"}
+{"text": "以前繳的費用", "label": "H"}
+{"text": "帳務紀錄在哪", "label": "H"}
+{"text": "繳費收據", "label": "H"}
+{"text": "有沒有繳成功", "label": "H"}
+{"text": "付款紀錄", "label": "H"}
+{"text": "查帳單明細", "label": "H"}
+{"text": "繳款紀錄查詢", "label": "H"}
+{"text": "payment record", "label": "H"}
+{"text": "my payment history", "label": "H"}
+{"text": "叫號", "label": "I"}
+{"text": "臨櫃叫號", "label": "I"}
+{"text": "現在叫到幾號", "label": "I"}
+{"text": "戶政事務所等待人數", "label": "I"}
+{"text": "地政事務所叫號", "label": "I"}
+{"text": "排隊要多久", "label": "I"}
+{"text": "號碼牌", "label": "I"}
+{"text": "櫃檯等多久", "label": "I"}
+{"text": "區公所排隊人數", "label": "I"}
+{"text": "看叫號進度", "label": "I"}
+{"text": "線上抽號", "label": "I"}
+{"text": "queue number", "label": "I"}
+{"text": "waiting number at the office", "label": "I"}
+{"text": "陳情", "label": "J"}
+{"text": "投訴", "label": "J"}
+{"text": "我要檢舉", "label": "J"}
+{"text": "有話要說", "label": "J"}
+{"text": "反映問題", "label": "J"}
+{"text": "路燈壞了", "label": "J"}
+{"text": "鄰居太吵", "label": "J"}
+{"text": "跟市政府申訴", "label": "J"}
+{"text": "馬路有坑洞", "label": "J"}
+{"text": "垃圾沒人清", "label": "J"}
+{"text": "野狗很多", "label": "J"}
+{"text": "我要陳情噪音", "label": "J"}
+{"text": "file complaint", "label": "J"}
+{"text": "report a problem to the city", "label": "J"}
+{"text": "陳情進度", "label": "K"}
+{"text": "案件進度", "label": "K"}
+{"text": "查我的陳情案", "label": "K"}
+{"text": "投訴處理得怎樣", "label": "K"}
+{"text": "案子處理了沒", "label": "K"}
+{"text": "陳情案件查詢", "label": "K"}
+{"text": "之前反映的事情有下文嗎", "label": "K"}
+{"text": "檢舉的結果", "label": "K"}
+{"text": "查案件編號", "label": "K"}
+{"text": "陳情回覆", "label": "K"}
+{"text": "complaint status", "label": "K"}
+{"text": "check my case", "label": "K"}
+{"text": "災情通報", "label": "L"}
+{"text": "淹水", "label": "L"}
+{"text": "通報淹水", "label": "L"}
+{"text": "路樹倒了", "label": "L"}
+{"text": "土石流", "label": "L"}
+{"text": "有火災", "label": "L"}
+{"text": "橋壞掉了", "label": "L"}
+{"text": "颱風災情", "label": "L"}
+{"text": "地震房子裂了", "label": "L"}
+{"text": "通報災害", "label": "L"}
+{"text": "招牌掉下來", "label": "L"}
+{"text": "report flood", "label": "L"}
+{"text": "disaster report", "label": "L"}
+{"text": "報案", "label": "M"}
+{"text": "報警", "label": "M"}
+{"text": "東西被偷", "label": "M"}
+{"text": "手機遺失", "label": "M"}
+{"text": "被詐騙了", "label": "M"}
+{"text": "車禍報案", "label": "M"}
+{"text": "警察局線上報案", "label": "M"}
+{"text": "查報案紀錄", "label": "M"}
+{"text": "我要找警察", "label": "M"}
+{"text": "遺失物報案", "label": "M"}
+{"text": "警政服務", "label": "M"}
+{"text": "police", "label": "M"}
+{"text": "report theft", "label": "M"}
+{"text": "圖書館", "label": "N"}
+{"text": "借書", "label": "N"}
+{"text": "續借", "label": "N"}
+{"text": "找書", "label": "N"}
+{"text": "還書日期", "label": "N"}
+{"text": "借閱紀錄", "label": "N"}
+{"text": "圖書館有這本書嗎", "label": "N"}
+{"text": "預約書", "label": "N"}
+{"text": "市立圖書館", "label": "N"}
+{"text": "書到期了", "label": "N"}
+{"text": "查館藏", "label": "N"}
+{"text": "library book", "label": "N"}
+{"text": "borrow a book", "label": "N"}
+{"text": "找地點", "label": "O"}
+{"text": "附近廁所", "label": "O"}
+{"text": "廁所在哪", "label": "O"}
+{"text": "YouBike站", "label": "O"}
+{"text": "附近的停車場", "label": "O"}
+{"text": "垃圾車", "label": "O"}
+{"text": "垃圾車幾點", "label": "O"}
+{"text": "飲水機在哪裡", "label": "O"}
+{"text": "最近的公園", "label": "O"}
+{"text": "周邊服務", "label": "O"}
+{"text": "地圖找地方", "label": "O"}
+{"text": "哪裡可以借腳踏車", "label": "O"}
+{"text": "nearest toilet", "label": "O"}
+{"text": "find nearby", "label": "O"}
+{"text": "申辦", "label": "P"}
+{"text": "申請補助", "label": "P"}
+{"text": "線上申辦", "label": "P"}
+{"text": "申請證明", "label": "P"}
+{"text": "市府服務申請", "label": "P"}
+{"text": "老人補助", "label": "P"}
+{"text": "身心障礙補助申請", "label": "P"}
+{"text": "申訴案件", "label": "P"}
+{"text": "辦理市政業務", "label": "P"}
+{"text": "我要申請", "label": "P"}
+{"text": "急難救助金", "label": "P"}
+{"text": "apply", "label": "P"}
+{"text": "apply for benefits", "label": "P"}
+{"text": "優惠", "label": "Q"}
+{"text": "優惠券", "label": "Q"}
+{"text": "買票", "label": "Q"}
+{"text": "門票", "label": "Q"}
+{"text": "折扣", "label": "Q"}
+{"text": "活動票", "label": "Q"}
+{"text": "有什麼折價券", "label": "Q"}
+{"text": "熱門活動", "label": "Q"}
+{"text": "買展覽的票", "label": "Q"}
+{"text": "coupon", "label": "Q"}
+{"text": "buy tickets", "label": "Q"}
+{"text": "票夾", "label": "R"}
+{"text": "我的票", "label": "R"}
+{"text": "兌換票", "label": "R"}
+{"text": "已經買的票", "label": "R"}
+{"text": "票券在哪", "label": "R"}
+{"text": "看我的票券", "label": "R"}
+{"text": "票怎麼用", "label": "R"}
+{"text": "兌換碼", "label": "R"}
+{"text": "ticket wallet", "label": "R"}
+{"text": "my tickets", "label": "R"}
+{"text": "訂閱", "label": "S"}
+{"text": "通知", "label": "S"}
+{"text": "推播", "label": "S"}
+{"text": "訂閱空氣品質", "label": "S"}
+{"text": "取消訂閱通知", "label": "S"}
+{"text": "社區公告通知", "label": "S"}
+{"text": "水費通知", "label": "S"}
+{"text": "停車位通知", "label": "S"}
+{"text": "訂閱資訊", "label": "S"}
+{"text": "新消息要通知我", "label": "S"}
+{"text": "subscribe", "label": "S"}
+{"text": "notifications", "label": "S"}
+{"text": "打1999", "label": "T"}
+{"text": "1999", "label": "T"}
+{"text": "打電話", "label": "T"}
+{"text": "客服", "label": "T"}
+{"text": "市民熱線", "label": "T"}
+{"text": "找真人", "label": "T"}
+{"text": "跟人講話", "label": "T"}
+{"text": "我要打電話給市政府", "label": "T"}
+{"text": "撥打1999", "label": "T"}
+{"text": "打給客服", "label": "T"}
+{"text": "call 1999", "label": "T"}
+{"text": "hotline", "label": "T"}
+{"text": "疫苗", "label": "U"}
+{"text": "預約疫苗", "label": "U"}
+{"text": "打疫苗", "label": "U"}
+{"text": "流感疫苗", "label": "U"}
+{"text": "新冠疫苗", "label": "U"}
+{"text": "打針預約", "label": "U"}
+{"text": "疫苗接種", "label": "U"}
+{"text": "哪裡打流感", "label": "U"}
+{"text": "幫小孩約疫苗", "label": "U"}
+{"text": "vaccine", "label": "U"}
+{"text": "flu shot", "label": "U"}
+{"text": "掛號", "label": "V"}
+{"text": "聯醫掛號", "label": "V"}
+{"text": "看醫生", "label": "V"}
+{"text": "門診預約", "label": "V"}
+{"text": "預約看診", "label": "V"}
+{"text": "網路掛號", "label": "V"}
+{"text": "聯合醫院掛號", "label": "V"}
+{"text": "我要看病", "label": "V"}
+{"text": "掛明天的門診", "label": "V"}
+{"text": "doctor appointment", "label": "V"}
+{"text": "hospital registration", "label": "V"}
+{"text": "儀表板", "label": "W"}
+{"text": "市政儀表板", "label": "W"}
+{"text": "即時數據", "label": "W"}
+{"text": "台北數據", "label": "W"}
+{"text": "統計資料", "label": "W"}
+{"text": "交通即時資訊", "label": "W"}
+{"text": "市政資訊", "label": "W"}
+{"text": "看數據", "label": "W"}
+{"text": "dashboard", "label": "W"}
+{"text": "city data", "label": "W"}
+{"text": "教學", "label": "X"}
+{"text": "功能教學", "label": "X"}
+{"text": "怎麼用", "label": "X"}
+{"text": "常見問題", "label": "X"}
+{"text": "使用說明", "label": "X"}
+{"text": "這個怎麼操作", "label": "X"}
+{"text": "app教學", "label": "X"}
+{"text": "我不會用城市通", "label": "X"}
+{"text": "FAQ", "label": "X"}
+{"text": "how to use", "label": "X"}
+{"text": "help with the app", "label": "X"}
+{"text": "親子館", "label": "Y"}
+{"text": "預約親子館", "label": "Y"}
+{"text": "親子活動", "label": "Y"}
+{"text": "親子課程報名", "label": "Y"}
+{"text": "帶小孩去玩", "label": "Y"}
+{"text": "親子館報名", "label": "Y"}
+{"text": "小孩的活動", "label": "Y"}
+{"text": "附近親子館", "label": "Y"}
+{"text": "family center", "label": "Y"}
+{"text": "kids activities", "label": "Y"}
+{"text": "今天天氣如何", "label": "Z"}
+{"text": "你好", "label": "Z"}
+{"text": "你是誰", "label": "Z"}
+{"text": "講個笑話", "label": "Z"}
+{"text": "唱歌", "label": "Z"}
+{"text": "幫我訂餐", "label": "Z"}
+{"text": "我想吃麵", "label": "Z"}
+{"text": "股票", "label": "Z"}
+{"text": "設鬧鐘", "label": "Z"}
+{"text": "明天幾點起床", "label": "Z"}
+{"text": "我想出國", "label": "Z"}
+{"text": "買機票", "label": "Z"}
+{"text": "翻譯這句話", "label": "Z"}
+{"text": "算數學", "label": "Z"}
+{"text": "播放音樂", "label": "Z"}
+{"text": "手機沒電", "label": "Z"}
+{"text": "謝謝", "label": "Z"}
+{"text": "再見", "label": "Z"}
+{"text": "沒事", "label": "Z"}
+{"text": "隨便", "label": "Z"}
+{"text": "我不知道", "label": "Z"}
+{"text": "晚餐吃什麼", "label": "Z"}
+{"text": "電影好看嗎", "label": "Z"}
+{"text": "我要睡覺了", "label": "Z"}
+{"text": "開燈", "label": "Z"}
+{"text": "hello", "label": "Z"}
+{"text": "what time is it", "label": "Z"}
+{"text": "tell me a joke", "label": "Z"}
+{"text": "order pizza", "label": "Z"}
+{"text": "weather today", "label": "Z"}
+{"text": "我想去日本玩", "label": "Z"}
+{"text": "幫我查一下東京的天氣", "label": "Z"}
+{"text": "推薦一家好吃的牛肉麵", "label": "Z"}
+{"text": "今天星期幾", "label": "Z"}
+{"text": "現在幾點", "label": "Z"}
+{"text": "幫我算一下 25 乘以 4", "label": "Z"}
+{"text": "法國的首都是哪裡", "label": "Z"}
+{"text": "唱一首歌", "label": "Z"}
+{"text": "唱首歌給我聽", "label": "Z"}
+{"text": "放音樂", "label": "Z"}
+{"text": "講個故事給我聽", "label": "Z"}
+{"text": "你會說英文嗎", "label": "Z"}
+{"text": "你幾歲", "label": "Z"}
+{"text": "你是機器人嗎", "label": "Z"}
+{"text": "我很無聊", "label": "Z"}
+{"text": "我好累", "label": "Z"}
+{"text": "我肚子餓", "label": "Z"}
+{"text": "晚餐吃什麼好", "label": "Z"}
+{"text": "幫我叫外送", "label": "Z"}
+{"text": "訂一張高鐵票", "label": "Z"}
+{"text": "明天會下雨嗎", "label": "Z"}
+{"text": "台北今天幾度", "label": "Z"}
+{"text": "打開臉書", "label": "Z"}
+{"text": "幫我傳訊息給我兒子", "label": "Z"}
+{"text": "我的手機壞了", "label": "Z"}
+{"text": "網路連不上", "label": "Z"}
+{"text": "股票漲了嗎", "label": "Z"}
+{"text": "比特幣多少錢", "label": "Z"}
+{"text": "樂透開獎號碼", "label": "Z"}
+{"text": "最近有什麼好看的電影", "label": "Z"}
+{"text": "幫我買咖啡", "label": "Z"}
+{"text": "我要去上班了", "label": "Z"}
+{"text": "早安", "label": "Z"}
+{"text": "晚安", "label": "Z"}
+{"text": "辛苦了", "label": "Z"}
+{"text": "沒有要做什麼", "label": "Z"}
+{"text": "我只是看看", "label": "Z"}
+{"text": "測試", "label": "Z"}
+{"text": "嗯", "label": "Z"}
+{"text": "好", "label": "Z"}
+{"text": "what is your name", "label": "Z"}
+{"text": "sing me a song", "label": "Z"}
+{"text": "book a flight to Tokyo", "label": "Z"}
+{"text": "how is the weather", "label": "Z"}
+{"text": "I am hungry", "label": "Z"}
+{"text": "play some music", "label": "Z"}
+{"text": "set a timer", "label": "Z"}
+{"text": "good morning", "label": "Z"}
+{"text": "thank you", "label": "Z"}
+{"text": "tell me a story", "label": "Z"}
+{"text": "我要繳電費", "label": "G"}
+{"text": "電費怎麼繳", "label": "G"}
+{"text": "繳電費", "label": "G"}
+{"text": "台電的帳單", "label": "G"}
+{"text": "我要繳瓦斯費", "label": "G"}
+{"text": "瓦斯費單子", "label": "G"}
+{"text": "繳電話費", "label": "G"}
+{"text": "網路費要繳", "label": "G"}
+{"text": "繳健保費", "label": "G"}
+{"text": "勞保費怎麼繳", "label": "G"}
+{"text": "繳管理費", "label": "G"}
+{"text": "有一張帳單不知道是什麼費", "label": "G"}
+{"text": "pay electricity bill", "label": "G"}
+{"text": "gas bill payment", "label": "G"}
+{"text": "報水表度數", "label": "B"}
+{"text": "我要自己報水表", "label": "B"}
+{"text": "水表度數上傳", "label": "B"}
+{"text": "預約流感疫苗", "label": "U"}
+{"text": "疫苗要去哪裡打", "label": "U"}
+{"text": "幫我約疫苗", "label": "U"}
+{"text": "我要掛號看醫生", "label": "V"}
+{"text": "聯合醫院掛號", "label": "V"}
+{"text": "掛明天的門診", "label": "V"}
+{"text": "親子館報名", "label": "Y"}
+{"text": "帶小孩去親子館", "label": "Y"}
+{"text": "親子館活動", "label": "Y"}
+{"text": "我要投票", "label": "f"}
+{"text": "網路投票", "label": "f"}
+{"text": "市政議題投票", "label": "f"}
+{"text": "有什麼可以投票的", "label": "f"}
+{"text": "我要表達意見用投票", "label": "f"}
+{"text": "i-Voting", "label": "f"}
+{"text": "投票給第二個", "label": "f"}
+{"text": "公投", "label": "f"}
+{"text": "填問卷", "label": "g"}
+{"text": "意見調查", "label": "g"}
+{"text": "滿意度問卷", "label": "g"}
+{"text": "我想給意見", "label": "g"}
+{"text": "填寫市府問卷", "label": "g"}
+{"text": "調查表", "label": "g"}
+{"text": "survey", "label": "g"}
+{"text": "有問卷要填嗎", "label": "g"}
+{"text": "里長", "label": "h"}
+{"text": "里辦公處", "label": "h"}
+{"text": "我們里的里長是誰", "label": "h"}
+{"text": "里長電話", "label": "h"}
+{"text": "里民大會", "label": "h"}
+{"text": "里的活動", "label": "h"}
+{"text": "找里辦", "label": "h"}
+{"text": "鄰里公告", "label": "h"}
+{"text": "neighborhood office", "label": "h"}
+{"text": "台北電台", "label": "i"}
+{"text": "聽廣播", "label": "i"}
+{"text": "打開收音機", "label": "i"}
+{"text": "電台節目", "label": "i"}
+{"text": "現在在播什麼", "label": "i"}
+{"text": "收聽電台", "label": "i"}
+{"text": "radio", "label": "i"}
+{"text": "廣播節目表", "label": "i"}
+{"text": "公園", "label": "j"}
+{"text": "附近的公園", "label": "j"}
+{"text": "綠地", "label": "j"}
+{"text": "散步步道", "label": "j"}
+{"text": "河濱公園", "label": "j"}
+{"text": "找個地方散步", "label": "j"}
+{"text": "森林步道", "label": "j"}
+{"text": "樹很多的地方", "label": "j"}
+{"text": "park nearby", "label": "j"}
+{"text": "遛狗", "label": "k"}
+{"text": "寵物公園", "label": "k"}
+{"text": "動物醫院", "label": "k"}
+{"text": "寵物友善餐廳", "label": "k"}
+{"text": "狗狗可以去的地方", "label": "k"}
+{"text": "寵物登記", "label": "k"}
+{"text": "貓咪看醫生", "label": "k"}
+{"text": "pet park", "label": "k"}
+{"text": "帶狗散步", "label": "k"}
+{"text": "菜價", "label": "l"}
+{"text": "今天菜多少錢", "label": "l"}
+{"text": "雞蛋價格", "label": "l"}
+{"text": "豬肉價錢", "label": "l"}
+{"text": "水果多少錢", "label": "l"}
+{"text": "物價", "label": "l"}
+{"text": "米價", "label": "l"}
+{"text": "民生物資價格", "label": "l"}
+{"text": "egg prices", "label": "l"}
+{"text": "動物園", "label": "m"}
+{"text": "貓熊", "label": "m"}
+{"text": "動物園地圖", "label": "m"}
+{"text": "動物園活動", "label": "m"}
+{"text": "帶小孩看動物", "label": "m"}
+{"text": "企鵝館在哪", "label": "m"}
+{"text": "動物園門票", "label": "m"}
+{"text": "zoo", "label": "m"}
+{"text": "動物介紹", "label": "m"}
+{"text": "我想聽音樂", "label": "Z"}
+{"text": "播放音樂", "label": "Z"}
+{"text": "講笑話", "label": "Z"}

@@ -1,0 +1,32 @@
+# 依賴與建置產物（都能重建）
+node_modules/
+dist/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+TownPass/build/
+TownPass/.dart_tool/
+TownPass/.fvm/flutter_sdk
+TownPass/assets/web/
+TownPass/android/.gradle/
+TownPass/android/app/.cxx/
+TownPass/ios/Pods/
+TownPass-Services/.vite/
+**/.git-upstream/
+worktrees/
+.claude/
+
+# 大型二進位：llama.cpp 執行檔 / 原始碼、訓練 checkpoint、HF 合併權重、零樣本向量模型（都可重新下載或重算）
+tools/llama/
+tools/llama-android/
+tools/llama-src/
+tools/encoder/ckpt/
+tools/llm/out/gemma-270m-decider-hf/
+assistant/public/models/Xenova/
+*.ckpt.pt
+*.safetensors
+
+# 本機暫存
+tools/_patch*.py
+*.apk

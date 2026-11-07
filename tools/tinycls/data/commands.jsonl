@@ -1,0 +1,66 @@
+# 步驟內指令的種子句。A NEXT / B BACK / C HELP / D REPEAT / E FILL / F EXIT / G OTHER
+{"text": "下一步", "label": "A"}
+{"text": "好了", "label": "A"}
+{"text": "完成了", "label": "A"}
+{"text": "繼續", "label": "A"}
+{"text": "我做好了", "label": "A"}
+{"text": "可以了", "label": "A"}
+{"text": "然後呢", "label": "A"}
+{"text": "接下來", "label": "A"}
+{"text": "ok", "label": "A"}
+{"text": "next step", "label": "A"}
+{"text": "回上一步", "label": "B"}
+{"text": "上一步", "label": "B"}
+{"text": "回去", "label": "B"}
+{"text": "退回去", "label": "B"}
+{"text": "剛剛那個", "label": "B"}
+{"text": "回到前面", "label": "B"}
+{"text": "go back", "label": "B"}
+{"text": "我不會", "label": "C"}
+{"text": "看不懂", "label": "C"}
+{"text": "這是什麼", "label": "C"}
+{"text": "怎麼做", "label": "C"}
+{"text": "在哪裡", "label": "C"}
+{"text": "找不到", "label": "C"}
+{"text": "要按哪裡", "label": "C"}
+{"text": "我不知道怎麼弄", "label": "C"}
+{"text": "幫我一下", "label": "C"}
+{"text": "help me", "label": "C"}
+{"text": "再念一次", "label": "D"}
+{"text": "再說一次", "label": "D"}
+{"text": "沒聽清楚", "label": "D"}
+{"text": "什麼", "label": "D"}
+{"text": "再講一遍", "label": "D"}
+{"text": "say it again", "label": "D"}
+{"text": "水號是1234567890", "label": "E"}
+{"text": "1234567890", "label": "E"}
+{"text": "0912345678", "label": "E"}
+{"text": "號碼是一二三四五六七八九零", "label": "E"}
+{"text": "幫我填1234567890", "label": "E"}
+{"text": "填入這個號碼 9876543210", "label": "E"}
+{"text": "我的手機是0912345678", "label": "E"}
+{"text": "繳費編號 A123456789", "label": "E"}
+{"text": "日期是5月1日", "label": "E"}
+{"text": "二零二四年五月一日", "label": "E"}
+{"text": "車牌ABC1234", "label": "E"}
+{"text": "不要了", "label": "F"}
+{"text": "取消", "label": "F"}
+{"text": "算了", "label": "F"}
+{"text": "離開", "label": "F"}
+{"text": "不想做了", "label": "F"}
+{"text": "關掉", "label": "F"}
+{"text": "結束", "label": "F"}
+{"text": "我自己來", "label": "F"}
+{"text": "stop", "label": "F"}
+{"text": "cancel", "label": "F"}
+{"text": "我要去繳停車費", "label": "G"}
+{"text": "幫我找廁所", "label": "G"}
+{"text": "我想打1999", "label": "G"}
+{"text": "我要借書", "label": "G"}
+{"text": "改成繳水費", "label": "G"}
+{"text": "我想做別的", "label": "G"}
+{"text": "我要陳情", "label": "G"}
+{"text": "帶我去圖書館", "label": "G"}
+{"text": "我要看叫號", "label": "G"}
+{"text": "換一個服務", "label": "G"}
+{"text": "I want to pay parking instead", "label": "G"}

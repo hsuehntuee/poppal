@@ -1,0 +1,49 @@
+{
+ "id": "guide_zoo",
+ "title": {
+  "zh": "愛遊動物園"
+ },
+ "entry": "/zoo",
+ "match": {
+  "url": "^/zoo"
+ },
+ "steps": [
+  {
+   "id": "tab",
+   "url": "^/zoo",
+   "find": [
+    {
+     "text": "{{entity}}"
+    },
+    {
+     "role": "button",
+     "text": "動物介紹"
+    }
+   ],
+   "say": {
+    "zh": "點「{{entity}}」"
+   },
+   "done_when": "click",
+   "say_default": {
+    "zh": "點上面的分頁看地圖、動物或活動"
+   }
+  },
+  {
+   "id": "look",
+   "url": "^/zoo",
+   "find": [
+    {
+     "css": "main"
+    },
+    {
+     "css": ".leaflet-marker-icon"
+    }
+   ],
+   "say": {
+    "zh": "看這裡的內容"
+   },
+   "done_when": "manual",
+   "final": true
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+  "version": "0.1",
+  "note": "100 句中文/英文（每個服務 3～4 句、模糊句 10 句、不在範圍內 10 句）+ 外語 20 句。句子刻意不和 catalog 的 examples 重複。",
+  "items": [
+    { "text": "水的那個帳單要怎麼繳", "expect": "A" },
+    { "text": "自來水公司寄來的單子想用手機付", "expect": "A" },
+    { "text": "這期水費還沒付", "expect": "A" },
+    { "text": "I need to pay the water bill on my phone", "expect": "A", "lang": "en" },
+
+    { "text": "我想自己回報水表的數字", "expect": "B" },
+    { "text": "抄表員沒來，度數怎麼報", "expect": "B" },
+    { "text": "查一下我家這個月用了多少度水", "expect": "B" },
+
+    { "text": "路邊停車的單子要付錢", "expect": "C" },
+    { "text": "我的車牌有沒有停車費要繳", "expect": "C" },
+    { "text": "停車繳費", "expect": "C" },
+    { "text": "pay for street parking", "expect": "C", "lang": "en" },
+
+    { "text": "房屋稅的繳款書可以用手機掃嗎", "expect": "D" },
+    { "text": "我要繳牌照稅", "expect": "D" },
+    { "text": "地價稅單子收到了要付", "expect": "D" },
+
+    { "text": "小孩學校的註冊費要繳", "expect": "E" },
+    { "text": "學費繳費單怎麼付", "expect": "E" },
+    { "text": "pay my kid's school fees", "expect": "E", "lang": "en" },
+
+    { "text": "上次在聯合醫院看病的錢還沒付", "expect": "F" },
+    { "text": "住院的費用要繳", "expect": "F" },
+    { "text": "醫院帳單", "expect": "F" },
+
+    { "text": "我有一張罰單要繳", "expect": "G", "alt": ["D"] },
+    { "text": "社會住宅的租金要怎麼付", "expect": "G" },
+    { "text": "公司登記的規費", "expect": "G" },
+    { "text": "I got a fine, where do I pay it", "expect": "G", "lang": "en" },
+
+    { "text": "我想看之前繳過哪些費用", "expect": "H" },
+    { "text": "上個月的水費到底付了沒", "expect": "H", "alt": ["A"] },
+    { "text": "帳務紀錄", "expect": "H" },
+    { "text": "did my payment go through last week", "expect": "H", "lang": "en" },
+
+    { "text": "戶政事務所現在排到幾號", "expect": "I" },
+    { "text": "地政事務所要等很久嗎", "expect": "I" },
+    { "text": "我想先抽號碼牌再過去", "expect": "I" },
+    { "text": "how many people are waiting at the household registration office", "expect": "I", "lang": "en" },
+
+    { "text": "隔壁工地半夜施工很吵", "expect": "J" },
+    { "text": "我要跟市政府反映路燈壞了", "expect": "J" },
+    { "text": "檢舉違規停車擋到我家門口", "expect": "J" },
+    { "text": "I want to complain about the garbage on my street", "expect": "J", "lang": "en" },
+
+    { "text": "我上禮拜陳情的案子處理得怎樣了", "expect": "K" },
+    { "text": "查一下投訴的進度", "expect": "K" },
+    { "text": "案件編號查進度", "expect": "K" },
+
+    { "text": "我家門口淹水了", "expect": "L" },
+    { "text": "颱風把路樹吹倒了擋住馬路", "expect": "L" },
+    { "text": "山坡好像在滑動要通報", "expect": "L" },
+    { "text": "there is a landslide near my house", "expect": "L", "lang": "en" },
+
+    { "text": "我的機車被偷了要報案", "expect": "M" },
+    { "text": "接到詐騙電話想報警", "expect": "M" },
+    { "text": "線上跟警察局報案", "expect": "M" },
+    { "text": "my wallet was stolen", "expect": "M", "lang": "en" },
+
+    { "text": "圖書館的書要續借", "expect": "N" },
+    { "text": "想找一本書看看哪間圖書館有", "expect": "N" },
+    { "text": "我借的書什麼時候到期", "expect": "N" },
+    { "text": "search for a book in the city library", "expect": "N", "lang": "en" },
+
+    { "text": "這附近哪裡可以借YouBike", "expect": "O" },
+    { "text": "最近的公廁在哪", "expect": "O" },
+    { "text": "垃圾車什麼時候會經過我家", "expect": "O" },
+    { "text": "find a parking lot near me", "expect": "O", "lang": "en" },
+
+    { "text": "我要申請老人健保補助", "expect": "P" },
+    { "text": "想線上申辦市政府的業務", "expect": "P" },
+    { "text": "申請低收入戶證明", "expect": "P" },
+
+    { "text": "最近有什麼活動的優惠券", "expect": "Q" },
+    { "text": "我要買演唱會的票", "expect": "Q" },
+    { "text": "show me the discount coupons", "expect": "Q", "lang": "en" },
+
+    { "text": "我昨天買的票在哪裡看", "expect": "R" },
+    { "text": "票券要怎麼兌換", "expect": "R" },
+    { "text": "打開我的票夾", "expect": "R" },
+
+    { "text": "空氣不好的時候通知我", "expect": "S" },
+    { "text": "我想訂閱社區公告", "expect": "S" },
+    { "text": "取消推播通知", "expect": "S" },
+    { "text": "notify me when the air quality is bad", "expect": "S", "lang": "en" },
+
+    { "text": "我要跟真人講話", "expect": "T" },
+    { "text": "幫我打市民熱線", "expect": "T" },
+    { "text": "1999", "expect": "T" },
+    { "text": "I want to talk to a real person", "expect": "T", "lang": "en" },
+
+    { "text": "我想預約打流感疫苗", "expect": "U" },
+    { "text": "哪裡可以打新冠疫苗", "expect": "U" },
+    { "text": "book a flu shot", "expect": "U", "lang": "en" },
+
+    { "text": "我要掛明天的門診", "expect": "V" },
+    { "text": "聯合醫院預約看醫生", "expect": "V" },
+    { "text": "網路掛號", "expect": "V" },
+
+    { "text": "我想看台北市的即時交通數據", "expect": "W" },
+    { "text": "市政儀表板在哪", "expect": "W" },
+    { "text": "open the Taipei city data dashboard", "expect": "W", "lang": "en" },
+
+    { "text": "這個 App 的功能怎麼用", "expect": "X" },
+    { "text": "我看不懂城市通", "expect": "X" },
+    { "text": "常見問題在哪裡", "expect": "X" },
+
+    { "text": "想帶小孩去親子館要先報名嗎", "expect": "Y" },
+    { "text": "預約親子館的活動", "expect": "Y" },
+    { "text": "book a slot at the family center", "expect": "Y", "lang": "en" },
+
+    { "text": "我要繳費", "expect": "G", "alt": ["A", "C", "D", "E", "F"], "tag": "ambiguous" },
+    { "text": "水的事情", "expect": "A", "alt": ["B"], "tag": "ambiguous" },
+    { "text": "有一張單子要付錢", "expect": "G", "alt": ["A", "C", "D"], "tag": "ambiguous" },
+    { "text": "醫院", "expect": "V", "alt": ["F", "U"], "tag": "ambiguous" },
+    { "text": "我要報案", "expect": "M", "alt": ["J", "L"], "tag": "ambiguous" },
+    { "text": "停車", "expect": "C", "alt": ["O"], "tag": "ambiguous" },
+    { "text": "我要預約", "expect": "V", "alt": ["U", "Y", "I"], "tag": "ambiguous" },
+    { "text": "票", "expect": "Q", "alt": ["R"], "tag": "ambiguous" },
+    { "text": "陳情", "expect": "J", "alt": ["K"], "tag": "ambiguous" },
+    { "text": "我要查紀錄", "expect": "H", "alt": ["K", "N"], "tag": "ambiguous" },
+
+    { "text": "今天會下雨嗎", "expect": "Z", "tag": "oos" },
+    { "text": "幫我訂一個披薩", "expect": "Z", "tag": "oos" },
+    { "text": "你叫什麼名字", "expect": "Z", "tag": "oos" },
+    { "text": "台積電股價多少", "expect": "Z", "tag": "oos" },
+    { "text": "唱一首歌給我聽", "expect": "Z", "tag": "oos" },
+    { "text": "我想去日本玩", "expect": "Z", "tag": "oos" },
+    { "text": "幫我設鬧鐘七點", "expect": "Z", "tag": "oos" },
+    { "text": "what is the capital of France", "expect": "Z", "tag": "oos", "lang": "en" },
+    { "text": "我的手機沒電了", "expect": "Z", "tag": "oos" },
+    { "text": "晚餐要吃什麼", "expect": "Z", "tag": "oos" },
+
+    { "text": "Tôi muốn đóng tiền nước", "expect": "A", "tag": "foreign", "lang": "vi" },
+    { "text": "Tôi muốn đóng phí đậu xe", "expect": "C", "tag": "foreign", "lang": "vi" },
+    { "text": "Ví của tôi bị mất cắp", "expect": "M", "tag": "foreign", "lang": "vi" },
+    { "text": "Nhà vệ sinh công cộng gần đây ở đâu", "expect": "O", "tag": "foreign", "lang": "vi" },
+    { "text": "Tôi muốn nói chuyện với người thật", "expect": "T", "tag": "foreign", "lang": "vi" },
+    { "text": "Saya mau bayar tagihan air", "expect": "A", "tag": "foreign", "lang": "id" },
+    { "text": "Saya ingin meminjam buku di perpustakaan", "expect": "N", "tag": "foreign", "lang": "id" },
+    { "text": "Tetangga saya sangat berisik di malam hari", "expect": "J", "tag": "foreign", "lang": "id" },
+    { "text": "Di mana tempat parkir terdekat", "expect": "O", "tag": "foreign", "lang": "id" },
+    { "text": "Saya mau membuat janji vaksin flu", "expect": "U", "tag": "foreign", "lang": "id" },
+    { "text": "ฉันอยากจ่ายค่าน้ำ", "expect": "A", "tag": "foreign", "lang": "th" },
+    { "text": "ฉันต้องการแจ้งความว่าโทรศัพท์หาย", "expect": "M", "tag": "foreign", "lang": "th" },
+    { "text": "ห้องน้ำสาธารณะที่ใกล้ที่สุดอยู่ที่ไหน", "expect": "O", "tag": "foreign", "lang": "th" },
+    { "text": "ฉันอยากคุยกับเจ้าหน้าที่", "expect": "T", "tag": "foreign", "lang": "th" },
+    { "text": "อยากจองคิวฉีดวัคซีน", "expect": "U", "tag": "foreign", "lang": "th" },
+    { "text": "Tôi muốn nộp thuế nhà", "expect": "D", "tag": "foreign", "lang": "vi" },
+    { "text": "Saya mau bayar uang sekolah anak saya", "expect": "E", "tag": "foreign", "lang": "id" },
+    { "text": "น้ำท่วมหน้าบ้านฉัน", "expect": "L", "tag": "foreign", "lang": "th" },
+    { "text": "Hôm nay trời đẹp quá", "expect": "Z", "tag": "foreign", "lang": "vi" },
+    { "text": "Saya lapar sekali", "expect": "Z", "tag": "foreign", "lang": "id" }
+  ]
+}

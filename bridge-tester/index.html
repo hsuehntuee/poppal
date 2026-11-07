@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bridge Tester</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #f5f7f8; color: #1a1a1a; }
+    h1 { font-size: 18px; margin: 0 0 4px; }
+    .status { font-size: 13px; margin-bottom: 12px; }
+    .ok { color: #0a7d3b; } .bad { color: #b42318; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    button { padding: 12px 8px; font-size: 14px; border: 0; border-radius: 8px; background: #5ab4c5; color: #fff; }
+    button:active { opacity: .7; }
+    pre { background: #fff; border-radius: 8px; padding: 12px; font-size: 12px; white-space: pre-wrap; word-break: break-all; min-height: 120px; }
+  </style>
+</head>
+<body>
+  <h1>TownPass Bridge Tester</h1>
+  <div id="status" class="status"></div>
+  <div class="grid">
+    <button data-name="userinfo">userinfo</button>
+    <button data-name="deviceinfo">deviceinfo</button>
+    <button data-name="location">location</button>
+    <button data-name="qr_code_scan">qr_code_scan</button>
+    <button data-name="notify" data-payload='{"title":"測試通知","content":"Hello from microservice"}'>notify</button>
+    <button data-name="open_link" data-payload='"https://www.gov.taipei/"'>open_link</button>
+    <button data-name="launch_map" data-payload='"https://www.google.com/maps/search/?api=1&query=台北101"'>launch_map</button>
+    <button data-name="phone_call" data-payload='"1999"'>phone_call</button>
+  </div>
+  <h1 style="margin-top:16px">Log</h1>
+  <pre id="log"></pre>
+  <script>
+    // Same protocol as TownPass-Services/src/composables/useConnectionMessage.ts:
+    //   flutterObject.postMessage(JSON.stringify({ name, data }))
+    // and replies arrive as 'message' events with a JSON string in event.data.
+    const logEl = document.getElementById('log');
+    const statusEl = document.getElementById('status');
+    const log = (m) => { logEl.textContent = `[${new Date().toLocaleTimeString()}] ${m}\n` + logEl.textContent; };
+    const hasBridge = typeof flutterObject !== 'undefined' && flutterObject;
+    statusEl.innerHTML = hasBridge
+      ? '<span class="ok">● flutterObject 已連線（在 TownPass 內）</span>'
+      : '<span class="bad">● 找不到 flutterObject（一般瀏覽器中，只能看 UI）</span>';
+
+    if (hasBridge) {
+      flutterObject.addEventListener('message', (e) => {
+        let text = e.data;
+        try { text = JSON.stringify(JSON.parse(e.data), null, 2); } catch (_) {}
+        log('← ' + text);
+      });
+    }
+
+    document.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+      const name = b.dataset.name;
+      const data = b.dataset.payload ? JSON.parse(b.dataset.payload) : null;
+      log(`→ ${name} ${data === null ? '' : JSON.stringify(data)}`);
+      if (hasBridge) flutterObject.postMessage(JSON.stringify({ name, data }));
+    }));
+  </script>
+</body>
+</html>

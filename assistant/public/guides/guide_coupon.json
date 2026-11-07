@@ -1,0 +1,32 @@
+{
+ "id": "guide_coupon",
+ "title": {
+  "zh": "優惠票券"
+ },
+ "entry": "/coupon",
+ "match": {
+  "url": "^/coupon"
+ },
+ "steps": [
+  {
+   "id": "look",
+   "url": "^/coupon",
+   "find": [
+    {
+     "css": "input[placeholder*=\"票券\"]"
+    },
+    {
+     "css": "main"
+    }
+   ],
+   "say": {
+    "zh": "輸入場館或票券名稱"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "或往下滑看熱門地點"
+   },
+   "final": true
+  }
+ ]
+}

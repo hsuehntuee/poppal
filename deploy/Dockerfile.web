@@ -1,0 +1,23 @@
+# 一個 nginx 容器同時服務：服務頁（/）+ 小幫手（/assistant/）+ 轉發 /llm/ 到 llama-server
+# build context 是 repo 根目錄：docker build -f deploy/Dockerfile.web .
+FROM node:20-alpine AS build
+RUN corepack enable && corepack prepare pnpm@9.9.0 --activate
+WORKDIR /src
+
+# 官方範例微服務（不修改）
+COPY TownPass-Services/package.json TownPass-Services/pnpm-lock.yaml ./TownPass-Services/
+RUN cd TownPass-Services && pnpm install --frozen-lockfile
+COPY TownPass-Services ./TownPass-Services
+RUN cd TownPass-Services && pnpm build-only
+
+# 小幫手
+COPY assistant/package.json assistant/pnpm-lock.yaml ./assistant/
+RUN cd assistant && pnpm install --frozen-lockfile
+COPY assistant ./assistant
+RUN cd assistant && pnpm build-only && pnpm build-overlay
+
+FROM nginx:1.27-alpine
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /src/TownPass-Services/dist /usr/share/nginx/html
+COPY --from=build /src/assistant/dist /usr/share/nginx/html/assistant
+EXPOSE 80

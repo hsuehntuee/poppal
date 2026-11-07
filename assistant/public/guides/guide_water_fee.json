@@ -1,0 +1,167 @@
+{
+  "id": "guide_water_fee",
+  "title": {
+    "zh": "繳水費",
+    "en": "Pay water bill"
+  },
+  "entry": "/fee-payment/detail/fee-6",
+  "match": {
+    "url": "^/fee-payment/detail/fee-6"
+  },
+  "steps": [
+    {
+      "id": "expand_fee",
+      "url": "^/fee-payment/others",
+      "find": [
+        {
+          "role": "button",
+          "text": "規費"
+        }
+      ],
+      "say": {
+        "zh": "點「規費」",
+        "en": "Tap \"規費\""
+      },
+      "more": {
+        "zh": "最上面那一排，點了會展開一串費用",
+        "en": "The first row. Tapping it opens a list of fees"
+      },
+      "done_when": "click",
+      "skip_if_visible": [
+        {
+          "text": "水費",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "id": "pick_water",
+      "url": "^/fee-payment/others",
+      "find": [
+        {
+          "text": "水費",
+          "exact": true
+        },
+        {
+          "css": "a[href*='fee-6']"
+        }
+      ],
+      "say": {
+        "zh": "點「水費」",
+        "en": "Tap \"水費\""
+      },
+      "more": {
+        "zh": "規費底下有一行寫著「水費」",
+        "en": "Under 規費 there is a line that says 水費"
+      },
+      "done_when": "route"
+    },
+    {
+      "id": "fill_water_number",
+      "url": "^/fee-payment/detail/fee-6",
+      "find": [
+        {
+          "label": "水號"
+        },
+        {
+          "css": "#water_number"
+        },
+        {
+          "css": "input[placeholder*='水號']"
+        }
+      ],
+      "say": {
+        "zh": "輸入水號",
+        "en": "Enter the water number"
+      },
+      "more": {
+        "zh": "帳單右上角的 10 位數字，也可以按「用說的」念出來",
+        "en": "The 10-digit number at the top right of your bill. You can also say it"
+      },
+      "accept": "digits",
+      "min_len": 10,
+      "max_len": 10,
+      "done_when": "input"
+    },
+    {
+      "id": "search",
+      "url": "^/fee-payment/detail/fee-6",
+      "find": [
+        {
+          "role": "button",
+          "text": "查詢"
+        }
+      ],
+      "say": {
+        "zh": "按「查詢」",
+        "en": "Tap \"查詢\""
+      },
+      "more": {
+        "zh": "最下面藍色的大按鈕",
+        "en": "The big blue button at the bottom"
+      },
+      "done_when": "route"
+    },
+    {
+      "id": "select_all",
+      "url": "^/fee-payment/result/fee-6",
+      "find": [
+        {
+          "text": "全部繳清",
+          "exact": true
+        }
+      ],
+      "say": {
+        "zh": "點「全部繳清」",
+        "en": "Tap \"全部繳清\""
+      },
+      "more": {
+        "zh": "會把所有帳單都勾起來",
+        "en": "This ticks every bill"
+      },
+      "done_when": "click",
+      "skip_if_missing": true
+    },
+    {
+      "id": "go_pay",
+      "url": "^/fee-payment/result/fee-6",
+      "find": [
+        {
+          "role": "button",
+          "text": "前往繳費"
+        }
+      ],
+      "say": {
+        "zh": "按「前往繳費」",
+        "en": "Tap \"前往繳費\""
+      },
+      "more": {
+        "zh": "最下面藍色的大按鈕，上面會寫總金額",
+        "en": "The big blue button at the bottom, above it is the total"
+      },
+      "done_when": "route",
+      "confirm": true
+    },
+    {
+      "id": "choose_way",
+      "url": "^/fee-payment/payment/",
+      "find": [
+        {
+          "text": "請選擇繳費方式"
+        }
+      ],
+      "say": {
+        "zh": "選一種付款方式",
+        "en": "Choose a payment method"
+      },
+      "more": {
+        "zh": "信用卡或行動支付都可以，選好後畫面會再問你一次",
+        "en": "Credit card or mobile payment. The page will ask you to confirm"
+      },
+      "done_when": "route",
+      "confirm": true,
+      "final": true
+    }
+  ],
+  "note": "entry 直接進水費頁：原服務「其他」頁的分類展開在 build 後壞掉（grid-rows-[0fr] 蓋過 [1fr]），前兩步只給手動從 /fee-payment/others 走的人用，引導層會自動跳到符合網址的步驟。"
+}

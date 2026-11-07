@@ -1,0 +1,48 @@
+{
+ "id": "guide_green_map",
+ "title": {
+  "zh": "簡單森呼吸"
+ },
+ "entry": "/green-map",
+ "match": {
+  "url": "^/green-map"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/green-map",
+   "find": [
+    {
+     "option": "{{entity}}"
+    },
+    {
+     "css": "#findPlace"
+    },
+    {
+     "css": "select"
+    }
+   ],
+   "say": {
+    "zh": "選「{{entity}}」"
+   },
+   "done_when": "change",
+   "say_default": {
+    "zh": "選你想找的綠地類型"
+   }
+  },
+  {
+   "id": "look",
+   "url": "^/green-map",
+   "find": [
+    {
+     "css": ".leaflet-marker-icon"
+    }
+   ],
+   "say": {
+    "zh": "點地圖上的標記看地點"
+   },
+   "done_when": "manual",
+   "final": true
+  }
+ ]
+}

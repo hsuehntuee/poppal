@@ -1,0 +1,202 @@
+{
+  "categories": [
+    {
+      "id": "park",
+      "name": "寵物公園"
+    },
+    {
+      "id": "restaurant",
+      "name": "寵物友善餐廳"
+    },
+    {
+      "id": "hospital",
+      "name": "動物醫院"
+    },
+    {
+      "id": "registration",
+      "name": "寵物登記站"
+    }
+  ],
+  "data": [
+    {
+      "id": "P01",
+      "name": "迎風狗運動公園",
+      "category": "park",
+      "area": "中山區",
+      "address": "臺北市中山區基隆河濱（大直橋下）",
+      "lat": 25.0795,
+      "lng": 121.5547,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%BF%8E%E9%A2%A8%E7%8B%97%E9%81%8B%E5%8B%95%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "P02",
+      "name": "潭美毛寶貝快樂公園",
+      "category": "park",
+      "area": "內湖區",
+      "address": "臺北市內湖區新明路",
+      "lat": 25.062,
+      "lng": 121.588,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%BD%AD%E7%BE%8E%E6%AF%9B%E5%AF%B6%E8%B2%9D%E5%BF%AB%E6%A8%82%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "P03",
+      "name": "華中河濱公園寵物活動區",
+      "category": "park",
+      "area": "萬華區",
+      "address": "臺北市萬華區萬大路底",
+      "lat": 25.015,
+      "lng": 121.496,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%8F%AF%E4%B8%AD%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92%E5%AF%B5%E7%89%A9%E6%B4%BB%E5%8B%95%E5%8D%80"
+    },
+    {
+      "id": "P04",
+      "name": "至善公園狗活動區",
+      "category": "park",
+      "area": "士林區",
+      "address": "臺北市士林區至善路二段",
+      "lat": 25.1,
+      "lng": 121.54,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%87%B3%E5%96%84%E5%85%AC%E5%9C%92%E7%8B%97%E6%B4%BB%E5%8B%95%E5%8D%80"
+    },
+    {
+      "id": "P05",
+      "name": "萬芳四號公園狗活動區",
+      "category": "park",
+      "area": "文山區",
+      "address": "臺北市文山區萬美街一段",
+      "lat": 24.999,
+      "lng": 121.57,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%90%AC%E8%8A%B3%E5%9B%9B%E8%99%9F%E5%85%AC%E5%9C%92%E7%8B%97%E6%B4%BB%E5%8B%95%E5%8D%80"
+    },
+    {
+      "id": "P06",
+      "name": "大佳河濱公園狗活動區",
+      "category": "park",
+      "area": "中山區",
+      "address": "臺北市中山區濱江街",
+      "lat": 25.0745,
+      "lng": 121.53,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E4%BD%B3%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92%E7%8B%97%E6%B4%BB%E5%8B%95%E5%8D%80"
+    },
+    {
+      "id": "P07",
+      "name": "毛孩餐桌",
+      "category": "restaurant",
+      "area": "大安區",
+      "address": "臺北市大安區復興南路一段253巷",
+      "lat": 25.04,
+      "lng": 121.544,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%AF%9B%E5%AD%A9%E9%A4%90%E6%A1%8C"
+    },
+    {
+      "id": "P08",
+      "name": "汪喵咖啡",
+      "category": "restaurant",
+      "area": "信義區",
+      "address": "臺北市信義區松壽路12號",
+      "lat": 25.036,
+      "lng": 121.567,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%B1%AA%E5%96%B5%E5%92%96%E5%95%A1"
+    },
+    {
+      "id": "P09",
+      "name": "狗狗友善早午餐",
+      "category": "restaurant",
+      "area": "松山區",
+      "address": "臺北市松山區民生東路四段",
+      "lat": 25.058,
+      "lng": 121.552,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E7%8B%97%E7%8B%97%E5%8F%8B%E5%96%84%E6%97%A9%E5%8D%88%E9%A4%90"
+    },
+    {
+      "id": "P10",
+      "name": "貓森林咖啡",
+      "category": "restaurant",
+      "area": "中山區",
+      "address": "臺北市中山區中山北路二段",
+      "lat": 25.056,
+      "lng": 121.523,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%B2%93%E6%A3%AE%E6%9E%97%E5%92%96%E5%95%A1"
+    },
+    {
+      "id": "P11",
+      "name": "全民動物醫院",
+      "category": "hospital",
+      "area": "大安區",
+      "address": "臺北市大安區和平東路二段",
+      "lat": 25.026,
+      "lng": 121.543,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%85%A8%E6%B0%91%E5%8B%95%E7%89%A9%E9%86%AB%E9%99%A2"
+    },
+    {
+      "id": "P12",
+      "name": "中山動物醫院",
+      "category": "hospital",
+      "area": "中山區",
+      "address": "臺北市中山區南京東路二段",
+      "lat": 25.052,
+      "lng": 121.532,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E4%B8%AD%E5%B1%B1%E5%8B%95%E7%89%A9%E9%86%AB%E9%99%A2"
+    },
+    {
+      "id": "P13",
+      "name": "臺大動物醫院",
+      "category": "hospital",
+      "area": "大安區",
+      "address": "臺北市大安區基隆路三段153號",
+      "lat": 25.017,
+      "lng": 121.542,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%A4%A7%E5%8B%95%E7%89%A9%E9%86%AB%E9%99%A2"
+    },
+    {
+      "id": "P14",
+      "name": "臺北市動物之家",
+      "category": "hospital",
+      "area": "內湖區",
+      "address": "臺北市內湖區潭美街852號",
+      "lat": 25.066,
+      "lng": 121.595,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%8B%95%E7%89%A9%E4%B9%8B%E5%AE%B6"
+    },
+    {
+      "id": "P15",
+      "name": "臺北市動物保護處",
+      "category": "registration",
+      "area": "信義區",
+      "address": "臺北市信義區吳興街600巷",
+      "lat": 25.02,
+      "lng": 121.56,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%8B%95%E7%89%A9%E4%BF%9D%E8%AD%B7%E8%99%95"
+    },
+    {
+      "id": "P16",
+      "name": "北投寵物登記站",
+      "category": "registration",
+      "area": "北投區",
+      "address": "臺北市北投區新市街30號",
+      "lat": 25.132,
+      "lng": 121.5,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%8A%95%E5%AF%B5%E7%89%A9%E7%99%BB%E8%A8%98%E7%AB%99"
+    },
+    {
+      "id": "P17",
+      "name": "文山寵物登記站",
+      "category": "registration",
+      "area": "文山區",
+      "address": "臺北市文山區木柵路三段220號",
+      "lat": 24.989,
+      "lng": 121.57,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%96%87%E5%B1%B1%E5%AF%B5%E7%89%A9%E7%99%BB%E8%A8%98%E7%AB%99"
+    },
+    {
+      "id": "P18",
+      "name": "士林寵物登記站",
+      "category": "registration",
+      "area": "士林區",
+      "address": "臺北市士林區中正路439號",
+      "lat": 25.094,
+      "lng": 121.526,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A3%AB%E6%9E%97%E5%AF%B5%E7%89%A9%E7%99%BB%E8%A8%98%E7%AB%99"
+    }
+  ]
+}

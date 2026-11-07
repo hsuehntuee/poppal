@@ -1,0 +1,3039 @@
+{
+  "name": "gemma-3-270m-decider-v2-Q8",
+  "where": "S26-NPU-usb",
+  "engine": "llm",
+  "info": {
+    "engine": "llm",
+    "url": "http://127.0.0.1:18080",
+    "api": "native",
+    "model": "gemma-3-270m-decider-Q8_0.gguf",
+    "topN": 40,
+    "noCodeInTopN": 0,
+    "prompt_n": 7,
+    "prompt_ms": 32,
+    "predicted_ms": 0,
+    "tok_per_s": 216,
+    "fused": true
+  },
+  "n": 107,
+  "first_hit": 0.9690721649484536,
+  "two_round_hit": 1,
+  "oos_detect": 1,
+  "avg_asks": 0.028037383177570093,
+  "p50_ms": 55.2813000000001,
+  "p95_ms": 61.601800000000026,
+  "by_tag": {
+    "normal": {
+      "n": 87,
+      "first_hit": 0.9770114942528736,
+      "two_round_hit": 1
+    },
+    "ambiguous": {
+      "n": 10,
+      "first_hit": 0.9,
+      "two_round_hit": 1
+    },
+    "oos": {
+      "n": 10,
+      "first_hit": 1,
+      "two_round_hit": 1
+    }
+  },
+  "thresholds": {
+    "go": 0.75,
+    "ask2": 0.75,
+    "ask3": 0.75
+  },
+  "items": [
+    {
+      "text": "水的那個帳單要怎麼繳",
+      "expect": "A",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.9672403556974717
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.2808,
+      "top3": [
+        [
+          "A",
+          0.967
+        ],
+        [
+          "B",
+          0.023
+        ],
+        [
+          "C",
+          0.005
+        ]
+      ]
+    },
+    {
+      "text": "自來水公司寄來的單子想用手機付",
+      "expect": "A",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.9978620509909005
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 52.89540000000005,
+      "top3": [
+        [
+          "A",
+          0.998
+        ],
+        [
+          "B",
+          0.001
+        ],
+        [
+          "C",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "這期水費還沒付",
+      "expect": "A",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.999059053816714
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.101600000000076,
+      "top3": [
+        [
+          "A",
+          0.999
+        ],
+        [
+          "B",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "I need to pay the water bill on my phone",
+      "expect": "A",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.9999085848947281
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 62.91840000000002,
+      "top3": [
+        [
+          "A",
+          1
+        ],
+        [
+          "B",
+          0
+        ],
+        [
+          "C",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想自己回報水表的數字",
+      "expect": "B",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "B",
+        "p": 0.9989627338890364
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 42.442499999999995,
+      "top3": [
+        [
+          "B",
+          0.999
+        ],
+        [
+          "C",
+          0.001
+        ],
+        [
+          "H",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "抄表員沒來，度數怎麼報",
+      "expect": "B",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "B",
+        "p": 0.9995572136165942
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 61.601800000000026,
+      "top3": [
+        [
+          "B",
+          1
+        ],
+        [
+          "C",
+          0
+        ],
+        [
+          "A",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "查一下我家這個月用了多少度水",
+      "expect": "B",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "B",
+        "p": 0.9829317732711197
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 59.00969999999995,
+      "top3": [
+        [
+          "B",
+          0.983
+        ],
+        [
+          "L",
+          0.011
+        ],
+        [
+          "C",
+          0.003
+        ]
+      ]
+    },
+    {
+      "text": "路邊停車的單子要付錢",
+      "expect": "C",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9702353237288177
+      },
+      "firstHit": false,
+      "twoRoundHit": true,
+      "asks": 1,
+      "ms": 61.846900000000005,
+      "top3": [
+        [
+          "G",
+          0.97
+        ],
+        [
+          "C",
+          0.023
+        ],
+        [
+          "H",
+          0.006
+        ]
+      ]
+    },
+    {
+      "text": "我的車牌有沒有停車費要繳",
+      "expect": "C",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "C",
+        "p": 0.9999962960959272
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.81439999999998,
+      "top3": [
+        [
+          "C",
+          1
+        ],
+        [
+          "B",
+          0
+        ],
+        [
+          "D",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "停車繳費",
+      "expect": "C",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "C",
+        "p": 0.9991745930044194
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 52.511300000000006,
+      "top3": [
+        [
+          "C",
+          0.999
+        ],
+        [
+          "E",
+          0
+        ],
+        [
+          "D",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "pay for street parking",
+      "expect": "C",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "C",
+        "p": 0.9999993329929026
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.84720000000004,
+      "top3": [
+        [
+          "C",
+          1
+        ],
+        [
+          "E",
+          0
+        ],
+        [
+          "B",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "房屋稅的繳款書可以用手機掃嗎",
+      "expect": "D",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "D",
+        "p": 0.9999741539327449
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 62.52759999999989,
+      "top3": [
+        [
+          "D",
+          1
+        ],
+        [
+          "E",
+          0
+        ],
+        [
+          "G",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要繳牌照稅",
+      "expect": "D",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "D",
+        "p": 0.9999949233395192
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.67729999999983,
+      "top3": [
+        [
+          "D",
+          1
+        ],
+        [
+          "F",
+          0
+        ],
+        [
+          "G",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "地價稅單子收到了要付",
+      "expect": "D",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "D",
+        "p": 0.9999570260193894
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.462200000000166,
+      "top3": [
+        [
+          "D",
+          1
+        ],
+        [
+          "G",
+          0
+        ],
+        [
+          "E",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "小孩學校的註冊費要繳",
+      "expect": "E",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "E",
+        "p": 0.9999999737181263
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.09480000000008,
+      "top3": [
+        [
+          "E",
+          1
+        ],
+        [
+          "D",
+          0
+        ],
+        [
+          "F",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "學費繳費單怎麼付",
+      "expect": "E",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "E",
+        "p": 0.999382035270674
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.86850000000004,
+      "top3": [
+        [
+          "E",
+          0.999
+        ],
+        [
+          "G",
+          0.001
+        ],
+        [
+          "H",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "pay my kid's school fees",
+      "expect": "E",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "E",
+        "p": 0.9999715572807284
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.79119999999989,
+      "top3": [
+        [
+          "E",
+          1
+        ],
+        [
+          "F",
+          0
+        ],
+        [
+          "G",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "上次在聯合醫院看病的錢還沒付",
+      "expect": "F",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "F",
+        "p": 0.9822376888718057
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.2364,
+      "top3": [
+        [
+          "F",
+          0.982
+        ],
+        [
+          "G",
+          0.01
+        ],
+        [
+          "H",
+          0.007
+        ]
+      ]
+    },
+    {
+      "text": "住院的費用要繳",
+      "expect": "F",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "F",
+        "p": 0.9965403360723659
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 52.99339999999984,
+      "top3": [
+        [
+          "F",
+          0.997
+        ],
+        [
+          "H",
+          0.002
+        ],
+        [
+          "G",
+          0.001
+        ]
+      ]
+    },
+    {
+      "text": "醫院帳單",
+      "expect": "F",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "F",
+        "p": 0.9998562935220103
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.63570000000004,
+      "top3": [
+        [
+          "F",
+          1
+        ],
+        [
+          "E",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我有一張罰單要繳",
+      "expect": "G",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9998647651173048
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.14580000000001,
+      "top3": [
+        [
+          "G",
+          1
+        ],
+        [
+          "J",
+          0
+        ],
+        [
+          "H",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "社會住宅的租金要怎麼付",
+      "expect": "G",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9999991222813002
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.978599999999915,
+      "top3": [
+        [
+          "G",
+          1
+        ],
+        [
+          "H",
+          0
+        ],
+        [
+          "F",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "公司登記的規費",
+      "expect": "G",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9999981881121459
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.13349999999991,
+      "top3": [
+        [
+          "G",
+          1
+        ],
+        [
+          "H",
+          0
+        ],
+        [
+          "F",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "I got a fine, where do I pay it",
+      "expect": "G",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9721261353387722
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 61.73989999999981,
+      "top3": [
+        [
+          "G",
+          0.972
+        ],
+        [
+          "F",
+          0.026
+        ],
+        [
+          "P",
+          0.002
+        ]
+      ]
+    },
+    {
+      "text": "我想看之前繳過哪些費用",
+      "expect": "H",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "H",
+        "p": 0.9841012499566516
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.829499999999825,
+      "top3": [
+        [
+          "H",
+          0.984
+        ],
+        [
+          "G",
+          0.013
+        ],
+        [
+          "J",
+          0.001
+        ]
+      ]
+    },
+    {
+      "text": "上個月的水費到底付了沒",
+      "expect": "H",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.9501447490955297
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.61500000000001,
+      "top3": [
+        [
+          "A",
+          0.95
+        ],
+        [
+          "G",
+          0.028
+        ],
+        [
+          "E",
+          0.006
+        ]
+      ]
+    },
+    {
+      "text": "帳務紀錄",
+      "expect": "H",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "H",
+        "p": 0.9997334498277188
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.252899999999954,
+      "top3": [
+        [
+          "H",
+          1
+        ],
+        [
+          "K",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "did my payment go through last week",
+      "expect": "H",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "H",
+        "p": 0.9318326817279017
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.2813000000001,
+      "top3": [
+        [
+          "H",
+          0.932
+        ],
+        [
+          "K",
+          0.04
+        ],
+        [
+          "G",
+          0.02
+        ]
+      ]
+    },
+    {
+      "text": "戶政事務所現在排到幾號",
+      "expect": "I",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "I",
+        "p": 0.9999932461335511
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 43.19959999999992,
+      "top3": [
+        [
+          "I",
+          1
+        ],
+        [
+          "O",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "地政事務所要等很久嗎",
+      "expect": "I",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "I",
+        "p": 0.999996552586009
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 31.411799999999857,
+      "top3": [
+        [
+          "I",
+          1
+        ],
+        [
+          "L",
+          0
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想先抽號碼牌再過去",
+      "expect": "I",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "I",
+        "p": 0.9998376252135284
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 44.683700000000044,
+      "top3": [
+        [
+          "I",
+          1
+        ],
+        [
+          "J",
+          0
+        ],
+        [
+          "O",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "how many people are waiting at the household registration office",
+      "expect": "I",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "I",
+        "p": 0.9990300424916903
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.26559999999972,
+      "top3": [
+        [
+          "I",
+          0.999
+        ],
+        [
+          "O",
+          0
+        ],
+        [
+          "V",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "隔壁工地半夜施工很吵",
+      "expect": "J",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "J",
+        "p": 0.9854176631751883
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.051600000000235,
+      "top3": [
+        [
+          "J",
+          0.985
+        ],
+        [
+          "L",
+          0.014
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要跟市政府反映路燈壞了",
+      "expect": "J",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "J",
+        "p": 0.9995720522348507
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.65079999999989,
+      "top3": [
+        [
+          "J",
+          1
+        ],
+        [
+          "L",
+          0
+        ],
+        [
+          "K",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "檢舉違規停車擋到我家門口",
+      "expect": "J",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "J",
+        "p": 0.9999490142002339
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.589500000000044,
+      "top3": [
+        [
+          "J",
+          1
+        ],
+        [
+          "K",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "I want to complain about the garbage on my street",
+      "expect": "J",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "J",
+        "p": 0.9993156232880576
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 59.08289999999988,
+      "top3": [
+        [
+          "J",
+          0.999
+        ],
+        [
+          "K",
+          0.001
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我上禮拜陳情的案子處理得怎樣了",
+      "expect": "K",
+      "tag": "normal",
+      "first": {
+        "kind": "ASK",
+        "codes": [
+          "K",
+          "J"
+        ],
+        "p": 0.9670844413922178
+      },
+      "firstHit": false,
+      "twoRoundHit": true,
+      "asks": 1,
+      "ms": 61.55029999999988,
+      "top3": [
+        [
+          "K",
+          0.691
+        ],
+        [
+          "J",
+          0.276
+        ],
+        [
+          "M",
+          0.028
+        ]
+      ]
+    },
+    {
+      "text": "查一下投訴的進度",
+      "expect": "K",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "K",
+        "p": 0.984346367313076
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.73779999999988,
+      "top3": [
+        [
+          "K",
+          0.984
+        ],
+        [
+          "J",
+          0.015
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "案件編號查進度",
+      "expect": "K",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "K",
+        "p": 0.9990915011899003
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.147500000000036,
+      "top3": [
+        [
+          "K",
+          0.999
+        ],
+        [
+          "M",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我家門口淹水了",
+      "expect": "L",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "L",
+        "p": 0.9994614106612242
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.17099999999982,
+      "top3": [
+        [
+          "L",
+          0.999
+        ],
+        [
+          "J",
+          0.001
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "颱風把路樹吹倒了擋住馬路",
+      "expect": "L",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "L",
+        "p": 0.9999127898494079
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 59.14899999999989,
+      "top3": [
+        [
+          "L",
+          1
+        ],
+        [
+          "J",
+          0
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "山坡好像在滑動要通報",
+      "expect": "L",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "L",
+        "p": 0.9273387421551315
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 59.83069999999998,
+      "top3": [
+        [
+          "L",
+          0.927
+        ],
+        [
+          "J",
+          0.057
+        ],
+        [
+          "M",
+          0.009
+        ]
+      ]
+    },
+    {
+      "text": "there is a landslide near my house",
+      "expect": "L",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "L",
+        "p": 0.9601694663343479
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 45.88920000000007,
+      "top3": [
+        [
+          "L",
+          0.96
+        ],
+        [
+          "J",
+          0.039
+        ],
+        [
+          "K",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我的機車被偷了要報案",
+      "expect": "M",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "M",
+        "p": 0.9998943817068171
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 44.26749999999993,
+      "top3": [
+        [
+          "M",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "接到詐騙電話想報警",
+      "expect": "M",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "M",
+        "p": 0.9997085085139575
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.22929999999997,
+      "top3": [
+        [
+          "M",
+          1
+        ],
+        [
+          "T",
+          0
+        ],
+        [
+          "P",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "線上跟警察局報案",
+      "expect": "M",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "M",
+        "p": 0.9967594188486089
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.54029999999966,
+      "top3": [
+        [
+          "M",
+          0.997
+        ],
+        [
+          "T",
+          0.003
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "my wallet was stolen",
+      "expect": "M",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "M",
+        "p": 0.977857262032584
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.222099999999955,
+      "top3": [
+        [
+          "M",
+          0.978
+        ],
+        [
+          "N",
+          0.014
+        ],
+        [
+          "R",
+          0.007
+        ]
+      ]
+    },
+    {
+      "text": "圖書館的書要續借",
+      "expect": "N",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "N",
+        "p": 0.9999964481698884
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 61.003000000000156,
+      "top3": [
+        [
+          "N",
+          1
+        ],
+        [
+          "R",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "想找一本書看看哪間圖書館有",
+      "expect": "N",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "N",
+        "p": 0.9999830491254121
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.839600000000246,
+      "top3": [
+        [
+          "N",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "R",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我借的書什麼時候到期",
+      "expect": "N",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "N",
+        "p": 0.9997205379922076
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.465200000000095,
+      "top3": [
+        [
+          "N",
+          1
+        ],
+        [
+          "M",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "search for a book in the city library",
+      "expect": "N",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "N",
+        "p": 0.9999512391805114
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.3447000000001,
+      "top3": [
+        [
+          "N",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "R",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "這附近哪裡可以借YouBike",
+      "expect": "O",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "O",
+        "p": 0.9999602374413115
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 52.995000000000346,
+      "top3": [
+        [
+          "O",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "最近的公廁在哪",
+      "expect": "O",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "O",
+        "p": 0.9999503064197186
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 52.56829999999991,
+      "top3": [
+        [
+          "O",
+          1
+        ],
+        [
+          "L",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "垃圾車什麼時候會經過我家",
+      "expect": "O",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "O",
+        "p": 0.9999363787025813
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.828799999999774,
+      "top3": [
+        [
+          "O",
+          1
+        ],
+        [
+          "M",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "find a parking lot near me",
+      "expect": "O",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "O",
+        "p": 0.9958266255345486
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.7518,
+      "top3": [
+        [
+          "O",
+          0.996
+        ],
+        [
+          "C",
+          0.003
+        ],
+        [
+          "I",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要申請老人健保補助",
+      "expect": "P",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "P",
+        "p": 0.9999999998896749
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.79790000000003,
+      "top3": [
+        [
+          "P",
+          1
+        ],
+        [
+          "G",
+          0
+        ],
+        [
+          "U",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "想線上申辦市政府的業務",
+      "expect": "P",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "P",
+        "p": 0.9999962520469926
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.07510000000002,
+      "top3": [
+        [
+          "P",
+          1
+        ],
+        [
+          "O",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "申請低收入戶證明",
+      "expect": "P",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "P",
+        "p": 0.999900435105964
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.26110000000017,
+      "top3": [
+        [
+          "P",
+          1
+        ],
+        [
+          "G",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "最近有什麼活動的優惠券",
+      "expect": "Q",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Q",
+        "p": 0.9939548754024937
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.58150000000023,
+      "top3": [
+        [
+          "Q",
+          0.994
+        ],
+        [
+          "R",
+          0.004
+        ],
+        [
+          "P",
+          0.002
+        ]
+      ]
+    },
+    {
+      "text": "我要買演唱會的票",
+      "expect": "Q",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Q",
+        "p": 0.9995133533925399
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.94280000000026,
+      "top3": [
+        [
+          "Q",
+          1
+        ],
+        [
+          "Z",
+          0
+        ],
+        [
+          "R",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "show me the discount coupons",
+      "expect": "Q",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Q",
+        "p": 0.999823993990874
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.842899999999645,
+      "top3": [
+        [
+          "Q",
+          1
+        ],
+        [
+          "R",
+          0
+        ],
+        [
+          "P",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我昨天買的票在哪裡看",
+      "expect": "R",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "R",
+        "p": 0.9697378738622195
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.671800000000076,
+      "top3": [
+        [
+          "R",
+          0.97
+        ],
+        [
+          "Q",
+          0.024
+        ],
+        [
+          "N",
+          0.004
+        ]
+      ]
+    },
+    {
+      "text": "票券要怎麼兌換",
+      "expect": "R",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "R",
+        "p": 0.9934197657953376
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.82540000000017,
+      "top3": [
+        [
+          "R",
+          0.993
+        ],
+        [
+          "Q",
+          0.007
+        ],
+        [
+          "P",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "打開我的票夾",
+      "expect": "R",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "R",
+        "p": 0.999789032046003
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.252700000000004,
+      "top3": [
+        [
+          "R",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "S",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "空氣不好的時候通知我",
+      "expect": "S",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "S",
+        "p": 0.9998813749323646
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.1550000000002,
+      "top3": [
+        [
+          "S",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想訂閱社區公告",
+      "expect": "S",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "S",
+        "p": 0.999999990381389
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 50.909200000000055,
+      "top3": [
+        [
+          "S",
+          1
+        ],
+        [
+          "R",
+          0
+        ],
+        [
+          "Z",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "取消推播通知",
+      "expect": "S",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "S",
+        "p": 0.9999148068197853
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 48.57790000000023,
+      "top3": [
+        [
+          "S",
+          1
+        ],
+        [
+          "M",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "notify me when the air quality is bad",
+      "expect": "S",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "S",
+        "p": 0.9996979875497009
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.86819999999989,
+      "top3": [
+        [
+          "S",
+          1
+        ],
+        [
+          "W",
+          0
+        ],
+        [
+          "T",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要跟真人講話",
+      "expect": "T",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "T",
+        "p": 0.9999096538173595
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.590400000000045,
+      "top3": [
+        [
+          "T",
+          1
+        ],
+        [
+          "Z",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "幫我打市民熱線",
+      "expect": "T",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "T",
+        "p": 0.9999999520816962
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.65769999999975,
+      "top3": [
+        [
+          "T",
+          1
+        ],
+        [
+          "Z",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "1999",
+      "expect": "T",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "T",
+        "p": 0.9999761607029833
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 47.88760000000002,
+      "top3": [
+        [
+          "T",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "P",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "I want to talk to a real person",
+      "expect": "T",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "T",
+        "p": 0.9986404289911472
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.91910000000007,
+      "top3": [
+        [
+          "T",
+          0.999
+        ],
+        [
+          "Z",
+          0.001
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想預約打流感疫苗",
+      "expect": "U",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "U",
+        "p": 0.9999966366000769
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 58.17659999999978,
+      "top3": [
+        [
+          "U",
+          1
+        ],
+        [
+          "V",
+          0
+        ],
+        [
+          "Z",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "哪裡可以打新冠疫苗",
+      "expect": "U",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "U",
+        "p": 0.999997876148058
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.66370000000006,
+      "top3": [
+        [
+          "U",
+          1
+        ],
+        [
+          "V",
+          0
+        ],
+        [
+          "T",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "book a flu shot",
+      "expect": "U",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "U",
+        "p": 0.9999611774768788
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.14040000000023,
+      "top3": [
+        [
+          "U",
+          1
+        ],
+        [
+          "V",
+          0
+        ],
+        [
+          "Y",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要掛明天的門診",
+      "expect": "V",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "V",
+        "p": 0.9999755096256403
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.74340000000029,
+      "top3": [
+        [
+          "V",
+          1
+        ],
+        [
+          "T",
+          0
+        ],
+        [
+          "U",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "聯合醫院預約看醫生",
+      "expect": "V",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "V",
+        "p": 0.999741682804981
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 59.09680000000026,
+      "top3": [
+        [
+          "V",
+          1
+        ],
+        [
+          "U",
+          0
+        ],
+        [
+          "T",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "網路掛號",
+      "expect": "V",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "V",
+        "p": 0.998836970604917
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.400799999999435,
+      "top3": [
+        [
+          "V",
+          0.999
+        ],
+        [
+          "T",
+          0.001
+        ],
+        [
+          "W",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想看台北市的即時交通數據",
+      "expect": "W",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "W",
+        "p": 0.999999100269739
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.715400000000045,
+      "top3": [
+        [
+          "W",
+          1
+        ],
+        [
+          "T",
+          0
+        ],
+        [
+          "S",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "市政儀表板在哪",
+      "expect": "W",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "W",
+        "p": 0.9974114837614015
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.58019999999942,
+      "top3": [
+        [
+          "W",
+          0.997
+        ],
+        [
+          "V",
+          0.003
+        ],
+        [
+          "E",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "open the Taipei city data dashboard",
+      "expect": "W",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "W",
+        "p": 0.9999992703524649
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.20709999999963,
+      "top3": [
+        [
+          "W",
+          1
+        ],
+        [
+          "T",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "這個 App 的功能怎麼用",
+      "expect": "X",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "X",
+        "p": 0.9999805277033569
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 54.631099999999606,
+      "top3": [
+        [
+          "X",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "W",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我看不懂城市通",
+      "expect": "X",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "X",
+        "p": 0.9837965607110535
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 50.912500000000364,
+      "top3": [
+        [
+          "X",
+          0.984
+        ],
+        [
+          "W",
+          0.009
+        ],
+        [
+          "Q",
+          0.003
+        ]
+      ]
+    },
+    {
+      "text": "常見問題在哪裡",
+      "expect": "X",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "X",
+        "p": 0.9982843984991414
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 53.67150000000038,
+      "top3": [
+        [
+          "X",
+          0.998
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "想帶小孩去親子館要先報名嗎",
+      "expect": "Y",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Y",
+        "p": 0.9999865989356055
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 51.20179999999982,
+      "top3": [
+        [
+          "Y",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "U",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "預約親子館的活動",
+      "expect": "Y",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Y",
+        "p": 0.9999865060903987
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 60.172199999999975,
+      "top3": [
+        [
+          "Y",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "U",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "book a slot at the family center",
+      "expect": "Y",
+      "tag": "normal",
+      "first": {
+        "kind": "GO",
+        "code": "Y",
+        "p": 0.9999944799110044
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.80489999999918,
+      "top3": [
+        [
+          "Y",
+          1
+        ],
+        [
+          "Q",
+          0
+        ],
+        [
+          "U",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要繳費",
+      "expect": "G",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9929301952728913
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 46.99669999999969,
+      "top3": [
+        [
+          "G",
+          0.993
+        ],
+        [
+          "H",
+          0.006
+        ],
+        [
+          "F",
+          0.001
+        ]
+      ]
+    },
+    {
+      "text": "水的事情",
+      "expect": "A",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "A",
+        "p": 0.9371389429827932
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 48.25030000000061,
+      "top3": [
+        [
+          "A",
+          0.937
+        ],
+        [
+          "J",
+          0.038
+        ],
+        [
+          "B",
+          0.016
+        ]
+      ]
+    },
+    {
+      "text": "有一張單子要付錢",
+      "expect": "G",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "G",
+        "p": 0.9954059562531308
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.54290000000037,
+      "top3": [
+        [
+          "G",
+          0.995
+        ],
+        [
+          "H",
+          0.004
+        ],
+        [
+          "X",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "醫院",
+      "expect": "V",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "F",
+        "p": 0.9995499473966255
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 29.208999999999833,
+      "top3": [
+        [
+          "F",
+          1
+        ],
+        [
+          "U",
+          0
+        ],
+        [
+          "V",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要報案",
+      "expect": "M",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "M",
+        "p": 0.9999144136182672
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 30.58219999999983,
+      "top3": [
+        [
+          "M",
+          1
+        ],
+        [
+          "P",
+          0
+        ],
+        [
+          "J",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "停車",
+      "expect": "C",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "C",
+        "p": 0.9996620051186348
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 29.15729999999985,
+      "top3": [
+        [
+          "C",
+          1
+        ],
+        [
+          "B",
+          0
+        ],
+        [
+          "E",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要預約",
+      "expect": "V",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "T",
+        "p": 0.8145490275743253
+      },
+      "firstHit": false,
+      "twoRoundHit": true,
+      "asks": 1,
+      "ms": 34.550500000000284,
+      "top3": [
+        [
+          "T",
+          0.815
+        ],
+        [
+          "V",
+          0.149
+        ],
+        [
+          "Q",
+          0.024
+        ]
+      ]
+    },
+    {
+      "text": "票",
+      "expect": "Q",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "Q",
+        "p": 0.8317332597331587
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 24.641099999999824,
+      "top3": [
+        [
+          "Q",
+          0.832
+        ],
+        [
+          "R",
+          0.168
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "陳情",
+      "expect": "J",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "J",
+        "p": 0.9929612782463784
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 30.982600000000275,
+      "top3": [
+        [
+          "J",
+          0.993
+        ],
+        [
+          "K",
+          0.007
+        ],
+        [
+          "M",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我要查紀錄",
+      "expect": "H",
+      "tag": "ambiguous",
+      "first": {
+        "kind": "GO",
+        "code": "N",
+        "p": 0.9853565116413784
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 31.747199999999793,
+      "top3": [
+        [
+          "N",
+          0.985
+        ],
+        [
+          "M",
+          0.008
+        ],
+        [
+          "K",
+          0.003
+        ]
+      ]
+    },
+    {
+      "text": "今天會下雨嗎",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9998761709380674
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 37.11160000000018,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "S",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "幫我訂一個披薩",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.999428873283047
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 50.552200000000084,
+      "top3": [
+        [
+          "Z",
+          0.999
+        ],
+        [
+          "Q",
+          0.001
+        ],
+        [
+          "O",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "你叫什麼名字",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9972862186008944
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 50.643199999999524,
+      "top3": [
+        [
+          "Z",
+          0.997
+        ],
+        [
+          "M",
+          0.001
+        ],
+        [
+          "I",
+          0.001
+        ]
+      ]
+    },
+    {
+      "text": "台積電股價多少",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.976541223033604
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 33.54370000000017,
+      "top3": [
+        [
+          "Z",
+          0.977
+        ],
+        [
+          "L",
+          0.022
+        ],
+        [
+          "X",
+          0.001
+        ]
+      ]
+    },
+    {
+      "text": "唱一首歌給我聽",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9999551319984891
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 43.69619999999941,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "J",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "我想去日本玩",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9999970951082376
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 56.497299999999996,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "J",
+          0
+        ],
+        [
+          "N",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "幫我設鬧鐘七點",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9999429327550258
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 62.39049999999952,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "what is the capital of France",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9459119492525933
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 57.21529999999984,
+      "top3": [
+        [
+          "Z",
+          0.946
+        ],
+        [
+          "E",
+          0.04
+        ],
+        [
+          "F",
+          0.009
+        ]
+      ]
+    },
+    {
+      "text": "我的手機沒電了",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9999276473930812
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 55.6904999999997,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "N",
+          0
+        ],
+        [
+          "L",
+          0
+        ]
+      ]
+    },
+    {
+      "text": "晚餐要吃什麼",
+      "expect": "Z",
+      "tag": "oos",
+      "first": {
+        "kind": "NONE",
+        "p": 0.9999572447446
+      },
+      "firstHit": true,
+      "twoRoundHit": true,
+      "asks": 0,
+      "ms": 46.914700000000266,
+      "top3": [
+        [
+          "Z",
+          1
+        ],
+        [
+          "L",
+          0
+        ],
+        [
+          "Q",
+          0
+        ]
+      ]
+    }
+  ],
+  "ranAt": "2026-11-07T08:15:05.491Z"
+}

@@ -1,0 +1,32 @@
+{
+ "id": "guide_fee_history",
+ "title": {
+  "zh": "查繳費紀錄"
+ },
+ "entry": "/fee-payment/history",
+ "match": {
+  "url": "^/fee-payment/history"
+ },
+ "steps": [
+  {
+   "id": "look",
+   "url": "^/fee-payment/history",
+   "find": [
+    {
+     "text": "帳務紀錄"
+    },
+    {
+     "css": "main"
+    }
+   ],
+   "say": {
+    "zh": "看這裡的繳費紀錄"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "點任何一筆可以看明細；沒有紀錄會顯示「無紀錄」"
+   },
+   "final": true
+  }
+ ]
+}

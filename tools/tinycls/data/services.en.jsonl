@@ -1,0 +1,114 @@
+# English seed sentences (spoken English or English typed by foreign residents)
+{"text": "I want to pay my water bill", "label": "A"}
+{"text": "pay the water bill", "label": "A"}
+{"text": "water bill payment", "label": "A"}
+{"text": "how do I pay for water", "label": "A"}
+{"text": "my water bill is due", "label": "A"}
+{"text": "report my water meter reading", "label": "B"}
+{"text": "submit water meter number", "label": "B"}
+{"text": "water meter reading", "label": "B"}
+{"text": "pay parking fee", "label": "C"}
+{"text": "I got a parking ticket to pay", "label": "C"}
+{"text": "street parking payment", "label": "C"}
+{"text": "pay for my car parking", "label": "C"}
+{"text": "pay house tax", "label": "D"}
+{"text": "I need to pay local taxes", "label": "D"}
+{"text": "land value tax payment", "label": "D"}
+{"text": "vehicle license tax", "label": "D"}
+{"text": "pay my kids tuition", "label": "E"}
+{"text": "school fee payment", "label": "E"}
+{"text": "pay the registration fee for school", "label": "E"}
+{"text": "pay hospital bill", "label": "F"}
+{"text": "medical fee at the city hospital", "label": "F"}
+{"text": "pay for my doctor visit", "label": "F"}
+{"text": "I have a bill to pay", "label": "G"}
+{"text": "pay a fine", "label": "G"}
+{"text": "pay fees", "label": "G"}
+{"text": "pay my rent for social housing", "label": "G"}
+{"text": "how to pay this bill", "label": "G"}
+{"text": "show my payment history", "label": "H"}
+{"text": "did I already pay last month", "label": "H"}
+{"text": "payment records", "label": "H"}
+{"text": "receipt for my payment", "label": "H"}
+{"text": "what number is the counter calling now", "label": "I"}
+{"text": "how long is the wait at the household registration office", "label": "I"}
+{"text": "take a queue number", "label": "I"}
+{"text": "waiting people at the land office", "label": "I"}
+{"text": "I want to file a complaint", "label": "J"}
+{"text": "my neighbor is too noisy", "label": "J"}
+{"text": "report a broken street light", "label": "J"}
+{"text": "there is garbage on the street", "label": "J"}
+{"text": "someone parked illegally in front of my house", "label": "J"}
+{"text": "check my complaint status", "label": "K"}
+{"text": "what happened to my case", "label": "K"}
+{"text": "track my report", "label": "K"}
+{"text": "report flooding", "label": "L"}
+{"text": "a tree fell on the road", "label": "L"}
+{"text": "there is a fire", "label": "L"}
+{"text": "power outage in my area", "label": "L"}
+{"text": "report a disaster", "label": "L"}
+{"text": "I want to report to the police", "label": "M"}
+{"text": "my phone was stolen", "label": "M"}
+{"text": "I was scammed", "label": "M"}
+{"text": "file a police report online", "label": "M"}
+{"text": "borrow a book from the library", "label": "N"}
+{"text": "renew my library books", "label": "N"}
+{"text": "search for a book", "label": "N"}
+{"text": "when are my books due", "label": "N"}
+{"text": "where is the nearest toilet", "label": "O"}
+{"text": "find a YouBike station near me", "label": "O"}
+{"text": "nearest parking lot", "label": "O"}
+{"text": "when does the garbage truck come", "label": "O"}
+{"text": "find a water fountain", "label": "O"}
+{"text": "apply for a subsidy", "label": "P"}
+{"text": "apply for city services online", "label": "P"}
+{"text": "I need to apply for a certificate", "label": "P"}
+{"text": "elderly health insurance subsidy", "label": "P"}
+{"text": "show me coupons", "label": "Q"}
+{"text": "buy tickets for the zoo", "label": "Q"}
+{"text": "any discounts", "label": "Q"}
+{"text": "where are my tickets", "label": "R"}
+{"text": "open my ticket wallet", "label": "R"}
+{"text": "redeem a ticket", "label": "R"}
+{"text": "subscribe to air quality alerts", "label": "S"}
+{"text": "notify me about new announcements", "label": "S"}
+{"text": "turn off notifications", "label": "S"}
+{"text": "call 1999", "label": "T"}
+{"text": "I want to talk to a person", "label": "T"}
+{"text": "call the city hotline", "label": "T"}
+{"text": "book a flu shot", "label": "U"}
+{"text": "vaccine appointment", "label": "U"}
+{"text": "where can I get vaccinated", "label": "U"}
+{"text": "make a doctor appointment", "label": "V"}
+{"text": "hospital registration", "label": "V"}
+{"text": "I want to see a doctor tomorrow", "label": "V"}
+{"text": "open the city dashboard", "label": "W"}
+{"text": "show Taipei statistics", "label": "W"}
+{"text": "real time city data", "label": "W"}
+{"text": "how do I use this app", "label": "X"}
+{"text": "help with the app", "label": "X"}
+{"text": "frequently asked questions", "label": "X"}
+{"text": "book the family center", "label": "Y"}
+{"text": "activities for kids at the parent child center", "label": "Y"}
+{"text": "make the text bigger", "label": "a"}
+{"text": "I cannot read this, bigger font please", "label": "a"}
+{"text": "elderly mode", "label": "a"}
+{"text": "normal text size", "label": "b"}
+{"text": "turn off reading aloud", "label": "b"}
+{"text": "read it to me", "label": "c"}
+{"text": "read the screen aloud", "label": "c"}
+{"text": "scan the bill", "label": "d"}
+{"text": "scan the barcode on my bill", "label": "d"}
+{"text": "show all services", "label": "e"}
+{"text": "go to the home page", "label": "e"}
+{"text": "what services do you have", "label": "e"}
+{"text": "what is the weather today", "label": "Z"}
+{"text": "tell me a joke", "label": "Z"}
+{"text": "play music", "label": "Z"}
+{"text": "order food", "label": "Z"}
+{"text": "what time is it", "label": "Z"}
+{"text": "hello how are you", "label": "Z"}
+{"text": "book a flight", "label": "Z"}
+{"text": "I am tired", "label": "Z"}
+{"text": "set an alarm", "label": "Z"}
+{"text": "thank you", "label": "Z"}

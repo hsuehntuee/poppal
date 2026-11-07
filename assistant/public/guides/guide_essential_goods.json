@@ -1,0 +1,51 @@
+{
+ "id": "guide_essential_goods",
+ "title": {
+  "zh": "民生物資"
+ },
+ "entry": "/essential-goods",
+ "match": {
+  "url": "^/essential-goods"
+ },
+ "steps": [
+  {
+   "id": "category",
+   "url": "^/essential-goods",
+   "find": [
+    {
+     "option": "{{entity}}"
+    },
+    {
+     "css": "#category"
+    }
+   ],
+   "say": {
+    "zh": "選「{{entity}}」"
+   },
+   "done_when": "change",
+   "say_default": {
+    "zh": "選一個分類"
+   }
+  },
+  {
+   "id": "look",
+   "url": "^/essential-goods",
+   "find": [
+    {
+     "text": "今日均價"
+    },
+    {
+     "css": "table"
+    }
+   ],
+   "say": {
+    "zh": "看今天的價格"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "紅色是漲、綠色是跌"
+   },
+   "final": true
+  }
+ ]
+}

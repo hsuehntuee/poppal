@@ -1,0 +1,6436 @@
+{
+ "version": 1,
+ "generated_from": [
+  "catalog.json",
+  "guides/*.json",
+  "tools/tinycls/data/entities.json"
+ ],
+ "none_code": "Z",
+ "tools": [
+  {
+   "id": "water_fee_pay",
+   "code": "A",
+   "name": {
+    "zh": "繳水費",
+    "en": "Pay water bill",
+    "vi": "Đóng tiền nước",
+    "id": "Bayar tagihan air",
+    "th": "จ่ายค่าน้ำ"
+   },
+   "description": "用手機繳台北自來水費、查水費帳單",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_water_fee",
+    "entry": "/fee-payment/detail/fee-6"
+   },
+   "params": [
+    {
+     "name": "fill_water_number",
+     "type": "digits",
+     "len": 10,
+     "min_len": 10,
+     "max_len": 10,
+     "label": "水號",
+     "step": "fill_water_number"
+    }
+   ],
+   "keywords": [
+    "水費",
+    "水單",
+    "自來水",
+    "繳水錢",
+    "water bill"
+   ],
+   "covers": [
+    "水費"
+   ],
+   "examples": [
+    "我要繳水費",
+    "水費單怎麼付",
+    "pay my water bill",
+    "自來水的帳單要繳",
+    "水的那個帳單",
+    "水費可以用手機付嗎"
+   ]
+  },
+  {
+   "id": "water_meter_report",
+   "code": "B",
+   "name": {
+    "zh": "報水表度數",
+    "en": "Report water meter",
+    "vi": "Báo chỉ số đồng hồ nước",
+    "id": "Lapor meteran air",
+    "th": "แจ้งเลขมิเตอร์น้ำ"
+   },
+   "description": "自己抄水表、回報用水度數，或查詢用水度數",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_water_meter",
+    "entry": "/water-service"
+   },
+   "params": [
+    {
+     "name": "number",
+     "type": "digits",
+     "len": 10,
+     "min_len": 10,
+     "max_len": 10,
+     "label": "水號",
+     "step": "number"
+    },
+    {
+     "name": "value",
+     "type": "digits",
+     "len": null,
+     "min_len": 1,
+     "max_len": 8,
+     "label": "本期度數",
+     "step": "value"
+    }
+   ],
+   "keywords": [
+    "水表",
+    "度數",
+    "抄表",
+    "用水度數",
+    "water meter"
+   ],
+   "covers": [],
+   "examples": [
+    "我要報水表度數",
+    "自己抄水表怎麼報",
+    "report my water meter reading",
+    "水表的數字要回報",
+    "查用水度數"
+   ]
+  },
+  {
+   "id": "parking_fee_pay",
+   "code": "C",
+   "name": {
+    "zh": "繳停車費",
+    "en": "Pay parking fee",
+    "vi": "Đóng phí đậu xe",
+    "id": "Bayar biaya parkir",
+    "th": "จ่ายค่าจอดรถ"
+   },
+   "description": "繳路邊停車費，用車牌或繳費編號查詢",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_parking_fee",
+    "entry": "/fee-payment/detail/fee-5"
+   },
+   "params": [
+    {
+     "name": "fill",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "車牌號碼",
+     "step": "fill"
+    }
+   ],
+   "keywords": [
+    "停車費",
+    "停車單",
+    "路邊停車",
+    "車牌",
+    "parking"
+   ],
+   "covers": [
+    "停車費"
+   ],
+   "examples": [
+    "我要繳停車費",
+    "停車費單子要付錢",
+    "pay parking ticket",
+    "路邊停車的費用",
+    "車牌查停車費"
+   ]
+  },
+  {
+   "id": "local_tax_pay",
+   "code": "D",
+   "name": {
+    "zh": "繳地方稅",
+    "en": "Pay local tax",
+    "vi": "Nộp thuế địa phương",
+    "id": "Bayar pajak daerah",
+    "th": "จ่ายภาษีท้องถิ่น"
+   },
+   "description": "繳地方稅，例如房屋稅、地價稅、牌照稅，掃描繳款書",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_local_tax",
+    "entry": "/fee-payment/detail/tax-1"
+   },
+   "params": [],
+   "keywords": [
+    "地方稅",
+    "房屋稅",
+    "地價稅",
+    "牌照稅",
+    "稅單",
+    "tax"
+   ],
+   "covers": [
+    "地方稅"
+   ],
+   "examples": [
+    "我要繳房屋稅",
+    "地價稅怎麼繳",
+    "pay my local tax",
+    "牌照稅的單子",
+    "稅單可以掃描嗎"
+   ]
+  },
+  {
+   "id": "tuition_pay",
+   "code": "E",
+   "name": {
+    "zh": "繳學雜費",
+    "en": "Pay tuition",
+    "vi": "Đóng học phí",
+    "id": "Bayar uang sekolah",
+    "th": "จ่ายค่าเล่าเรียน"
+   },
+   "description": "繳學校的學雜費、註冊費",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_tuition",
+    "entry": "/fee-payment/detail/fee-7"
+   },
+   "params": [
+    {
+     "name": "fill",
+     "type": "digits",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "繳費編號",
+     "step": "fill"
+    }
+   ],
+   "keywords": [
+    "學雜費",
+    "學費",
+    "註冊費",
+    "學校",
+    "tuition"
+   ],
+   "covers": [
+    "學雜費"
+   ],
+   "examples": [
+    "我要繳小孩的學費",
+    "學雜費怎麼付",
+    "pay school tuition",
+    "註冊費的繳費單",
+    "學校寄來的繳費通知"
+   ]
+  },
+  {
+   "id": "hospital_fee_pay",
+   "code": "F",
+   "name": {
+    "zh": "繳聯合醫院醫療費",
+    "en": "Pay hospital bill",
+    "vi": "Đóng viện phí",
+    "id": "Bayar biaya rumah sakit",
+    "th": "จ่ายค่ารักษาพยาบาล"
+   },
+   "description": "繳台北市立聯合醫院的看病費用、醫療費",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_hospital_fee",
+    "entry": "/fee-payment/detail/fee-9"
+   },
+   "params": [
+    {
+     "name": "fill",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "身分證字號",
+     "step": "fill"
+    }
+   ],
+   "keywords": [
+    "醫療費",
+    "醫院",
+    "聯合醫院",
+    "看病錢",
+    "hospital bill"
+   ],
+   "covers": [
+    "聯合醫院醫療費"
+   ],
+   "examples": [
+    "我要繳醫院的錢",
+    "聯合醫院的醫療費",
+    "pay hospital bill",
+    "看病的費用還沒付",
+    "住院費用怎麼繳"
+   ]
+  },
+  {
+   "id": "fee_pay_other",
+   "code": "G",
+   "name": {
+    "zh": "繳其他費用",
+    "en": "Pay other fees",
+    "vi": "Đóng các khoản phí khác",
+    "id": "Bayar biaya lainnya",
+    "th": "จ่ายค่าธรรมเนียมอื่น"
+   },
+   "description": "繳其他規費、罰鍰、租金、登記費，或不確定是哪一種費用",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_fee_other",
+    "entry": "/fee-payment/search"
+   },
+   "params": [
+    {
+     "name": "fill_search",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "fill_search",
+     "step": "fill_search"
+    }
+   ],
+   "keywords": [
+    "繳費",
+    "罰單",
+    "罰鍰",
+    "規費",
+    "租金",
+    "付錢",
+    "pay fee"
+   ],
+   "covers": [
+    "公司登記費",
+    "公訓處自費課程",
+    "商業登記費",
+    "國/社宅租金維管費",
+    "地政登記規費",
+    "地政罰鍰",
+    "平價住宅維護費",
+    "快閃購繳款",
+    "產業局資料使用費",
+    "金門縣水費"
+   ],
+   "examples": [
+    "我要繳費",
+    "有一張單子要付錢",
+    "pay a fine",
+    "繳罰款",
+    "社宅租金要繳",
+    "公司登記費怎麼付"
+   ]
+  },
+  {
+   "id": "fee_history",
+   "code": "H",
+   "name": {
+    "zh": "查繳費紀錄",
+    "en": "Payment history",
+    "vi": "Lịch sử thanh toán",
+    "id": "Riwayat pembayaran",
+    "th": "ประวัติการชำระเงิน"
+   },
+   "description": "查詢以前繳過的費用、帳務紀錄、收據",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_fee_history",
+    "entry": "/fee-payment/history"
+   },
+   "params": [],
+   "keywords": [
+    "繳費紀錄",
+    "帳務",
+    "收據",
+    "繳過了嗎",
+    "payment history"
+   ],
+   "covers": [],
+   "examples": [
+    "我上個月有繳水費嗎",
+    "查我的繳費紀錄",
+    "show my payment history",
+    "之前付過的錢在哪裡看",
+    "我要收據"
+   ]
+  },
+  {
+   "id": "counter_calling",
+   "code": "I",
+   "name": {
+    "zh": "臨櫃叫號",
+    "en": "Counter queue",
+    "vi": "Số thứ tự quầy",
+    "id": "Nomor antrean loket",
+    "th": "คิวเคาน์เตอร์"
+   },
+   "description": "查看戶政、地政事務所的櫃檯叫號與等待人數",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_counter_calling",
+    "entry": "/counter-calling"
+   },
+   "params": [],
+   "keywords": [
+    "叫號",
+    "排隊",
+    "號碼牌",
+    "戶政",
+    "地政",
+    "等多久",
+    "queue"
+   ],
+   "covers": [
+    "中山地政事務所",
+    "中正區戶政事務所",
+    "區公所",
+    "古亭地政事務所",
+    "地政事務所",
+    "大同分處",
+    "就業服務站",
+    "戶政事務所",
+    "稅捐處",
+    "臺北市中正區公所",
+    "臺北市萬華區公所",
+    "艋舺就業服務站",
+    "萬華分處",
+    "萬華區戶政事務所",
+    "西門就業服務站"
+   ],
+   "examples": [
+    "戶政事務所現在叫到幾號",
+    "我要看叫號",
+    "how long is the queue at the office",
+    "地政事務所要等多久",
+    "抽號碼牌"
+   ]
+  },
+  {
+   "id": "citizen_report",
+   "code": "J",
+   "name": {
+    "zh": "陳情投訴",
+    "en": "File a complaint",
+    "vi": "Gửi phản ánh",
+    "id": "Ajukan pengaduan",
+    "th": "ร้องเรียน"
+   },
+   "description": "有話要說：向市政府陳情、投訴、反映問題，例如噪音、路燈壞了",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_citizen_report",
+    "entry": "/citizen-report"
+   },
+   "params": [
+    {
+     "name": "location",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "發生地點",
+     "step": "location"
+    },
+    {
+     "name": "subject",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "案件主旨",
+     "step": "subject"
+    },
+    {
+     "name": "desc",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "描述",
+     "step": "desc"
+    }
+   ],
+   "keywords": [
+    "陳情",
+    "投訴",
+    "反映",
+    "檢舉",
+    "有話要說",
+    "complaint",
+    "違停",
+    "違規停車",
+    "噪音",
+    "路燈",
+    "坑洞",
+    "垃圾",
+    "野狗",
+    "占用",
+    "亂丟"
+   ],
+   "covers": [
+    "停車管理及收費問題",
+    "公車",
+    "噪音",
+    "垃圾",
+    "建築物使用管理",
+    "復康巴士問題",
+    "教育事務",
+    "文化事務",
+    "文教",
+    "有牌廢棄車",
+    "汙染及資源回收",
+    "汙染舉發",
+    "無牌廢棄車、廢物誤觸理及資源回收",
+    "觀光及媒體",
+    "計程車",
+    "資訊",
+    "道路散落物或油漬處理",
+    "違建查報及拆除",
+    "體育"
+   ],
+   "examples": [
+    "我要投訴",
+    "樓上很吵想檢舉",
+    "file a complaint about noise",
+    "路燈壞了要跟誰說",
+    "有話要跟市政府說",
+    "我要檢舉違停",
+    "有人違規停車擋到我家",
+    "路上有坑洞",
+    "公園很髒想反映"
+   ]
+  },
+  {
+   "id": "citizen_report_search",
+   "code": "K",
+   "name": {
+    "zh": "查陳情進度",
+    "en": "Check complaint status",
+    "vi": "Tra cứu tiến độ phản ánh",
+    "id": "Cek status pengaduan",
+    "th": "ตรวจสอบสถานะคำร้อง"
+   },
+   "description": "查詢之前送出的陳情案件處理到哪裡了",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_citizen_search",
+    "entry": "/citizen-report?isSearch=1"
+   },
+   "params": [
+    {
+     "name": "search",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "search",
+     "step": "search"
+    }
+   ],
+   "keywords": [
+    "陳情進度",
+    "案件進度",
+    "處理了沒",
+    "case status"
+   ],
+   "covers": [],
+   "examples": [
+    "我之前的陳情處理了嗎",
+    "查案件進度",
+    "check my complaint status",
+    "上次投訴的結果",
+    "案子到哪了"
+   ]
+  },
+  {
+   "id": "disaster_report",
+   "code": "L",
+   "name": {
+    "zh": "災情通報",
+    "en": "Report a disaster",
+    "vi": "Báo cáo thiên tai",
+    "id": "Lapor bencana",
+    "th": "แจ้งเหตุภัยพิบัติ"
+   },
+   "description": "通報災情，例如淹水、路樹倒了、土石流、火災",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_disaster_report",
+    "entry": "/disaster-report"
+   },
+   "params": [
+    {
+     "name": "detail",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "地點描述",
+     "step": "detail"
+    }
+   ],
+   "keywords": [
+    "災情",
+    "淹水",
+    "路樹",
+    "倒塌",
+    "火災",
+    "土石流",
+    "disaster",
+    "停電",
+    "電線掉落",
+    "招牌"
+   ],
+   "covers": [
+    "其他",
+    "前述以外之橋梁災情",
+    "危險物品火災",
+    "土石崩落",
+    "土石流",
+    "土石災情",
+    "基礎設施災情",
+    "堰塞湖",
+    "工廠火災",
+    "建築物火災",
+    "橋梁災情",
+    "橋樑基礎沖刷",
+    "橋樑斷裂",
+    "民生",
+    "火災",
+    "變電所、電廠受災",
+    "路燈故障",
+    "電力停電",
+    "電線或纜線受損"
+   ],
+   "examples": [
+    "我家這邊淹水了",
+    "路樹倒下來擋到路",
+    "report flooding",
+    "有土石流要通報",
+    "橋好像壞了"
+   ]
+  },
+  {
+   "id": "police_report",
+   "code": "M",
+   "name": {
+    "zh": "警政報案",
+    "en": "Police report",
+    "vi": "Báo cảnh sát",
+    "id": "Lapor polisi",
+    "th": "แจ้งความ"
+   },
+   "description": "線上向警察報案、查報案紀錄，例如遺失、詐騙、車禍",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_police_report",
+    "entry": "/police-report"
+   },
+   "params": [],
+   "keywords": [
+    "報案",
+    "警察",
+    "遺失",
+    "詐騙",
+    "被偷",
+    "police",
+    "失竊",
+    "車禍",
+    "報警"
+   ],
+   "covers": [],
+   "examples": [
+    "我要報案",
+    "錢包被偷了",
+    "I want to report to the police",
+    "遇到詐騙怎麼辦",
+    "線上報案"
+   ]
+  },
+  {
+   "id": "library",
+   "code": "N",
+   "name": {
+    "zh": "圖書借閱",
+    "en": "Library",
+    "vi": "Thư viện",
+    "id": "Perpustakaan",
+    "th": "ห้องสมุด"
+   },
+   "description": "市立圖書館借書、找書、查借閱紀錄、續借",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_library",
+    "entry": "/library-service"
+   },
+   "params": [
+    {
+     "name": "search",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "search",
+     "step": "search"
+    }
+   ],
+   "keywords": [
+    "圖書館",
+    "借書",
+    "找書",
+    "續借",
+    "還書",
+    "library"
+   ],
+   "covers": [
+    "857.7",
+    "X尋寶探險隊",
+    "名偵探柯南",
+    "哈利波特",
+    "如果歷史是一群喵",
+    "小說",
+    "屁屁偵探",
+    "東野圭吾",
+    "漫畫",
+    "神奇柑仔店"
+   ],
+   "examples": [
+    "我要借書",
+    "圖書館有沒有這本書",
+    "renew my library books",
+    "書什麼時候要還",
+    "查借閱紀錄"
+   ]
+  },
+  {
+   "id": "find_place",
+   "code": "O",
+   "name": {
+    "zh": "找地點",
+    "en": "Find places nearby",
+    "vi": "Tìm địa điểm",
+    "id": "Cari tempat",
+    "th": "ค้นหาสถานที่"
+   },
+   "description": "找附近的地點，例如公廁、YouBike、停車場、垃圾車、飲水機",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_find_place",
+    "entry": "/surrounding-service"
+   },
+   "params": [],
+   "keywords": [
+    "附近",
+    "廁所",
+    "YouBike",
+    "停車場",
+    "垃圾車",
+    "飲水機",
+    "地圖",
+    "nearby",
+    "公廁",
+    "YouBike站",
+    "AED",
+    "派出所",
+    "區公所"
+   ],
+   "covers": [
+    "AED場所",
+    "交通運輸",
+    "停車場",
+    "充電站",
+    "公廁",
+    "哺集乳室",
+    "飲水機"
+   ],
+   "examples": [
+    "附近哪裡有廁所",
+    "最近的YouBike站",
+    "where is the nearest parking lot",
+    "垃圾車幾點來",
+    "我要找飲水機"
+   ]
+  },
+  {
+   "id": "apply_service",
+   "code": "P",
+   "name": {
+    "zh": "申辦服務",
+    "en": "Apply for services",
+    "vi": "Đăng ký dịch vụ",
+    "id": "Ajukan layanan",
+    "th": "ยื่นขอบริการ"
+   },
+   "description": "線上申辦市政府業務，例如補助、申訴、證明文件",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_apply",
+    "entry": "/"
+   },
+   "params": [],
+   "keywords": [
+    "申辦",
+    "申請",
+    "補助",
+    "證明",
+    "申訴",
+    "apply"
+   ],
+   "covers": [
+    "停管處受理之申訴案件",
+    "原住民參加技術士技能檢定獎勵金申請",
+    "原住民急難關懷慰問金",
+    "本市警察局受理之違規申訴案件",
+    "特殊境遇家庭扶助之家庭暴力被害人補助",
+    "老人全民健康保險保險費自付額補助",
+    "臺北市家庭暴力被害人補助",
+    "臺北市性侵害被害人補助",
+    "裁決所受理之申訴案件"
+   ],
+   "examples": [
+    "我要申請補助",
+    "老人健保補助怎麼辦",
+    "apply for a subsidy",
+    "線上申辦市府服務",
+    "要申請證明文件"
+   ]
+  },
+  {
+   "id": "coupon",
+   "code": "Q",
+   "name": {
+    "zh": "優惠票券",
+    "en": "Coupons and tickets",
+    "vi": "Phiếu ưu đãi",
+    "id": "Kupon",
+    "th": "คูปอง"
+   },
+   "description": "看優惠券、買票、熱門活動票券",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_coupon",
+    "entry": "/coupon"
+   },
+   "params": [],
+   "keywords": [
+    "優惠",
+    "折價券",
+    "買票",
+    "門票",
+    "coupon"
+   ],
+   "covers": [
+    "兒童新樂園",
+    "臺北市立動物園",
+    "臺北市立美術館",
+    "臺北自來水園區"
+   ],
+   "examples": [
+    "有什麼優惠",
+    "我要買門票",
+    "show me coupons",
+    "折價券在哪裡",
+    "活動票券"
+   ]
+  },
+  {
+   "id": "ticket_wallet",
+   "code": "R",
+   "name": {
+    "zh": "票夾",
+    "en": "Ticket wallet",
+    "vi": "Ví vé",
+    "id": "Dompet tiket",
+    "th": "กระเป๋าตั๋ว"
+   },
+   "description": "看自己已經買的票、兌換票券",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_ticket_wallet",
+    "entry": "/ticket-wallet"
+   },
+   "params": [],
+   "keywords": [
+    "票夾",
+    "我的票",
+    "兌換",
+    "wallet"
+   ],
+   "covers": [],
+   "examples": [
+    "我買的票在哪",
+    "打開票夾",
+    "open my ticket wallet",
+    "票要怎麼兌換",
+    "看我的票券"
+   ]
+  },
+  {
+   "id": "subscription",
+   "code": "S",
+   "name": {
+    "zh": "訂閱通知",
+    "en": "Subscriptions",
+    "vi": "Đăng ký thông báo",
+    "id": "Langganan notifikasi",
+    "th": "สมัครรับการแจ้งเตือน"
+   },
+   "description": "訂閱通知，例如空氣品質、停車、水費通知、社區公告",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_subscription",
+    "entry": "/subscription"
+   },
+   "params": [],
+   "keywords": [
+    "訂閱",
+    "通知",
+    "推播",
+    "空氣品質",
+    "subscribe"
+   ],
+   "covers": [
+    "交通資訊",
+    "停車資訊",
+    "健康資訊",
+    "公聽會",
+    "台北旅遊快訊",
+    "台北畫刊",
+    "圖書館通知",
+    "學校資訊",
+    "幼兒園資訊",
+    "托育資訊",
+    "新住民支援",
+    "水表",
+    "水費通知",
+    "油價",
+    "淹水資訊",
+    "社區公告",
+    "社會住宅",
+    "空氣品質",
+    "藝文活動",
+    "運動公園",
+    "長者資訊"
+   ],
+   "examples": [
+    "我要訂閱空氣品質通知",
+    "取消訂閱",
+    "subscribe to notifications",
+    "有新公告要通知我",
+    "推播設定"
+   ]
+  },
+  {
+   "id": "call_1999",
+   "code": "T",
+   "name": {
+    "zh": "打 1999",
+    "en": "Call 1999",
+    "vi": "Gọi 1999",
+    "id": "Telepon 1999",
+    "th": "โทร 1999"
+   },
+   "description": "撥打 1999 市民熱線，跟真人講話",
+   "invoke": {
+    "kind": "bridge",
+    "name": "phone_call",
+    "data": "1999"
+   },
+   "params": [],
+   "keywords": [
+    "1999",
+    "打電話",
+    "客服",
+    "真人",
+    "熱線",
+    "call"
+   ],
+   "covers": [
+    "市政諮詢",
+    "緊急通報",
+    "轉接服務",
+    "陳情反映"
+   ],
+   "examples": [
+    "我要打1999",
+    "幫我打給市政府",
+    "call the city hotline",
+    "我想跟真人講",
+    "客服電話"
+   ]
+  },
+  {
+   "id": "vaccine",
+   "code": "U",
+   "name": {
+    "zh": "疫苗預約",
+    "en": "Vaccine appointment",
+    "vi": "Đặt lịch tiêm vắc-xin",
+    "id": "Janji vaksin",
+    "th": "นัดฉีดวัคซีน"
+   },
+   "description": "預約打疫苗，例如流感疫苗、新冠疫苗",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_vaccine",
+    "entry": "/vaccine"
+   },
+   "params": [
+    {
+     "name": "date",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "日期",
+     "step": "date"
+    }
+   ],
+   "keywords": [
+    "疫苗",
+    "打針",
+    "流感",
+    "預約打疫苗",
+    "vaccine"
+   ],
+   "covers": [
+    "中正區健康服務中心",
+    "士林區健康服務中心",
+    "大安區健康服務中心",
+    "新冠疫苗",
+    "流感疫苗",
+    "肺炎鏈球菌疫苗"
+   ],
+   "examples": [
+    "我要預約打流感疫苗",
+    "哪裡可以打疫苗",
+    "book a vaccine appointment",
+    "新冠疫苗預約",
+    "幫我約打針"
+   ]
+  },
+  {
+   "id": "hospital_registration",
+   "code": "V",
+   "name": {
+    "zh": "聯醫掛號",
+    "en": "Hospital registration",
+    "vi": "Đăng ký khám bệnh",
+    "id": "Daftar rumah sakit",
+    "th": "ลงทะเบียนโรงพยาบาล"
+   },
+   "description": "台北市立聯合醫院線上掛號、看診預約",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_hospital_registration",
+    "entry": "/hospital-registration"
+   },
+   "params": [],
+   "keywords": [
+    "掛號",
+    "看醫生",
+    "門診",
+    "預約看診",
+    "registration"
+   ],
+   "covers": [
+    "中興",
+    "仁愛",
+    "內科",
+    "和平",
+    "家醫科",
+    "小兒科",
+    "忠孝",
+    "眼科",
+    "陽明",
+    "骨科"
+   ],
+   "examples": [
+    "我要掛號",
+    "聯合醫院看診預約",
+    "make a doctor appointment",
+    "明天想看醫生",
+    "門診掛號"
+   ]
+  },
+  {
+   "id": "dashboard",
+   "code": "W",
+   "name": {
+    "zh": "市政儀表板",
+    "en": "City dashboard",
+    "vi": "Bảng thông tin thành phố",
+    "id": "Dasbor kota",
+    "th": "แดชบอร์ดเมือง"
+   },
+   "description": "看台北市的即時數據，例如交通、空氣品質、人口統計",
+   "invoke": {
+    "kind": "external",
+    "url": "https://dashboard.gov.taipei/"
+   },
+   "params": [],
+   "keywords": [
+    "儀表板",
+    "數據",
+    "統計",
+    "即時資訊",
+    "dashboard"
+   ],
+   "covers": [],
+   "examples": [
+    "看台北的即時數據",
+    "市政儀表板",
+    "open the city dashboard",
+    "現在的空氣品質數據",
+    "台北的統計資料"
+   ]
+  },
+  {
+   "id": "qna",
+   "code": "X",
+   "name": {
+    "zh": "功能教學",
+    "en": "Help and FAQ",
+    "vi": "Hướng dẫn",
+    "id": "Bantuan",
+    "th": "คำถามที่พบบ่อย"
+   },
+   "description": "城市通 App 的功能教學、常見問題",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_qna",
+    "entry": "/qna"
+   },
+   "params": [],
+   "keywords": [
+    "教學",
+    "怎麼用",
+    "常見問題",
+    "說明",
+    "FAQ"
+   ],
+   "covers": [
+    "下載安裝",
+    "優惠",
+    "卡證",
+    "帳單",
+    "服務",
+    "登入註冊"
+   ],
+   "examples": [
+    "這個 app 怎麼用",
+    "功能教學在哪",
+    "how do I use this app",
+    "常見問題",
+    "我看不懂這個功能"
+   ]
+  },
+  {
+   "id": "family_center",
+   "code": "Y",
+   "name": {
+    "zh": "親子館",
+    "en": "Family center",
+    "vi": "Trung tâm gia đình",
+    "id": "Pusat keluarga",
+    "th": "ศูนย์ครอบครัว"
+   },
+   "description": "預約各區親子館活動、報名親子課程",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_family_center",
+    "entry": "/family-center"
+   },
+   "params": [
+    {
+     "name": "name",
+     "type": "text",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "家長姓名",
+     "step": "name"
+    },
+    {
+     "name": "phone",
+     "type": "phone",
+     "len": null,
+     "min_len": null,
+     "max_len": null,
+     "label": "聯絡電話",
+     "step": "phone"
+    }
+   ],
+   "keywords": [
+    "親子館",
+    "親子",
+    "小孩活動",
+    "報名",
+    "family center"
+   ],
+   "covers": [
+    "中山親子館",
+    "中正親子館",
+    "信義親子館",
+    "內湖親子館",
+    "北投親子館",
+    "南港親子館",
+    "士林親子館",
+    "大同親子館",
+    "大安親子館",
+    "文山親子館",
+    "松山親子館",
+    "萬華親子館"
+   ],
+   "examples": [
+    "我要預約親子館",
+    "帶小孩去親子館要報名嗎",
+    "book the family center",
+    "親子活動報名",
+    "附近的親子館"
+   ]
+  },
+  {
+   "id": "ui_elder",
+   "code": "a",
+   "name": {
+    "zh": "字放大（長輩模式）",
+    "en": "Bigger text"
+   },
+   "description": "把畫面文字放大、自動念出來，切換成長輩模式",
+   "invoke": {
+    "kind": "ui",
+    "action": "mode",
+    "value": "elder"
+   },
+   "params": [],
+   "keywords": [
+    "字太小",
+    "放大",
+    "看不清楚",
+    "長輩模式",
+    "念出來"
+   ],
+   "covers": [],
+   "examples": [
+    "字太小看不清楚",
+    "幫我把字放大",
+    "切換長輩模式",
+    "我老花",
+    "可以大聲念嗎"
+   ]
+  },
+  {
+   "id": "ui_normal",
+   "code": "b",
+   "name": {
+    "zh": "一般模式",
+    "en": "Normal mode"
+   },
+   "description": "字變回一般大小、不自動朗讀",
+   "invoke": {
+    "kind": "ui",
+    "action": "mode",
+    "value": "normal"
+   },
+   "params": [],
+   "keywords": [
+    "字太大",
+    "縮小",
+    "一般模式",
+    "不要念"
+   ],
+   "covers": [],
+   "examples": [
+    "字太大了",
+    "換回一般模式",
+    "不用念出來",
+    "字縮小一點"
+   ]
+  },
+  {
+   "id": "read_aloud",
+   "code": "c",
+   "name": {
+    "zh": "念給我聽",
+    "en": "Read aloud"
+   },
+   "description": "把畫面上的內容念出來",
+   "invoke": {
+    "kind": "ui",
+    "action": "tts",
+    "value": ""
+   },
+   "params": [],
+   "keywords": [
+    "念",
+    "唸",
+    "朗讀",
+    "讀給我聽",
+    "聽"
+   ],
+   "covers": [],
+   "examples": [
+    "念給我聽",
+    "幫我讀一下畫面",
+    "大聲唸出來",
+    "我看不到，用聽的"
+   ]
+  },
+  {
+   "id": "scan_bill",
+   "code": "d",
+   "name": {
+    "zh": "掃描帳單",
+    "en": "Scan a bill"
+   },
+   "description": "用相機掃描帳單上的條碼或 QR code 來繳費",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_scan_bill",
+    "entry": "/fee-payment/scan"
+   },
+   "params": [],
+   "keywords": [
+    "掃描",
+    "掃",
+    "條碼",
+    "QR",
+    "相機",
+    "帳單上的碼"
+   ],
+   "covers": [],
+   "examples": [
+    "我要掃帳單",
+    "用掃的",
+    "掃條碼繳費",
+    "帳單有QR code",
+    "打開相機掃"
+   ]
+  },
+  {
+   "id": "home_all",
+   "code": "e",
+   "name": {
+    "zh": "看全部服務",
+    "en": "All services"
+   },
+   "description": "回到城市通首頁，看所有服務的清單",
+   "invoke": {
+    "kind": "page",
+    "path": "/"
+   },
+   "params": [],
+   "keywords": [
+    "全部",
+    "首頁",
+    "清單",
+    "有哪些服務",
+    "回去"
+   ],
+   "covers": [],
+   "examples": [
+    "有哪些服務",
+    "我要看全部",
+    "回首頁",
+    "服務列表",
+    "讓我自己選"
+   ]
+  },
+  {
+   "id": "ivoting",
+   "code": "f",
+   "name": {
+    "zh": "網路投票",
+    "en": "i-Voting"
+   },
+   "description": "參加市政網路投票，對公共議題表達意見",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_ivoting",
+    "entry": "/ivoting"
+   },
+   "params": [],
+   "keywords": [
+    "投票",
+    "i-Voting",
+    "公投",
+    "表決",
+    "民意"
+   ],
+   "covers": [
+    "2026 臺北燈節主燈設計票選",
+    "公園遊戲場改善優先順序",
+    "公車站牌資訊看板改版設計",
+    "市民運動中心新增課程票選",
+    "市立圖書館延長開放時間",
+    "捷運站公共藝術主題票選",
+    "河濱自行車道夜間照明時段",
+    "社區公園命名票選"
+   ],
+   "examples": [
+    "我要投票",
+    "現在有什麼網路投票",
+    "市政投票在哪裡",
+    "I want to vote",
+    "對這個議題投票"
+   ]
+  },
+  {
+   "id": "survey",
+   "code": "g",
+   "name": {
+    "zh": "意見調查",
+    "en": "Survey"
+   },
+   "description": "填寫市政府的意見調查問卷",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_survey",
+    "entry": "/survey"
+   },
+   "params": [],
+   "keywords": [
+    "問卷",
+    "意見調查",
+    "滿意度",
+    "調查"
+   ],
+   "covers": [
+    "公共運輸服務意見調查",
+    "垃圾分類宣導成效調查",
+    "城市通 App 使用滿意度調查",
+    "夜市環境衛生意見調查",
+    "校園午餐滿意度調查",
+    "河濱公園設施需求調查",
+    "里鄰環境清潔滿意度",
+    "長者照顧服務需求調查"
+   ],
+   "examples": [
+    "我要填問卷",
+    "有沒有意見調查",
+    "滿意度調查",
+    "fill in the survey",
+    "給市政府意見"
+   ]
+  },
+  {
+   "id": "neighborhood",
+   "code": "h",
+   "name": {
+    "zh": "里辦服務",
+    "en": "Neighborhood office"
+   },
+   "description": "找自己的里長、里辦公處電話地址、里的公告與活動",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_neighborhood",
+    "entry": "/neighborhood"
+   },
+   "params": [],
+   "keywords": [
+    "里長",
+    "里辦公處",
+    "里辦",
+    "鄰里",
+    "里民活動",
+    "里的公告"
+   ],
+   "covers": [
+    "中山區",
+    "中山里",
+    "中正區",
+    "中正里",
+    "仁愛里",
+    "介壽里",
+    "信義區",
+    "光復里",
+    "光武里",
+    "內湖區",
+    "劍潭里",
+    "北投區",
+    "南港區",
+    "南福里",
+    "南門里",
+    "古莊里",
+    "吉祥里",
+    "和安里",
+    "和平里",
+    "圓山里",
+    "士林區",
+    "大同區",
+    "大安區",
+    "大有里",
+    "大直里",
+    "富民里",
+    "富錦里",
+    "幸福里",
+    "延平里",
+    "建功里",
+    "建國里",
+    "建安里",
+    "復華里",
+    "忠貞里",
+    "慈祐里",
+    "揚雅里",
+    "敦化里",
+    "文北里",
+    "文山區",
+    "新東里",
+    "新營里",
+    "新起里",
+    "新龍里",
+    "景星里",
+    "晴光里",
+    "朝陽里",
+    "東門里",
+    "松山區",
+    "松江里",
+    "梅花里",
+    "民安里",
+    "民有里",
+    "民權里",
+    "永功里",
+    "玉泉里",
+    "福星里",
+    "精忠里",
+    "糖廍里",
+    "聚葉里",
+    "臨江里",
+    "自強里",
+    "華江里",
+    "萬壽里",
+    "萬華區",
+    "蓬萊里",
+    "行仁里",
+    "西門里",
+    "錦安里",
+    "雙連里",
+    "青山里",
+    "龍坡里",
+    "龍安里"
+   ],
+   "examples": [
+    "我們里長電話多少",
+    "里辦公處在哪",
+    "里民活動有什麼",
+    "contact my neighborhood chief",
+    "里的公告"
+   ]
+  },
+  {
+   "id": "city_radio",
+   "code": "i",
+   "name": {
+    "zh": "台北電台",
+    "en": "Taipei radio"
+   },
+   "description": "線上收聽臺北廣播電台、看節目表",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_city_radio",
+    "entry": "/city-radio"
+   },
+   "params": [],
+   "keywords": [
+    "電台",
+    "廣播",
+    "收聽",
+    "節目表",
+    "radio"
+   ],
+   "covers": [
+    "交通即時通",
+    "午夜爵士",
+    "午間音樂",
+    "城市夜話",
+    "市政焦點",
+    "文化沙龍",
+    "早安臺北",
+    "晚間新聞",
+    "晨光古典",
+    "正午新聞",
+    "深夜音樂館",
+    "經典老歌",
+    "臺北好生活",
+    "銀髮生活"
+   ],
+   "examples": [
+    "我要聽台北電台",
+    "打開廣播",
+    "電台節目表",
+    "play Taipei radio",
+    "現在在播什麼"
+   ]
+  },
+  {
+   "id": "green_map",
+   "code": "j",
+   "name": {
+    "zh": "簡單森呼吸",
+    "en": "Green map"
+   },
+   "description": "找附近的公園、綠地、步道、河濱等綠化地點",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_green_map",
+    "entry": "/green-map"
+   },
+   "params": [],
+   "keywords": [
+    "公園",
+    "綠地",
+    "步道",
+    "河濱",
+    "散步",
+    "森林",
+    "樹"
+   ],
+   "covers": [
+    "二二八和平公園",
+    "仙跡岩親山步道",
+    "公園",
+    "劍潭山親山步道",
+    "士林官邸公園",
+    "大佳河濱公園",
+    "大安森林公園",
+    "大湖公園",
+    "富陽自然生態公園",
+    "成美河濱公園",
+    "榮星花園公園",
+    "步道",
+    "河濱",
+    "碧湖公園",
+    "綠地",
+    "美堤河濱公園",
+    "花博公園新生園區",
+    "華中河濱公園",
+    "象山親山步道",
+    "軍艦岩親山步道",
+    "青年公園"
+   ],
+   "examples": [
+    "附近有什麼公園",
+    "我想去散步的步道",
+    "河濱公園在哪",
+    "parks near me",
+    "找綠地"
+   ]
+  },
+  {
+   "id": "pet_map",
+   "code": "k",
+   "name": {
+    "zh": "寵物安心遛",
+    "en": "Pet friendly map"
+   },
+   "description": "找寵物公園、寵物友善餐廳、動物醫院、寵物登記站",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_pet_map",
+    "entry": "/pet-map"
+   },
+   "params": [],
+   "keywords": [
+    "寵物",
+    "狗",
+    "貓",
+    "遛狗",
+    "動物醫院",
+    "寵物公園",
+    "寵物登記"
+   ],
+   "covers": [
+    "中山動物醫院",
+    "全民動物醫院",
+    "動物醫院",
+    "北投寵物登記站",
+    "士林寵物登記站",
+    "大佳河濱公園狗活動區",
+    "寵物公園",
+    "寵物友善餐廳",
+    "寵物登記站",
+    "文山寵物登記站",
+    "毛孩餐桌",
+    "汪喵咖啡",
+    "潭美毛寶貝快樂公園",
+    "狗狗友善早午餐",
+    "至善公園狗活動區",
+    "臺北市動物之家",
+    "臺北市動物保護處",
+    "臺大動物醫院",
+    "華中河濱公園寵物活動區",
+    "萬芳四號公園狗活動區",
+    "貓森林咖啡",
+    "迎風狗運動公園"
+   ],
+   "examples": [
+    "哪裡可以遛狗",
+    "附近的動物醫院",
+    "寵物友善的餐廳",
+    "pet friendly places",
+    "我家狗要登記"
+   ]
+  },
+  {
+   "id": "essential_goods",
+   "code": "l",
+   "name": {
+    "zh": "民生物資",
+    "en": "Essential goods prices"
+   },
+   "description": "看蔬菜、水果、肉類、米、蛋的市場價格與漲跌",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_essential_goods",
+    "entry": "/essential-goods"
+   },
+   "params": [],
+   "keywords": [
+    "菜價",
+    "物價",
+    "蔬菜",
+    "水果",
+    "雞蛋",
+    "豬肉",
+    "米價",
+    "多少錢"
+   ],
+   "covers": [
+    "土雞蛋",
+    "在來米",
+    "奇異果",
+    "小白菜",
+    "小米",
+    "小黃瓜",
+    "有機蛋",
+    "木瓜",
+    "柚子",
+    "柳丁",
+    "水果",
+    "池上米",
+    "洋蔥",
+    "洗選蛋",
+    "火龍果",
+    "燕麥",
+    "牛肋條",
+    "牛腱",
+    "番茄",
+    "白殼蛋",
+    "皮蛋",
+    "空心菜",
+    "米糧",
+    "糙米",
+    "糯米",
+    "紅殼蛋",
+    "紅蘿蔔",
+    "羊肉片",
+    "肉類",
+    "芭樂",
+    "菠菜",
+    "葡萄",
+    "蓬萊米",
+    "蔬菜",
+    "蘋果",
+    "豬五花",
+    "豬絞肉",
+    "豬里肌",
+    "雞胸",
+    "雞腿",
+    "青江菜",
+    "青蔥",
+    "香蕉",
+    "高麗菜",
+    "鳳梨",
+    "鴨蛋",
+    "鵪鶉蛋",
+    "黑米"
+   ],
+   "examples": [
+    "今天菜價多少",
+    "雞蛋漲價了嗎",
+    "水果的價格",
+    "vegetable prices today",
+    "豬肉一斤多少"
+   ]
+  },
+  {
+   "id": "zoo",
+   "code": "m",
+   "name": {
+    "zh": "愛遊動物園",
+    "en": "Taipei Zoo"
+   },
+   "description": "動物園的園區地圖、動物介紹、今日活動",
+   "invoke": {
+    "kind": "guide",
+    "guide": "guide_zoo",
+    "entry": "/zoo"
+   },
+   "params": [],
+   "keywords": [
+    "動物園",
+    "貓熊",
+    "動物",
+    "園區地圖",
+    "餵食",
+    "企鵝"
+   ],
+   "covers": [
+    "亞洲熱帶雨林區",
+    "企鵝館",
+    "企鵝餵食秀",
+    "兒童動物區",
+    "台灣動物區",
+    "台灣黑熊",
+    "單峰駱駝",
+    "國王企鵝",
+    "大貓熊",
+    "大貓熊保育員講解",
+    "大貓熊館",
+    "梅花鹿",
+    "梅花鹿保育員時間",
+    "沙漠動物區",
+    "河馬",
+    "河馬餵食解說",
+    "無尾熊",
+    "無尾熊館",
+    "無尾熊餵食時間",
+    "熱帶雨林室內館",
+    "穿山甲",
+    "紅毛猩猩",
+    "長頸鹿",
+    "長頸鹿近距離觀察",
+    "非洲動物區",
+    "非洲象",
+    "馬來貘",
+    "馬來貘行為豐富化",
+    "鳥園"
+   ],
+   "examples": [
+    "動物園的地圖",
+    "貓熊在哪一館",
+    "動物園今天有什麼活動",
+    "zoo map",
+    "帶小孩去動物園"
+   ]
+  }
+ ],
+ "index": [
+  {
+   "term": "特殊境遇家庭扶助之家庭暴力被害人補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "原住民參加技術士技能檢定獎勵金申請",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "無牌廢棄車、廢物誤觸理及資源回收",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "老人全民健康保險保險費自付額補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "2026 臺北燈節主燈設計票選",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "payment history",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "城市通 App 使用滿意度調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "本市警察局受理之違規申訴案件",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "family center",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "hospital bill",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "registration",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公車站牌資訊看板改版設計",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "市民運動中心新增課程票選",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "河濱自行車道夜間照明時段",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市家庭暴力被害人補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "case status",
+   "tools": [
+    "citizen_report_search"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "water meter",
+   "tools": [
+    "water_meter_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公園遊戲場改善優先順序",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "市立圖書館延長開放時間",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "捷運站公共藝術主題票選",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市性侵害被害人補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "華中河濱公園寵物活動區",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "water bill",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停管處受理之申訴案件",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公共運輸服務意見調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "原住民急難關懷慰問金",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "垃圾分類宣導成效調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "夜市環境衛生意見調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大佳河濱公園狗活動區",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "河濱公園設施需求調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬芳四號公園狗活動區",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "裁決所受理之申訴案件",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "道路散落物或油漬處理",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "長者照顧服務需求調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "complaint",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "dashboard",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "subscribe",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中正區健康服務中心",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車管理及收費問題",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "前述以外之橋梁災情",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "國/社宅租金維管費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "士林區健康服務中心",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大安區健康服務中心",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "字放大（長輩模式）",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "校園午餐滿意度調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "潭美毛寶貝快樂公園",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里鄰環境清潔滿意度",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "YouBike站",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "disaster",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "i-Voting",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中正區戶政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大貓熊保育員講解",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "如果歷史是一群喵",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "富陽自然生態公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "梅花鹿保育員時間",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "產業局資料使用費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "社區公園命名票選",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳聯合醫院醫療費",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "至善公園狗活動區",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市中正區公所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市動物保護處",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市萬華區公所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "花博公園新生園區",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬華區戶政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "變電所、電廠受災",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "長頸鹿近距離觀察",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "馬來貘行為豐富化",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "YouBike",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "library",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "parking",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "pay fee",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "tuition",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "vaccine",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中山地政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "二二八和平公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "亞洲熱帶雨林區",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "仙跡岩親山步道",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公訓處自費課程",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "劍潭山親山步道",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "北投寵物登記站",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "古亭地政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "士林寵物登記站",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "平價住宅維護費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "建築物使用管理",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文山寵物登記站",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "汙染及資源回收",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "無尾熊餵食時間",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "熱帶雨林室內館",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "狗狗友善早午餐",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "聯合醫院醫療費",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "肺炎鏈球菌疫苗",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市動物之家",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市立動物園",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北市立美術館",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北自來水園區",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "艋舺就業服務站",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "西門就業服務站",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "軍艦岩親山步道",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "迎風狗運動公園",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "違建查報及拆除",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "電線或纜線受損",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "X尋寶探險隊",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "coupon",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "nearby",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "police",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "wallet",
+   "tools": [
+    "ticket_wallet"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中山動物醫院",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "全民動物醫院",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "危險物品火災",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "台北旅遊快訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地政登記規費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "基礎設施災情",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "士林官邸公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大佳河濱公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大安森林公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "寵物友善餐廳",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "復康巴士問題",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "成美河濱公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "打 1999",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "榮星花園公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "橋樑基礎沖刷",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "河馬餵食解說",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "美堤河濱公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺大動物醫院",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "華中河濱公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "象山親山步道",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "857.7",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "AED場所",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "apply",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "queue",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "radio",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中山親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中正親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "交通即時通",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "企鵝餵食秀",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "信義親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車位通知",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "停車資訊"
+  },
+  {
+   "term": "兒童動物區",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "兒童新樂園",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "內湖親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公司登記費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "北投親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "南港親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "台灣動物區",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "名偵探柯南",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "商業登記費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "圖書館通知",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "報水表度數",
+   "tools": [
+    "water_meter_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "士林親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大同親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大安親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "寵物安心遛",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "寵物登記站",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "就業服務站",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "市政儀表板",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "帳單上的碼",
+   "tools": [
+    "scan_bill"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "幼兒園資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "建築物火災",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "快閃購繳款",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "愛遊動物園",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "戶政事務所",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文山親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新住民支援",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "有哪些服務",
+   "tools": [
+    "home_all"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "有牌廢棄車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "松山親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "查繳費紀錄",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "查陳情進度",
+   "tools": [
+    "citizen_report_search"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "沙漠動物區",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "深夜音樂館",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "看全部服務",
+   "tools": [
+    "home_all"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "神奇柑仔店",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "簡單森呼吸",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳其他費用",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臺北好生活",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬華親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "觀光及媒體",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "計程車司機",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "計程車"
+  },
+  {
+   "term": "貓森林咖啡",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路上掉東西",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "道路散落物或油漬處理"
+  },
+  {
+   "term": "金門縣水費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "非洲動物區",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "預約打疫苗",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "1999",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "call",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "一般模式",
+   "tools": [
+    "ui_normal"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "亂丟垃圾",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "垃圾"
+  },
+  {
+   "term": "交通申訴",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "裁決所受理之申訴案件"
+  },
+  {
+   "term": "交通資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "交通運輸",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車收費",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "停車管理及收費問題"
+  },
+  {
+   "term": "停車資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "健保補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "老人全民健康保險保險費自付額補助"
+  },
+  {
+   "term": "健康資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "優惠票券",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公車司機",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "公車"
+  },
+  {
+   "term": "公車沒來",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "公車"
+  },
+  {
+   "term": "功能教學",
+   "tools": [
+    "qna"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "動物醫院",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "午夜爵士",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "午間音樂",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "即時資訊",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "台北畫刊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "台北電台",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "台灣黑熊",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "哈利波特",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "哺集乳室",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "單峰駱駝",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "國王企鵝",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "園區地圖",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "圖書借閱",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "土石崩落",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "土石災情",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地政罰鍰",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "垃圾沒收",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "垃圾"
+  },
+  {
+   "term": "城市夜話",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大同分處",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大湖公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大貓熊館",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "學校資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "寵物公園",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "寵物登記",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小孩活動",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "屁屁偵探",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "工廠火災",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "市政焦點",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "市政諮詢",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "常見問題",
+   "tools": [
+    "qna"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "復康巴士",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "復康巴士問題"
+  },
+  {
+   "term": "念給我聽",
+   "tools": [
+    "read_aloud"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "意見調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "托育資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "技能檢定",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "原住民參加技術士技能檢定獎勵金申請"
+  },
+  {
+   "term": "掃描帳單",
+   "tools": [
+    "scan_bill"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "教育事務",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文化事務",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文化沙龍",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新冠疫苗",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "施工噪音",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "噪音"
+  },
+  {
+   "term": "早安臺北",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "晚間新聞",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "晨光古典",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "有話要說",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "東野圭吾",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "案件進度",
+   "tools": [
+    "citizen_report_search"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "橋梁災情",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "橋樑斷裂",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "正午新聞",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "毛孩餐桌",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民生物資",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "水費通知",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "水費通知"
+  },
+  {
+   "term": "汙染舉發",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "汪喵咖啡",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "流感疫苗",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "淹水資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "災情通報",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "無尾熊館",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "用水度數",
+   "tools": [
+    "water_meter_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "申辦服務",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "疫苗預約",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "看不清楚",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "碧湖公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "社區公告",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "社會住宅",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "空氣品質",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "紅毛猩猩",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "經典老歌",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "網路投票",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "緊急通報",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳停車費",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳地方稅",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳學雜費",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳費紀錄",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳過了嗎",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "罰單申訴",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "裁決所受理之申訴案件"
+  },
+  {
+   "term": "老人健保",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "老人全民健康保險保險費自付額補助"
+  },
+  {
+   "term": "聯合醫院",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "聯醫掛號",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臨櫃叫號",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬華分處",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "藝文活動",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "處理了沒",
+   "tools": [
+    "citizen_report_search"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "訂閱通知",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "警政報案",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "讀給我聽",
+   "tools": [
+    "read_aloud"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路燈不亮",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "路燈故障"
+  },
+  {
+   "term": "路燈故障",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路邊停車",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "轉接服務",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "運動公園",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "違章建築",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "違建查報及拆除"
+  },
+  {
+   "term": "違規停車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "停車管理及收費問題"
+  },
+  {
+   "term": "里民活動",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里的公告",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里辦公處",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里辦服務",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "銀髮生活",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "長者資訊",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "長輩模式",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "陳情反映",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "陳情投訴",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "陳情進度",
+   "tools": [
+    "citizen_report_search"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "電力停電",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "電線掉落",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "青年公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "預約看診",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "AED",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "AED場所"
+  },
+  {
+   "term": "不要念",
+   "tools": [
+    "ui_normal"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中山區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中山里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中正區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中正里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "亂停車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "停車管理及收費問題"
+  },
+  {
+   "term": "仁愛里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "介壽里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "企鵝館",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "信義區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車位",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "停車場"
+  },
+  {
+   "term": "停車單",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車場",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停車費",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "儀表板",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "充電站",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "光復里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "光武里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "內湖區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公聽會",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "劍潭里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "動物園",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "化妝室",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
+  },
+  {
+   "term": "北投區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "區公所",
+   "tools": [
+    "counter_calling",
+    "find_place"
+   ],
+   "ambiguous": true
+  },
+  {
+   "term": "南港區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "南福里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "南門里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "原住民",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "原住民急難關懷慰問金"
+  },
+  {
+   "term": "古莊里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "吉祥里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "和安里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "和平里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "哺乳室",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "哺集乳室"
+  },
+  {
+   "term": "圓山里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "圖書館",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "土石流",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "土雞蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "在來米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地價稅",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地方稅",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "垃圾車",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "堰塞湖",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "士林區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "多少錢",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大同區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大安區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大有里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大直里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "大貓熊",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "奇異果",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "字太大",
+   "tools": [
+    "ui_normal"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "字太小",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "學雜費",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "家醫科",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "富民里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "富錦里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小兒科",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小白菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小黃瓜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "幸福里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "廢棄車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "有牌廢棄車"
+  },
+  {
+   "term": "延平里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "建功里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "建國里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "建安里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "復華里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "忠貞里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "念出來",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "怎麼用",
+   "tools": [
+    "qna"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "慈祐里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "我的票",
+   "tools": [
+    "ticket_wallet"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "房屋稅",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "打電話",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "找地點",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "折價券",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "揚雅里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "敦化里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文北里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文山區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新東里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新營里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新起里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "新龍里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "景星里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "晴光里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "有機蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "朝陽里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "東門里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "松山區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "松江里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "梅花里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "梅花鹿",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民安里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民有里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民權里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "永功里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "池上米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "洗手間",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
+  },
+  {
+   "term": "洗選蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "派出所",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "滿意度",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "火龍果",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "無尾熊",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "牌照稅",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "牛肋條",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "玉泉里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "白殼蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "看病錢",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "看醫生",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "福星里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "稅捐處",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "空心菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "穿山甲",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "等多久",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "節目表",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "精忠里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "糖廍里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "紅殼蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "紅蘿蔔",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳水費",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "繳水錢",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "羊肉片",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "聚葉里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "臨江里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "自來水",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "自強里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "華江里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬壽里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "萬華區",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "蓬萊米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "蓬萊里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "號碼牌",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "行仁里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "西門里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "親子館",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "計程車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "註冊費",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "豬五花",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "豬絞肉",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "豬里肌",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路燈壞",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "路燈故障"
+  },
+  {
+   "term": "醫療費",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "錦安里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "長頸鹿",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "雙連里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "電線掉",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "電線或纜線受損"
+  },
+  {
+   "term": "電線斷",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "電線或纜線受損"
+  },
+  {
+   "term": "青山里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "青江菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "非洲象",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "飲水機",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "馬來貘",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "高麗菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "鵪鶉蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "龍坡里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "龍安里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "中興",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "亂丟",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "仁愛",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "付錢",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "企鵝",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "倒塌",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "借書",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "停電",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "電力停電"
+  },
+  {
+   "term": "充電",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "充電站"
+  },
+  {
+   "term": "兌換",
+   "tools": [
+    "ticket_wallet"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "內科",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公園",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公廁",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公投",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "公車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "動物",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "占用",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "反映",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "叫號",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "吵鬧",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "噪音"
+  },
+  {
+   "term": "和平",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "問卷",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "喝水",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "飲水機"
+  },
+  {
+   "term": "噪音",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "回去",
+   "tools": [
+    "home_all"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地圖",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "地政",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "坑洞",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "垃圾",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "報名",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "報案",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "報警",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "太吵",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "噪音"
+  },
+  {
+   "term": "失火",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "火災"
+  },
+  {
+   "term": "失竊",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "學校",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "學費",
+   "tools": [
+    "tuition_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "客服",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "家暴",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "臺北市家庭暴力被害人補助"
+  },
+  {
+   "term": "寵物",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "小說",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "山崩",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "土石崩落"
+  },
+  {
+   "term": "帳務",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "度數",
+   "tools": [
+    "water_meter_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "廁所",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "公廁"
+  },
+  {
+   "term": "廢車",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "有牌廢棄車"
+  },
+  {
+   "term": "廣播",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "很吵",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "噪音"
+  },
+  {
+   "term": "很髒",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "垃圾"
+  },
+  {
+   "term": "忠孝",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "急救",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "AED場所"
+  },
+  {
+   "term": "性侵",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false,
+   "entity": "臺北市性侵害被害人補助"
+  },
+  {
+   "term": "戶政",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "打針",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "找書",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "抄表",
+   "tools": [
+    "water_meter_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "投票",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "投訴",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "招牌",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "掃描",
+   "tools": [
+    "scan_bill"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "排隊",
+   "tools": [
+    "counter_calling"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "掛號",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "推播",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "收據",
+   "tools": [
+    "fee_history"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "收聽",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "放大",
+   "tools": [
+    "ui_elder"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "教學",
+   "tools": [
+    "qna"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "散步",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "數據",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "文教",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "朗讀",
+   "tools": [
+    "read_aloud"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "木瓜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "柚子",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "柳丁",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "條碼",
+   "tools": [
+    "scan_bill"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "森林",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "橋斷",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "橋樑斷裂"
+  },
+  {
+   "term": "橋裂",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "橋樑斷裂"
+  },
+  {
+   "term": "檢舉",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "步道",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民意",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "民生",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "水單",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "水果",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "水費",
+   "tools": [
+    "water_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "汙染",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "汙染舉發"
+  },
+  {
+   "term": "污染",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "汙染舉發"
+  },
+  {
+   "term": "沒電",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "電力停電"
+  },
+  {
+   "term": "河濱",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "河馬",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "油價",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "油價"
+  },
+  {
+   "term": "油漬",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "道路散落物或油漬處理"
+  },
+  {
+   "term": "洋蔥",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "流感",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "淹水",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "清單",
+   "tools": [
+    "home_all"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "漫畫",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "火災",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "災情",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "熱線",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "燕麥",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "牛腱",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "物價",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "申訴",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "申辦",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "番茄",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "疫苗",
+   "tools": [
+    "vaccine"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "皮蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "相機",
+   "tools": [
+    "scan_bill"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "真人",
+   "tools": [
+    "call_1999"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "眼科",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "票夾",
+   "tools": [
+    "ticket_wallet"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "租金",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "稅單",
+   "tools": [
+    "local_tax_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "空氣",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "空氣品質"
+  },
+  {
+   "term": "空汙",
+   "tools": [
+    "subscription"
+   ],
+   "ambiguous": false,
+   "entity": "空氣品質"
+  },
+  {
+   "term": "米價",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "米糧",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "糙米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "糯米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "統計",
+   "tools": [
+    "dashboard"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "綠地",
+   "tools": [
+    "green_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "縮小",
+   "tools": [
+    "ui_normal"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "續借",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "罰單",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "罰鍰",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "肉類",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "芭樂",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "菜價",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "菠菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "落石",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "土石崩落"
+  },
+  {
+   "term": "著火",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false,
+   "entity": "火災"
+  },
+  {
+   "term": "葡萄",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "蔬菜",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "蘋果",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "表決",
+   "tools": [
+    "ivoting"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "被偷",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "補助",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "規費",
+   "tools": [
+    "fee_pay_other"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "親子",
+   "tools": [
+    "family_center"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "觀光",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "觀光及媒體"
+  },
+  {
+   "term": "詐騙",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "說明",
+   "tools": [
+    "qna"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "調查",
+   "tools": [
+    "survey"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "證明",
+   "tools": [
+    "apply_service"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "警察",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "豬肉",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "貓熊",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "買票",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路樹",
+   "tools": [
+    "disaster_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "路燈",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "車牌",
+   "tools": [
+    "parking_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "車禍",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "違停",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "停車管理及收費問題"
+  },
+  {
+   "term": "違建",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false,
+   "entity": "違建查報及拆除"
+  },
+  {
+   "term": "遛狗",
+   "tools": [
+    "pet_map"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "遺失",
+   "tools": [
+    "police_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "還書",
+   "tools": [
+    "library"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "鄰里",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "醫院",
+   "tools": [
+    "hospital_fee_pay"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里辦",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "里長",
+   "tools": [
+    "neighborhood"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "野狗",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "門票",
+   "tools": [
+    "coupon"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "門診",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "附近",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "陳情",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "陽明",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "雞胸",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "雞腿",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "雞蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "電台",
+   "tools": [
+    "city_radio"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "青蔥",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "餵奶",
+   "tools": [
+    "find_place"
+   ],
+   "ambiguous": false,
+   "entity": "哺集乳室"
+  },
+  {
+   "term": "餵食",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "首頁",
+   "tools": [
+    "home_all"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "香蕉",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "骨科",
+   "tools": [
+    "hospital_registration"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "體育",
+   "tools": [
+    "citizen_report"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "鳥園",
+   "tools": [
+    "zoo"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "鳳梨",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "鴨蛋",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  },
+  {
+   "term": "黑米",
+   "tools": [
+    "essential_goods"
+   ],
+   "ambiguous": false
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "id": "guide_neighborhood",
+ "title": {
+  "zh": "里辦服務"
+ },
+ "entry": "/neighborhood",
+ "match": {
+  "url": "^/neighborhood"
+ },
+ "steps": [
+  {
+   "id": "district",
+   "url": "^/neighborhood/?$",
+   "find": [
+    {
+     "option": "{{entity}}"
+    },
+    {
+     "css": "#district"
+    }
+   ],
+   "say": {
+    "zh": "選你住的行政區"
+   },
+   "done_when": "change"
+  },
+  {
+   "id": "pick",
+   "url": "^/neighborhood/?$",
+   "find": [
+    {
+     "text": "{{entity}}"
+    },
+    {
+     "css": "a[href*=\"neighborhood/\"]"
+    }
+   ],
+   "say": {
+    "zh": "點你的里"
+   },
+   "done_when": "route",
+   "say_default": "點你的里"
+  },
+  {
+   "id": "look",
+   "url": "^/neighborhood/",
+   "find": [
+    {
+     "role": "button",
+     "text": "撥打電話"
+    },
+    {
+     "text": "里長"
+    }
+   ],
+   "say": {
+    "zh": "這裡有里長電話和公告"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "按「撥打電話」可以直接打給里辦公處"
+   },
+   "final": true
+  }
+ ]
+}

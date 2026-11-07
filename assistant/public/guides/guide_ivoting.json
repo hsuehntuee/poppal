@@ -1,0 +1,58 @@
+{
+ "id": "guide_ivoting",
+ "title": {
+  "zh": "網路投票"
+ },
+ "entry": "/ivoting",
+ "match": {
+  "url": "^/ivoting"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/ivoting/?$",
+   "find": [
+    {
+     "text": "{{entity}}"
+    },
+    {
+     "css": "a[href*=\"ivoting/\"]"
+    }
+   ],
+   "say": {
+    "zh": "點一個投票議題"
+   },
+   "done_when": "route",
+   "say_default": "點一個投票議題"
+  },
+  {
+   "id": "choose",
+   "url": "^/ivoting/",
+   "find": [
+    {
+     "css": "label"
+    }
+   ],
+   "say": {
+    "zh": "點你的選擇"
+   },
+   "done_when": "click"
+  },
+  {
+   "id": "submit",
+   "url": "^/ivoting/",
+   "find": [
+    {
+     "role": "button",
+     "text": "投票"
+    }
+   ],
+   "say": {
+    "zh": "按「投票」"
+   },
+   "done_when": "click",
+   "confirm": true,
+   "final": true
+  }
+ ]
+}

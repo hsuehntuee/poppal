@@ -1,0 +1,219 @@
+{
+  "data": [
+    {
+      "id": "V01",
+      "title": "2026 臺北燈節主燈設計票選",
+      "status": "投票中",
+      "end_date": "2025-11-30",
+      "votes": 12480,
+      "question": "你最喜歡哪一款主燈設計？",
+      "options": [
+        {
+          "id": "a",
+          "name": "光之鯨",
+          "percent": 38
+        },
+        {
+          "id": "b",
+          "name": "城市星河",
+          "percent": 29
+        },
+        {
+          "id": "c",
+          "name": "繁花盛境",
+          "percent": 21
+        },
+        {
+          "id": "d",
+          "name": "未來之眼",
+          "percent": 12
+        }
+      ]
+    },
+    {
+      "id": "V02",
+      "title": "公園遊戲場改善優先順序",
+      "status": "投票中",
+      "end_date": "2025-12-15",
+      "votes": 6213,
+      "question": "哪一項改善最需要優先進行？",
+      "options": [
+        {
+          "id": "a",
+          "name": "增加遮陽設施",
+          "percent": 44
+        },
+        {
+          "id": "b",
+          "name": "更新共融遊具",
+          "percent": 33
+        },
+        {
+          "id": "c",
+          "name": "增設飲水機",
+          "percent": 23
+        }
+      ]
+    },
+    {
+      "id": "V03",
+      "title": "河濱自行車道夜間照明時段",
+      "status": "投票中",
+      "end_date": "2025-12-01",
+      "votes": 3890,
+      "question": "夜間照明應延長至幾點？",
+      "options": [
+        {
+          "id": "a",
+          "name": "22:00",
+          "percent": 18
+        },
+        {
+          "id": "b",
+          "name": "23:00",
+          "percent": 47
+        },
+        {
+          "id": "c",
+          "name": "24:00",
+          "percent": 35
+        }
+      ]
+    },
+    {
+      "id": "V04",
+      "title": "捷運站公共藝術主題票選",
+      "status": "投票中",
+      "end_date": "2025-12-05",
+      "votes": 5120,
+      "question": "萬大線新站的公共藝術主題應為？",
+      "options": [
+        {
+          "id": "a",
+          "name": "艋舺老街記憶",
+          "percent": 41
+        },
+        {
+          "id": "b",
+          "name": "淡水河生態",
+          "percent": 27
+        },
+        {
+          "id": "c",
+          "name": "客家文化",
+          "percent": 19
+        },
+        {
+          "id": "d",
+          "name": "當代幾何",
+          "percent": 13
+        }
+      ]
+    },
+    {
+      "id": "V05",
+      "title": "市立圖書館延長開放時間",
+      "status": "投票中",
+      "end_date": "2025-12-20",
+      "votes": 8764,
+      "question": "假日閱覽室應開放至幾點？",
+      "options": [
+        {
+          "id": "a",
+          "name": "維持 17:00",
+          "percent": 12
+        },
+        {
+          "id": "b",
+          "name": "延長至 19:00",
+          "percent": 36
+        },
+        {
+          "id": "c",
+          "name": "延長至 21:00",
+          "percent": 52
+        }
+      ]
+    },
+    {
+      "id": "V06",
+      "title": "社區公園命名票選（信義區松德段）",
+      "status": "投票中",
+      "end_date": "2025-11-25",
+      "votes": 2318,
+      "question": "新闢公園名稱？",
+      "options": [
+        {
+          "id": "a",
+          "name": "松德綠意公園",
+          "percent": 34
+        },
+        {
+          "id": "b",
+          "name": "象山腳下公園",
+          "percent": 42
+        },
+        {
+          "id": "c",
+          "name": "信義親水公園",
+          "percent": 24
+        }
+      ]
+    },
+    {
+      "id": "V07",
+      "title": "市民運動中心新增課程票選",
+      "status": "已結束",
+      "end_date": "2025-10-31",
+      "votes": 9031,
+      "question": "最想新增的課程是？",
+      "options": [
+        {
+          "id": "a",
+          "name": "攀岩",
+          "percent": 31
+        },
+        {
+          "id": "b",
+          "name": "飛輪",
+          "percent": 26
+        },
+        {
+          "id": "c",
+          "name": "皮拉提斯",
+          "percent": 28
+        },
+        {
+          "id": "d",
+          "name": "桌球",
+          "percent": 15
+        }
+      ]
+    },
+    {
+      "id": "V08",
+      "title": "公車站牌資訊看板改版設計",
+      "status": "已結束",
+      "end_date": "2025-10-15",
+      "votes": 7455,
+      "question": "你偏好哪一款站牌看板？",
+      "options": [
+        {
+          "id": "a",
+          "name": "大字體高對比",
+          "percent": 49
+        },
+        {
+          "id": "b",
+          "name": "地圖導向",
+          "percent": 32
+        },
+        {
+          "id": "c",
+          "name": "極簡資訊",
+          "percent": 19
+        }
+      ]
+    }
+  ]
+}

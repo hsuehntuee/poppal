@@ -1,0 +1,105 @@
+{
+ "id": "guide_fee_other",
+ "title": {
+  "zh": "繳其他費用"
+ },
+ "entry": "/fee-payment/search",
+ "match": {
+  "url": "^/fee-payment/(others|search)"
+ },
+ "steps": [
+  {
+   "id": "open_search",
+   "url": "^/fee-payment/others",
+   "find": [
+    {
+     "text": "搜尋項目名稱"
+    },
+    {
+     "css": "a[href*=\"search\"]"
+    }
+   ],
+   "say": {
+    "zh": "點最上面的搜尋框"
+   },
+   "done_when": "route"
+  },
+  {
+   "id": "fill_search",
+   "url": "^/fee-payment/search",
+   "find": [
+    {
+     "css": "input[placeholder*=\"關鍵字\"]"
+    },
+    {
+     "css": "input"
+    }
+   ],
+   "say": {
+    "zh": "輸入要繳的費用名稱"
+   },
+   "done_when": "input",
+   "more": {
+    "zh": "例如「停車費」、「學雜費」"
+   },
+   "accept": "text",
+   "prefill": "keyword"
+  },
+  {
+   "id": "do_search",
+   "url": "^/fee-payment/search",
+   "find": [
+    {
+     "css": ".search-button"
+    },
+    {
+     "role": "button",
+     "text": "搜尋"
+    }
+   ],
+   "say": {
+    "zh": "按放大鏡搜尋"
+   },
+   "done_when": "click"
+  },
+  {
+   "id": "no_result",
+   "url": "^/fee-payment/search",
+   "find": [
+    {
+     "text": "無符合的搜尋結果"
+    }
+   ],
+   "say": {
+    "zh": "城市通沒有「{{keyword}}」這個繳費項目"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "像電費、瓦斯費是台電、瓦斯公司收的，不在城市通；要問可以打 1999"
+   },
+   "skip_if_missing": true,
+   "say_default": "這裡沒有這個繳費項目，可以打 1999 問"
+  },
+  {
+   "id": "pick",
+   "url": "^/fee-payment/search",
+   "find": [
+    {
+     "text": "{{keyword}}"
+    },
+    {
+     "text": "查詢結果"
+    }
+   ],
+   "say": {
+    "zh": "點「{{keyword}}」"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "點進去後照畫面輸入繳費資料"
+   },
+   "final": true,
+   "say_default": "點查詢結果裡你要的項目"
+  }
+ ]
+}

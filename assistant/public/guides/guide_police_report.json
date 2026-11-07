@@ -1,0 +1,56 @@
+{
+ "id": "guide_police_report",
+ "title": {
+  "zh": "警政報案"
+ },
+ "entry": "/police-report",
+ "match": {
+  "url": "^/police-report"
+ },
+ "steps": [
+  {
+   "id": "agree",
+   "url": "^/police-report/?$",
+   "find": [
+    {
+     "role": "button",
+     "text": "同意"
+    },
+    {
+     "role": "button",
+     "text": "我同意"
+    },
+    {
+     "css": "button"
+    }
+   ],
+   "say": {
+    "zh": "看完說明，按「同意」"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "網路報案前要先同意注意事項"
+   }
+  },
+  {
+   "id": "form",
+   "url": "^/police-report/form",
+   "find": [
+    {
+     "css": "input"
+    },
+    {
+     "css": "textarea"
+    }
+   ],
+   "say": {
+    "zh": "照畫面填報案資料"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "急事請直接打 110"
+   },
+   "final": true
+  }
+ ]
+}

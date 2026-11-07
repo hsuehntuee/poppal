@@ -1,0 +1,48 @@
+{
+ "id": "guide_pet_map",
+ "title": {
+  "zh": "寵物安心遛"
+ },
+ "entry": "/pet-map",
+ "match": {
+  "url": "^/pet-map"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/pet-map",
+   "find": [
+    {
+     "option": "{{entity}}"
+    },
+    {
+     "css": "#findPlace"
+    },
+    {
+     "css": "select"
+    }
+   ],
+   "say": {
+    "zh": "選「{{entity}}」"
+   },
+   "done_when": "change",
+   "say_default": {
+    "zh": "選你要找的寵物地點類型"
+   }
+  },
+  {
+   "id": "look",
+   "url": "^/pet-map",
+   "find": [
+    {
+     "css": ".leaflet-marker-icon"
+    }
+   ],
+   "say": {
+    "zh": "點地圖上的標記看地點"
+   },
+   "done_when": "manual",
+   "final": true
+  }
+ ]
+}

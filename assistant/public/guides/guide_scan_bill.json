@@ -1,0 +1,32 @@
+{
+ "id": "guide_scan_bill",
+ "title": {
+  "zh": "掃描帳單"
+ },
+ "entry": "/fee-payment/scan",
+ "match": {
+  "url": "^/fee-payment/scan"
+ },
+ "steps": [
+  {
+   "id": "scan",
+   "url": "^/fee-payment/scan",
+   "find": [
+    {
+     "css": "video"
+    },
+    {
+     "css": "main"
+    }
+   ],
+   "say": {
+    "zh": "把相機對準帳單上的條碼"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "對準後會自動辨識"
+   },
+   "final": true
+  }
+ ]
+}

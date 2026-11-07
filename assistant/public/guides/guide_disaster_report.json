@@ -1,0 +1,73 @@
+{
+ "id": "guide_disaster_report",
+ "title": {
+  "zh": "災情通報"
+ },
+ "entry": "/disaster-report",
+ "match": {
+  "url": "^/disaster-report"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/disaster-report/?$",
+   "find": [
+    {
+     "text": "{{entity}}"
+    },
+    {
+     "css": "input[placeholder*=\"問題\"]"
+    }
+   ],
+   "say": {
+    "zh": "點「{{entity}}」"
+   },
+   "done_when": "route",
+   "say_default": {
+    "zh": "點災情的類型，或在搜尋框輸入關鍵字"
+   },
+   "more": {
+    "zh": "或在搜尋框輸入災情關鍵字"
+   }
+  },
+  {
+   "id": "detail",
+   "url": "^/disaster-report/form/",
+   "find": [
+    {
+     "label": "地點描述"
+    },
+    {
+     "css": "textarea"
+    },
+    {
+     "css": "input"
+    }
+   ],
+   "say": {
+    "zh": "描述地點與災情"
+   },
+   "done_when": "input",
+   "more": {
+    "zh": "可以用說的"
+   },
+   "accept": "text"
+  },
+  {
+   "id": "submit",
+   "url": "^/disaster-report/form/",
+   "find": [
+    {
+     "role": "button",
+     "text": "送出"
+    }
+   ],
+   "say": {
+    "zh": "按「送出」"
+   },
+   "done_when": "route",
+   "confirm": true,
+   "final": true
+  }
+ ]
+}

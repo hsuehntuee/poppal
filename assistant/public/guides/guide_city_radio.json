@@ -1,0 +1,30 @@
+{
+ "id": "guide_city_radio",
+ "title": {
+  "zh": "台北電台"
+ },
+ "entry": "/city-radio",
+ "match": {
+  "url": "^/city-radio"
+ },
+ "steps": [
+  {
+   "id": "play",
+   "url": "^/city-radio",
+   "find": [
+    {
+     "role": "button",
+     "text": "播放"
+    }
+   ],
+   "say": {
+    "zh": "按「播放」"
+   },
+   "done_when": "click",
+   "more": {
+    "zh": "下面是節目表"
+   },
+   "final": true
+  }
+ ]
+}

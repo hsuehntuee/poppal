@@ -1,0 +1,58 @@
+{
+ "id": "guide_survey",
+ "title": {
+  "zh": "意見調查"
+ },
+ "entry": "/survey",
+ "match": {
+  "url": "^/survey"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/survey/?$",
+   "find": [
+    {
+     "text": "{{entity}}"
+    },
+    {
+     "css": "a[href*=\"survey/\"]"
+    }
+   ],
+   "say": {
+    "zh": "點一份問卷"
+   },
+   "done_when": "route",
+   "say_default": "點一份問卷"
+  },
+  {
+   "id": "answer",
+   "url": "^/survey/",
+   "find": [
+    {
+     "css": "label"
+    }
+   ],
+   "say": {
+    "zh": "每一題點一個答案"
+   },
+   "done_when": "manual"
+  },
+  {
+   "id": "submit",
+   "url": "^/survey/",
+   "find": [
+    {
+     "role": "button",
+     "text": "送出"
+    }
+   ],
+   "say": {
+    "zh": "按「送出」"
+   },
+   "done_when": "click",
+   "confirm": true,
+   "final": true
+  }
+ ]
+}

@@ -1,0 +1,192 @@
+{
+  "categories": [
+    {
+      "id": "park",
+      "name": "公園"
+    },
+    {
+      "id": "green",
+      "name": "綠地"
+    },
+    {
+      "id": "trail",
+      "name": "步道"
+    },
+    {
+      "id": "river",
+      "name": "河濱"
+    }
+  ],
+  "data": [
+    {
+      "id": "G01",
+      "name": "大安森林公園",
+      "category": "park",
+      "area": "大安區",
+      "address": "臺北市大安區新生南路二段1號",
+      "lat": 25.033,
+      "lng": 121.5354,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%AE%89%E6%A3%AE%E6%9E%97%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G02",
+      "name": "二二八和平公園",
+      "category": "park",
+      "area": "中正區",
+      "address": "臺北市中正區凱達格蘭大道3號",
+      "lat": 25.0407,
+      "lng": 121.515,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E4%BA%8C%E5%85%AB%E5%92%8C%E5%B9%B3%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G03",
+      "name": "青年公園",
+      "category": "park",
+      "area": "萬華區",
+      "address": "臺北市萬華區水源路199號",
+      "lat": 25.0218,
+      "lng": 121.5054,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E5%B9%B4%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G04",
+      "name": "大湖公園",
+      "category": "park",
+      "area": "內湖區",
+      "address": "臺北市內湖區成功路五段31號",
+      "lat": 25.0833,
+      "lng": 121.6019,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%B9%96%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G05",
+      "name": "碧湖公園",
+      "category": "park",
+      "area": "內湖區",
+      "address": "臺北市內湖區內湖路二段175號",
+      "lat": 25.0795,
+      "lng": 121.581,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E7%A2%A7%E6%B9%96%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G06",
+      "name": "榮星花園公園",
+      "category": "green",
+      "area": "中山區",
+      "address": "臺北市中山區民權東路三段1號",
+      "lat": 25.0607,
+      "lng": 121.5416,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%A6%AE%E6%98%9F%E8%8A%B1%E5%9C%92%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G07",
+      "name": "花博公園新生園區",
+      "category": "green",
+      "area": "中山區",
+      "address": "臺北市中山區新生北路三段105號",
+      "lat": 25.0697,
+      "lng": 121.5225,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E5%8D%9A%E5%85%AC%E5%9C%92%E6%96%B0%E7%94%9F%E5%9C%92%E5%8D%80"
+    },
+    {
+      "id": "G08",
+      "name": "富陽自然生態公園",
+      "category": "green",
+      "area": "大安區",
+      "address": "臺北市大安區富陽街",
+      "lat": 25.0195,
+      "lng": 121.5565,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%AF%8C%E9%99%BD%E8%87%AA%E7%84%B6%E7%94%9F%E6%85%8B%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G09",
+      "name": "士林官邸公園",
+      "category": "green",
+      "area": "士林區",
+      "address": "臺北市士林區福林路60號",
+      "lat": 25.0938,
+      "lng": 121.5308,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A3%AB%E6%9E%97%E5%AE%98%E9%82%B8%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G10",
+      "name": "象山親山步道",
+      "category": "trail",
+      "area": "信義區",
+      "address": "臺北市信義區信義路五段150巷",
+      "lat": 25.0273,
+      "lng": 121.5705,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%B1%A1%E5%B1%B1%E8%A6%AA%E5%B1%B1%E6%AD%A5%E9%81%93"
+    },
+    {
+      "id": "G11",
+      "name": "劍潭山親山步道",
+      "category": "trail",
+      "area": "中山區",
+      "address": "臺北市中山區北安路",
+      "lat": 25.0845,
+      "lng": 121.5255,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%8A%8D%E6%BD%AD%E5%B1%B1%E8%A6%AA%E5%B1%B1%E6%AD%A5%E9%81%93"
+    },
+    {
+      "id": "G12",
+      "name": "軍艦岩親山步道",
+      "category": "trail",
+      "area": "北投區",
+      "address": "臺北市北投區立農街二段",
+      "lat": 25.1215,
+      "lng": 121.5178,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%BB%8D%E8%89%A6%E5%B2%A9%E8%A6%AA%E5%B1%B1%E6%AD%A5%E9%81%93"
+    },
+    {
+      "id": "G13",
+      "name": "仙跡岩親山步道",
+      "category": "trail",
+      "area": "文山區",
+      "address": "臺北市文山區景興路243巷",
+      "lat": 24.9915,
+      "lng": 121.546,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E4%BB%99%E8%B7%A1%E5%B2%A9%E8%A6%AA%E5%B1%B1%E6%AD%A5%E9%81%93"
+    },
+    {
+      "id": "G14",
+      "name": "大佳河濱公園",
+      "category": "river",
+      "area": "中山區",
+      "address": "臺北市中山區濱江街",
+      "lat": 25.073,
+      "lng": 121.541,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E4%BD%B3%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G15",
+      "name": "美堤河濱公園",
+      "category": "river",
+      "area": "中山區",
+      "address": "臺北市中山區基隆河北岸",
+      "lat": 25.0775,
+      "lng": 121.559,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E7%BE%8E%E5%A0%A4%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G16",
+      "name": "華中河濱公園",
+      "category": "river",
+      "area": "萬華區",
+      "address": "臺北市萬華區萬大路底",
+      "lat": 25.014,
+      "lng": 121.496,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E8%8F%AF%E4%B8%AD%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92"
+    },
+    {
+      "id": "G17",
+      "name": "成美河濱公園",
+      "category": "river",
+      "area": "松山區",
+      "address": "臺北市松山區成美橋下",
+      "lat": 25.056,
+      "lng": 121.588,
+      "map": "https://www.google.com/maps/search/?api=1&query=%E6%88%90%E7%BE%8E%E6%B2%B3%E6%BF%B1%E5%85%AC%E5%9C%92"
+    }
+  ]
+}

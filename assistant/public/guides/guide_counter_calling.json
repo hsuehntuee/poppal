@@ -1,0 +1,25 @@
+{
+  "id": "guide_counter_calling",
+  "title": { "zh": "臨櫃叫號", "en": "Counter queue" },
+  "entry": "/counter-calling",
+  "match": { "url": "^/counter-calling" },
+  "steps": [
+    {
+      "id": "pick_office_type",
+      "url": "^/counter-calling/?$",
+      "find": [{ "text": "戶政事務所" }, { "text": "地政事務所" }],
+      "say": { "zh": "點你要去的機關", "en": "Tap the office you are going to" },
+      "more": { "zh": "例如「戶政事務所」或「地政事務所」", "en": "For example 戶政事務所 or 地政事務所" },
+      "done_when": "route"
+    },
+    {
+      "id": "see_numbers",
+      "url": "^/counter-calling/",
+      "find": [{ "text": "目前號碼" }, { "text": "等待人數" }, { "css": "main" }],
+      "say": { "zh": "看目前叫到幾號", "en": "See the current number" },
+      "more": { "zh": "每個櫃檯都有「目前號碼」和「等待人數」，挑人少的去", "en": "Each counter shows the current number and how many are waiting" },
+      "done_when": "manual",
+      "final": true
+    }
+  ]
+}

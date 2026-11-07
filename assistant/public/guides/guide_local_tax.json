@@ -1,0 +1,29 @@
+{
+ "id": "guide_local_tax",
+ "title": {
+  "zh": "繳地方稅"
+ },
+ "entry": "/fee-payment/detail/tax-1",
+ "match": {
+  "url": "^/fee-payment/detail/tax-1"
+ },
+ "steps": [
+  {
+   "id": "scan",
+   "url": "^/fee-payment/detail/tax-1",
+   "find": [
+    {
+     "text": "掃描"
+    }
+   ],
+   "say": {
+    "zh": "點「掃描」"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "地方稅只能掃描繳款書上的條碼，把相機對準條碼"
+   },
+   "final": true
+  }
+ ]
+}

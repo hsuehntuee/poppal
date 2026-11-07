@@ -1,0 +1,1279 @@
+{
+  "version": "0.3",
+  "none_code": "Z",
+  "instruction": "你是分類器。根據使用者說的話，選出最符合的服務代號，只輸出一個字母。",
+  "services": [
+    {
+      "id": "water_fee_pay",
+      "code": "A",
+      "title": {
+        "zh": "繳水費",
+        "en": "Pay water bill",
+        "vi": "Đóng tiền nước",
+        "id": "Bayar tagihan air",
+        "th": "จ่ายค่าน้ำ"
+      },
+      "desc": "用手機繳台北自來水費、查水費帳單",
+      "keywords": [
+        "水費",
+        "水單",
+        "自來水",
+        "繳水錢",
+        "water bill"
+      ],
+      "examples": [
+        "我要繳水費",
+        "水費單怎麼付",
+        "pay my water bill",
+        "自來水的帳單要繳",
+        "水的那個帳單",
+        "水費可以用手機付嗎"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/detail/fee-6"
+      },
+      "guide_id": "guide_water_fee"
+    },
+    {
+      "id": "water_meter_report",
+      "code": "B",
+      "title": {
+        "zh": "報水表度數",
+        "en": "Report water meter",
+        "vi": "Báo chỉ số đồng hồ nước",
+        "id": "Lapor meteran air",
+        "th": "แจ้งเลขมิเตอร์น้ำ"
+      },
+      "desc": "自己抄水表、回報用水度數，或查詢用水度數",
+      "keywords": [
+        "水表",
+        "度數",
+        "抄表",
+        "用水度數",
+        "water meter"
+      ],
+      "examples": [
+        "我要報水表度數",
+        "自己抄水表怎麼報",
+        "report my water meter reading",
+        "水表的數字要回報",
+        "查用水度數"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/water-service"
+      },
+      "guide_id": "guide_water_meter"
+    },
+    {
+      "id": "parking_fee_pay",
+      "code": "C",
+      "title": {
+        "zh": "繳停車費",
+        "en": "Pay parking fee",
+        "vi": "Đóng phí đậu xe",
+        "id": "Bayar biaya parkir",
+        "th": "จ่ายค่าจอดรถ"
+      },
+      "desc": "繳路邊停車費，用車牌或繳費編號查詢",
+      "keywords": [
+        "停車費",
+        "停車單",
+        "路邊停車",
+        "車牌",
+        "parking"
+      ],
+      "examples": [
+        "我要繳停車費",
+        "停車費單子要付錢",
+        "pay parking ticket",
+        "路邊停車的費用",
+        "車牌查停車費"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/detail/fee-5"
+      },
+      "guide_id": "guide_parking_fee"
+    },
+    {
+      "id": "local_tax_pay",
+      "code": "D",
+      "title": {
+        "zh": "繳地方稅",
+        "en": "Pay local tax",
+        "vi": "Nộp thuế địa phương",
+        "id": "Bayar pajak daerah",
+        "th": "จ่ายภาษีท้องถิ่น"
+      },
+      "desc": "繳地方稅，例如房屋稅、地價稅、牌照稅，掃描繳款書",
+      "keywords": [
+        "地方稅",
+        "房屋稅",
+        "地價稅",
+        "牌照稅",
+        "稅單",
+        "tax"
+      ],
+      "examples": [
+        "我要繳房屋稅",
+        "地價稅怎麼繳",
+        "pay my local tax",
+        "牌照稅的單子",
+        "稅單可以掃描嗎"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/detail/tax-1"
+      },
+      "guide_id": "guide_local_tax"
+    },
+    {
+      "id": "tuition_pay",
+      "code": "E",
+      "title": {
+        "zh": "繳學雜費",
+        "en": "Pay tuition",
+        "vi": "Đóng học phí",
+        "id": "Bayar uang sekolah",
+        "th": "จ่ายค่าเล่าเรียน"
+      },
+      "desc": "繳學校的學雜費、註冊費",
+      "keywords": [
+        "學雜費",
+        "學費",
+        "註冊費",
+        "學校",
+        "tuition"
+      ],
+      "examples": [
+        "我要繳小孩的學費",
+        "學雜費怎麼付",
+        "pay school tuition",
+        "註冊費的繳費單",
+        "學校寄來的繳費通知"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/detail/fee-7"
+      },
+      "guide_id": "guide_tuition"
+    },
+    {
+      "id": "hospital_fee_pay",
+      "code": "F",
+      "title": {
+        "zh": "繳聯合醫院醫療費",
+        "en": "Pay hospital bill",
+        "vi": "Đóng viện phí",
+        "id": "Bayar biaya rumah sakit",
+        "th": "จ่ายค่ารักษาพยาบาล"
+      },
+      "desc": "繳台北市立聯合醫院的看病費用、醫療費",
+      "keywords": [
+        "醫療費",
+        "醫院",
+        "聯合醫院",
+        "看病錢",
+        "hospital bill"
+      ],
+      "examples": [
+        "我要繳醫院的錢",
+        "聯合醫院的醫療費",
+        "pay hospital bill",
+        "看病的費用還沒付",
+        "住院費用怎麼繳"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/detail/fee-9"
+      },
+      "guide_id": "guide_hospital_fee"
+    },
+    {
+      "id": "fee_pay_other",
+      "code": "G",
+      "title": {
+        "zh": "繳其他費用",
+        "en": "Pay other fees",
+        "vi": "Đóng các khoản phí khác",
+        "id": "Bayar biaya lainnya",
+        "th": "จ่ายค่าธรรมเนียมอื่น"
+      },
+      "desc": "繳其他規費、罰鍰、租金、登記費，或不確定是哪一種費用",
+      "keywords": [
+        "繳費",
+        "罰單",
+        "罰鍰",
+        "規費",
+        "租金",
+        "付錢",
+        "pay fee"
+      ],
+      "examples": [
+        "我要繳費",
+        "有一張單子要付錢",
+        "pay a fine",
+        "繳罰款",
+        "社宅租金要繳",
+        "公司登記費怎麼付"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/others"
+      },
+      "guide_id": "guide_fee_other"
+    },
+    {
+      "id": "fee_history",
+      "code": "H",
+      "title": {
+        "zh": "查繳費紀錄",
+        "en": "Payment history",
+        "vi": "Lịch sử thanh toán",
+        "id": "Riwayat pembayaran",
+        "th": "ประวัติการชำระเงิน"
+      },
+      "desc": "查詢以前繳過的費用、帳務紀錄、收據",
+      "keywords": [
+        "繳費紀錄",
+        "帳務",
+        "收據",
+        "繳過了嗎",
+        "payment history"
+      ],
+      "examples": [
+        "我上個月有繳水費嗎",
+        "查我的繳費紀錄",
+        "show my payment history",
+        "之前付過的錢在哪裡看",
+        "我要收據"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/history"
+      },
+      "guide_id": "guide_fee_history"
+    },
+    {
+      "id": "counter_calling",
+      "code": "I",
+      "title": {
+        "zh": "臨櫃叫號",
+        "en": "Counter queue",
+        "vi": "Số thứ tự quầy",
+        "id": "Nomor antrean loket",
+        "th": "คิวเคาน์เตอร์"
+      },
+      "desc": "查看戶政、地政事務所的櫃檯叫號與等待人數",
+      "keywords": [
+        "叫號",
+        "排隊",
+        "號碼牌",
+        "戶政",
+        "地政",
+        "等多久",
+        "queue"
+      ],
+      "examples": [
+        "戶政事務所現在叫到幾號",
+        "我要看叫號",
+        "how long is the queue at the office",
+        "地政事務所要等多久",
+        "抽號碼牌"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/counter-calling"
+      },
+      "guide_id": "guide_counter_calling"
+    },
+    {
+      "id": "citizen_report",
+      "code": "J",
+      "title": {
+        "zh": "陳情投訴",
+        "en": "File a complaint",
+        "vi": "Gửi phản ánh",
+        "id": "Ajukan pengaduan",
+        "th": "ร้องเรียน"
+      },
+      "desc": "有話要說：向市政府陳情、投訴、反映問題，例如噪音、路燈壞了",
+      "keywords": [
+        "陳情",
+        "投訴",
+        "反映",
+        "檢舉",
+        "有話要說",
+        "complaint",
+        "違停",
+        "違規停車",
+        "噪音",
+        "路燈",
+        "坑洞",
+        "垃圾",
+        "野狗",
+        "占用",
+        "亂丟"
+      ],
+      "examples": [
+        "我要投訴",
+        "樓上很吵想檢舉",
+        "file a complaint about noise",
+        "路燈壞了要跟誰說",
+        "有話要跟市政府說",
+        "我要檢舉違停",
+        "有人違規停車擋到我家",
+        "路上有坑洞",
+        "公園很髒想反映"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/citizen-report"
+      },
+      "guide_id": "guide_citizen_report"
+    },
+    {
+      "id": "citizen_report_search",
+      "code": "K",
+      "title": {
+        "zh": "查陳情進度",
+        "en": "Check complaint status",
+        "vi": "Tra cứu tiến độ phản ánh",
+        "id": "Cek status pengaduan",
+        "th": "ตรวจสอบสถานะคำร้อง"
+      },
+      "desc": "查詢之前送出的陳情案件處理到哪裡了",
+      "keywords": [
+        "陳情進度",
+        "案件進度",
+        "處理了沒",
+        "case status"
+      ],
+      "examples": [
+        "我之前的陳情處理了嗎",
+        "查案件進度",
+        "check my complaint status",
+        "上次投訴的結果",
+        "案子到哪了"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/citizen-report/search"
+      },
+      "guide_id": "guide_citizen_search"
+    },
+    {
+      "id": "disaster_report",
+      "code": "L",
+      "title": {
+        "zh": "災情通報",
+        "en": "Report a disaster",
+        "vi": "Báo cáo thiên tai",
+        "id": "Lapor bencana",
+        "th": "แจ้งเหตุภัยพิบัติ"
+      },
+      "desc": "通報災情，例如淹水、路樹倒了、土石流、火災",
+      "keywords": [
+        "災情",
+        "淹水",
+        "路樹",
+        "倒塌",
+        "火災",
+        "土石流",
+        "disaster",
+        "停電",
+        "電線掉落",
+        "招牌"
+      ],
+      "examples": [
+        "我家這邊淹水了",
+        "路樹倒下來擋到路",
+        "report flooding",
+        "有土石流要通報",
+        "橋好像壞了"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/disaster-report"
+      },
+      "guide_id": "guide_disaster_report"
+    },
+    {
+      "id": "police_report",
+      "code": "M",
+      "title": {
+        "zh": "警政報案",
+        "en": "Police report",
+        "vi": "Báo cảnh sát",
+        "id": "Lapor polisi",
+        "th": "แจ้งความ"
+      },
+      "desc": "線上向警察報案、查報案紀錄，例如遺失、詐騙、車禍",
+      "keywords": [
+        "報案",
+        "警察",
+        "遺失",
+        "詐騙",
+        "被偷",
+        "police",
+        "失竊",
+        "車禍",
+        "報警"
+      ],
+      "examples": [
+        "我要報案",
+        "錢包被偷了",
+        "I want to report to the police",
+        "遇到詐騙怎麼辦",
+        "線上報案"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/police-report"
+      },
+      "guide_id": "guide_police_report"
+    },
+    {
+      "id": "library",
+      "code": "N",
+      "title": {
+        "zh": "圖書借閱",
+        "en": "Library",
+        "vi": "Thư viện",
+        "id": "Perpustakaan",
+        "th": "ห้องสมุด"
+      },
+      "desc": "市立圖書館借書、找書、查借閱紀錄、續借",
+      "keywords": [
+        "圖書館",
+        "借書",
+        "找書",
+        "續借",
+        "還書",
+        "library"
+      ],
+      "examples": [
+        "我要借書",
+        "圖書館有沒有這本書",
+        "renew my library books",
+        "書什麼時候要還",
+        "查借閱紀錄"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/library-service"
+      },
+      "guide_id": "guide_library"
+    },
+    {
+      "id": "find_place",
+      "code": "O",
+      "title": {
+        "zh": "找地點",
+        "en": "Find places nearby",
+        "vi": "Tìm địa điểm",
+        "id": "Cari tempat",
+        "th": "ค้นหาสถานที่"
+      },
+      "desc": "找附近的地點，例如公廁、YouBike、停車場、垃圾車、飲水機",
+      "keywords": [
+        "附近",
+        "廁所",
+        "YouBike",
+        "停車場",
+        "垃圾車",
+        "飲水機",
+        "地圖",
+        "nearby",
+        "公廁",
+        "YouBike站",
+        "AED",
+        "派出所",
+        "區公所"
+      ],
+      "examples": [
+        "附近哪裡有廁所",
+        "最近的YouBike站",
+        "where is the nearest parking lot",
+        "垃圾車幾點來",
+        "我要找飲水機"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/surrounding-service"
+      },
+      "guide_id": "guide_find_place"
+    },
+    {
+      "id": "apply_service",
+      "code": "P",
+      "title": {
+        "zh": "申辦服務",
+        "en": "Apply for services",
+        "vi": "Đăng ký dịch vụ",
+        "id": "Ajukan layanan",
+        "th": "ยื่นขอบริการ"
+      },
+      "desc": "線上申辦市政府業務，例如補助、申訴、證明文件",
+      "keywords": [
+        "申辦",
+        "申請",
+        "補助",
+        "證明",
+        "申訴",
+        "apply"
+      ],
+      "examples": [
+        "我要申請補助",
+        "老人健保補助怎麼辦",
+        "apply for a subsidy",
+        "線上申辦市府服務",
+        "要申請證明文件"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/"
+      },
+      "guide_id": "guide_apply"
+    },
+    {
+      "id": "coupon",
+      "code": "Q",
+      "title": {
+        "zh": "優惠票券",
+        "en": "Coupons and tickets",
+        "vi": "Phiếu ưu đãi",
+        "id": "Kupon",
+        "th": "คูปอง"
+      },
+      "desc": "看優惠券、買票、熱門活動票券",
+      "keywords": [
+        "優惠",
+        "折價券",
+        "買票",
+        "門票",
+        "coupon"
+      ],
+      "examples": [
+        "有什麼優惠",
+        "我要買門票",
+        "show me coupons",
+        "折價券在哪裡",
+        "活動票券"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/coupon"
+      },
+      "guide_id": "guide_coupon"
+    },
+    {
+      "id": "ticket_wallet",
+      "code": "R",
+      "title": {
+        "zh": "票夾",
+        "en": "Ticket wallet",
+        "vi": "Ví vé",
+        "id": "Dompet tiket",
+        "th": "กระเป๋าตั๋ว"
+      },
+      "desc": "看自己已經買的票、兌換票券",
+      "keywords": [
+        "票夾",
+        "我的票",
+        "兌換",
+        "wallet"
+      ],
+      "examples": [
+        "我買的票在哪",
+        "打開票夾",
+        "open my ticket wallet",
+        "票要怎麼兌換",
+        "看我的票券"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/ticket-wallet"
+      },
+      "guide_id": "guide_ticket_wallet"
+    },
+    {
+      "id": "subscription",
+      "code": "S",
+      "title": {
+        "zh": "訂閱通知",
+        "en": "Subscriptions",
+        "vi": "Đăng ký thông báo",
+        "id": "Langganan notifikasi",
+        "th": "สมัครรับการแจ้งเตือน"
+      },
+      "desc": "訂閱通知，例如空氣品質、停車、水費通知、社區公告",
+      "keywords": [
+        "訂閱",
+        "通知",
+        "推播",
+        "空氣品質",
+        "subscribe"
+      ],
+      "examples": [
+        "我要訂閱空氣品質通知",
+        "取消訂閱",
+        "subscribe to notifications",
+        "有新公告要通知我",
+        "推播設定"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/subscription"
+      },
+      "guide_id": "guide_subscription"
+    },
+    {
+      "id": "call_1999",
+      "code": "T",
+      "title": {
+        "zh": "打 1999",
+        "en": "Call 1999",
+        "vi": "Gọi 1999",
+        "id": "Telepon 1999",
+        "th": "โทร 1999"
+      },
+      "desc": "撥打 1999 市民熱線，跟真人講話",
+      "keywords": [
+        "1999",
+        "打電話",
+        "客服",
+        "真人",
+        "熱線",
+        "call"
+      ],
+      "examples": [
+        "我要打1999",
+        "幫我打給市政府",
+        "call the city hotline",
+        "我想跟真人講",
+        "客服電話"
+      ],
+      "route": {
+        "type": "phone",
+        "target": "1999"
+      }
+    },
+    {
+      "id": "vaccine",
+      "code": "U",
+      "title": {
+        "zh": "疫苗預約",
+        "en": "Vaccine appointment",
+        "vi": "Đặt lịch tiêm vắc-xin",
+        "id": "Janji vaksin",
+        "th": "นัดฉีดวัคซีน"
+      },
+      "desc": "預約打疫苗，例如流感疫苗、新冠疫苗",
+      "keywords": [
+        "疫苗",
+        "打針",
+        "流感",
+        "預約打疫苗",
+        "vaccine"
+      ],
+      "examples": [
+        "我要預約打流感疫苗",
+        "哪裡可以打疫苗",
+        "book a vaccine appointment",
+        "新冠疫苗預約",
+        "幫我約打針"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/vaccine"
+      },
+      "guide_id": "guide_vaccine"
+    },
+    {
+      "id": "hospital_registration",
+      "code": "V",
+      "title": {
+        "zh": "聯醫掛號",
+        "en": "Hospital registration",
+        "vi": "Đăng ký khám bệnh",
+        "id": "Daftar rumah sakit",
+        "th": "ลงทะเบียนโรงพยาบาล"
+      },
+      "desc": "台北市立聯合醫院線上掛號、看診預約",
+      "keywords": [
+        "掛號",
+        "看醫生",
+        "門診",
+        "預約看診",
+        "registration"
+      ],
+      "examples": [
+        "我要掛號",
+        "聯合醫院看診預約",
+        "make a doctor appointment",
+        "明天想看醫生",
+        "門診掛號"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/hospital-registration"
+      },
+      "guide_id": "guide_hospital_registration"
+    },
+    {
+      "id": "dashboard",
+      "code": "W",
+      "title": {
+        "zh": "市政儀表板",
+        "en": "City dashboard",
+        "vi": "Bảng thông tin thành phố",
+        "id": "Dasbor kota",
+        "th": "แดชบอร์ดเมือง"
+      },
+      "desc": "看台北市的即時數據，例如交通、空氣品質、人口統計",
+      "keywords": [
+        "儀表板",
+        "數據",
+        "統計",
+        "即時資訊",
+        "dashboard"
+      ],
+      "examples": [
+        "看台北的即時數據",
+        "市政儀表板",
+        "open the city dashboard",
+        "現在的空氣品質數據",
+        "台北的統計資料"
+      ],
+      "route": {
+        "type": "external",
+        "target": "https://dashboard.gov.taipei/"
+      }
+    },
+    {
+      "id": "qna",
+      "code": "X",
+      "title": {
+        "zh": "功能教學",
+        "en": "Help and FAQ",
+        "vi": "Hướng dẫn",
+        "id": "Bantuan",
+        "th": "คำถามที่พบบ่อย"
+      },
+      "desc": "城市通 App 的功能教學、常見問題",
+      "keywords": [
+        "教學",
+        "怎麼用",
+        "常見問題",
+        "說明",
+        "FAQ"
+      ],
+      "examples": [
+        "這個 app 怎麼用",
+        "功能教學在哪",
+        "how do I use this app",
+        "常見問題",
+        "我看不懂這個功能"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/qna"
+      },
+      "guide_id": "guide_qna"
+    },
+    {
+      "id": "family_center",
+      "code": "Y",
+      "title": {
+        "zh": "親子館",
+        "en": "Family center",
+        "vi": "Trung tâm gia đình",
+        "id": "Pusat keluarga",
+        "th": "ศูนย์ครอบครัว"
+      },
+      "desc": "預約各區親子館活動、報名親子課程",
+      "keywords": [
+        "親子館",
+        "親子",
+        "小孩活動",
+        "報名",
+        "family center"
+      ],
+      "examples": [
+        "我要預約親子館",
+        "帶小孩去親子館要報名嗎",
+        "book the family center",
+        "親子活動報名",
+        "附近的親子館"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/family-center"
+      },
+      "guide_id": "guide_family_center"
+    },
+    {
+      "id": "ui_elder",
+      "code": "a",
+      "title": {
+        "zh": "字放大（長輩模式）",
+        "en": "Bigger text"
+      },
+      "desc": "把畫面文字放大、自動念出來，切換成長輩模式",
+      "keywords": [
+        "字太小",
+        "放大",
+        "看不清楚",
+        "長輩模式",
+        "念出來"
+      ],
+      "examples": [
+        "字太小看不清楚",
+        "幫我把字放大",
+        "切換長輩模式",
+        "我老花",
+        "可以大聲念嗎"
+      ],
+      "route": {
+        "type": "ui",
+        "target": "mode:elder"
+      }
+    },
+    {
+      "id": "ui_normal",
+      "code": "b",
+      "title": {
+        "zh": "一般模式",
+        "en": "Normal mode"
+      },
+      "desc": "字變回一般大小、不自動朗讀",
+      "keywords": [
+        "字太大",
+        "縮小",
+        "一般模式",
+        "不要念"
+      ],
+      "examples": [
+        "字太大了",
+        "換回一般模式",
+        "不用念出來",
+        "字縮小一點"
+      ],
+      "route": {
+        "type": "ui",
+        "target": "mode:normal"
+      }
+    },
+    {
+      "id": "read_aloud",
+      "code": "c",
+      "title": {
+        "zh": "念給我聽",
+        "en": "Read aloud"
+      },
+      "desc": "把畫面上的內容念出來",
+      "keywords": [
+        "念",
+        "唸",
+        "朗讀",
+        "讀給我聽",
+        "聽"
+      ],
+      "examples": [
+        "念給我聽",
+        "幫我讀一下畫面",
+        "大聲唸出來",
+        "我看不到，用聽的"
+      ],
+      "route": {
+        "type": "ui",
+        "target": "tts"
+      }
+    },
+    {
+      "id": "scan_bill",
+      "code": "d",
+      "title": {
+        "zh": "掃描帳單",
+        "en": "Scan a bill"
+      },
+      "desc": "用相機掃描帳單上的條碼或 QR code 來繳費",
+      "keywords": [
+        "掃描",
+        "掃",
+        "條碼",
+        "QR",
+        "相機",
+        "帳單上的碼"
+      ],
+      "examples": [
+        "我要掃帳單",
+        "用掃的",
+        "掃條碼繳費",
+        "帳單有QR code",
+        "打開相機掃"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/fee-payment/scan"
+      },
+      "guide_id": "guide_scan_bill"
+    },
+    {
+      "id": "home_all",
+      "code": "e",
+      "title": {
+        "zh": "看全部服務",
+        "en": "All services"
+      },
+      "desc": "回到城市通首頁，看所有服務的清單",
+      "keywords": [
+        "全部",
+        "首頁",
+        "清單",
+        "有哪些服務",
+        "回去"
+      ],
+      "examples": [
+        "有哪些服務",
+        "我要看全部",
+        "回首頁",
+        "服務列表",
+        "讓我自己選"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/"
+      }
+    },
+    {
+      "id": "ivoting",
+      "code": "f",
+      "title": {
+        "zh": "網路投票",
+        "en": "i-Voting"
+      },
+      "desc": "參加市政網路投票，對公共議題表達意見",
+      "keywords": [
+        "投票",
+        "i-Voting",
+        "公投",
+        "表決",
+        "民意"
+      ],
+      "examples": [
+        "我要投票",
+        "現在有什麼網路投票",
+        "市政投票在哪裡",
+        "I want to vote",
+        "對這個議題投票"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/ivoting"
+      },
+      "guide_id": "guide_ivoting"
+    },
+    {
+      "id": "survey",
+      "code": "g",
+      "title": {
+        "zh": "意見調查",
+        "en": "Survey"
+      },
+      "desc": "填寫市政府的意見調查問卷",
+      "keywords": [
+        "問卷",
+        "意見調查",
+        "滿意度",
+        "調查"
+      ],
+      "examples": [
+        "我要填問卷",
+        "有沒有意見調查",
+        "滿意度調查",
+        "fill in the survey",
+        "給市政府意見"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/survey"
+      },
+      "guide_id": "guide_survey"
+    },
+    {
+      "id": "neighborhood",
+      "code": "h",
+      "title": {
+        "zh": "里辦服務",
+        "en": "Neighborhood office"
+      },
+      "desc": "找自己的里長、里辦公處電話地址、里的公告與活動",
+      "keywords": [
+        "里長",
+        "里辦公處",
+        "里辦",
+        "鄰里",
+        "里民活動",
+        "里的公告"
+      ],
+      "examples": [
+        "我們里長電話多少",
+        "里辦公處在哪",
+        "里民活動有什麼",
+        "contact my neighborhood chief",
+        "里的公告"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/neighborhood"
+      },
+      "guide_id": "guide_neighborhood"
+    },
+    {
+      "id": "city_radio",
+      "code": "i",
+      "title": {
+        "zh": "台北電台",
+        "en": "Taipei radio"
+      },
+      "desc": "線上收聽臺北廣播電台、看節目表",
+      "keywords": [
+        "電台",
+        "廣播",
+        "收聽",
+        "節目表",
+        "radio"
+      ],
+      "examples": [
+        "我要聽台北電台",
+        "打開廣播",
+        "電台節目表",
+        "play Taipei radio",
+        "現在在播什麼"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/city-radio"
+      },
+      "guide_id": "guide_city_radio"
+    },
+    {
+      "id": "green_map",
+      "code": "j",
+      "title": {
+        "zh": "簡單森呼吸",
+        "en": "Green map"
+      },
+      "desc": "找附近的公園、綠地、步道、河濱等綠化地點",
+      "keywords": [
+        "公園",
+        "綠地",
+        "步道",
+        "河濱",
+        "散步",
+        "森林",
+        "樹"
+      ],
+      "examples": [
+        "附近有什麼公園",
+        "我想去散步的步道",
+        "河濱公園在哪",
+        "parks near me",
+        "找綠地"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/green-map"
+      },
+      "guide_id": "guide_green_map"
+    },
+    {
+      "id": "pet_map",
+      "code": "k",
+      "title": {
+        "zh": "寵物安心遛",
+        "en": "Pet friendly map"
+      },
+      "desc": "找寵物公園、寵物友善餐廳、動物醫院、寵物登記站",
+      "keywords": [
+        "寵物",
+        "狗",
+        "貓",
+        "遛狗",
+        "動物醫院",
+        "寵物公園",
+        "寵物登記"
+      ],
+      "examples": [
+        "哪裡可以遛狗",
+        "附近的動物醫院",
+        "寵物友善的餐廳",
+        "pet friendly places",
+        "我家狗要登記"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/pet-map"
+      },
+      "guide_id": "guide_pet_map"
+    },
+    {
+      "id": "essential_goods",
+      "code": "l",
+      "title": {
+        "zh": "民生物資",
+        "en": "Essential goods prices"
+      },
+      "desc": "看蔬菜、水果、肉類、米、蛋的市場價格與漲跌",
+      "keywords": [
+        "菜價",
+        "物價",
+        "蔬菜",
+        "水果",
+        "雞蛋",
+        "豬肉",
+        "米價",
+        "多少錢"
+      ],
+      "examples": [
+        "今天菜價多少",
+        "雞蛋漲價了嗎",
+        "水果的價格",
+        "vegetable prices today",
+        "豬肉一斤多少"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/essential-goods"
+      },
+      "guide_id": "guide_essential_goods"
+    },
+    {
+      "id": "zoo",
+      "code": "m",
+      "title": {
+        "zh": "愛遊動物園",
+        "en": "Taipei Zoo"
+      },
+      "desc": "動物園的園區地圖、動物介紹、今日活動",
+      "keywords": [
+        "動物園",
+        "貓熊",
+        "動物",
+        "園區地圖",
+        "餵食",
+        "企鵝"
+      ],
+      "examples": [
+        "動物園的地圖",
+        "貓熊在哪一館",
+        "動物園今天有什麼活動",
+        "zoo map",
+        "帶小孩去動物園"
+      ],
+      "route": {
+        "type": "internal",
+        "target": "/zoo"
+      },
+      "guide_id": "guide_zoo"
+    }
+  ],
+  "commands": {
+    "instruction": "你是分類器。使用者正在做某個步驟，判斷這句話的意圖，只輸出一個字母。",
+    "none_code": "G",
+    "options": [
+      {
+        "code": "A",
+        "id": "NEXT",
+        "label": "下一步",
+        "desc": "想進到下一步、說好了、完成了",
+        "examples": [
+          "下一步",
+          "好了",
+          "完成",
+          "繼續",
+          "next"
+        ]
+      },
+      {
+        "code": "B",
+        "id": "BACK",
+        "label": "回上一步",
+        "desc": "想回到上一步、剛剛那個",
+        "examples": [
+          "回上一步",
+          "回去",
+          "上一步",
+          "back"
+        ]
+      },
+      {
+        "code": "C",
+        "id": "HELP",
+        "label": "我不會",
+        "desc": "不會做、看不懂、需要更多說明",
+        "examples": [
+          "我不會",
+          "看不懂",
+          "這是什麼",
+          "怎麼做",
+          "help"
+        ]
+      },
+      {
+        "code": "D",
+        "id": "REPEAT",
+        "label": "再念一次",
+        "desc": "想再聽一次、沒聽清楚",
+        "examples": [
+          "再念一次",
+          "再說一次",
+          "沒聽到",
+          "repeat"
+        ]
+      },
+      {
+        "code": "E",
+        "id": "FILL",
+        "label": "填入內容",
+        "desc": "這句話是要填進欄位的內容，例如一串數字、號碼、日期",
+        "examples": [
+          "水號是1234567890",
+          "1234567890",
+          "0912345678",
+          "號碼是一二三四"
+        ]
+      },
+      {
+        "code": "F",
+        "id": "EXIT",
+        "label": "不要了",
+        "desc": "不想繼續、取消、離開引導",
+        "examples": [
+          "不要了",
+          "取消",
+          "算了",
+          "離開",
+          "exit"
+        ]
+      },
+      {
+        "code": "G",
+        "id": "OTHER",
+        "label": "想做別的事",
+        "desc": "想去做其他服務，跟目前這個步驟無關",
+        "examples": [
+          "我要去繳停車費",
+          "幫我找廁所",
+          "我想打1999",
+          "我要借書"
+        ]
+      }
+    ]
+  },
+  "note": "A～Y 服務、a～e App 層工具（字放大、一般模式、念出來、掃描帳單、看全部服務）、Z 都不是。route.type: internal | external | phone | unavailable | ui(mode:elder|mode:normal|tts)"
+}

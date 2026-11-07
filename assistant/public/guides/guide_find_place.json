@@ -1,0 +1,57 @@
+{
+ "id": "guide_find_place",
+ "title": {
+  "zh": "找地點"
+ },
+ "entry": "/surrounding-service",
+ "match": {
+  "url": "^/surrounding-service"
+ },
+ "steps": [
+  {
+   "id": "pick",
+   "url": "^/surrounding-service",
+   "find": [
+    {
+     "option": "{{entity}}"
+    },
+    {
+     "css": "#findPlace"
+    },
+    {
+     "css": "select"
+    }
+   ],
+   "say": {
+    "zh": "選「{{entity}}」"
+   },
+   "done_when": "change",
+   "say_default": {
+    "zh": "在最上面的下拉選單選你要找的地點類型"
+   },
+   "more": {
+    "zh": "最上面的下拉選單；按「幫我選」我直接幫你選好"
+   }
+  },
+  {
+   "id": "look",
+   "url": "^/surrounding-service",
+   "find": [
+    {
+     "css": ".leaflet-marker-icon"
+    },
+    {
+     "text": "公里"
+    }
+   ],
+   "say": {
+    "zh": "點地圖上的標記看地址"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "也可以往下滑看清單"
+   },
+   "final": true
+  }
+ ]
+}

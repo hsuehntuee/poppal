@@ -1,0 +1,32 @@
+{
+ "id": "guide_ticket_wallet",
+ "title": {
+  "zh": "票夾"
+ },
+ "entry": "/ticket-wallet",
+ "match": {
+  "url": "^/ticket-wallet"
+ },
+ "steps": [
+  {
+   "id": "look",
+   "url": "^/ticket-wallet",
+   "find": [
+    {
+     "text": "票夾"
+    },
+    {
+     "css": "main"
+    }
+   ],
+   "say": {
+    "zh": "這裡是你買過的票"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "點一張票可以看 QR code 或兌換"
+   },
+   "final": true
+  }
+ ]
+}

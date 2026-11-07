@@ -1,0 +1,73 @@
+{
+ "id": "guide_citizen_search",
+ "title": {
+  "zh": "查陳情進度"
+ },
+ "entry": "/citizen-report?isSearch=1",
+ "match": {
+  "url": "^/citizen-report/?$"
+ },
+ "steps": [
+  {
+   "id": "tab",
+   "url": "^/citizen-report",
+   "find": [
+    {
+     "text": "案件查詢"
+    },
+    {
+     "text": "查詢紀錄"
+    },
+    {
+     "text": "搜尋案號關鍵字"
+    }
+   ],
+   "say": {
+    "zh": "點「案件查詢」分頁"
+   },
+   "done_when": "click",
+   "more": {
+    "zh": "上方第二個分頁"
+   },
+   "skip_if_missing": true
+  },
+  {
+   "id": "search",
+   "url": "^/citizen-report",
+   "find": [
+    {
+     "css": "input[placeholder*=\"案號\"]"
+    }
+   ],
+   "say": {
+    "zh": "輸入案號或關鍵字"
+   },
+   "done_when": "input",
+   "more": {
+    "zh": "不記得案號可以用日期篩選"
+   },
+   "accept": "text"
+  },
+  {
+   "id": "go",
+   "url": "^/citizen-report",
+   "find": [
+    {
+     "role": "button",
+     "text": "搜尋"
+    },
+    {
+     "css": ".search-button"
+    }
+   ],
+   "say": {
+    "zh": "按放大鏡搜尋"
+   },
+   "done_when": "manual",
+   "more": {
+    "zh": "結果會列在下面，點一筆看進度"
+   },
+   "final": true
+  }
+ ]
+}

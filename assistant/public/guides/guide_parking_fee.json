@@ -1,0 +1,103 @@
+{
+ "id": "guide_parking_fee",
+ "title": {
+  "zh": "繳停車費"
+ },
+ "entry": "/fee-payment/detail/fee-5",
+ "match": {
+  "url": "^/fee-payment/detail/fee-5"
+ },
+ "steps": [
+  {
+   "id": "fill",
+   "url": "^/fee-payment/detail/fee-5",
+   "find": [
+    {
+     "label": "車牌號碼"
+    },
+    {
+     "css": "input"
+    }
+   ],
+   "say": {
+    "zh": "輸入車牌號碼"
+   },
+   "done_when": "input",
+   "more": {
+    "zh": "輸入車牌，例如 ABC1234；也可以切到「繳費編號」分頁"
+   },
+   "accept": "text"
+  },
+  {
+   "id": "search",
+   "url": "^/fee-payment/detail/fee-5",
+   "find": [
+    {
+     "role": "button",
+     "text": "查詢"
+    }
+   ],
+   "say": {
+    "zh": "按「查詢」"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "最下面藍色的大按鈕"
+   }
+  },
+  {
+   "id": "select_all",
+   "url": "^/fee-payment/result/",
+   "find": [
+    {
+     "text": "全部繳清",
+     "exact": true
+    }
+   ],
+   "say": {
+    "zh": "點「全部繳清」"
+   },
+   "done_when": "click",
+   "more": {
+    "zh": "會把所有帳單都勾起來"
+   },
+   "skip_if_missing": true
+  },
+  {
+   "id": "go_pay",
+   "url": "^/fee-payment/result/",
+   "find": [
+    {
+     "role": "button",
+     "text": "前往繳費"
+    }
+   ],
+   "say": {
+    "zh": "按「前往繳費」"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "最下面藍色的大按鈕"
+   },
+   "confirm": true
+  },
+  {
+   "id": "choose_way",
+   "url": "^/fee-payment/payment/",
+   "find": [
+    {
+     "text": "請選擇繳費方式"
+    }
+   ],
+   "say": {
+    "zh": "選一種付款方式"
+   },
+   "done_when": "route",
+   "more": {
+    "zh": "信用卡或行動支付都可以，選好後畫面會再問你一次"
+   },
+   "confirm": true,
+   "final": true
+  }
+ ]
+}

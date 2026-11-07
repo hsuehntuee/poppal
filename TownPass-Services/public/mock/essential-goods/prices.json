@@ -1,0 +1,775 @@
+{
+  "categories": [
+    {
+      "id": "vegetable",
+      "name": "蔬菜"
+    },
+    {
+      "id": "fruit",
+      "name": "水果"
+    },
+    {
+      "id": "meat",
+      "name": "肉類"
+    },
+    {
+      "id": "rice",
+      "name": "米糧"
+    },
+    {
+      "id": "egg",
+      "name": "蛋"
+    }
+  ],
+  "update_date": "2025-11-07",
+  "data": [
+    {
+      "id": "E01",
+      "category": "vegetable",
+      "name": "高麗菜",
+      "unit": "元/公斤",
+      "today": 32,
+      "yesterday": 35,
+      "trend": [
+        34,
+        33,
+        31,
+        30,
+        32,
+        35,
+        32
+      ]
+    },
+    {
+      "id": "E02",
+      "category": "vegetable",
+      "name": "小白菜",
+      "unit": "元/公斤",
+      "today": 41,
+      "yesterday": 38,
+      "trend": [
+        42,
+        39,
+        39,
+        42,
+        43,
+        38,
+        41
+      ]
+    },
+    {
+      "id": "E03",
+      "category": "vegetable",
+      "name": "青江菜",
+      "unit": "元/公斤",
+      "today": 45,
+      "yesterday": 44,
+      "trend": [
+        43,
+        43,
+        46,
+        48,
+        46,
+        44,
+        45
+      ]
+    },
+    {
+      "id": "E04",
+      "category": "vegetable",
+      "name": "番茄",
+      "unit": "元/公斤",
+      "today": 58,
+      "yesterday": 61,
+      "trend": [
+        55,
+        59,
+        61,
+        59,
+        55,
+        61,
+        58
+      ]
+    },
+    {
+      "id": "E05",
+      "category": "vegetable",
+      "name": "小黃瓜",
+      "unit": "元/公斤",
+      "today": 52,
+      "yesterday": 49,
+      "trend": [
+        53,
+        55,
+        53,
+        49,
+        50,
+        49,
+        52
+      ]
+    },
+    {
+      "id": "E06",
+      "category": "vegetable",
+      "name": "空心菜",
+      "unit": "元/公斤",
+      "today": 36,
+      "yesterday": 36,
+      "trend": [
+        38,
+        37,
+        34,
+        34,
+        37,
+        36,
+        36
+      ]
+    },
+    {
+      "id": "E07",
+      "category": "vegetable",
+      "name": "菠菜",
+      "unit": "元/公斤",
+      "today": 62,
+      "yesterday": 58,
+      "trend": [
+        63,
+        59,
+        59,
+        64,
+        66,
+        58,
+        62
+      ]
+    },
+    {
+      "id": "E08",
+      "category": "vegetable",
+      "name": "紅蘿蔔",
+      "unit": "元/公斤",
+      "today": 28,
+      "yesterday": 30,
+      "trend": [
+        27,
+        27,
+        29,
+        30,
+        28,
+        30,
+        28
+      ]
+    },
+    {
+      "id": "E09",
+      "category": "vegetable",
+      "name": "洋蔥",
+      "unit": "元/公斤",
+      "today": 25,
+      "yesterday": 25,
+      "trend": [
+        24,
+        26,
+        26,
+        25,
+        24,
+        25,
+        25
+      ]
+    },
+    {
+      "id": "E10",
+      "category": "vegetable",
+      "name": "青蔥",
+      "unit": "元/公斤",
+      "today": 88,
+      "yesterday": 95,
+      "trend": [
+        90,
+        93,
+        89,
+        83,
+        85,
+        95,
+        88
+      ]
+    },
+    {
+      "id": "E11",
+      "category": "fruit",
+      "name": "香蕉",
+      "unit": "元/公斤",
+      "today": 38,
+      "yesterday": 36,
+      "trend": [
+        40,
+        38,
+        36,
+        37,
+        39,
+        36,
+        38
+      ]
+    },
+    {
+      "id": "E12",
+      "category": "fruit",
+      "name": "芭樂",
+      "unit": "元/公斤",
+      "today": 46,
+      "yesterday": 48,
+      "trend": [
+        46,
+        43,
+        44,
+        48,
+        49,
+        48,
+        46
+      ]
+    },
+    {
+      "id": "E13",
+      "category": "fruit",
+      "name": "木瓜",
+      "unit": "元/公斤",
+      "today": 42,
+      "yesterday": 42,
+      "trend": [
+        40,
+        40,
+        44,
+        44,
+        42,
+        42,
+        42
+      ]
+    },
+    {
+      "id": "E14",
+      "category": "fruit",
+      "name": "柳丁",
+      "unit": "元/公斤",
+      "today": 35,
+      "yesterday": 37,
+      "trend": [
+        34,
+        36,
+        37,
+        35,
+        33,
+        37,
+        35
+      ]
+    },
+    {
+      "id": "E15",
+      "category": "fruit",
+      "name": "蘋果",
+      "unit": "元/公斤",
+      "today": 68,
+      "yesterday": 65,
+      "trend": [
+        70,
+        72,
+        68,
+        64,
+        66,
+        65,
+        68
+      ]
+    },
+    {
+      "id": "E16",
+      "category": "fruit",
+      "name": "鳳梨",
+      "unit": "元/公斤",
+      "today": 29,
+      "yesterday": 31,
+      "trend": [
+        31,
+        29,
+        27,
+        28,
+        30,
+        31,
+        29
+      ]
+    },
+    {
+      "id": "E17",
+      "category": "fruit",
+      "name": "葡萄",
+      "unit": "元/公斤",
+      "today": 120,
+      "yesterday": 118,
+      "trend": [
+        119,
+        113,
+        117,
+        125,
+        126,
+        118,
+        120
+      ]
+    },
+    {
+      "id": "E18",
+      "category": "fruit",
+      "name": "火龍果",
+      "unit": "元/公斤",
+      "today": 55,
+      "yesterday": 52,
+      "trend": [
+        52,
+        54,
+        58,
+        58,
+        54,
+        52,
+        55
+      ]
+    },
+    {
+      "id": "E19",
+      "category": "fruit",
+      "name": "奇異果",
+      "unit": "元/公斤",
+      "today": 98,
+      "yesterday": 98,
+      "trend": [
+        96,
+        102,
+        103,
+        96,
+        92,
+        98,
+        98
+      ]
+    },
+    {
+      "id": "E20",
+      "category": "fruit",
+      "name": "柚子",
+      "unit": "元/公斤",
+      "today": 33,
+      "yesterday": 36,
+      "trend": [
+        35,
+        35,
+        32,
+        31,
+        33,
+        36,
+        33
+      ]
+    },
+    {
+      "id": "E21",
+      "category": "meat",
+      "name": "豬五花",
+      "unit": "元/台斤",
+      "today": 245,
+      "yesterday": 240,
+      "trend": [
+        257,
+        240,
+        230,
+        242,
+        258,
+        240,
+        245
+      ]
+    },
+    {
+      "id": "E22",
+      "category": "meat",
+      "name": "豬里肌",
+      "unit": "元/台斤",
+      "today": 210,
+      "yesterday": 212,
+      "trend": [
+        206,
+        197,
+        207,
+        221,
+        219,
+        212,
+        210
+      ]
+    },
+    {
+      "id": "E23",
+      "category": "meat",
+      "name": "豬絞肉",
+      "unit": "元/台斤",
+      "today": 180,
+      "yesterday": 178,
+      "trend": [
+        169,
+        178,
+        190,
+        187,
+        174,
+        178,
+        180
+      ]
+    },
+    {
+      "id": "E24",
+      "category": "meat",
+      "name": "雞腿",
+      "unit": "元/台斤",
+      "today": 128,
+      "yesterday": 130,
+      "trend": [
+        126,
+        135,
+        133,
+        124,
+        121,
+        130,
+        128
+      ]
+    },
+    {
+      "id": "E25",
+      "category": "meat",
+      "name": "雞胸",
+      "unit": "元/台斤",
+      "today": 95,
+      "yesterday": 92,
+      "trend": [
+        100,
+        99,
+        92,
+        90,
+        95,
+        92,
+        95
+      ]
+    },
+    {
+      "id": "E26",
+      "category": "meat",
+      "name": "牛腱",
+      "unit": "元/台斤",
+      "today": 420,
+      "yesterday": 415,
+      "trend": [
+        437,
+        407,
+        396,
+        420,
+        444,
+        415,
+        420
+      ]
+    },
+    {
+      "id": "E27",
+      "category": "meat",
+      "name": "牛肋條",
+      "unit": "元/台斤",
+      "today": 380,
+      "yesterday": 384,
+      "trend": [
+        368,
+        358,
+        380,
+        402,
+        392,
+        384,
+        380
+      ]
+    },
+    {
+      "id": "E28",
+      "category": "meat",
+      "name": "羊肉片",
+      "unit": "元/台斤",
+      "today": 460,
+      "yesterday": 460,
+      "trend": [
+        433,
+        460,
+        487,
+        474,
+        441,
+        460,
+        460
+      ]
+    },
+    {
+      "id": "E29",
+      "category": "rice",
+      "name": "蓬萊米",
+      "unit": "元/公斤",
+      "today": 62,
+      "yesterday": 62,
+      "trend": [
+        62,
+        66,
+        64,
+        59,
+        59,
+        62,
+        62
+      ]
+    },
+    {
+      "id": "E30",
+      "category": "rice",
+      "name": "在來米",
+      "unit": "元/公斤",
+      "today": 55,
+      "yesterday": 56,
+      "trend": [
+        58,
+        57,
+        53,
+        52,
+        56,
+        56,
+        55
+      ]
+    },
+    {
+      "id": "E31",
+      "category": "rice",
+      "name": "糙米",
+      "unit": "元/公斤",
+      "today": 78,
+      "yesterday": 76,
+      "trend": [
+        80,
+        75,
+        74,
+        79,
+        83,
+        76,
+        78
+      ]
+    },
+    {
+      "id": "E32",
+      "category": "rice",
+      "name": "糯米",
+      "unit": "元/公斤",
+      "today": 70,
+      "yesterday": 70,
+      "trend": [
+        67,
+        66,
+        71,
+        74,
+        71,
+        70,
+        70
+      ]
+    },
+    {
+      "id": "E33",
+      "category": "rice",
+      "name": "池上米",
+      "unit": "元/公斤",
+      "today": 95,
+      "yesterday": 93,
+      "trend": [
+        90,
+        96,
+        101,
+        97,
+        90,
+        93,
+        95
+      ]
+    },
+    {
+      "id": "E34",
+      "category": "rice",
+      "name": "黑米",
+      "unit": "元/公斤",
+      "today": 110,
+      "yesterday": 112,
+      "trend": [
+        111,
+        117,
+        112,
+        105,
+        105,
+        112,
+        110
+      ]
+    },
+    {
+      "id": "E35",
+      "category": "rice",
+      "name": "小米",
+      "unit": "元/公斤",
+      "today": 85,
+      "yesterday": 85,
+      "trend": [
+        90,
+        87,
+        81,
+        81,
+        87,
+        85,
+        85
+      ]
+    },
+    {
+      "id": "E36",
+      "category": "rice",
+      "name": "燕麥",
+      "unit": "元/公斤",
+      "today": 90,
+      "yesterday": 88,
+      "trend": [
+        92,
+        86,
+        86,
+        92,
+        95,
+        88,
+        90
+      ]
+    },
+    {
+      "id": "E37",
+      "category": "egg",
+      "name": "白殼蛋",
+      "unit": "元/斤",
+      "today": 58,
+      "yesterday": 60,
+      "trend": [
+        55,
+        55,
+        59,
+        61,
+        58,
+        60,
+        58
+      ]
+    },
+    {
+      "id": "E38",
+      "category": "egg",
+      "name": "紅殼蛋",
+      "unit": "元/斤",
+      "today": 72,
+      "yesterday": 72,
+      "trend": [
+        69,
+        74,
+        76,
+        72,
+        68,
+        72,
+        72
+      ]
+    },
+    {
+      "id": "E39",
+      "category": "egg",
+      "name": "土雞蛋",
+      "unit": "元/斤",
+      "today": 95,
+      "yesterday": 93,
+      "trend": [
+        97,
+        101,
+        96,
+        90,
+        92,
+        93,
+        95
+      ]
+    },
+    {
+      "id": "E40",
+      "category": "egg",
+      "name": "洗選蛋",
+      "unit": "元/斤",
+      "today": 68,
+      "yesterday": 70,
+      "trend": [
+        72,
+        68,
+        64,
+        66,
+        70,
+        70,
+        68
+      ]
+    },
+    {
+      "id": "E41",
+      "category": "egg",
+      "name": "有機蛋",
+      "unit": "元/斤",
+      "today": 135,
+      "yesterday": 135,
+      "trend": [
+        136,
+        127,
+        130,
+        140,
+        143,
+        135,
+        135
+      ]
+    },
+    {
+      "id": "E42",
+      "category": "egg",
+      "name": "鴨蛋",
+      "unit": "元/斤",
+      "today": 80,
+      "yesterday": 78,
+      "trend": [
+        76,
+        77,
+        83,
+        84,
+        79,
+        78,
+        80
+      ]
+    },
+    {
+      "id": "E43",
+      "category": "egg",
+      "name": "鵪鶉蛋",
+      "unit": "元/斤",
+      "today": 60,
+      "yesterday": 62,
+      "trend": [
+        58,
+        62,
+        63,
+        60,
+        56,
+        62,
+        60
+      ]
+    },
+    {
+      "id": "E44",
+      "category": "egg",
+      "name": "皮蛋",
+      "unit": "元/斤",
+      "today": 90,
+      "yesterday": 90,
+      "trend": [
+        93,
+        95,
+        89,
+        85,
+        88,
+        90,
+        90
+      ]
+    }
+  ]
+}

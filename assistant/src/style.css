@@ -1,0 +1,54 @@
+:root {
+  --tp-primary: #2eb6c7;
+  --tp-primary-dark: #238d9b;
+  --tp-bg: #f1f3f4;
+  --tp-text: #171b1d;
+  --tp-muted: #5e6d76;
+  --tp-warn: #e5464b;
+  --tp-scale: 1; /* 長輩模式 1.5 */
+  font-family: 'PingFang TC', Roboto, system-ui, -apple-system, 'Noto Sans TC', sans-serif;
+  font-size: calc(16px * var(--tp-scale));
+  color: var(--tp-text);
+  background: var(--tp-bg);
+}
+html[data-mode='elder'] { --tp-scale: 1.35; }
+html[data-mode='kid'] { --tp-scale: 1.1; }
+/* 長輩：字大但版面不能爆。麥克風改成整排的膠囊、捷徑兩欄等寬、標題縮一點 */
+html[data-mode='elder'] .top { padding: .5em 1em; }
+html[data-mode='elder'] .top .muted { display: none; }
+html[data-mode='elder'] main { padding: .7em !important; }
+html[data-mode='elder'] h1 { font-size: 1.25em; margin: .2em 0; }
+html[data-mode='elder'] h2 { font-size: 1.15em; }
+html[data-mode='elder'] .mic { width: 100%; height: auto; border-radius: 22px; flex-direction: row; gap: .6em; padding: .7em 1em; margin: .3em 0; font-size: 1.15em; }
+html[data-mode='elder'] .mic .icon { font-size: 1.8em; }
+html[data-mode='elder'] .shortcuts { display: grid; grid-template-columns: 1fr 1fr; gap: .5em; }
+html[data-mode='elder'] .shortcuts .btn { width: 100%; padding: .7em .4em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; line-height: 1.6em; }
+html[data-mode='elder'] .btn.big { font-size: 1.1em; padding: .8em 1em; }
+html[data-mode='elder'] .lang-row .btn { font-size: .85em; }
+/* 小朋友：圓潤、暖一點，但仍是城市通配色 */
+html[data-mode='kid'] .mic { background: linear-gradient(135deg, #2eb6c7, #5fd0bf); width: 9.5em; height: 9.5em; }
+html[data-mode='kid'] .btn { border-radius: 18px; }
+html[data-mode='kid'] .btn.big { font-size: 1.2em; }
+.tile { display: flex; align-items: center; gap: .8em; text-align: left; width: 100%; border: 2px solid #dfe6ea; border-radius: 16px; background: #fff; padding: .7em .9em; cursor: pointer; color: var(--tp-text); }
+.tile:active { background: #edf8fa; border-color: var(--tp-primary); }
+.tile .ic { font-size: 2.2em; line-height: 1; }
+.tile b { display: block; font-size: 1.1em; }
+.tile small { color: var(--tp-muted); font-size: .85em; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+button { font: inherit; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+  border: 0; border-radius: 14px; padding: .8em 1.2em; font-weight: 600;
+  background: var(--tp-primary); color: #fff; cursor: pointer; min-height: 3em;
+}
+.btn:active { opacity: .75; }
+.btn.secondary { background: #fff; color: var(--tp-primary); border: 2px solid var(--tp-primary); }
+.btn.ghost { background: transparent; color: var(--tp-muted); }
+.btn.danger { background: var(--tp-warn); }
+.btn.big { font-size: 1.25em; padding: 1em 1.4em; border-radius: 20px; width: 100%; }
+.btn:disabled { opacity: .5; }
+.card { background: #fff; border-radius: 16px; padding: 1em; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.muted { color: var(--tp-muted); }
+.row { display: flex; gap: .6em; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: .6em; }
