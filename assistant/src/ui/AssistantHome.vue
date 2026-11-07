@@ -59,7 +59,6 @@ if (!new URLSearchParams(location.search).has('splashhold')) setTimeout(() => (s
 const heard = ref('');
 const translated = ref('');
 const typed = ref('');
-const showTyping = ref(false);
 const probs = ref<Probs>({});
 const rejected = ref<Code[]>([]);
 const rounds = ref(0);
@@ -393,8 +392,7 @@ function openRecent(s: ServiceEntry) {
           <button class="btn secondary" style="min-height: 2.2em; padding: 0.3em 0.9em" :class="{ on: uiLang === 'zh' }" @click="setLang('zh')">中文</button>
           <button class="btn secondary" style="min-height: 2.2em; padding: 0.3em 0.9em" :class="{ on: uiLang === 'en' }" @click="setLang('en')">English</button>
         </div>
-        <button class="btn secondary" @click="showTyping = !showTyping">⌨️ {{ t('type_instead') }}</button>
-        <form v-if="showTyping" class="row" @submit.prevent="onTyped">
+        <form class="row" @submit.prevent="onTyped">
           <input v-model="typed" :placeholder="t('type_placeholder')" style="flex: 1; padding: 0.8em; border-radius: 12px; border: 1px solid #ccc; font: inherit" />
           <button class="btn" type="submit">{{ t('send') }}</button>
         </form>
