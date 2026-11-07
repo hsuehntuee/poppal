@@ -6,19 +6,19 @@
         {
           "id": "pa-1",
           "name": "微笑單車 2.0",
-          "icon": "",
-          "agency": "台北市政府交通局",
+          "icon": "/images/map/youbike/icon-info-ubike-green.svg",
+          "agency": "臺北市政府交通局",
           "type": "交通運輸、停車場、充電站",
-          "data_type": "api",
-          "request_url": "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json",
+          "data_type": "json",
+          "request_url": "/mock/find-place/youbike.json",
           "data_path": "",
           "format_fields": {
-            "id": "sno",
-            "name": "sna",
-            "area": "sarea",
-            "address": "ar",
-            "lat": "latitude",
-            "lng": "longitude"
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
           },
           "service_infos": [
             {
@@ -41,11 +41,74 @@
           ]
         },
         {
-          "id": "pa-3",
-          "name": "停車場",
-          "icon": "",
-          "agency": "台北市停車管理工程處",
+          "id": "pa-2",
+          "name": "機車充電站",
+          "icon": "/images/subscription/icon_meter.svg",
+          "agency": "臺北市政府產業發展局",
           "type": "交通運輸、停車場、充電站",
+          "data_type": "json",
+          "request_url": "/mock/find-place/scooter-charging.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "充電規格",
+              "value_field": "spec"
+            },
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pa-3",
+          "name": "施工資訊",
+          "icon": "/images/report/report-transport.svg",
+          "agency": "臺北市政府工務局新建工程處",
+          "type": "交通運輸、停車場、充電站",
+          "data_type": "json",
+          "request_url": "/mock/find-place/roadwork.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "施工期間",
+              "value_field": "period"
+            },
+            {
+              "title": "施工單位",
+              "value_field": "unit"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pa-4",
+          "name": "停車場",
+          "icon": "/images/subscription/icon_parking.svg",
+          "agency": "台北市停車管理工程處",
           "data_type": "json",
           "request_url": "/mock/find-place/TCMSV_alldesc.json",
           "data_path": "",
@@ -66,19 +129,171 @@
               "title": "費率",
               "value_field": "payex"
             }
+          ],
+          "type": "交通運輸、停車場、充電站"
+        },
+        {
+          "id": "pa-5",
+          "name": "計程車招呼站",
+          "icon": "/images/subscription/icon_traffic_info.svg",
+          "agency": "臺北市政府交通局",
+          "type": "交通運輸、停車場、充電站",
+          "data_type": "json",
+          "request_url": "/mock/find-place/taxi-stand.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "車位數",
+              "value_field": "slots"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pa-6",
+          "name": "營業用共用臨停區",
+          "icon": "/images/subscription/icon_parking.svg",
+          "agency": "臺北市停車管理工程處",
+          "type": "交通運輸、停車場、充電站",
+          "data_type": "json",
+          "request_url": "/mock/find-place/shared-loading-zone.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "使用時段",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "限停",
+              "value_field": "limit"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pa-7",
+          "name": "今日使用道路集會路段",
+          "icon": "/images/subscription/icon_public_meeting.svg",
+          "agency": "臺北市政府警察局士林分局",
+          "type": "交通運輸、停車場、充電站",
+          "data_type": "json",
+          "request_url": "/mock/find-place/road-event-today.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "活動時間",
+              "value_field": "period"
+            },
+            {
+              "title": "管制範圍",
+              "value_field": "scope"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
           ]
         }
       ]
     },
     {
-      "name": "飲水機、公廁、哺集乳室、AED場所",
+      "name": "飲水機、公廁、哺集乳室、AED 場所",
       "places": [
+        {
+          "id": "pb-1",
+          "name": "飲水機／提供飲水店家",
+          "icon": "/images/subscription/icon_water_bill.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/water-fountain.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "類型",
+              "value_field": "kind"
+            },
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pb-2",
+          "name": "地區直飲台",
+          "icon": "/images/subscription/icon_water_bill.svg",
+          "agency": "臺北自來水事業處",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/direct-drinking.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
         {
           "id": "pb-3",
           "name": "公廁",
           "icon": "/images/icon_toilet.svg",
           "agency": "",
-          "type": "飲水機、公廁、哺集乳室、AED場所",
           "data_type": "json",
           "request_url": "/mock/find-place/public_toilet_taipei.json",
           "data_path": "",
@@ -94,6 +309,1114 @@
             {
               "title": "等級",
               "value_field": "grade"
+            }
+          ],
+          "type": "飲水機、公廁、哺集乳室、AED 場所"
+        },
+        {
+          "id": "pb-4",
+          "name": "無障礙廁所",
+          "icon": "/images/icon_toilet.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/accessible-toilet.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "設備",
+              "value_field": "facility"
+            },
+            {
+              "title": "等級",
+              "value_field": "grade"
+            }
+          ]
+        },
+        {
+          "id": "pb-5",
+          "name": "親子友善廁所",
+          "icon": "/images/icon_toilet.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/family-toilet.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "設備",
+              "value_field": "facility"
+            }
+          ]
+        },
+        {
+          "id": "pb-6",
+          "name": "性別友善廁所",
+          "icon": "/images/icon_toilet.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/gender-friendly-toilet.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pb-7",
+          "name": "哺集乳室",
+          "icon": "/images/subscription/icon_daycare.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/nursing-room.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "設備",
+              "value_field": "facility"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            }
+          ]
+        },
+        {
+          "id": "pb-8",
+          "name": "捐血站",
+          "icon": "/images/subscription/icon_health_info.svg",
+          "agency": "台灣血液基金會臺北捐血中心",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/blood-donation.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pb-9",
+          "name": "AED 場所",
+          "icon": "/images/subscription/icon_health_info.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/aed.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "放置位置",
+              "value_field": "location"
+            },
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            }
+          ]
+        },
+        {
+          "id": "pb-10",
+          "name": "郵箱",
+          "icon": "/images/subscription/icon_community_bulletin.svg",
+          "agency": "中華郵政臺北郵局",
+          "type": "飲水機、公廁、哺集乳室、AED 場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/mailbox.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "收件時間",
+              "value_field": "pickup"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "垃圾清潔、舊衣回收",
+      "places": [
+        {
+          "id": "pc-1",
+          "name": "舊衣回收箱",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/clothes-recycling.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "設置單位",
+              "value_field": "unit"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pc-2",
+          "name": "垃圾清運點",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市政府環境保護局士林區清潔隊",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/garbage-point.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "清運時間",
+              "value_field": "time"
+            },
+            {
+              "title": "路線",
+              "value_field": "route"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pc-3",
+          "name": "垃圾限時收受點",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市政府環境保護局士林區清潔隊",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/garbage-timed.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "收受時間",
+              "value_field": "time"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pc-4",
+          "name": "廚餘週三日收受點",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市政府環境保護局士林區清潔隊",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/kitchen-waste-wed-sun.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "收受時間",
+              "value_field": "time"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pc-5",
+          "name": "清潔箱",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/litter-bin.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "類型",
+              "value_field": "kind"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pc-6",
+          "name": "狗便清潔袋",
+          "icon": "/images/report/report-env.svg",
+          "agency": "臺北市動物保護處",
+          "type": "垃圾清潔、舊衣回收",
+          "data_type": "json",
+          "request_url": "/mock/find-place/dog-waste-bag.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TaipeiFree",
+      "places": [
+        {
+          "id": "pd-1",
+          "name": "TaipeiFree",
+          "icon": "/images/subscription/icon_community_bulletin.svg",
+          "agency": "臺北市政府資訊局",
+          "type": "TaipeiFree",
+          "data_type": "json",
+          "request_url": "/mock/find-place/taipeifree.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "熱點類型",
+              "value_field": "kind"
+            },
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "友善店家",
+      "places": [
+        {
+          "id": "pe-1",
+          "name": "哺集乳室友善店家",
+          "icon": "/images/subscription/icon_daycare.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/nursing-friendly-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-2",
+          "name": "月經友善",
+          "icon": "/images/subscription/icon_health_info.svg",
+          "agency": "臺北市政府社會局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/period-friendly.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-3",
+          "name": "公平貿易友善店家",
+          "icon": "/images/subscription/icon_gas_price.svg",
+          "agency": "臺北市政府產業發展局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/fair-trade-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-4",
+          "name": "便利支付友善店家",
+          "icon": "/images/payment/icon_bill.svg",
+          "agency": "臺北市政府產業發展局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/easy-payment-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "支付方式",
+              "value_field": "pay"
+            }
+          ]
+        },
+        {
+          "id": "pe-5",
+          "name": "無障礙友善店家",
+          "icon": "/images/subscription/icon_senior_info.svg",
+          "agency": "臺北市政府社會局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/accessible-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "無障礙設施",
+              "value_field": "facility"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            }
+          ]
+        },
+        {
+          "id": "pe-6",
+          "name": "素食友善店家",
+          "icon": "/images/subscription/icon_migrant_support.svg",
+          "agency": "臺北市政府產業發展局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/vegetarian-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-7",
+          "name": "穆斯林友善店家",
+          "icon": "/images/subscription/icon_migrant_support.svg",
+          "agency": "臺北市政府觀光傳播局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/muslim-friendly-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "認證",
+              "value_field": "cert"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            }
+          ]
+        },
+        {
+          "id": "pe-8",
+          "name": "Free Wifi",
+          "icon": "/images/subscription/icon_meter.svg",
+          "agency": "臺北市政府資訊局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/free-wifi-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-9",
+          "name": "行動裝置充電",
+          "icon": "/images/subscription/icon_meter.svg",
+          "agency": "臺北市政府資訊局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/mobile-charging-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-10",
+          "name": "性別友善店家",
+          "icon": "/images/subscription/icon_migrant_support.svg",
+          "agency": "臺北市政府社會局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/gender-friendly-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-11",
+          "name": "友善廁所",
+          "icon": "/images/icon_toilet.svg",
+          "agency": "臺北市政府環境保護局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/friendly-toilet-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pe-12",
+          "name": "英文友善店家",
+          "icon": "/images/subscription/icon_taipei_travelnews.svg",
+          "agency": "臺北市政府觀光傳播局",
+          "type": "友善店家",
+          "data_type": "json",
+          "request_url": "/mock/find-place/english-friendly-store.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "營業時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "區公所、學校、遊戲場所",
+      "places": [
+        {
+          "id": "pf-1",
+          "name": "區公所",
+          "icon": "/images/icon_district_office.svg",
+          "agency": "臺北市士林區公所",
+          "type": "區公所、學校、遊戲場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/district-office.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pf-2",
+          "name": "公私立高中職以下學校",
+          "icon": "/images/subscription/icon_school_info.svg",
+          "agency": "臺北市政府教育局",
+          "type": "區公所、學校、遊戲場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/school.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "類型",
+              "value_field": "kind"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pf-3",
+          "name": "親子館",
+          "icon": "/images/subscription/icon_preschool_info.svg",
+          "agency": "臺北市政府社會局",
+          "type": "區公所、學校、遊戲場所",
+          "data_type": "json",
+          "request_url": "/mock/find-place/parent-child-center.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "河岸樂騎",
+      "places": [
+        {
+          "id": "pg-1",
+          "name": "河濱公園",
+          "icon": "/images/subscription/icon_sports_park.svg",
+          "agency": "臺北市政府工務局水利工程處",
+          "type": "河岸樂騎",
+          "data_type": "json",
+          "request_url": "/mock/find-place/riverside-park.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "設施",
+              "value_field": "facility"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pg-2",
+          "name": "河濱廁所",
+          "icon": "/images/icon_toilet.svg",
+          "agency": "臺北市政府工務局水利工程處",
+          "type": "河岸樂騎",
+          "data_type": "json",
+          "request_url": "/mock/find-place/riverside-toilet.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "等級",
+              "value_field": "grade"
+            }
+          ]
+        },
+        {
+          "id": "pg-3",
+          "name": "河濱休憩點",
+          "icon": "/images/subscription/icon_sports_park.svg",
+          "agency": "臺北市政府工務局水利工程處",
+          "type": "河岸樂騎",
+          "data_type": "json",
+          "request_url": "/mock/find-place/riverside-rest.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "設施",
+              "value_field": "facility"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "可通訊心理諮商之心理機構",
+      "places": [
+        {
+          "id": "ph-1",
+          "name": "心理諮商、治療所",
+          "icon": "/images/subscription/icon_health_info.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "可通訊心理諮商之心理機構",
+          "data_type": "json",
+          "request_url": "/mock/find-place/counseling-clinic.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "服務時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "ph-2",
+          "name": "臺北市心理機構",
+          "icon": "/images/subscription/icon_health_info.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "可通訊心理諮商之心理機構",
+          "data_type": "json",
+          "request_url": "/mock/find-place/mental-health-institution.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "服務時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "電話",
+              "value_field": "phone"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "其他獨立項目",
+      "places": [
+        {
+          "id": "pi-1",
+          "name": "防空避難設備",
+          "icon": "/images/disaster/icon-general-damage.svg",
+          "agency": "臺北市政府警察局士林分局",
+          "type": "其他獨立項目",
+          "data_type": "json",
+          "request_url": "/mock/find-place/air-raid-shelter.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "可容納人數",
+              "value_field": "capacity"
+            },
+            {
+              "title": "樓層",
+              "value_field": "floor"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
+            }
+          ]
+        },
+        {
+          "id": "pi-2",
+          "name": "指定吸菸區（Designated Smoking Area）",
+          "icon": "/images/subscription/icon_air_quality.svg",
+          "agency": "臺北市政府衛生局",
+          "type": "其他獨立項目",
+          "data_type": "json",
+          "request_url": "/mock/find-place/smoking-area.json",
+          "data_path": "",
+          "format_fields": {
+            "id": "id",
+            "name": "name",
+            "area": "area",
+            "address": "address",
+            "lat": "lat",
+            "lng": "lng"
+          },
+          "service_infos": [
+            {
+              "title": "開放時間",
+              "value_field": "open_hours"
+            },
+            {
+              "title": "備註",
+              "value_field": "note"
             }
           ]
         }

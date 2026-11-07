@@ -197,7 +197,6 @@ const onSelect = (place: Place) => {
           >
             無搜尋紀錄
           </li>
-          <li class="py-5 px-4 bg-orange-100">防空避難設備</li>
           <li
             v-for="item in placeList.list"
             :key="item.name"

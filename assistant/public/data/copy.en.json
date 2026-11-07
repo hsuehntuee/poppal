@@ -105,5 +105,12 @@
   "guide_select_confirm": "Pick \"{text}\" for you?",
   "guide_self_pick": "I'll pick",
   "guide_select_confirm_kid": "Shall I pick \"{text}\" for you?",
-  "guide_self_pick_kid": "I'll pick!"
+  "guide_self_pick_kid": "I'll pick!",
+  "guide_not_this": "Not this one, I'll pick",
+  "guide_free_pick": "OK, pick from the list yourself; I'll continue once you have",
+  "lang_offer_en": "Switch the interface to English?",
+  "lang_offer_yes": "Yes",
+  "lang_offer_no": "No",
+  "guide_not_this_kid": "Not this one!",
+  "guide_free_pick_kid": "OK, you pick; I'll be back once you have"
 }

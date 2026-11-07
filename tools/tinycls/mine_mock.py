@@ -115,7 +115,9 @@ for p in load('place_list.json')['list']:
     for pl in p.get('places', [])[:20]:
         nm = pl.get('name') or pl.get('title')
         if nm:
-            add(f'{nm}在哪裡', 'O', 'place_list')
+            ent(nm, 'O')   # 每個項目名稱（捐血站、親子館…）都是 find_place 的 entity
+            for tpl in ['{}在哪裡', '附近的{}', '幫我找{}']:
+                add(tpl.format(nm), 'O', 'place_list')
 
 # 災情：類型與子項
 for d in load('disaster_reporting.json')['data']:

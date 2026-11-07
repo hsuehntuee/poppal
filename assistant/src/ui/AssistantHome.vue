@@ -31,10 +31,31 @@ const engineKind = ref<EngineKind>(settings.engine);
 const llmUrl = ref(settings.llmUrl);
 const showSettings = ref(false);
 const askMode = ref(settings.mode === null);
+/** 偵測到英文輸入時提議切換介面語言 */
+const langOffer = ref<string | null>(null);
 /** 啟動泡泡動畫：按「小幫手」進來的那 1.2 秒。?nosplash 可關 */
 const splash = ref(!new URLSearchParams(location.search).has('nosplash') && !location.hash.includes('debug'));
-const bubbles = Array.from({ length: 14 }, (_, i) => ({ left: (i * 37) % 100, size: 18 + ((i * 53) % 60), delay: (i % 7) * 0.06, dur: 0.9 + ((i * 29) % 50) / 100 }));
-setTimeout(() => (splash.value = false), 1400);
+const splashHold = new URLSearchParams(location.search).has('splashhold');
+const bubbles = Array.from({ length: 10 }, (_, i) => ({ left: (i * 37) % 100, size: 14 + ((i * 53) % 40), delay: (i % 7) * 0.06, dur: 0.9 + ((i * 29) % 50) / 100 }));
+/** 圖騰：抽象線條（Lissajous 曲線 + 輻條 + 環），用 stroke-dashoffset 一筆一筆畫出來 */
+function lissajous(a: number, b: number, phase: number, r: number, n = 240) {
+  const pts: string[] = [];
+  for (let i = 0; i <= n; i++) {
+    const t = (i / n) * Math.PI * 2;
+    const x = 120 + r * Math.sin(a * t + phase);
+    const y = 120 + r * Math.sin(b * t);
+    pts.push((i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1));
+  }
+  return pts.join(' ');
+}
+const totemCurves = [
+  { d: lissajous(3, 2, Math.PI / 2, 92), delay: 0, color: 'url(#tg1)' },
+  { d: lissajous(5, 4, Math.PI / 4, 78), delay: 0.15, color: 'url(#tg2)' },
+  { d: lissajous(2, 3, 0, 64), delay: 0.3, color: '#ffffff' },
+  { d: lissajous(4, 5, Math.PI / 3, 50), delay: 0.45, color: 'url(#tg1)' }
+];
+const spokes = Array.from({ length: 12 }, (_, i) => (i * 360) / 12);
+if (!new URLSearchParams(location.search).has('splashhold')) setTimeout(() => (splash.value = false), 1700); // ?splashhold=1 停在登場畫面（截圖用）
 
 const heard = ref('');
 const translated = ref('');
@@ -147,6 +168,9 @@ async function handleText(text: string) {
     // 使用者用中文講話就切回中文介面
     await setLang('zh');
   }
+  // 用英文講／打字但介面是中文：問要不要切成英文（不自動切，怕只是夾雜一兩個英文字）
+  const looksEnglish = /^[A-Za-z0-9 ,.?!'"-]{4,}$/.test(text.trim());
+  if (uiLang.value === 'zh' && (det.lang === 'en' || looksEnglish)) langOffer.value = 'en';
   await runDecision(forDecider);
 }
 
@@ -297,10 +321,27 @@ function openRecent(s: ServiceEntry) {
 <template>
   <div class="page">
     <!-- 啟動泡泡：純炫技 -->
-    <div v-if="splash" class="splash" @click="splash = false">
+    <div v-if="splash" class="splash" :class="{ hold: splashHold }" @click="splash = false">
       <span v-for="(b, i) in bubbles" :key="i" class="b" :style="{ left: b.left + '%', width: b.size + 'px', height: b.size + 'px', animationDelay: b.delay + 's', animationDuration: b.dur + 's' }"></span>
       <div class="brand">
-        <div class="orb">🫧</div>
+        <svg class="totem" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" /><stop offset=".5" stop-color="#a7f3ff" /><stop offset="1" stop-color="#c77dff" /></linearGradient>
+            <linearGradient id="tg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dffbf6" /><stop offset="1" stop-color="#5ef2ff" /></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="2.2" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+          </defs>
+          <g class="ring ring-a"><circle cx="120" cy="120" r="108" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" stroke-dasharray="6 10" /></g>
+          <g class="ring ring-b"><circle cx="120" cy="120" r="100" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-dasharray="2 14" /></g>
+          <g class="spokes" opacity=".9">
+            <line v-for="(a, i) in spokes" :key="i" x1="120" y1="16" x2="120" y2="34" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" :transform="'rotate(' + a + ' 120 120)'" />
+          </g>
+          <g>
+            <path v-for="(c, i) in totemCurves" :key="i" class="curve" :d="c.d" fill="none" :stroke="c.color" stroke-width="2" stroke-linecap="round" pathLength="1" :style="{ animationDelay: c.delay + 's' }" />
+          </g>
+          <g class="orbit"><circle cx="120" cy="28" r="4" fill="#fff" /><circle cx="120" cy="212" r="2.5" fill="#5ef2ff" /></g>
+          <g class="orbit orbit-r"><circle cx="212" cy="120" r="3" fill="#c77dff" /></g>
+          <circle class="core" cx="120" cy="120" r="9" fill="#fff" />
+        </svg>
         <h1>PopPal</h1>
         <p>泡泡夥伴 · 城市通小幫手</p>
       </div>
@@ -342,6 +383,13 @@ function openRecent(s: ServiceEntry) {
         </button>
         <p v-if="heard && (phase === 'thinking' || phase === 'listening')" class="muted">{{ t('heard') }}{{ heard }}</p>
         <p v-if="notice" class="muted">{{ notice }}</p>
+        <div v-if="langOffer" class="card col" style="text-align: center">
+          <div style="font-weight: 700">{{ t('lang_offer_en') }}</div>
+          <div class="row" style="justify-content: center">
+            <button class="btn" style="min-height: 2.4em" @click="setLang(langOffer!); langOffer = null">{{ t('lang_offer_yes') }}</button>
+            <button class="btn secondary" style="min-height: 2.4em" @click="langOffer = null">{{ t('lang_offer_no') }}</button>
+          </div>
+        </div>
 
         <div class="row lang-row" style="justify-content: center; gap: 0.4em">
           <button class="btn secondary" style="min-height: 2.2em; padding: 0.3em 0.9em" :class="{ on: uiLang === 'zh' }" @click="setLang('zh')">中文</button>
@@ -364,6 +412,13 @@ function openRecent(s: ServiceEntry) {
         <div class="card">
           <div class="muted" style="font-size: 0.85em">{{ t('heard') }}{{ heard }}</div>
           <div v-if="translated" class="muted" style="font-size: 0.85em">{{ t('translated') }}{{ translated }}</div>
+        </div>
+        <div v-if="langOffer" class="card col" style="text-align: center">
+          <div style="font-weight: 700">{{ t('lang_offer_en') }}</div>
+          <div class="row" style="justify-content: center">
+            <button class="btn" style="min-height: 2.4em" @click="setLang(langOffer!); langOffer = null">{{ t('lang_offer_yes') }}</button>
+            <button class="btn secondary" style="min-height: 2.4em" @click="langOffer = null">{{ t('lang_offer_no') }}</button>
+          </div>
         </div>
 
         <template v-if="decision?.kind === 'GO'">
@@ -394,11 +449,22 @@ function openRecent(s: ServiceEntry) {
 <style scoped>
 .page { min-height: 100vh; display: flex; flex-direction: column; }
 .splash { position: fixed; inset: 0; z-index: 100; overflow: hidden; display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 50% 30%, #6fe0cc 0%, #2eb6c7 45%, #176b78 100%); animation: splashOut 1.4s ease-in forwards; }
+  background: radial-gradient(circle at 50% 30%, #4fd3c4 0%, #1f9fb3 45%, #0d3f52 100%); animation: splashOut 1.7s ease-in forwards; }
 .splash .b { position: absolute; bottom: -14vh; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.75), rgba(255,255,255,.08) 60%, rgba(255,255,255,.25));
   border: 1.5px solid rgba(255,255,255,.6); animation: rise 1.2s cubic-bezier(.2,.6,.3,1) forwards; }
 .splash .brand { position: relative; text-align: center; color: #fff; animation: pop .7s cubic-bezier(.2,1.5,.4,1); }
-.splash .orb { font-size: 4.5em; line-height: 1; filter: drop-shadow(0 10px 30px rgba(255,255,255,.6)); animation: bob 1.2s ease-in-out infinite; }
+.splash .totem { width: 210px; height: 210px; display: block; margin: 0 auto 4px; filter: drop-shadow(0 0 18px rgba(167,243,255,.55)); animation: totemIn .9s cubic-bezier(.2,1.3,.4,1); }
+.splash .curve { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .95s cubic-bezier(.4,0,.2,1) forwards; filter: drop-shadow(0 0 4px rgba(255,255,255,.8)); }
+.splash.hold { animation: none; }
+.splash .ring { transform-origin: 120px 120px; animation: spin 6s linear infinite; }
+.splash .ring-b { animation-direction: reverse; animation-duration: 9s; }
+.splash .orbit { transform-origin: 120px 120px; animation: spin 2.4s linear infinite; }
+.splash .orbit-r { animation-direction: reverse; animation-duration: 3.6s; }
+.splash .core { animation: corePulse 1.1s ease-in-out infinite; transform-origin: 120px 120px; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes corePulse { 50% { transform: scale(1.5); opacity: .7; } }
+@keyframes totemIn { from { transform: scale(.4) rotate(-40deg); opacity: 0; } }
 .splash h1 { font-size: 3.2em; margin: .05em 0 0; letter-spacing: 3px; font-weight: 900; text-shadow: 0 8px 28px rgba(0,0,0,.3); background: linear-gradient(90deg,#fff,#dffbf6,#fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .splash p { margin: .25em 0 0; opacity: .92; font-weight: 600; letter-spacing: 1px; }
 @keyframes rise { to { transform: translateY(-125vh) scale(1.4); opacity: 0; } }

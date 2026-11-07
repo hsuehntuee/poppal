@@ -1,0 +1,46 @@
+[
+  {
+    "id": "pa-1-01",
+    "name": "YouBike2.0_天母北路口",
+    "area": "士林區",
+    "address": "臺北市士林區天母北路65號",
+    "lat": 25.115435,
+    "lng": 121.533497,
+    "available_rent_bikes": 12,
+    "available_return_bikes": 4,
+    "updateTime": "2026-11-07 07:45:00"
+  },
+  {
+    "id": "pa-1-02",
+    "name": "YouBike2.0_天母公園(中山北路七段)",
+    "area": "士林區",
+    "address": "臺北市士林區中山北路七段105號",
+    "lat": 25.1111,
+    "lng": 121.524546,
+    "available_rent_bikes": 1,
+    "available_return_bikes": 14,
+    "updateTime": "2026-11-07 14:30:00"
+  },
+  {
+    "id": "pa-1-03",
+    "name": "YouBike2.0_天母東路口",
+    "area": "士林區",
+    "address": "臺北市士林區天母東路95號",
+    "lat": 25.114902,
+    "lng": 121.537609,
+    "available_rent_bikes": 18,
+    "available_return_bikes": 19,
+    "updateTime": "2026-11-07 20:15:00"
+  },
+  {
+    "id": "pa-1-04",
+    "name": "YouBike2.0_芝山公園",
+    "area": "士林區",
+    "address": "臺北市士林區天母東路57號",
+    "lat": 25.111865,
+    "lng": 121.537677,
+    "available_rent_bikes": 13,
+    "available_return_bikes": 13,
+    "updateTime": "2026-11-07 21:30:00"
+  }
+]

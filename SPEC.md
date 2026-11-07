@@ -529,6 +529,15 @@ p1 + p2 ≥ 0.75     → ASK(前 2 名)
 - 找地點：頁面的下拉其實是自訂面板（原生 select 被 mousedown.prevent 攔掉），導覽改成「點開 → 點含公廁的分類 → 點公廁 → 看標記」四步，已知 entity 時第一步直接問「幫你選公廁，好嗎」；`exact`/`role` 定位器不再退回去抓 `<select>`；`skip_if_visible` 也支援 `{{entity}}`。registry 加英文別名（toilet / parking / charging / AED…）。
 - dev server 對缺檔回真 404 並記錄；靜態示範頁目錄會回自己的 index.html。
 
+### 第七輪（2026-11-07 夜：找地點全類別、陪伴細節、提案文件）
+- **找地點**：`tools/gen_find_place.py` 產生真正的周邊服務類別樹（9 類 46 項，與臺北通一致）與每項 4～8 個天母體育館附近的示範地點（`public/mock/find-place/*.json`）；公廁與停車場仍用真實資料集。registry 與 n-gram 訓練句同步納入 46 個項目名與別名（捐血、郵筒、防空、吸菸區、taxi…）。導覽：已知要找什麼就問「幫你選 X，好嗎」；選好（地圖有標記）就跳過分類／項目兩步。
+- **陪伴**：每一步多一顆「不是這個，我自己選」→ 收掉亮框與變暗，使用者自己從清單選，選好自動接手；服務頁右下角常駐「🎤 小幫手」泡泡鈕（導覽中與登場時收起）；按返回鍵收鍵盤後欄位仍有焦點，之前會讓面板永遠凍結在底部蓋住「查詢」→ 只有鍵盤真的開著才算打字。
+- **英文輸入**：偵測到英文（langId 或純 ASCII）而介面是中文 → 提議「Switch the interface to English?」，不自動切。
+- 全站點擊不再有藍底（tap highlight / focus outline）。
+- **隱藏儀表板重做**：暗色霓虹風，KPI 磚（p50/p95、llama-server、吞吐、FPS、registry、錯誤數）、四條帶光暈的即時曲線、引擎分布、最後一次決策、陪伴軌跡、控制區、log 串流。
+- **提案文件**：`submission/`（50 字簡介、200 字介紹與技術、程式碼連結、服務畫面 png）；txt 與 png 在 .gitignore，最終提交前自行確認。
+- **資料來源**：Flutter 端沒有任何網路 API，全部 `assets/mock_data`；服務網站 174 頁的 mock 都在 `public/mock`；真實資料只有公廁（臺北市公廁）、停車場（TCMSV）；其餘 13 個示範服務與 46 個找地點項目為示範資料。小幫手本身仍是獨立微服務（`/assistant/`，服務清單有入口、首頁與每個服務頁有泡泡鈕）。
+
 ### 還沒做 / 待驗證
 - 真機：bridge、離線語音、ML Kit 模型下載、路線 B（官方 release 有 `llama-<tag>-bin-android-arm64.tar.gz` 預編好的 Android 二進位，不用自己 NDK 編譯）。
 - 第二批訓練句（`tools/tinycls/gen_examples.py` 在 GPU 上用大模型擴增）、英文句子的訓練資料偏少。

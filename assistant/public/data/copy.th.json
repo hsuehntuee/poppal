@@ -85,5 +85,10 @@
   "guide_select_confirm": "เลือก \"{text}\" ให้ไหม?",
   "guide_self_pick": "ฉันเลือกเอง",
   "guide_select_confirm_kid": "ให้ฉันเลือก \"{text}\" ให้ไหม?",
-  "guide_self_pick_kid": "ฉันเลือกเอง!"
+  "guide_self_pick_kid": "ฉันเลือกเอง!",
+  "guide_not_this": "ไม่ใช่อันนี้ ฉันเลือกเอง",
+  "guide_free_pick": "ได้ เลือกจากรายการเองนะ เลือกแล้วฉันไปต่อ",
+  "lang_offer_en": "เปลี่ยนหน้าจอเป็นภาษาอังกฤษไหม?",
+  "lang_offer_yes": "ใช่",
+  "lang_offer_no": "ไม่"
 }

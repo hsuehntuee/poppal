@@ -283,3 +283,41 @@ TownPass → 下方「**服務**」分頁 → 常用服務的第一個「**開�
 ---
 
 參考：[TownPass 官方開發文件](https://tpe-guideline.web.app/en/docs/) · [flutter_inappwebview JS 溝通](https://inappwebview.dev/docs/webview/javascript/communication#web-message-listeners)
+
+---
+
+## 11. PopPal 泡泡夥伴：從零重建整個專案（2026-11-07）
+
+repo：<https://github.com/hsuehntuee/poppal>（權重走 Git LFS，先 `git lfs install`）。沒進 git 的東西都能重建或重下：
+
+| 需要 | 來源 |
+|---|---|
+| Node 20 + pnpm、Python 3.11、Flutter 3.47（fvm）、JDK 17、Android SDK platform-tools | 自行安裝 |
+| `tools/llama/`（Windows CUDA llama-server，筆電開發用） | llama.cpp release b12180 Windows 版，解壓到此 |
+| `tools/llama-android/snapdragon/llama-b12180/`（手機 NPU 用） | llama.cpp release `llama-b12180-bin-android-arm64-snapdragon.tar.gz` |
+| `assistant/public/models/Xenova/`（零樣本向量備援，可不裝） | HuggingFace `Xenova/multilingual-e5-small` |
+| 訓練 checkpoint / HF 合併權重 | 重新訓練：`tools/encoder/train_cls.py`、`tools/llm/finetune_gemma.py`（GPU） |
+
+重建步驟（都在 repo 根目錄）：
+
+```powershell
+# 1. 網頁兩個專案
+cd TownPass-Services; pnpm install; pnpm build-only; cd ..
+cd assistant; pnpm install; pnpm build-only; cd ..
+# 2.（改了服務或導覽才需要）資料表 → registry → 訓練句 → 示範頁 → 找地點資料
+python -I tools/tinycls/mine_mock.py
+python -I tools/registry/build_registry.py
+python -I tools/gen_static_pages.py
+python -I tools/gen_find_place.py
+# 3. 把網頁打進 APK，編 release
+node scripts/bundle-web.mjs
+cd TownPass; .\.fvm\flutter_sdk\bin\flutter.bat build apk --release --dart-define=LLM_URL=http://localhost:8080 --dart-define=OFFLINE_WEB=true; cd ..
+adb install -r TownPass\build\app\outputs\flutter-apk\app-release.apk
+# 4. 手機 NPU 的 llama-server（第一次 -Push，之後每次開機 -Start）
+.\scripts\phone-npu.ps1 -Push
+.\scripts\phone-npu.ps1 -Start
+# 5. 筆電開發：serve-local（靜態 + 注入引導層 + /llm 轉發）
+node scripts/serve-local.mjs --port 5180 --llm http://127.0.0.1:8080
+```
+
+評測：`cd assistant; pnpm eval`（`eval/MATRIX.md`）；網站稽核：`eval/AUDIT.md`；實作紀錄：`SPEC.md` §14。

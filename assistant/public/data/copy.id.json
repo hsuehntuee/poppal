@@ -85,5 +85,10 @@
   "guide_select_confirm": "Pilihkan \"{text}\" untukmu?",
   "guide_self_pick": "Aku pilih sendiri",
   "guide_select_confirm_kid": "Aku pilihkan \"{text}\" ya?",
-  "guide_self_pick_kid": "Aku pilih sendiri!"
+  "guide_self_pick_kid": "Aku pilih sendiri!",
+  "guide_not_this": "Bukan ini, aku pilih sendiri",
+  "guide_free_pick": "Oke, pilih sendiri dari daftar; setelah itu aku lanjut",
+  "lang_offer_en": "Ganti tampilan ke bahasa Inggris?",
+  "lang_offer_yes": "Ya",
+  "lang_offer_no": "Tidak"
 }

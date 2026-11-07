@@ -105,5 +105,12 @@
   "guide_select_confirm": "幫你選「{text}」，好嗎？",
   "guide_self_pick": "我自己選",
   "guide_select_confirm_kid": "我幫你選「{text}」好不好？",
-  "guide_self_pick_kid": "我自己選！"
+  "guide_self_pick_kid": "我自己選！",
+  "guide_not_this": "不是這個，我自己選",
+  "guide_free_pick": "好，你自己從清單選；選好我再接手",
+  "lang_offer_en": "要切換成英文介面嗎？ Switch the interface to English?",
+  "lang_offer_yes": "Yes 切換",
+  "lang_offer_no": "不用 No",
+  "guide_not_this_kid": "不是這個！我自己選",
+  "guide_free_pick_kid": "好呀，你自己選；選好我再來"
 }

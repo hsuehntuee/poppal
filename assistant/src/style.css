@@ -34,7 +34,8 @@ html[data-mode='kid'] .btn.big { font-size: 1.2em; }
 .tile .ic { font-size: 2.2em; line-height: 1; }
 .tile b { display: block; font-size: 1.1em; }
 .tile small { color: var(--tp-muted); font-size: .85em; }
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+button:focus, a:focus, select:focus { outline: none; }
 body { margin: 0; min-height: 100vh; }
 button { font: inherit; }
 .btn {

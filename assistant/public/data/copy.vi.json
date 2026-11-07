@@ -85,5 +85,10 @@
   "guide_select_confirm": "Chọn \"{text}\" giúp bạn nhé?",
   "guide_self_pick": "Tôi tự chọn",
   "guide_select_confirm_kid": "Tôi chọn \"{text}\" giúp bạn nhé?",
-  "guide_self_pick_kid": "Tôi tự chọn!"
+  "guide_self_pick_kid": "Tôi tự chọn!",
+  "guide_not_this": "Không phải cái này, tôi tự chọn",
+  "guide_free_pick": "Được, bạn tự chọn trong danh sách; chọn xong tôi tiếp tục",
+  "lang_offer_en": "Chuyển giao diện sang tiếng Anh?",
+  "lang_offer_yes": "Có",
+  "lang_offer_no": "Không"
 }

@@ -34,7 +34,7 @@
       "done_when": "change",
       "skip_if_visible": [
         {
-          "text": "防空避難設備"
+          "text": "交通運輸、停車場、充電站"
         },
         {
           "text": "無搜尋紀錄"
@@ -63,6 +63,9 @@
       "skip_if_missing": true,
       "skip_if_visible": [
         {
+          "css": ".leaflet-marker-icon"
+        },
+        {
           "text": "{{entity}}",
           "exact": true
         }
@@ -84,7 +87,12 @@
         "zh": "點你要找的項目"
       },
       "done_when": "click",
-      "skip_if_missing": true
+      "skip_if_missing": true,
+      "skip_if_visible": [
+        {
+          "css": ".leaflet-marker-icon"
+        }
+      ]
     },
     {
       "id": "look",

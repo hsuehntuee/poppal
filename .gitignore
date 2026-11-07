@@ -30,3 +30,8 @@ assistant/public/models/Xenova/
 # 本機暫存
 tools/_patch*.py
 *.apk
+
+# 提案文件：最終提交前自己再確認，先不進 git
+submission/*.txt
+submission/**/*.png
+submission/**/*.txt

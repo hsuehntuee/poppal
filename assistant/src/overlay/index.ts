@@ -109,11 +109,45 @@ async function boot() {
   let state: State | null = fromHash ?? readState();
   if (fromHash) saveState(fromHash);
   // 沒有進行中的陪伴就安靜：小幫手是獨立的微服務，不主動跳出來問；使用者亂點 5 下才登場
-  if (!state) return;
+  if (!state) {
+    mountFab();
+    return;
+  }
   await start(state);
 }
 
+/** 服務頁右下角的小幫手泡泡鈕：隨時叫得出小幫手（登場畫面與導覽進行中會收起來） */
+function mountFab() {
+  if (document.getElementById('tp-fab-host')) return;
+  const host = document.createElement('div');
+  host.id = 'tp-fab-host';
+  const root = host.attachShadow({ mode: 'open' });
+  const lang = lsGet('tp_assistant_lang') || 'zh';
+  const label = { zh: '小幫手', en: 'Helper', vi: 'Trợ lý', id: 'Asisten', th: 'ผู้ช่วย' }[lang] || '小幫手';
+  root.innerHTML = `
+    <style>
+      :host { all: initial; }
+      button { position: fixed; right: 12px; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 2147482998; display: flex; align-items: center; gap: 6px;
+               border: 0; border-radius: 999px; padding: 10px 14px 10px 12px; background: #2eb6c7; color: #fff; font: 700 15px 'PingFang TC', Roboto, system-ui, sans-serif;
+               box-shadow: 0 6px 18px rgba(46,182,199,.45); -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; animation: in .4s cubic-bezier(.2,1.4,.4,1); }
+      button:active { transform: scale(.95); }
+      .ic { font-size: 18px; line-height: 1; }
+      @keyframes in { from { transform: scale(.5); opacity: 0; } }
+    </style>
+    <button type="button" aria-label="${label}"><span class="ic">🎤</span><span>${label}</span></button>`;
+  root.querySelector('button')!.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    tplog('overlay', 'fab → assistant', { url: location.pathname });
+    location.href = `${BASE}?lang=${lang}&from=fab`;
+  });
+  document.body.appendChild(host);
+}
+function unmountFab() {
+  document.getElementById('tp-fab-host')?.remove();
+}
+
 async function start(state: State) {
+  unmountFab();
   const guide = await fetchJson<Guide>(`${BASE}guides/${state.id}.json`);
   // 使用者按返回離開了這個流程（網址既不是導覽範圍、也不是任何一步的頁面）→ 清掉狀態、不顯示
   const inScope = (guide.match && new RegExp(guide.match.url).test(location.pathname)) || guide.steps.some((st) => st.url && new RegExp(st.url).test(location.pathname));
@@ -335,6 +369,14 @@ class Runner {
     this.watchDone(step, el);
     this.armStuck();
     if (quiet) return; // 躲起來：只默默看進度
+    if (this.freeStep === this.state.step) {
+      // 使用者說「不是這個」：不框、不暗，讓他自己從清單選；選好監聽器會前進
+      this.ui.setDim(false);
+      this.ui.place(null);
+      this.ui.hideInput();
+      this.ui.show({ say: this.t('guide_free_pick'), stepText: this.t('guide_step', { n: this.state.step + 1, total: this.guide.steps.length }), buttons: [], icons: [{ label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }] });
+      return;
+    }
     // 陪伴：框住頁面上真正的欄位 / 按鈕，使用者自己操作 App；面板只說明該做什麼
     this.startTracking();
     this.renderPanel(say, more);
@@ -403,8 +445,18 @@ class Runner {
         { label: '🔊', title: this.t('guide_repeat'), onClick: () => this.speak(say + (more ? '。' + more : '')) },
         { label: '‹', title: this.t('guide_back'), onClick: () => this.goBack() },
         { label: '✕', title: this.t('guide_exit'), onClick: () => this.exit() }
-      ]
+      ],
+      // 框的東西不是使用者要的（例如小幫手猜錯分類）→ 這一步自己選，選好再接手
+      extra: this.target && step.done_when !== 'manual' ? { label: this.t('guide_not_this'), onClick: () => this.notThis() } : undefined
     });
+  }
+
+  /** 這一步交給使用者自己選：收掉亮框與變暗，監聽器留著，做完就繼續 */
+  freeStep = -1;
+  notThis() {
+    this.freeStep = this.state.step;
+    tplog('overlay', 'not this → free pick', { step: this.state.step });
+    this.run();
   }
 
   selectValue: { select: HTMLSelectElement; value: string; text: string } | null = null;
@@ -660,6 +712,7 @@ class Runner {
       return this.finish();
     }
     this.state.step++;
+    this.freeStep = -1;
     saveState(this.state);
     this.busy = false;
     this.run();
@@ -1098,6 +1151,9 @@ class Ui {
         .mini { position: fixed; right: 12px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 2147483001; display: none; border: 0; border-radius: 999px; padding: .6em 1em;
                 background: #2eb6c7; color: #fff; font: 600 ${15 * scale}px 'PingFang TC', Roboto, system-ui, sans-serif; box-shadow: 0 6px 18px rgba(46,182,199,.45); }
         .mini.on { display: block; }
+        .extra { display: block; width: 100%; margin-top: 6px; background: transparent; color: #738995; border: 0; min-height: 2.2em; font-weight: 600; text-decoration: underline; }
+        * { -webkit-tap-highlight-color: transparent; }
+        button:focus { outline: none; }
         .panel.kid { border-top: 4px solid #5fd0bf; }
         .panel.kid .say::before { content: '🙋 '; }
         .panel.kid button { border-radius: 16px; }
@@ -1148,7 +1204,8 @@ class Ui {
   isTyping(): boolean {
     const a = document.activeElement as HTMLElement | null;
     const inPanel = this.root.activeElement === this.inputEl && !!this.inputEl;
-    return inPanel || (!!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName));
+    // 鍵盤真的開著才算打字：按返回鍵收鍵盤後欄位仍有焦點，不能因此永遠凍結面板（之前面板會一直蓋住「查詢」）
+    return this.keyboard && (inPanel || (!!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)));
   }
 
   /** 使用者會了：面板收成右下角的小圓鈕，亮框與變暗都收掉 */
@@ -1178,8 +1235,23 @@ class Ui {
     this.dim.classList.toggle('on', on && this.spot.style.display !== 'block');
   }
 
-  show(o: { say: string; more?: string; stepText?: string; buttons: PanelButton[]; icons?: PanelButton[] }) {
+  show(o: { say: string; more?: string; stepText?: string; buttons: PanelButton[]; icons?: PanelButton[]; extra?: PanelButton }) {
     this.say.textContent = o.say;
+    let ex = this.root.querySelector<HTMLButtonElement>('.extra');
+    if (!ex) {
+      ex = document.createElement('button');
+      ex.className = 'extra';
+      this.panel.appendChild(ex);
+    }
+    if (o.extra) {
+      ex.textContent = o.extra.label;
+      ex.style.display = '';
+      const cb = o.extra.onClick;
+      ex.onclick = (ev) => {
+        ev.stopPropagation();
+        cb();
+      };
+    } else ex.style.display = 'none';
     this.more.textContent = o.more ?? '';
     this.more.classList.toggle('on', !!o.more);
     this.stepEl.textContent = o.stepText ?? '';
@@ -1542,6 +1614,7 @@ function startLostWatcher() {
 /** 帥氣登場 */
 async function heroEntrance(why: string) {
   if (document.getElementById('tp-hero-host')) return;
+  unmountFab();
   tplog('overlay', 'hero entrance: ' + why, { url: location.pathname });
   if (!readState()) document.getElementById('tp-guide-host')?.remove(); // 把「要我陪你做嗎」收掉，登場畫面優先
   const lang = lsGet('tp_assistant_lang') || 'zh';
