@@ -101,7 +101,7 @@
   "guide_mini": "需要我再點我",
   "guide_exit_kid": "我自己來！",
   "guide_mini_kid": "需要我就點我",
-  "stt_offline_hint": "現在沒有網路。離線語音要先在手機「設定 → Google → 語音 → 離線語音辨識」下載「中文（台灣）」，或先用打字",
+  "stt_offline_hint": "現在沒有網路。離線語音要先在手機的 Google 語音輸入設定下載「國語（台灣）」和「English (US)」離線語言包，或先用打字",
   "guide_select_confirm": "幫你選「{text}」，好嗎？",
   "guide_self_pick": "我自己選",
   "guide_select_confirm_kid": "我幫你選「{text}」好不好？",

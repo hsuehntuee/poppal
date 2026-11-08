@@ -69,7 +69,9 @@ class SttMessageHandler extends TPWebMessageHandler {
       // 離線時先要求裝置端辨識；系統的裝置端模型沒有這個語言（中文常見）→ 改成一般辨識，
       // 沒網路時 Google 語音服務會自己用下載好的離線語言包
       final Stopwatch sw = Stopwatch()..start();
-      String text = await _listenOnce(lang, offline, onReply);
+      // 裝置端（Google 離線語言包）認的是 cmn-Hant-TW，送 zh-TW 會被拒
+      final String deviceLang = offline && RegExp(r'^zh[-_]?(TW|Hant)?$', caseSensitive: false).hasMatch(lang) ? 'cmn-Hant-TW' : lang;
+      String text = await _listenOnce(deviceLang, offline, onReply);
       if (offline && text.isEmpty) {
         // 錯誤回呼可能比結束狀態晚幾十毫秒到；裝置端一下就結束（< 1.5 秒）也當作被拒
         await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -107,7 +109,7 @@ class SttMessageHandler extends TPWebMessageHandler {
         listenOptions: stt.SpeechListenOptions(
           localeId: lang == 'auto' ? null : lang.replaceAll('-', '_'),
           listenFor: const Duration(seconds: 15),
-          pauseFor: const Duration(milliseconds: 2000),
+          pauseFor: const Duration(milliseconds: 3000), // 按下去到開口之間給 3 秒；講完的提前結束靠上面的穩定判定
           partialResults: true,
           onDevice: onDevice,
           listenMode: stt.ListenMode.dictation,
