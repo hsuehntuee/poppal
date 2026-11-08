@@ -27,6 +27,8 @@ class SttMessageHandler extends TPWebMessageHandler {
   static bool _initialized = false;
   static Completer<String>? _current;
   static String _last = '';
+  /// 這一輪辨識收到的錯誤（error_language_unavailable 之類）
+  static String _lastError = '';
 
   @override
   String get name => 'stt';
@@ -52,6 +54,7 @@ class SttMessageHandler extends TPWebMessageHandler {
             }
           },
           onError: (e) {
+            _lastError = e.errorMsg;
             if (_current != null && !_current!.isCompleted) _current!.complete(_last);
           },
           debugLogging: kDebugMode,
@@ -63,9 +66,26 @@ class SttMessageHandler extends TPWebMessageHandler {
       }
       if (_speech.isListening) await _speech.stop();
 
+      // 離線時先要求裝置端辨識；系統的裝置端模型沒有這個語言（中文常見）→ 改成一般辨識，
+      // 沒網路時 Google 語音服務會自己用下載好的離線語言包
+      String text = await _listenOnce(lang, offline, onReply);
+      if (offline && _lastError.contains('language')) {
+        text = await _listenOnce(lang, false, onReply);
+      }
+      onReply?.call(replyWebMessage(data: {'text': text, 'lang': lang, if (_lastError.isNotEmpty && text.isEmpty) 'error': _lastError}));
+    } catch (e) {
+      onReply?.call(replyWebMessage(data: {'text': _last, 'lang': lang, 'error': e.toString()}));
+    } finally {
+      _current = null;
+    }
+  }
+
+  /// 聽一次：回傳辨識到的字（空字串＝沒聽到或出錯，錯誤在 _lastError）
+  static Future<String> _listenOnce(String lang, bool onDevice, Function(WebMessage replyWebMessage)? onReply) async {
       final completer = Completer<String>();
       _current = completer;
       _last = '';
+      _lastError = '';
       // 回應速度：部分結果 0.9 秒沒變就當作講完，不等系統的靜音判定
       DateTime lastChange = DateTime.now();
       final Timer stableTimer = Timer.periodic(const Duration(milliseconds: 300), (t) {
@@ -84,7 +104,7 @@ class SttMessageHandler extends TPWebMessageHandler {
           listenFor: const Duration(seconds: 15),
           pauseFor: const Duration(milliseconds: 2000),
           partialResults: true,
-          onDevice: offline,
+          onDevice: onDevice,
           listenMode: stt.ListenMode.dictation,
           cancelOnError: true,
         ),
@@ -101,12 +121,7 @@ class SttMessageHandler extends TPWebMessageHandler {
       final String text = await completer.future.timeout(const Duration(seconds: 15), onTimeout: () => _last);
       stableTimer.cancel();
       if (_speech.isListening) await _speech.stop();
-      onReply?.call(replyWebMessage(data: {'text': text, 'lang': lang}));
-    } catch (e) {
-      onReply?.call(replyWebMessage(data: {'text': _last, 'lang': lang, 'error': e.toString()}));
-    } finally {
-      _current = null;
-    }
+      return text;
   }
 }
 
