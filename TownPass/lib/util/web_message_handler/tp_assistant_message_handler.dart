@@ -76,7 +76,8 @@ class SttMessageHandler extends TPWebMessageHandler {
         // 錯誤回呼可能比結束狀態晚幾十毫秒到；裝置端一下就結束（< 1.5 秒）也當作被拒
         await Future<void>.delayed(const Duration(milliseconds: 300));
         if (_lastError.contains('language') || sw.elapsedMilliseconds < 1500) {
-          text = await _listenOnce(lang, false, onReply);
+          // 一般辨識器沒網路時會用 Google 的離線語言包，中文一樣要用 cmn-Hant-TW 才找得到包
+          text = await _listenOnce(deviceLang, false, onReply);
         }
       }
       onReply?.call(replyWebMessage(data: {'text': text, 'lang': lang, if (_lastError.isNotEmpty && text.isEmpty) 'error': _lastError}));
