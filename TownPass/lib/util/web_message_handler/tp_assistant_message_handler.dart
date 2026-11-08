@@ -68,9 +68,14 @@ class SttMessageHandler extends TPWebMessageHandler {
 
       // 離線時先要求裝置端辨識；系統的裝置端模型沒有這個語言（中文常見）→ 改成一般辨識，
       // 沒網路時 Google 語音服務會自己用下載好的離線語言包
+      final Stopwatch sw = Stopwatch()..start();
       String text = await _listenOnce(lang, offline, onReply);
-      if (offline && _lastError.contains('language')) {
-        text = await _listenOnce(lang, false, onReply);
+      if (offline && text.isEmpty) {
+        // 錯誤回呼可能比結束狀態晚幾十毫秒到；裝置端一下就結束（< 1.5 秒）也當作被拒
+        await Future<void>.delayed(const Duration(milliseconds: 300));
+        if (_lastError.contains('language') || sw.elapsedMilliseconds < 1500) {
+          text = await _listenOnce(lang, false, onReply);
+        }
       }
       onReply?.call(replyWebMessage(data: {'text': text, 'lang': lang, if (_lastError.isNotEmpty && text.isEmpty) 'error': _lastError}));
     } catch (e) {
